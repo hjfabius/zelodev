@@ -1,0 +1,5906 @@
+
+
+                        ;#############################
+                        ;# CONTROLLO DI REGISTRO     #                         
+                        ;# MARCA CILINDRO            #
+                        ;#############################
+
+
+			;****************************************************************
+			;* ATTENZIONE LA LETTERA "A" DOPO IL NUMERO DI RELESE INDICA	*
+			;* UN PROGRAMMA PER MC CHE LAVORA CON SCHEDA MM			*
+			;****************************************************************
+
+
+
+;4/05/03 DIVENTA DIW 201
+;31/05/03 AGGIORNATO
+;25/07/03  MODIFICA PER RST  38H, ELIMINATA SCRITTA RELES
+;25/07/03  E ELEMINANDO  MOLTISSIME ORG DIVENTA DIW203  SSVV
+;13/09/03  ELIMINATO ERRORI DI DIW203 DIVENTA DIW205
+;3/10/03  CON VALORI DI TIMER > 100 LA CORREZZIONE E' FISSA TTTT
+;15/11/03 MODIFICHE PER MANTEC MAN/AUTO INCREMENTA 
+         ;DECREMENTA CON FUNZIONE 8 DIVENTA DIW207
+;15/09/04 MODIFICATO IN AZZERAMENTO ERRORE DA MMED00 A DMED00
+         ;MODIFICATO VALORI DERIVATIVO  DDEE
+         ;SPOSTATO DI POSIZIONE IN MEMEORIA MATTES
+;04/10/04 MESSO DOPPIO SEGNO PPDD
+;04/10/04 INSERITO TEDESCO TTDD
+;05/10/04 DIWENTA DIW209
+;18/10/04 MESSO AZZERAMENTO MEMORIE VELOCITA AAVV
+;20/10/04 SISTEMATO DEFINITIVAMENTE TEST ENCODER XXTT
+;21/05/05 AGGIORNAMENTO ALLE MODIFICHE 150 WWAA
+;26/05/05 MODIFICHE SULL'AGGIORNAMETO DEL 21/05 WWLL
+;26/05/05 DIVENTA DIW300.MSA 
+;13/07/05 PORTATA MEDIA SU DISPLAY DA 8 A 4
+;22/07/05 ELIMINAZIONE ERRORE FILTRATO PER DISPLAY DIVENTA DIW30.2 FFFE
+;16/09/05 INSERITO ALLARME QUANDO NOPRINT BBLL  DIVENTA 30.3
+;08/03/06 ELIMINATO PROBLEMA CHE QUANDO SI INSERIVA UNO SHIFT E C'ERA
+          ;UN ERRORE IN SENSO OPPOSTO QUESTO DAVA ANCORA UNA CORREZIONE
+          ;IN SENSO OPPOSTO ALLO SHIFT, ELIMINATO FASAT(TCM) LO SPAZIO
+          ;DI BIANCO DIVENTA PARI AL GATE  OOPP DIVENTA DIW304
+;15/04/06 MODIFICHE SU CALCOLO VELOCITA E AZZERRAMENTO ERRORE IN NOPRINT
+          ;E SUPERAMENTO ERRORE MASSIMO DIVENTA DIW305 VVVV
+
+;07/05/06 INIZIO MODIFICHE PER CENTRATURA CON OSCILLOSCOPIO ESTERNO FF55
+	  ;SCRITTA ERRORE SU DATO ERRATO F1 F3 EEOO
+
+;17/05/06 SISTEMATO CENTRATURA OSCILLOSCOPIO FF5555 E ELIMINATO
+         ;SUPERAMENTO ERRORE MASSIMO MAXERR
+;05/06/06 ELIMINATO MSHIFT CHE FACEVA RIMANERE SUL DISPLAY PER QUALCHE
+	  ;SECONDO IL VALORE DI SHIFT IMPOSTATO
+;10/06/06 AGGIUNTA CENTRATURA AUTOMATICA CON OSCILLOSCOPIO ESTERNO FF57
+;07/10/06 MESSO AZZERAMENTO AD ACCELL/DECEL DIVENTA 306 
+
+;02/01/07 MODIFICATO INIZIO DIVENTA 307
+;04/01/07 INSERIMENTO NUOVO SISTEMA CONTROLLO SEGNO DOPPIO SSDD
+;22/01/07 MIGLIORAMENTO SEGNO DOPPIO MMSS
+;24/02/07 INSERITO ABILITA/DISABILITA DOPPIO SEGNO DDAA 
+;30/04/07 INSERITO AZZERAMENTO TOTALE DOPO FASATURA DIVENTA  308 AAZZ	  
+;03/05/07 DIVENTA DIV 309
+;23/05/07 MODIFICA PER USARE SCHEDA MM CON PROGRAMMA MC DIVENTA DIW 30_9A MMCC
+;23/06/07 MODIFICHE NUOVO DERIVATIVO DIVENTA DIW310 NNDD
+
+PA:     EQU     00H     ;DATI PORTA A
+PB:     EQU     01H     ;DATI PORTA B
+PC:     EQU     63H     ;DATI PORTA C
+TABCON: EQU     4000H   ;USATA IN CONVERSIONE BCD BINARIO
+POSIT:  EQU     4018H   ;MEM.DELLA FUNZIONE PIU'
+NEGAT:  EQU     401AH   ;MEM.DELLA FUNZIONE MENO
+MANAU:  EQU     401CH   ;MEM.DELLA FUNZIONE MANUALE/AUTO
+LAVORO: EQU     401EH   ;NøDEL LAVORO PRESENTE
+SHIFT:  EQU     4032H   ;MEM.DELLO SPOSTAMENTO REGISTRO
+PIUMEN: EQU     403CH   ;MEM.SENSO DELLO SPOSTAMENTO
+RESTO:  EQU     4044H   ;RESTO DELLA DIVISIONE A 16 BIT  
+DIVDEN: EQU     4046H   ;MEM. DEL DIVIDENDO
+DIVSOR: EQU     4048H   ;MEM. DEL DIVISORE
+QUOZIE: EQU     404AH   ;MEM. RISULTATO DIVISIONE
+MOLTI:  EQU     404CH   ;MEMORIA DEL MOLTIPLICATORE
+MOLPL:  EQU     404EH   ;MEMORIA DEL MOLTIPLICANDO
+PROD:   EQU     4050H   ;MEMORIA DEL PRODOTTO
+PIENO:  EQU     4060H   ;MEM. VALORE DEL PIENO
+POSIZ:  EQU     4062H   ;MEM. VALORE DELLA POSIZIONE
+RAPRIF: EQU     4064H   ;VALORE RAPP. DI RIFERIMENTO
+RAPPOR: EQU     4066H   ;MEM.DEL RAPPORTO POSIZ/PIENO
+CENRAP: EQU     4068H   ;QUANTITA' DI CENT. NEL RAPPORTO
+IMPENC: EQU     406AH   ;VALORE SPOSTAM.IN IMPULS.ENCODER
+CONSAL: EQU     4070H   ;CONTEGGIO SALTI DI NON CORREZ. 
+CORRE:  EQU     407AH   ;MEM.VALORE DI CORREZ.MOTORE
+DECORR: EQU     407CH   ;EXTRA VALORE DI CORREZ. LONGITUD.
+MDECOR: EQU     407EH   ;MEM.EXTRA VALORE DI CORREZ. LONG. 
+NOCIAO: EQU     4080H   ;NON SCRIVE CIAO IN CASO DI BLOCCO  
+GUADA:  EQU     4100H   ;MEM.DEL GUAD.min 11 x CIL=2000
+CICLO:  EQU     410AH   ;MEMORIA CICLO DI CORREZIONE
+DERIVA: EQU     4114H   ;MEMORIA DEL VALORE DERIVATIVO
+ZONA:   EQU     411EH   ;MEMORIA VALORE ZONA MORTA
+INSER:  EQU     4128H   ;MEMORIA VALORE INSERZIONE AUTO
+SALTO:  EQU     4132H   ;MEM. VALORE SALTO DI CORREZIONE
+MOTPOT: EQU     413CH   ;MEM.INTERVALLI PER MOTOPOTENZ.
+TIMER:  EQU     4146H   ;MEM.TEMPO ATTIVAZIONE MOTOPOT.
+XUNZ:   EQU     4152H   ;MEMORIA FUNZIONE MOD. PARAMETRI
+LINGUA: EQU     415CH   ;MEMORIA DELLA LINGUA
+TRIP:   EQU     4166H   ;SOGLIA BLOCCO PER VELOCITA'
+ABIDOP:	EQU	4172H	;MEM.ABILITA/DISABILITA SEGNO DOPPIO DDAA
+
+VARVEL: EQU     4190H   ;BLOCCO SU VARIAZIONE VELOCITA' AADD
+XTASTO: EQU     4192H   ;MEMORIA ULTIMO TASTO PREMUTO   
+ALTDIV: EQU     4194H   ;ALTERNA I VALORI NELLA DIVISIONE  AADD
+
+BINSET: EQU     4200H   ;MEM.TRASM.DISPLAY 4200H-421FH    WWAA
+AGGIU:  EQU     4300H   ;MEM.AGGIUST.DECIM.4220H-423FH
+SUPCOR: EQU     4320H   ;AVVISO SPOSTAMENTO > DI 1/2 GATE  
+SHIFT1: EQU     4322H   ;QUANTE VOLTE AMPI40 STA IN SHIFT  MM44
+SHIFT2: EQU     4324H   ;RESTO DELLA DIVISIONE SHIFT AMPIMP MM44
+MOTPO1: EQU     4326H   ;MEM.TEMPORANEA IN USO TASTIERA E SUPRCO 
+
+VMEDIA: EQU     4328H   ;USATA IN CALCOLO VELOCITA'MEDIA AAVV WWAA
+VELPRE: EQU     432AH   ;MEM. DELLA VELOCITA' PRECEDENTE AAVV WWAA
+IMPVEL: EQU     432CH   ;IMPULSI ENCODER IN 4 mS AAVV         WWAA
+MSOGLI: EQU     432EH   ;MEM. BASSA VELOCITA'AAVV             WWAA
+VELMED: EQU     4330H   ;MEM.DELLA VELOCITA' AAVV             WWAA
+ISTVEL: EQU     4332H   ;VELOCITA' ISTANTANEA AAVV            WWAA
+               ;4336H   ;OCCUPATA DA CALCOLO MEDIA VELOCITA   WWAA
+
+
+MVEL00: EQU     4340H   ;DA 4340H A 435FH USATA IN WWAA
+                         ;CALCOLO VELOCITA' MEDIA
+
+MEM0:   EQU     4360H   ;MEMORIA DELLA FUNZIONE 0    WWAA
+MEM1:   EQU     4362H   ;MEMORIA DELLA FUNZIONE 1
+MEM2:   EQU     4364H   ;MEMORIA DELLA FUNZIONE 2
+MEM3:   EQU     4366H   ;MEMORIA DELLA FUNZIONE 3
+MEM5:   EQU     4368H   ;MEMORIA DELLA FUNZIONE 5 FF57 
+MEM6:   EQU     436AH   ;MEMORIA DELLA FUNZIONE 6
+MEM6A:  EQU     436CH   ;MEM. USATA NELLA FUNZIONE 6
+MEM7:   EQU     436EH   ;MEMORIA DELLA FUNZIONE 7
+MEMW:   EQU     4370H   ;USATA IN CALCOLO CORREZ.MOTORE  
+MEMID:  EQU     4372H   ;MEM.INIZIALIZZIONE DISPLAY      
+MEMTF:  EQU     4374H   ;MEM. TASTO F GIA' PIGIATO       
+MEMRIF: EQU     4376H   ;USATA PER MEM.I RIFERIMENTI     
+MDATER: EQU     4378H   ;MEM.INSERIMENTO DATO ERRATO      
+MDATE1:	EQU	437AH	;MEM. F1 ERRATO EEOO
+MDATE2:	EQU	437CH	;MEM. F3 ERRATO EEOO
+MCALER: EQU     437EH   ;SEGNALA AL MAIN DI CALCOLARE
+MSCORR: EQU     4380H   ;MEM.INDICA IL SENSO DELLA CORR.  
+TMEM4:  EQU     4382H   ;ATTIVAZZIONE CORREZ.TITRO  
+TMEM5:  EQU     4384H   ;USATA IN CORREZ.TRAVER    
+TMEM6:  EQU     4386H   ;SENSO CORREZZIONE TIRO    
+TMEM7:  EQU     4388H   ;SCRITTURA +PAPER -PAPER 7/12
+TMEM8:  EQU     438AH   ;PER MANTENERE +PAPER -PAPER 7/12
+MCENOS: EQU     438CH   ;CENTRATURA OSCILLOSCOPIO ESTERNO
+MRIC:   EQU     4390H   ;4390H/439FH MEM.USATE IN RICERCA AUTOMATICA
+;+00H SEGALA RICERCA IN CORSO MMSS
+;+02H SEGNALA SECONDO TENTATIVO MMSS
+MKBUSY: EQU     43A0H   ;SEGNALA L'USO DELLA TASTIERA   WWAA
+MDBUSY: EQU     43A2H   ;DISPLAY CON ERRORE DI REGISTRO
+                        ;MATTES: EQU     448AH   ;USATA IN DECREM.CILCI ATTESA
+MTASTI: EQU     43A4H   ;SEGNALA PASSAGGIO DALLA TASTIERA
+MNOPRI: EQU     43A6H   ;USATA PER CONTEGGIO NOPRINT 
+ROLF:   EQU     43A8H   ;USATA PER EVENTUALE RESET
+SETUP1: EQU     43AAH   ;USATA IN SET-UP PARAMETRI
+SETUP2: EQU     43ACH   ;USATA IN SET-UP PARAMETRI
+POTAVA: EQU     43AEH   ;MEM.A DECR.MOTOPOT ORARIO
+POTRIT: EQU     43B0H   ;MEM.A DECR.MOTOPOT ANTIORARIO
+MATTES: EQU     43B2H   ;USATA IN DECREM.CILCI ATTESA
+
+TEST1:  EQU     43BCH   ;USATA IN TEST TESTA ESPLORANTE
+TEST2:  EQU     43BEH   ;USATA IN TEST TESTA ESPLORANTE
+ENCOD1: EQU     43C0H   ;USATA IN TEST ENCODER
+ENCOD2: EQU     43C2H   ;USATA IN TEST ENCODER
+ENCOD3: EQU     43C4H   ;CONTEGGIO TENTATIVI TEST
+ENCOD4: EQU     43C6H   ;CONTEGGIO IMPULSI FINALE  XXTT
+
+MDIVIS: EQU     43C8H   ;MEM. USATA IN DIVISIONE 1000
+MDO032: EQU     43CAH   ;MOLTIPLICANDO BASSO A 32 BIT 
+MDO232: EQU     43CCH   ;MOLTIPLICANDO ALTO A 32 BIT 
+MRE032: EQU     43CEH   ;MOLTIPLICATORE BASSO 32 BIT 
+MRE232: EQU     43D0H   ;MOLTIPLICATORE ALTO A 32 BIT
+PTO032: EQU     43D2H   ;PRODOTTO BASSO A 32 BIT 
+PTO232: EQU     43D4H   ;PRODOTTO ALTO  A 32 BIT
+MOLT24: EQU     43D6H   ;MOLTIPLICATORE MOLTIPLICA 24 BIT
+MOLP24: EQU     43D8H   ;MOLTIPLICANDO MOLTIPLICA 24 BIT
+PROD24: EQU     43DAH   ;443CH PRODOTTO MOLTIPLICA 24 BIT
+QU1000: EQU     43DEH   ;QUOZIENTE DIVISIONE PER 1000      WWAA
+
+MNOP01: EQU     43E4H   ;USATA IN NO PRINT PER MANTENERE L'AALARME BBLL
+
+INCEXT: EQU     43F2H   ;AUMENTA VELOCITA SCANSIONE IN FUNZ5 FF55
+MOSCI1: EQU     43F4H   ;USATA PER FASE CON OSCILLOSCOPIO FF56
+MAVA00: EQU     4430H   ;DA 4430H A 448FH  SONO 96 LOCAZIONI WWAA
+                        ;USATE IN CALCOLO MEDIA ERRORE AVANTI
+MRIT00: EQU     4490H   ;DA 4490H A 44FFH  SONO 96 LOCAZIONI WWAA
+                        ;USATE IN CALCOLO MEDIA ERRORE RITARDO
+
+DAVA00: EQU     4500H   ;DA 4500H A 451FH  SONO 16 LOCAZIONI WWAA
+                        ;USATE IN CALCOLO MEDIA ERRORE AVANTI DISPLAY
+DRIT00: EQU     4520H   ;DA 4520H A 453FH  SONO 16 LOCAZIONI WWAA
+                        ;USATE IN CALCOLO MEDIA ERRORE RITARDO DISPLAY
+ERATTU: EQU     4540H   ;ERRORE ATTUALE   ;LLTT FFXX   MMDD  WWAA
+ERPREC: EQU     4542H   ;ERRORE PRECEDENTE   LLTT FFXX      WWAA
+ERMEDI: EQU     4544H   ;MEMORIA ERRORE MEDIO LONG LLTT FFXX    WWAA
+ERAT10: EQU     4546H   ;ERRORE ATTUALE PER DIECI  WWLL
+
+SOMLO1: EQU     4556H   ;PRIMA SOMMA PER MEDIA LONG GGAA   WWAA
+SOMLO2: EQU     4558H   ;SECONDA SOMMA PER MEDIA LONG GGAA WWAA
+SOMDL1: EQU     455AH   ;USATA IN CALCOLO MEDIA DIPLAY LONG.
+SOMDL2: EQU     455CH   ;USATA IN CALCOLO MEDIA DIPLAY LONG.
+
+PRIMOB: EQU     45A0H   ;VALORE DA DARE AL PRIMO REG B IN MEDIALOMG   VVVV
+SECONB: EQU     45A2H   ;VALORE DA DARE AL SECONDO REG B IN MEDIALOMG VVVV
+VALORX: EQU     45A4H   ;VALORE DA DARE AL REG IX IN MEDIALOMG        VVVV
+
+CORRATT:EQU	45B0H   ;CONTIENE IL VALORE CON SEGNO DELLA CORREZIONE IN BASE ALL'ERRORE (4BYTE)NNDD
+
+CINUE0: EQU     45B4H   ;MINUENDO BASSO CSOTT32	SOTTRAZIONE	32 BIT NNDD
+CINUE2: EQU     45B6H   ;MINUENDO ALTO CSOTT32		SOTTRAZIONE	32 BIT NNDD
+CUBTR0: EQU     45B8H   ;SOTTRAENDO BASSO CSOTT32	SOTTRAZIONE	32 BIT NNDD
+CUBTR2: EQU     45BAH   ;SOTTRAENDO ALTO CSOTT32	SOTTRAZIONE	32 BIT NNDD           
+CESTO0: EQU     45BCH   ;RESTO BASSO CSOTT32		SOTTRAZIONE	32 BIT NNDD
+CESTO2: EQU     45BEH   ;RESTO BASSO CSOTT32		SOTTRAZIONE	32 BIT NNDD
+
+ADDEN0:	EQU     45C0H   ;ADDENDO BASSO			SOMMA		32 BIT NNDD
+ADDEN2:	EQU     45C2H   ;ADDENDO ALTO			SOMMA		32 BIT NNDD
+AUGEN0: EQU     45C4H   ;AUGENDO BASSO			SOMMA		32 BIT NNDD
+AUGEN2: EQU     45C6H   ;AUGENDO ALTO			SOMMA		32 BIT NNDD
+
+CADDE0:	EQU     45C8H   ;ADDENDO BASSO			SOMMA		32 BIT NNDD
+CADDE2:	EQU     45CAH   ;ADDENDO ALTO			SOMMA		32 BIT NNDD
+CAUGE0:	EQU     45CCH   ;AUGENDO BASSO			SOMMA		32 BIT NNDD
+CAUGE2:	EQU     45CEH   ;AUGENDO ALTO			SOMMA		32 BIT NNDD
+CSOMM0: EQU     45D0H   ;SOMMA BASSA			SOMMA		32 BIT NNDD
+CSOMM2: EQU     45D2H   ;SOMMA ALTA			SOMMA		32 BIT NNDD
+
+MSCORR_ATT:EQU 	45E0H   ;SENSO DELL'ERRORE ATTUALE NNDD
+MSCORR_PREC:EQU 45E2H   ;SENSO DELL'ERRORE PRECEDENTE NNDD
+
+MEMA:   EQU     4600H   ;MEMORIA DELLA PORTA A     WWAA
+MEMB:   EQU     4602H   ;MEMORIA DELLA PORTA B
+MEMC:   EQU     4604H   ;MEMORIA DELLA PORTA C
+CONALL: EQU     4606H   ;MEM.CONTEGGIO AVVISI ALLARME
+COSVEL: EQU     4608H   ;COSTANTE USATA IN VELOCITA'
+AMPI40: EQU     460AH   ;AMPIEZZA GATE DEL40% IN mm 
+CILIN:  EQU     4A00H   ;MEM. SVILUPPO CILINDRO
+ALLAR:  EQU     4A02H   ;MEM. VALORE ALLARME
+CENTES: EQU     4A04H   ;CENTESIMI IN UN IMP.DI ENCODER
+FASE:   EQU     4A06H   ;MEMORIA DELLA FASE
+FASES1: EQU     4A08H   ;MEMORIA DELLA FASE DI S1
+FASRIF: EQU     4A0AH   ;MEM.FASE DI RIFERIMENTO DI S1
+AMPGA:  EQU     4A0CH   ;MEM. AMPIEZZA GATE IN mm
+RIFTOT: EQU     4A0EH   ;(FASRIFx10)+RAPRIF=RIFTOT
+POSTOT: EQU     4A10H   ;(FASES1x10)+RAPPOR=POSTOT
+AMPIMP: EQU     4A12H   ;AMPIEZZA GATE IN IMPULSI ENCODER
+MEZGA:  EQU     4A14H   ;MEM.AMPIEZZA 45%   
+AMPI10: EQU     4A16H   ;AMPIMP x 10  
+CILDIV: EQU     4A18H   ;CILINDRO DIVISO 10
+CILMOL: EQU     4A1AH   ;CILINDRO MOLTIPLICATO x 10
+UNOMIL: EQU     4A1CH   ;NøIMPULSI DA 2048 IN 1 mm
+BIANCO: EQU     4A1EH   ;MINIMO SPAZIO BIANCO PER RA
+MEMAB:  EQU     4A20H   ;E 4A22H USATE IN ABILITAZ.GATE
+MLING:  EQU     4A24H   ;USATA MEM. DELLA LINGUA
+DMEZGA: EQU     4A26H   ;40% GATE IN DECIMI  TEC
+MNORD:  EQU     4A28H   ;GIRI ATTESA PRIMA DI TOGLIERE PC 5 TEC
+
+GUADS1: EQU     4A30H   ;VALORE GUADAGNO SEGNALE S1 MMCC
+DOG:	EQU	4A32H	 ;IN CASO DI WATCH DOG NON FA VEDERE LA SCRITTA INIZIALE MMCC
+
+FUN8AM: EQU     4A50H   ;MEM. FUNZ8 MANUALE/AUTOMATICO TEC
+CICL75: EQU     4A52H   ;75% DEL CICLO DI CORREZZIONE 
+CIDE75: EQU     4A54H   ;MEM. DEL 75% DEL CICLO DI CORREZZIONE
+DOPPIO:	EQU	4A56H	;0=CONTROLLO ATTIVO 1=SCRITTA ABILITATA 2=DISABILITATO MMSS
+
+RIFDAC: EQU     4B00H   ;VALORE DI RIFERIMENTO DEL DAC DDDD
+
+TAP1:   EQU     5020H   ;TABELLA IND. INTER. PIO1A
+TAP2:   EQU     5022H   ;TABELLA IND. INTER. PIO1B
+TAB0:   EQU     5030H   ;TABELLA IND. INTER. CTC CANALE 0
+TAB1:   EQU     5032H   ;TABELLA IND. INTER. CTC CANALE 1
+TAB2:   EQU     5034H   ;TABELLA IND. INTER. CTC CANALE 2
+TAB3:   EQU     5036H   ;TABELLA IND. INTER. CTC CANALE 3
+TABLAV: EQU     5100H   ;INIZIO TABELLA MEM. LAVORI
+
+
+			
+
+		ORG     0000H
+		JP      VIA
+
+		ORG     0008H
+		JP      VIA
+
+		ORG     0010H
+		JP      VIA
+
+		ORG     0018H
+		JP      VIA
+
+		ORG     0020H
+		JP      VIA
+
+		ORG     0028H
+		JP      VIA
+
+		ORG     0030H
+		JP      VIA
+
+		ORG     0038H
+		JP      VIA
+
+
+		ORG     100H
+
+VIA:
+
+		
+
+RESET_PIO:            
+		LD	HL,INIT_Z80
+		LD	(5FFFH),HL
+		LD	(5FFDH),HL
+		LD      SP,5FFDH       ;DEF.AREA STACK
+		RETI
+
+INIT_Z80:
+		LD	HL,VIA
+		LD	(5FFFH),HL
+
+		;INIZIALIZZAZIONE SISTEMA
+
+		LD      SP,5FFFH        ;DEF.AREA STACK
+		IM      2               ;IMPOSTA MODO PIO = 2
+		LD      A,50H           ;IND.ALTO TAB.
+		LD      I,A
+                LD      IY,PIOA         ;IND.ROUT.INT. SSVV  TEC
+		LD      (TAP1),IY       ;CAR.TAB.INT.
+		LD      A,20H           ;VET.INTER.PIO A
+		OUT     (02H),A         ;CONTROLLO PIO A
+		LD      A,0CFH          ;PORTA A MODO 3
+		OUT     (02H),A
+		LD      A,1FH           ;0-4 IN 5-6-7 OUT MMCC
+		OUT     (02H),A
+		LD      A,97H           ;PAR.CONT.INTER.
+		OUT     (02H),A 
+		LD      A,0EFH          ;P.M.BIT 0123567
+		OUT     (02H),A
+;MMCC		LD      A,(MEMA)        ;BLOCCO USCITA 
+;MMCC		SET     6,A             ;PORTA C
+;MMCC		OUT     (PA),A
+;		LD      (MEMA),A
+                LD      IY,PIOB         ;IND.ROUT.INT. SSVV TEC
+		LD      (TAP2),IY       ;CAR.TAB.INT.
+		LD      A,22H           ;VET.INT.PIO B
+		OUT     (03H),A         ;CONTROLLO PIO B
+		LD      A,0CFH          ;PORTA B MODO 3
+		OUT     (03H),A
+		LD      A,1EH           ;0567 OUT 1234 IN
+		OUT     (03H),A
+		LD      A,97H           ;PAR.CONT.INTER.
+		OUT     (03H),A
+		LD      A,0FDH          ;P.MAS.BIT 0234567
+		OUT     (03H),A         ;ALL'INTERUPT
+                LD      IY,CTC0         ;IND.ROUT.CTC0.  SSVV TEC
+		LD      (TAB0),IY       ;CAR.TAB.INT.CAN0
+		LD      A,30H           ;VET.IND.CTC0
+		OUT     (70H),A         ;VET.SEMPRE IN 0
+                LD      IY,CTC1         ;IND.ROUT.CTC1  SSVV TEC
+		LD      (TAB1),IY       ;CAR.TAB.INT.CAN1
+		LD      A,32H           ;VET.IND.CTC1
+		OUT     (70H),A
+                LD      IY,CTC2         ;IND.ROUT.CTC2  SSVV TEC
+		LD      (TAB2),IY       ;CAR.TAB.INT.CAN2
+		LD      A,34H           ;VET.IND.CTC2
+		OUT     (70H),A
+                LD      IY,CTC3         ;IND.ROUT.CTC3  SSVV TEC
+		LD      (TAB3),IY       ;CAR.TAB.INT.CAN3
+		LD      A,36H           ;VET.IND.CTC3
+		OUT     (70H),A         ;VET.CARICATO
+		EI                      ;SEMPRE IN 0
+
+		;RESET DELLA PORTA C
+
+		LD      A,80H           ;SBLOCCO PORTA C
+		LD      (MEMA),A
+		OUT     (PA),A
+		LD      A,(MEMC)        ;RESETTO LE USCITE
+		RES     0,A             ;CHE NON VENGONO
+		RES     1,A             ;UTILIZZATE
+		RES     5,A             ;RIMANE MEMORIZ-
+		RES     6,A             ;ZATA LA CONDI-
+		RES     7,A             ;ZIONE AUTO/MAN
+		OUT     (PC),A
+		LD      (MEMC),A
+
+                ;AZZERAMENTO DA 4200H A 45FFH  WWAA
+
+                LD      A,00H
+		LD      (BINSET),A      ;LOC. INIZIALE
+		LD      HL,BINSET
+		LD      DE,BINSET+01H
+                LD      BC,03FFH        ;WWAA
+		LDIR                    
+		LD      A,04H           ;PER NON AVERE IN
+                ;LD      (MMED00+00H),A  ;DECREMENTO FFH  WWAA
+		LD      (MATTES),A      ;IDEM
+		LD      (CONSAL),A
+		LD      A,40H           ;CARICO MEMORIA 
+		LD      (ROLF),A        ;PER RESET
+		LD      A,(MOTPOT)      ;CARICO LE MEM.
+		LD      (POTAVA),A      ;A DECREMENTO
+		LD      (POTRIT),A      ;DEL MOTOPOTENZ.
+                LD      (MOTPO1),A      ;
+		CALL    DEFAUL
+                CALL    VARERR          ;WWAA
+
+		
+		;VERIFICA VALORI DI F1 E F3  EEOO
+
+VERIFI:
+		LD	HL,(CILIN)	;EEOO SSMM
+		LD	DE,0FFFFH	;EEOO
+		ADD	HL,DE
+		JR	C,VERF11 	;EEUU
+		CALL	ERRF1
+		JR	VERF3		;EEOO
+VERF1:		CCF
+VERF11:		LD	HL,(CILIN)	;EEUU SSMM
+		LD	DE,9D4H		;2500mm	MAX SIZE
+		SBC	HL,DE
+		JR	NC,VERF13 	;EEUU
+		CCF
+		JR	VERF3
+VERF13:		CALL	ERRF1		;EEUU
+	
+VERF3:		
+		LD	A,(AMPGA)
+		CP	00H
+		JR	NZ,VER4
+		CALL	ERRF3
+
+		;SE PIGIATO FUNZIONE SALTO A MOD.PARAMETRI
+
+VER4:					;EEOO
+
+		IN      A,(PA)
+		CP      0AFH                                                                                                                                                                                                                   
+		JR      NZ,FASTRA
+		JP      MODPA
+
+		
+		;TRASMISSIONE DELLA FASE
+
+FASTRA:     
+		LD	A,(DOG)		;IN CASO DI SSDD MMCC
+		CP	01H		;WATCH DOG SALTA
+		JR	Z,FASTR1	;MMCC
+
+		LD      A,(NOCIAO)     ;SALTA  SE 
+                CP      00H            ;NON E' ALLA
+                JR      NZ,FASTR1      ;PARTENZA
+                CALL    CIAO           
+
+FASTR1:         LD      HL,(FASE)
+		LD      A,H
+		OUT     (20H),A
+		LD      A,L
+		OUT     (10H),A
+		LD      A,5BH           ;Z
+		LD      (BINSET+10H),A
+		LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+		LD      A,38H           ;L
+		LD      (BINSET+0EH),A
+		LD      A,3FH           ;O
+		LD      (BINSET+0DH),A
+                LD      A,00H           ;
+                LD      (BINSET+0CH),A
+		EXX
+                LD      A,(MEMC)        ;TOLGO LA  
+		RES     4,A             ;PROTEZIONE
+		LD      (MEMC),A
+		OUT     (PC),A
+		CALL    TRDIS
+		;JP      FASAUT
+
+	
+		
+FASAUT:         LD      A,(MRIC+00H) 
+		CP      01H
+                JP      NZ,MAIN         ;GGAA
+		LD      A,(MEMC)        
+		RES     5,A
+		LD      (MEMC),A
+		OUT     (PC),A
+		CALL    CODICE
+
+
+		LD      A,71H           ;F
+		LD      (BINSET+10H),A
+		LD      A,77H           ;A
+		LD      (BINSET+0FH),A
+		LD      A,6DH           ;S
+		LD      (BINSET+0EH),A
+		LD      A,79H           ;E
+		LD      (BINSET+0DH),A
+                LD      A,00H          
+		LD      (BINSET+0CH),A
+		EXX
+		CALL    TRDIS
+	
+		JP      MAIN                        
+		
+	
+		;MISURA SPAZIO BIANCO
+
+CODICE:         LD      A,(MEMB)        
+		SET     6,A             ;BLOCCO GATE
+		LD      (MEMB),A
+		OUT     (PB),A
+                LD      A,(GUADS1)      ;CARICO 
+		LD      B,A             ;GUADAGNO DI
+                LD      A,(MEMA)        ;S1 
+		ADD     A,B
+		LD      (MEMA),A
+                OUT     (PA),A          
+
+                LD      A,0D7H          ;SE DOPO CIRCA 
+                OUT     (71H),A         ;9 GIRI RICERCA 
+                LD      A,02H           ;FALLITA ESCI
+		OUT     (71H),A
+
+		LD	HL,0FFFFH	;VALORE DI WATCH SSDD
+START:          
+		LD      BC,(BIANCO)	;VALORE DI BIANCO BBBB
+		IN      A,(PB)          ;SE STAMPA  ASPETTA
+		CALL	WATCH		;WATCH DOG SSDD
+		BIT     2,A             ;
+		JR      NZ,START
+MIS:            IN      A,(PB)                
+		BIT     4,A             ;SE 2048 = 0
+		JR      Z,MIS           ;ASPETTA
+MIS1:           IN      A,(PB)          ;SE 2048 = 1
+		BIT     4,A             ;ASPETTA
+		JR      NZ,MIS1
+		DEC     C               ;CONTEGGIO SPA-
+		JR      NZ,MIS          ;ZIO BIANCO
+		IN      A,(PB)
+		BIT     2,A
+		JR      NZ,START
+
+		;MISURA SPESSORE SEGNO
+		
+SEC:            LD      BC,(UNOMIL)     
+TER:            CALL	WATCH		;WATCH DOG SSDD
+		IN      A,(PB)          ;SE MANCA
+		BIT     2,A             ;STAMPA ASPETTA
+		JR      Z,TER
+TER1:           IN      A,(PB)
+		BIT     4,A
+		JR      Z,TER1
+TER2:           IN      A,(PB)
+		BIT     4,A
+		JR      NZ,TER2
+		IN      A,(PB)
+		BIT     2,A             
+		JR      Z,START           
+		DEC     C
+		JR      NZ,TER1
+
+		;MISURA BIANCO POSTERIORE
+
+                LD      BC,(BIANCO)      ;VALORE BIANCO BBBB
+MIS2:           IN      A,(PB)
+		BIT     4,A
+		JR      Z,MIS2
+MIS3:           IN      A,(PB)                
+		BIT     4,A
+		JR      NZ,MIS3
+		DEC     C
+		JR      NZ,MIS2
+		IN      A,(PB)
+		BIT     2,A
+		JR      NZ,START
+SEC1:           IN      A,(61H)
+		LD      E,A
+		IN      A,(62H)
+		LD      D,A
+		LD      (FASE),DE
+
+
+
+		LD      (MOLTI),DE      ;MOLTIPLICO PER
+		LD      A,0AH           ;10 PER AVERE IL
+		LD      (MOLPL),A       ;RIFERIMENTO TO-
+		CALL    MOLT            ;TALE TRASCURAN-
+		LD      DE,(PROD)       ;DO IL RAPPORTO
+		LD      (RIFTOT),DE
+
+
+
+		LD      A,(MEMB)
+		RES     6,A             ;SBLOCCO GATE
+		LD      (MEMB),A
+		OUT     (PB),A
+		CALL    CENTRA  
+
+			
+
+		LD      A,00H           ;SE RICERCA OK
+		LD      (MRIC+00H),A    ;ANNULLO 
+		LD      (MRIC+02H),A	;SSDD
+		;LD	(DOUBLE),A	;ATTIVA SCRITTA SSDD AADD
+
+		LD      A,43H           ;RESETTO CTC1
+		OUT     (71H),A         
+		LD      A,(MEMC)        ;TOLOGO EVEN-
+		RES     4,A             ;TUALE PROTE-
+		LD      (MEMC),A        ;ZIONE
+                OUT     (PC),A      
+		RET
+
+
+		;SUBROUTINE DI RITARDO
+
+RIT:            IN      A,(PB)
+		BIT     4,A
+		JR      Z,RIT
+RIT1:           IN      A,(PB)
+		BIT     4,A
+		JR      NZ,RIT1
+		DEC     E
+		JR      NZ,RIT
+		RET
+
+;		;SUBROUTINE DI CONTROLLO CODICE
+;
+;MARC:           LD      A,(SEGNO)       ;MISURA 2mm IN      
+;		LD      B,A             ;MODO CHE IN
+;MAR1:           IN      A,(PB)          ;QUESTO SPAZIO
+;		BIT     2,A             ;PASSI IL SEGNO
+;		JR      NZ,RIT0         ;DI CODICE
+;		BIT     4,A
+;		JR      Z,MAR1
+;MAR2:           IN      A,(PB)
+;		BIT     2,A
+;		JR      NZ,RIT0
+;		BIT     4,A
+;		JR      NZ,MAR2
+;		DEC     B
+;		JR      NZ,MAR1
+;RIT0:           RET
+
+		;ANTI IMPALLAMENTO      ;SSDD
+WATCH:					;SSDD
+		DEC	HL		;SSDD
+		LD	A,H
+		OR	L
+		JR	Z,WATCH1
+		RET
+WATCH1:		LD	A,01H
+		LD	(DOG),A
+		JP	VIA		;SSDD
+
+
+
+
+		;ADEGUAMENTO GUADAGNO AMPLIFICAT. ESTERNO
+
+                
+GAINS1:         EXX
+		LD      A,(GUADS1)
+		CP      60H
+		JR      Z,GS11
+		CP      40H
+		JR      Z,GS12
+		CP      20H
+		JR      Z,GS13
+		CP      00H
+		JR      Z,GS14
+GS11:           LD      A,40H
+		JR      GS15
+GS12:           LD      A,20H
+		JR      GS15
+GS13:           LD      A,00H
+		JR      GS15
+GS14:           LD      A,60H
+GS15:           LD      (GUADS1),A
+		EXX
+		RET
+	
+		
+		;FASATURA AUTOMATICA
+
+                            ;SSVV       
+		
+;FASA:           LD      A,01H           ;SEGNALAZIONE
+;		LD      (MRIC+02H),A    ;2ø TENTATIVO
+;FASAUT:         LD	A,(MRIC+00H)    ;SE NON SONO IN SSDD
+;		CP      00H             ;FUNZ4 SALTO
+;		JR      Z,FASAU2
+;		LD      A,43H           ;RESETTO CTC3
+;		OUT     (73H),A         
+;FASAU2:         LD      A,(MDATER)      ;VEDO SE DEVE
+;		CP      00H             ;SEGNALARE ERROR
+;		JR      Z,FASAU1        
+;		CALL	CONTR		;EEOO
+;		JP      GIR1
+;FASAU1:         LD      A,(MRIC+00H)
+;		CP      00H
+;		JP      Z,MAIN
+;
+;		;CARICA CONDESATORE CAG
+;
+;		DI
+;		LD      A,(MEMB)
+;		RES     5,A
+;		SET     6,A
+;		OUT     (PB),A
+;		LD      (MEMB),A
+;		LD      BC,03FFH        ;TEMPO DI CARICA
+;FASAU3:         DEC     BC
+;		LD      A,B
+;		OR      C
+;		JR      NZ,FASAU3
+;		EI
+;    
+;		;MISURA SPAZIO BIANCO
+;
+;FASAU4:         LD      A,(MEMB)        ;TCM
+;		SET     6,A             ;BLOCCO GATE
+;		LD      (MEMB),A
+;		OUT     (PB),A
+;		LD      A,0D7H          ;SE DOPO 7 GIRI
+;		OUT     (71H),A         ;RICERCA FALLITA
+;		LD      A,07H           ;ESCI
+;		OUT     (71H),A
+;START:          LD      BC,(BIANCO)     ;VALORE DI BIANCO
+;		IN      A,(PB)          ;SE STAMPA 
+;		BIT     2,A             ;ASPETTA
+;		JR      NZ,START
+;MIS:            IN      A,(PB)                
+;		BIT     4,A             ;SE 2048 = 0
+;		JR      Z,MIS           ;ASPETTA
+;MIS1:           IN      A,(PB)          ;SE 2048 = 1
+;		BIT     4,A             ;ASPETTA
+;		JR      NZ,MIS1
+;		DEC     C               ;CONTEGGIO SPA-
+;		JR      NZ,MIS          ;ZIO BIANCO
+;		IN      A,(PB)
+;		BIT     2,A
+;		JR      NZ,START
+;
+;		;MISURA SPESSORE SEGNO
+;
+;SEC:            LD      BC,(UNOMIL)     ;SPESSORE SEGNO
+;TER:            IN      A,(PB)          ;SE MANCA
+;		BIT     2,A             ;STAMPA ASPETTA
+;		JR      Z,TER
+;TER1:           IN      A,(PB)
+;		BIT     4,A
+;		JR      Z,TER1
+;TER2:           IN      A,(PB)
+;		BIT     4,A
+;		JR      NZ,TER2
+;		IN      A,(PB)
+;		BIT     2,A             
+;		JR      Z,START           
+;		DEC     C
+;		JR      NZ,TER1
+;		LD      A,(MRIC+02H)    ;SEGNALA IL SE-
+;		CP      01H             ;CONDO TENTATIVO
+;		JR      Z,SEC1
+;
+;		;MISURA BIANCO POSTERIORE
+;
+;		LD      BC,(BIANCO)     ;VALORE BIANCO
+;MIS2:           IN      A,(PB)
+;		BIT     4,A
+;		JR      Z,MIS2
+;MIS3:           IN      A,(PB)                
+;		BIT     4,A
+;		JR      NZ,MIS3
+;		DEC     C
+;		JR      NZ,MIS2
+;		IN      A,(PB)
+;		BIT     2,A
+;		JR      NZ,START
+;SEC1:           IN      A,(61H)
+;		LD      E,A
+;		IN      A,(62H)
+;		LD      D,A
+;		LD      (FASE),DE
+;		LD      (MOLTI),DE      ;MOLTIPLICO PER
+;		LD      A,0AH           ;10 PER AVERE IL
+;		LD      (MOLPL),A       ;RIFERIMENTO TO-
+;		CALL    MOLT            ;TALE TRASCURAN-
+;		LD      DE,(PROD)       ;DO IL RAPPORTO
+;		LD      (RIFTOT),DE
+;		LD      A,(MEMB)
+;		RES     6,A             ;SBLOCCO GATE
+;		LD      (MEMB),A
+;		OUT     (PB),A
+;		CALL    CENTRA  
+;		LD      A,00H           ;SE RICERCA OK
+;		LD      (MRIC+00H),A    ;ANNULLO 
+;		LD	(DOPPIO),A	;ATTIVA SCRITTA SSDD MMSS
+;		LD      A,43H           ;RESETTO CTC1
+;		OUT     (71H),A         
+;		LD      A,71H           ;F
+;		LD      (BINSET+10H),A
+;		LD      A,77H           ;A
+;		LD      (BINSET+0FH),A
+;		LD      A,6DH           ;S
+;		LD      (BINSET+0EH),A
+;		LD      A,79H           ;E
+;		LD      (BINSET+0DH),A
+;                LD      A,00H           ;
+;		LD      (BINSET+0CH),A
+;		EXX
+;		LD      A,(MEMC)        ;TOLOGO EVEN-
+;		RES     4,A             ;TUALE PROTE-
+;		LD      (MEMC),A        ;ZIONE
+;		OUT     (PC),A
+;                CALL    TRDIS           ;
+; 
+
+		;MAIN PROGRAMMA PRINCIPALE DI CALCOLO
+
+MAIN:		CALL	CONTR		;EEOO
+
+MAIN1:          LD      A,(MCALER)      ;VEDE SE DEVE
+		CP      00H             ;CALCOLARE O NO
+		JP      Z,GIR1
+		LD      A,00H
+		LD      (MCALER),A
+
+                LD      (NOCIAO),A      ;PER NUOVA PART. 
+
+		;CALCOLO RAPPORTO POSIZIONE PIENO
+
+		LD      DE,(ERATTU)     ;MEMORIZZO ERRORE
+		LD      (ERPREC),DE     ;PRECEDENTE
+
+
+                LD      A,(MSCORR)      ;WWAASALVO SEGNO
+
+		LD      IX,PIENO        ;DIVIDO PIENO
+		LD      E,(IX+00H)      ;PER DIECI
+		LD      D,(IX+01H)      ;E SOTTRAGGO
+		LD      (DIVDEN),DE     ;IL RISULTATO
+		LD      BC,000AH        ;A POSIZIONE
+		LD      (DIVSOR),BC     ;SE IL RISULTATO
+		CALL    DIVIS           ;E' NEGATIVO
+		LD      IX,QUOZIE       ;VUOLE DIRE CHE
+		LD      E,(IX+00H)      ;DIVIDENDO
+		LD      D,(IX+01H)      ;POSIZIONE X 10
+		LD      IY,POSIZ        ;CON PIENO AVRO'
+		LD      L,(IY+00H)      ;UN NUMERO MINORE
+		LD      H,(IY+01H)      ;DI 0,1 PER CUI
+		SBC     HL,DE           ;CARICO IN MEM.
+		JR      C,RAPP0         ;RAPPORTO ZERO.
+		LD      E,(IY+00H)      ;SE LA SOTTRZIONE
+		LD      D,(IY+01H)      ;NON DA RISULTATO
+		LD      (MOLTI),DE      ;NEGATIVO PROCEDO
+		LD      A,0AH           ;NELLA DIVISIONE
+		LD      (MOLPL),A       ;POSIZIONE X 10
+		CALL    MOLT            ;DIVISO PIENO
+		LD      IX,PROD         ;E OTTERRO'UN
+		LD      C,(IX+00H)      ;RISULTATO 
+		LD      B,(IX+01H)      ;COMPRESO 
+		LD      (DIVDEN),BC     ;TRA 0,1 E 0,9
+		LD      IY,PIENO
+		LD      E,(IY+00H)
+		LD      D,(IY+01H)
+		LD      (DIVSOR),DE
+		CALL    DIVIS
+                LD      DE,(QUOZIE+00H)
+		JR      RAPP1
+RAPP0:          CCF
+                LD      DE,0000H
+RAPP1:          LD      (RAPPOR),DE     ;VERIFICO SE E'
+		LD      A,(MEMRIF)      ;STATO TROVATO
+		CP      00H             ;IL SEGNO DI
+		JR      Z,RAPP2         ;REGISTRO DURANTE
+		LD      A,(RAPPOR)      ;LA RICERCA AUTO-
+		LD      (RAPRIF),A      ;MATICA PER MEMO-
+		LD      DE,(FASES1)     ;RIZZARE I RIFE-
+		LD      (FASRIF),DE     ;RIMENTI QUESTI
+		LD      HL,MEMRIF       ;VENGONO MEMORIZ-
+		DEC     (HL)            ;ZATI DOPO 4 GIRI
+
+		CALL	AZZTOT		;AAZZ	
+		
+		;CALCOLO DELL'ERRORE IN CENTESIMI ED
+		;EVENTUALE CORREZIONE DA ESEGUIRE
+		;(FASRIF-FASES1)+(RAPRIF-RAPPOR)= ERRORE
+		;(FASRIFx10)+RAPRIF=RIFTOT
+		;(FASES1x10)+RAPPOR=POSTOT
+		;(RIFTOT-POSTOT):10=ERRORE IN DECIMI
+
+RAPP2:          LD      DE,(FASES1)     ;FASES1 x 10
+		LD      (MOLTI),DE
+		LD      A,0AH
+		LD      (MOLPL),A
+		CALL    MOLT
+		LD      DE,(PROD)
+		LD      HL,(RAPPOR)
+		ADD     HL,DE
+		LD      (POSTOT),HL
+		EX      DE,HL
+		LD      HL,(RIFTOT)     ;FLO1 PUNTO A
+		SBC     HL,DE
+		JR      C,ERR1
+		EX      DE,HL
+                LD      HL,(AMPI10)     ;VEDO SE ERRORE 
+                SBC     HL,DE           ;E'> DI AMPI10  
+		EX      DE,HL
+		JR      NC,RITARD       ;FLO1 PUNTO B
+		CCF
+		LD      HL,(RIFTOT)     ;FLO1 PUNTO C
+		LD      DE,(POSTOT)
+		SBC     HL,DE
+		EX      DE,HL
+		LD      HL,0A000H       ;40960
+		SBC     HL,DE
+		JR      AVANTI
+ERR1:           CCF
+		LD      HL,(POSTOT)     ;FLO1 PUNTO D
+		LD      DE,(RIFTOT)
+		SBC     HL,DE
+		EX      DE,HL
+                LD      HL,(AMPI10)     ;FLO1 PUNTO E  
+		SBC     HL,DE
+		EX      DE,HL
+		JR      NC,AVANTI
+		CCF
+		LD      HL,0A000H       ;40960
+		LD      DE,(POSTOT)     ;FLO1 PUNTO F
+		SBC     HL,DE
+		LD      BC,(RIFTOT)
+		ADD     HL,BC
+;RITARD:         LD      A,08H           ;SEGNALAZIONE NNDD
+;		LD      (MSCORR),A      ;CORREZ. RITARDO
+;		JR      ERR2
+;AVANTI:         LD      A,01H           ;SEGNALAZIONE
+;		LD      (MSCORR),A      ;CORREZ. AVANTI NNDD
+;************************************************************** NNDD
+RITARD:          
+		LD	A,(MSCORR_ATT)
+		LD	(MSCORR_PREC),A
+		LD      A,08H           ;SEGNALAZIONE
+		LD      (MSCORR),A      ;CORREZ. RITARDO
+		LD	(MSCORR_ATT),A
+                JR      ERR2
+AVANTI:          
+		LD	A,(MSCORR_ATT)
+		LD	(MSCORR_PREC),A
+		LD      A,01H		;SEGNALAZIONE
+		LD      (MSCORR),A      ;CORREZ. AVANTI
+		LD	(MSCORR_ATT),A
+
+
+;************************************************************** NNDD
+
+		;(ERR.xCENT.IN DIV.ENC.):100=ERR.IN DECIM
+
+ERR2:           LD      (MOLTI),HL      ;HL CONTIENE ERR.
+		LD      A,(CENTES)
+		LD      (MOLPL),A
+		CALL    MOLT
+		LD      DE,(PROD)
+		LD      (DIVDEN),DE     ;PRIMA DIVISIONE
+		LD      BC,000AH        ;PER DIECI
+		LD      (DIVSOR),BC
+		CALL    DIVIS
+		LD      DE,(QUOZIE)
+                LD      (ERAT10),DE     ;SALVO ERATTU WWLL
+                LD      (AGGIU),DE      ;PER 10
+		CALL    AGGIUS
+		LD      DE,(QUOZIE)
+		LD      (DIVDEN),DE     ;SECONDA DIVISIO-
+		LD      (DIVSOR),BC     ;NE PER DIECI
+		CALL    DIVIS
+		LD      DE,(QUOZIE)
+		LD      HL,(ERPREC)     ;FACCIO UNA MEDIA
+		ADD     HL,DE           ;TRA ERRORE LETTO
+		LD      (DIVDEN),HL     ;E IL PRECEDENTE. 
+		LD      BC,0002H        
+		LD      (DIVSOR),BC      
+		CALL    DIVIS
+                LD      DE,(QUOZIE)     ;VVVV
+                LD      (ERATTU),DE     ;VVVV
+                LD      A,(SALTO)       ;SE SALTO E'
+                CP      00H             ;ZERO CORREGGO
+                JR      Z,ERR7          ;SEMPRE
+		LD      A,(MTASTI)      ;CONTROLLO SE
+		CP      00H             ;SONO PASSATO
+		JR      NZ,ERR4         ;DALLA TASIERA.
+		LD      HL,000AH        ;SOMMO A ERPREC
+		LD      BC,(ERPREC)     ;1mm IL RISULTATO
+		ADD     HL,BC           ;LO SOTTRAGGO A
+		SBC     HL,DE           ;ERATTU SE CARRY
+		JR      NC,ERR3         ;SE VI E' STATA  
+		CCF                     ;UNA LETTURA SBAL-
+		LD      BC,(ERPREC)     ;LATA LA IGNORO.
+		LD      (ERATTU),BC
+		LD      A,(CONSAL)      ;CONTROLLA CHE NON
+		DEC     A               ;CHE NON RIMANGA
+		LD      (CONSAL),A      ;IN BLOCCO PER PIU'
+		CP      00H             ;DI N GIRI MEMO- 
+		JR      Z,ERR5          ;RIZZATI IN SALTO  
+		JP      GIR1            ;E POI
+ERR5:           LD      (ERATTU),DE     ;RICARICA L'ULTIMO
+		LD      (ERPREC),DE     ;ERRORE LETTO
+		JR      ERR3            
+ERR4:           DEC     A               ;ATTESA 2 GIRI SE
+		LD      (MTASTI),A      ;PASSATO DA TATSI.
+ERR3:           LD      A,(SALTO)       ;CARICA I GIRI DI
+		LD      (CONSAL),A      ;ATTESA.
+ERR7:           LD      A,(MKBUSY)      ;VEDO SE TASTIERA
+		CP      00H             ;E' IN USO
+		JP      NZ,GIR1
+
+                CALL    LMEDIA          ;WWAA
+                LD      A,(SUPCOR)      ;CONTROLLO
+                CP      01H             ;SE ANDARE
+                JR      NZ,ERR8         ;A OVERCO
+                CALL    OVERCO          
+
+ERR8:           LD      A,(MEMC)        ;SE PROT. SALTO
+                BIT     4,A             ;PER ELIMINARE
+                JR      NZ,ERR6         ;FLASH AL DISPLAY
+                CALL    BIN7
+ERR6:           LD      A,01H           ;SEGNALAZ.DISPLAY
+		LD      (MDBUSY),A      ;OCCUPATO DA ERROR
+
+		;CONTROLLO SOGLIA INSERZIONE
+       
+SOGLIN:         CALL    VELO
+                LD      HL,(ISTVEL)     ;VVVV LD      HL,(VELMED)
+		LD      DE,(INSER)      
+		SBC     HL,DE            
+		JR      C,SOGLI1        
+		LD      A,(MEMC)        ;TOLGO LA
+		RES     4,A             ;PROTEZIONE
+		LD      (MEMC),A
+		OUT     (PC),A
+                LD      A,00H           ;ANNULLO  MEM 
+                LD      (MSOGLI),A      ;BASSA VELO 
+		JR      ALLA1 
+SOGLI1:         CCF                     
+		LD      A,05H           ;BLOCCO ALL.
+		LD      (CONALL),A
+                CALL    LOWSPE          
+                LD      A,01H           ;SEGNALO 
+                LD      (MSOGLI),A      ;BASSA VELO
+		LD      A,07H           ;SE INSER E'
+		LD      (MATTES),A      ;MAGGIORE
+		LD      A,(MEMC)        ;BLOCC0 LA COR-
+		RES     3,A             ;REZIONE E AL
+		SET     4,A             ;LARME E AUMEN-
+		LD      (MEMC),A        ;TANDO I CICLI
+		OUT     (PC),A          ;DI ATTESA.
+
+                JP      GIRO
+
+
+		;CONTROLLO SOGLIA ALLARME
+
+ALLA1:          IN      A,(PB)          ;NORD TEC
+                BIT     3,A             ;SE MANCA IL
+                JR      NZ,ALLA3        ;SALTO
+                LD      DE,(DMEZGA)     ;NORD
+                LD      HL,(ERMEDI)     ;QUANDO L'ERRO-
+                SBC     HL,DE           ;RE E' MINORE 
+                JR      NC,ALLA3        ;DEL 40% DEL
+                CCF                     ;GATE E SONO
+                LD      A,(MNORD)       ;PASSATI 2
+                DEC     A               ;GIRI TOLGO
+                LD      (MNORD),A       ;USCITA 
+                CP      02H             ;SINISTRA
+                JR      NC,ALLA4         
+                CP      00H             
+                JR      NZ,ALLA3        
+                LD      A,(MEMC)        
+                RES     5,A             ;TEC
+                LD      (MEMC),A
+                OUT     (PC),A
+                JR      ALLA3
+ALLA4:          LD      A,02H           ;EVITO CHE
+                LD      (MNORD),A       ;MNORD < 2
+ALLA3:          LD      A,(ALLAR)       ;SE ALLARME E'
+		CP      00H             ;MESSO A ZERO
+		JR      Z,NOALL         ;SALTA.
+		LD      HL,(ALLAR)      ;CONTROLLO SE 
+		LD      DE,(ERMEDI)     ;L'ERRORE HA SU-
+		SBC     HL,DE           ;PERATO LA SOGLIA
+		JR      NC,NOALL        ;DI ALLARME
+		CCF
+		LD      A,(MEMC)        ;SE SONO IN
+		BIT     2,A             ;MANUALE SALTO
+		JR      Z,NOALL
+		LD      A,(CONALL)      ;CONTO 5 AVVISI
+		CP      00H             ;PRIMA DI ATTIVA- 
+		JR      Z,ALLA2         ;RE L'ALLARME
+		DEC     A
+		LD      (CONALL),A
+		JR      GIRO
+ALLA2:
+                LD      A,(MEMC)
+		SET     3,A             ;ATTIVO ALLARME
+		LD      (MEMC),A
+		OUT     (PC),A
+		JR      GIRO
+NOALL:
+                LD      A,(MNOP01)      ;BBLL BBLL BBLL
+                CP      01H      
+                JR      Z,GIRO          ;BBLL  BBLL
+
+                LD      A,(MEMC)
+		RES     3,A             ;DISATTIVO ALLARM
+		LD      (MEMC),A
+		OUT     (PC),A
+		LD      A,05H           ;CARICO 5 AVVISI
+		LD      (CONALL),A      ;DI ALLARME
+
+GIRO:           CALL    CORREZ
+
+
+		;ROUTINE DI ATTESA
+
+
+GIR1:
+
+                LD      A,(MEMC)        ;SE SONO IN BBLL
+                BIT     2,A             ;MANUALE
+                JR      NZ,NON          ;DISATTIVO
+                RES     3,A             ;ALLARME
+                LD      (MEMC),A
+                OUT     (PC),A          ;BBLL
+NON:
+		LD      A,(MKBUSY)      ;SE STO USANDO
+		CP      01H             ;LA TASTIERA
+                JR      NZ,G1           ;BLOCCO LE 
+		LD      A,(MEMC)        ;CORREZIONI
+		RES     0,A
+		RES     1,A
+		RES     4,A
+		LD      (MEMC),A
+		OUT     (PC),A
+		JP	G9		;SERVE PER POTER EEOO
+					;DIGITARE F1 O F3
+					;QUANDO LA MACCHINA
+					;GIRA
+G1:             LD      BC,05FFH       ;
+G12:            DEC     BC
+		LD      A,B
+		OR      C
+                JR      NZ,G12
+
+                LD      A,(MEMC)        ;NORD
+                BIT     5,A             ;SERVE PER NON TEC
+                JR      Z,G15           ;FARE BLINCARE
+                LD      BC,0FFFFH       ;LA SCRITTA
+                JR      G13             ;FUN-9
+
+G15:            LD      BC,05FFH       ;
+G13:            DEC     BC
+		LD      A,B
+		OR      C
+                JR      NZ,G13
+
+                LD      A,(ROLF)        ;CONTROLLO PER   
+                DEC     A               ;EVENTUALE RESET 
+                LD      (ROLF),A        ;AUTOMATICO IN   
+                CP      00H             ;CASO DI BLOCCO  
+                JR      NZ,G14                            
+                LD      A,01H           ;ANNULLATO       
+                LD      (NOCIAO),A      ;DURANTE IL      
+                JP      VIA             ;IL RESET AUTO
+
+G14:            CALL    G10
+
+G2:             LD      BC,0FFFFH       ;RITARDO PER
+G3:             DEC     BC              ;VEDERE SE
+                LD      A,B             ;GIRA ENCODER
+		OR      C
+                JR      Z,G4
+
+                IN      A,(PB)          ;SOLO QUANDO LA
+		BIT     4,A             ;MACCHINA GIRA
+                JR      Z,G3            ;SALTA
+                JR      G6
+
+G4:             LD      A,(MKBUSY)      ;SE STO USANDO
+		CP      01H             ;LA TASTIERA
+                JR      Z,G9            ;SALTO 
+                CALL    STOP            ;
+
+G5:             CALL    G10
+
+G6:             LD      BC,0FFFFH       ;RITARDO PER
+G7:             DEC     BC              ;VEDERE SE 
+                LD      A,B             ;GIRA ENCODER
+		OR      C
+                JR      Z,G8
+
+                IN      A,(PB)          ;SOLO QUANDO
+                BIT     4,A             ;LA MACCHINA
+                JR      NZ,G7           ;GIRA SALTA
+                JR      G9
+
+G8:          
+		LD      A,(MKBUSY)      ;SE STO USANDO
+		CP      01H             ;LA TASTIERA
+                JR      Z,G9            ;SALTO 
+                CALL    STOP            ;
+
+                LD      DE,0000H        ;AAVV
+                LD      (MVEL00),DE     ;AZZERO LE MEM.
+                LD      HL,MVEL00       ;DELLA MEDIA
+                LD      DE,MVEL00+01H   ;E DELLA 
+                LD      BC,001FH        ;VELOCITA AAVV 
+                LDIR
+
+
+                LD      A,(MEMC)        ;DISTTIVO BBLL
+                RES     3,A             ;ALLARME
+                LD      (MEMC),A
+                OUT     (PC),A          ;BBLL
+G9:
+                LD      A,(SETUP2)      ;VEDO SE IN MODIFICA EEUU
+                CP      01H             ;DEVO ANDARE
+                JP      Z,MODPA         ;IN MODIFICA
+                JP      FASAUT          ;PARAMETRI  EEUU
+
+G10:            LD      A,00H           ;CONTROLLO SE
+		LD      (SETUP1),A      ;DEVO ANDARE
+		LD      A,(SETUP2)      ;IN MODIFICA
+		CP      01H             ;PARAMETRI
+		JP      Z,MODPA
+		LD      A,00H           ;CONTROLLO SE
+		LD      (TEST1),A       ;DEVO ANDARE
+		LD      A,(TEST2)       ;IN TEST
+		CP      01H             
+		JP      Z,TEST
+		RET
+
+
+
+		
+		
+		;GESTIONE TASTIERA
+
+
+
+PIOA:           PUSH    BC
+		PUSH    DE
+		PUSH    HL
+		PUSH    AF
+		PUSH    IX
+		PUSH    IY
+		LD      A,02H           ;SERVE IN ERR4
+		LD      (MTASTI),A      ;PER E ELIMINARE
+		LD      A,(MEMA)        ;IL SALTO QUANDO 
+		RES     7,A             ;DA TASTIERA IN
+		OUT     (PA),A          ;AUTO O IN MANUA-
+		LD      (MEMA),A        ;LE SI FA UN GROS-
+		LD      DE,0FFFH        ;SO SPOSTAMENTO.
+KRIT1:          DEC     DE                
+		LD      A,D
+		OR      E
+		JR      NZ,KRIT1
+		IN      A,(PA)          
+		BIT     4,A
+		JP      NZ,ESCI
+		AND     0FH             
+		LD      L,A             ;LEGGO DUE VOLTE
+		LD      H,00H           ;LA TASTIERA CON
+		LD      DE,TABLE        ;UN RITARDO TRA 
+		ADD     HL,DE           ;PRIMA E LA SECON-
+		LD      B,(HL)          ;DA LETTURA SE 
+		LD      DE,0FFFH        ;SONO EGUALI 
+KRIT2:          DEC     DE              ;PROCEDO SE NO 
+		LD      A,D             ;ESCO
+		OR      E
+		JR      NZ,KRIT2
+		IN      A,(PA)
+		BIT     4,A
+		JP      NZ,ESCI
+		AND     0FH             
+		LD      L,A
+		LD      H,00H
+		LD      DE,TABLE
+		ADD     HL,DE
+		LD      A,(HL)          ;SECONDA LETTURA
+		CP      B               ;B= PRIMA LETTU-
+		JP      NZ,ESCI         ;RA
+		CP      0EH
+		JP      Z,AUTMAN
+		LD      A,(MDBUSY)      ;SE IL DISPLAY
+		CP      00H             ;E' OCCUPATO 
+		JR      Z,PIOA1         ;DALL'ERRORE DI
+		LD      A,00H           ;REGISTRO LO
+		LD      (MDBUSY),A      ;CANCELLO
+		LD      IX,BINSET+06H
+		LD      (IX+00H),A
+		LD      (IX+01H),A
+		LD      (IX+02H),A
+		LD      (IX+03H),A
+		LD      (IX+04H),A
+		LD      (BINSET+10H),A
+		CALL    BIOTT
+PIOA1:          LD      A,01H           ;SEGNALA L'USO
+		LD      (MKBUSY),A      ;DELLA TATSIERA
+                LD      A,00H           ;ANNULLO SE- 
+                LD      (MSOGLI),A      ;GNALAZIONE 
+		LD      A,(HL)
+		CP      0AH
+		JR      Z,CLEA1
+		CP      0BH
+		JP      Z,ENTE1
+		LD      A,(MEM0)        ;CONTROLLO SE 
+		BIT     0,A             ;INSERITE FUN-
+		JP      NZ,KBRD1        ;ZIONI
+		LD      A,(MEM1)
+		BIT     0,A
+		JP      NZ,KBRD1
+		LD      A,(MEM2)
+		BIT     0,A
+		JP      NZ,KBRD1
+		LD      A,(MEM3)
+		BIT     0,A
+		JP      NZ,KBRD1
+
+                LD      A,(MEM5)        ;FF55
+                BIT     0,A
+                JP      NZ,KBRD1
+
+		LD      A,(MEM6)
+		BIT     0,A
+		JP      NZ,KBRD1
+		LD      A,(MEM7)
+		BIT     0,A
+		JP      NZ,KBRD1
+		LD      A,(HL)          ;CONTINUO LA
+		CP      0DH             ;LA CODIFICA
+		JP      Z,MENO1         ;DELLA TASTIERA
+		CP      0CH
+		JP      Z,PIU1
+		LD      A,(MEMTF)       ;CONTROLLO SE
+		CP      00H             ;PIGIATO PRECE-
+		JP      NZ,FUNZI        ;DENTEMENTE F
+		LD      A,(HL)
+		CP      0FH
+		JP      Z,FUNZI
+		CP      0AH             ;SE NON E' UN
+		JR      NC,NONUM        ;NUMERO SALTA
+		CALL    MUOVO
+		CALL    BIOTT
+NONUM:          LD      (MEMTF),A       ;MEMORIZZA
+		JP      ESCI            ;LA FUNZIONE
+CLEA1:                                  
+		LD	A,02H		;MMSS
+		LD	(DOPPIO),A	;SSDD	MMSS
+		LD      A,43H		;RESETTO CTC3 PER SSDD
+		OUT     (73H),A		;CONTROLLO SEGNO DOPPIO
+
+		LD      A,00H           ;CANCELLA FF55
+		LD      IX,BINSET+06H   ;LE MEMORIE
+		LD      (IX+00H),A      ;TEMPORANEE
+		LD      (IX+01H),A
+		LD      (IX+02H),A
+		LD      (IX+03H),A
+		LD      (IX+04H),A
+		LD      (BINSET+10H),A  ;E LA LETTERA
+		LD      (MEM0),A        ;AZZERO MEMORIE
+		LD      (MEM1),A
+		LD      (MEM2),A        
+		LD      (MEM3),A
+                LD      (MEM5),A        ;FF55 FF57 
+		LD      (MEM6),A
+		LD      (MEM7),A
+		LD      (MRIC+00H),A
+		LD      (MRIC+02H),A
+		LD      (MEMTF),A       ;AZZERO MEM.
+		LD      (MEMID),A       ;TASTO F E INIZIA-
+		LD      (MDATER),A      ;LIZAZZIONE DISP.
+		LD      (MKBUSY),A      ;DATA ERROR E
+		CALL    BIOTT           ;TASTIERA IN USO.
+CLEAT1:         IN      A,(PA)          
+		AND     1AH             ;SENTO SE IL
+		CP      0AH             ;TASTO CLEAR
+		JR      NZ,CLEAT3       ;E'PIGIATO PER
+		LD      BC,0A00H        ;PIU' DI 5 SEC.
+CLEAT2:         DEC     BC              ;SE LO E' 
+		LD      A,B             ;ATTIVO L'AC-
+		OR      C               ;CESSO AL CAMBIO 
+		JR      NZ,CLEAT2       ;PARAMETI
+		LD      A,(TEST1)
+		INC     A
+		LD      (TEST1),A
+		CP      0FFH
+		JR      NZ,CLEAT1
+		LD      A,01H
+		LD      (TEST2),A
+CLEAT3:         JP      ESCI            
+  
+		
+MENO1:          LD      A,(MEMC)        ;SE IN MANUALE
+		BIT     2,A             ;MOTORE RITARDO 
+		JP      Z,MANRIT        
+		LD      A,40H           ; -
+		LD      (BINSET+10H),A
+                
+                LD      A,00H           ;AZZERO PER OOPP
+                LD      (MRIT00),A      ;NON AVERE
+                LD      HL,MRIT00       ;CORREZIONI
+                LD      DE,MRIT00+01H   ;INVERSE ALLO
+                LD      BC,05FH         ;AL SENSO
+                LDIR                    ;DELLO SHIFT OOPP
+
+		CALL    BIOTT
+		CALL    BCDBIN
+		JP      ESCI
+
+PIU1:           LD      A,(MEMC)        ;SE IN MANUALE
+                BIT     2,A             ;MOTORE AVANTI
+		JP      Z,MANAVA
+		LD      A,70H           ; +
+		LD      (BINSET+10H),A
+
+                LD      A,00H           ;AZZERO PER OOPP
+                LD      (MAVA00),A      ;NON AVERE
+                LD      HL,MAVA00       ;CORREZIONI
+                LD      DE,MAVA00+01H   ;INVERSE ALLO
+                LD      BC,05FH         ;AL SENSO
+                LDIR                    ;DELLO SHIFT OOPP
+
+		CALL    BIOTT
+		CALL    BCDBIN
+		JP      ESCI
+
+ENTE1:
+              
+			
+		LD      A,(MEM5)        ;FF57
+                BIT     0,A             ;FF5555
+                JP      NZ,ENTE31       ;FF5555
+
+                LD      A,(MEM0)
+		BIT     0,A
+		JP      NZ,FUN3
+		LD      A,00H           ;AZZERO MEM.
+		LD      (MEM0),A
+		LD      (MEM1),A
+		LD      (MEM2),A
+		LD      (MEM3),A
+                LD      (MEM5),A        ;FF57
+		LD      (MEM6),A
+		LD      (MEM7),A
+		LD      (MRIC+00H),A
+		LD      (MRIC+02H),A
+		LD      (MEMTF),A       ;TASTO F E INI-
+		LD      (MEMID),A       ;ZIALIZZAZIONE
+		CALL    BCDBIN          ;DISPLAY
+		LD      A,(BINSET+10H)  ;SE SELEZIONATO
+		CP      40H             ;MENO SALTO
+                JP      Z,ENTE3         ;SE SELEZIONATO
+		CP      70H             ;PIU' SALTO
+                JP      Z,ENTE3   
+		CP      73H             ;SE SELEZIONATO
+                JP      Z,ENTE4         ;P SALTO
+		CP      50H
+		JP      Z,ENTE6
+		CP      1CH
+		JP      Z,ENTE7
+		CP      39H             ;CILINDRO CALCOLO
+                JP      NZ,ENTE2        ;CENTES.
+		LD      DE,(CILIN)      ;MOLTIPLICO PER
+		LD      (MOLTI),DE      ;10 IL CILINDRO
+		LD      A,0AH           ;PER POTER USARE
+		LD      (MOLPL),A       ;AGGIUSTAMENTO
+		CALL    MOLT            ;DECIMALE
+		LD      DE,(PROD)
+		LD      (CILMOL),DE     ;CILINDRO x 10
+		LD      (DIVDEN),DE
+		LD      BC,0029H        ;4096/100
+		LD      (DIVSOR),BC
+		CALL    DIVIS
+		LD      DE,(QUOZIE)
+		LD      (AGGIU),DE      ;VEDO SE DEVO
+		CALL    AGGIUS          ;ARROTONDARE
+		LD      DE,(QUOZIE)
+		LD      (DIVDEN),DE     ;DIVIDO PER 10
+		LD      BC,000AH        ;PER ANNULLARE
+		LD      (DIVSOR),BC     ;LA MOLTIPLICA-
+		CALL    DIVIS           ;ZIONE PRECEDENTE
+		LD      DE,(QUOZIE)
+		LD      (CENTES),DE
+		LD      DE,(CILIN)      ;DIVISIONE DEL
+		LD      (DIVDEN),DE     ;CILNDRO PER 10
+		LD      BC,000AH
+		LD      (DIVSOR),BC
+		CALL    DIVIS
+		LD      DE,(QUOZIE)
+		LD      (CILDIV),DE
+                LD      DE,0E4EH        ;4000x4096=
+                LD      (MDO032),DE     ;1638400
+                LD      DE,0000H        ;60\1638400=
+                LD      (MDO232),DE     ;0,000003662
+                LD      (MRE232),DE     ;3662=0E4EH
+                LD      DE,(CILIN)
+                LD      (MRE032),DE
+                CALL    MOL32
+                CALL    DI1000
+                LD      BC,(QU1000)
+                LD      (COSVEL),BC     ;COSTANTE VEL.
+ENTE2:          JP      CLEA1
+ENTE3:          CALL    SPOSTA
+		JP      CLEA1
+
+ENTE31:                                 ;FF57
+                LD      HL,(FASE)       ;CARICO IL FF5555 
+                LD      A,H             ;CONTATORE PER FF5555
+                OUT     (20H),A         ;LEGGERE POI S1 FF5555
+                LD      A,L             ;FF5555
+                OUT     (10H),A         ;FF5555
+                LD      A,00H
+                LD      (MEM5),A
+                LD      (MOLTI),HL      ;MOLTIPLICO PER FF5555
+		LD      A,0AH           ;10 PER AVERE IL
+		LD      (MOLPL),A       ;RIFERIMENTO TO-
+		CALL    MOLT            ;TALE TRASCURAN-
+		LD      DE,(PROD)       ;DO IL RAPPORTO
+		LD      (RIFTOT),DE
+                LD      A,01H           ;FF56
+                LD      (MOSCI1),A      ;FF56
+                LD      A,02H           ;FF57
+                LD      (MCENOS),A
+                JP      CLEA1           ;FF5555
+
+ENTE4:
+      
+                LD      DE,(AMPGA)      ;NORD  TEC
+                LD      (MOLTI),DE      ;MOLTIPLICO
+                LD      A,08H           ;AMPIEZZA GATE
+                LD      (MOLPL),A       ;PER 8
+		CALL    MOLT
+                LD      DE,(PROD)       
+                LD      (DIVDEN),DE     ;DIVIDO PER 2
+                LD      BC,0002H
+		LD      (DIVSOR),BC
+                CALL    DIVIS           ;AMPIEZZA 40%  
+                LD      DE,(QUOZIE)     ;IN DECIMI
+                LD      (DMEZGA),DE
+                LD      DE,(AMPGA)      ;MOLTIPLICO
+		LD      (MOLTI),DE      ;AMPIEZZA GATE
+		LD      A,64H           ;PER 100
+		LD      (MOLPL),A
+		CALL    MOLT
+		LD      DE,(PROD)       ;AMPIEZA IN CENT.
+		LD      (DIVDEN),DE
+		LD      BC,(CENTES)
+		LD      (DIVSOR),BC
+		CALL    DIVIS           ;AMPIEZZA GATE IN
+		LD      DE,(QUOZIE)     ;IMPULSI ENCODER.
+		LD      A,D             ;CONTROLLO SE IL
+		CP      00H             ;RISULTATO E'MAG-
+		JR      Z,ENTE41        ;GIORE DI 255.
+		LD      D,00H           ;SE LO E'IMPONGO
+		LD      E,0FFH          ;COME VALORE MAX
+		LD      (MOLTI),DE      ;255 E RIPETO LE
+		LD      A,(CENTES)      ;OPERAZIONI 
+		LD      (MOLPL),A       ;ALL'INVERSO PER
+		CALL    MOLT            ;PER CALCOLARE IL
+		LD      DE,(PROD)       ;NUOVO AMPAG RI-
+		LD      (DIVDEN),DE     ;FERITO A 255.
+		LD      BC,0064H
+		LD      (DIVSOR),BC
+		CALL    DIVIS
+		LD      DE,(QUOZIE)
+		LD      (AMPGA),DE
+                JP      ENTE4
+
+ENTE41:         LD      (AMPIMP),DE     
+		LD      (MOLTI),DE
+                LD      A,2DH           ;CALCOLO IL 45% 
+		LD      (MOLPL) ,A      ;DELL'AMPIEZZA DEL
+		CALL    MOLT            ;GATE
+		LD      DE,(PROD)       
+		LD      (DIVDEN),DE
+		LD      BC,0064H
+		LD      (DIVSOR),BC
+		CALL    DIVIS
+		LD      DE,(QUOZIE)
+                LD      (MEZGA),DE
+
+                LD      DE,(AMPGA)      
+		LD      (MOLTI),DE
+                LD      A,28H           ;CALCOLO IL 40%
+		LD      (MOLPL) ,A      ;DELL'AMPIEZZA DEL
+                CALL    MOLT            ;GATE  IN mm
+		LD      DE,(PROD)       
+		LD      (DIVDEN),DE
+                LD      BC,000AH        
+		LD      (DIVSOR),BC
+		CALL    DIVIS
+                LD      HL,(QUOZIE)     ;40% AMPIEZZA  
+                LD      (AMPI40),HL     ;GATE IN mm
+
+                LD      DE,(AMPIMP)     ;CALCOLO DEL 
+                LD      (MOLTI),DE      ;10 AMPIMP
+                LD      A,0AH
+                LD      (MOLPL),A
+                CALL    MOLT
+                LD      DE,(PROD)
+                LD      (AMPI10),DE     
+		LD      DE,(AMPIMP)
+		LD      (DIVDEN),DE     ;CALCOLO IL BIANCO
+                LD      BC,0002H        ;RIFERITO PERO' OOPP
+		LD      (DIVSOR),BC     ;AD 2048 IMPULSI
+		CALL    DIVIS           ;PER GIRO
+		LD      DE,(QUOZIE)     
+		LD      (BIANCO),DE
+		LD      DE,0032H        ;CALCOLO QUANTI
+		LD      (DIVDEN),DE     ;IMP.SONO 1 mm
+		LD      BC,(CENTES)     ;ESSENDO CONTATI
+		LD      (DIVSOR),BC     ;DA 2048 IL
+		CALL    DIVIS           ;DIVIDENDO E' 50 
+		LD      DE,(QUOZIE)     
+                LD      (UNOMIL),DE     ;3072= 3/4
+                LD      DE,0C00H        ;IMPULSI PER GIRO
+                LD      (DIVDEN),DE     ;DA CUI RICAVO I
+                LD      BC,(AMPIMP)     ;GATE IN 3/4 GIRO
+                LD      (DIVSOR),BC     ;MODIFICA FATTA
+                CALL    DIVIS           ;DOPO NUOVO CALCO-
+                LD      HL,(QUOZIE)     ;LO VELOCITA'IN
+                LD      (MEMAB+00H),HL  ;CTC0 PER NON AVER
+                JP      CLEA1           ;SALTI DI GATE.         
+FUNZI:         
+		LD      A,71H           ;F
+		LD      (BINSET+10H),A
+		LD      A,40H           ;-
+		LD      (BINSET+0FH),A
+		LD      (BINSET+0EH),A
+		LD      (BINSET+0DH),A
+		LD      (BINSET+0CH),A
+		EXX
+		CALL    TRDIS
+		LD      A,00H           ;RESETTO PORTA C
+		LD      (MEMC),A        ;IMPONENDO MANUALE
+		OUT     (PC),A
+		LD      A,(HL)          ;ASPETTO CHE    
+		LD      (MEMTF),A       ;VENGA SCELTA
+		CP      00H
+		JR      Z,FUNZ0
+		CP      01H
+		JP      Z,FUNZ1
+		CP      02H
+		JP      Z,FUNZ2
+		CP      03H
+		JP      Z,FUNZ3
+		CP      04H
+		JP      Z,FUNZ4
+		CP      05H
+		JP      Z,FUNZ5
+		CP      06H
+		JP      Z,FUNZ6
+		CP      07H
+		JP      Z,FUNZ7
+                CP      08
+                JP      Z,FUNZ8         ;TEC
+                CP      09H
+                JP      Z,FUNZ9         ;NORD 
+FUNZI1:         IN      A,(PA)          
+		AND     1FH             ;SENTO SE IL
+		CP      0FH             ;TASTO FUNZIONE
+		JR      NZ,FUNZI3       ;E'PIGIATO PER
+                LD      BC,0700H        ;PIU' DI 4 SEC.
+FUNZI2:         DEC     BC              ;SE LO E' 
+		LD      A,B             ;ATTIVO L'AC-
+		OR      C               ;CESSO AL CAMBIO 
+		JR      NZ,FUNZI2       ;PARAMETI
+		LD      A,(SETUP1)
+		INC     A
+		LD      (SETUP1),A
+		CP      0FFH
+		JR      NZ,FUNZI1
+		LD      A,01H
+		LD      (SETUP2),A
+FUNZI3:         JP      ESCI            
+  
+		
+		;AZZERAMENTO DOPO REGISTRO MANUALE
+
+FUNZ0:          LD      A,01H
+		LD      (MEM0),A
+		LD      A,77H           ;A
+		LD      (BINSET+10H),A
+		LD      A,5BH           ;Z
+		LD      (BINSET+0FH),A
+		LD      A,5BH           ;Z
+		LD      (BINSET+0EH),A
+		LD      A,79H           ;E
+		LD      (BINSET+0DH),A
+		LD      A,50H           ;r
+		LD      (BINSET+0CH),A
+		EXX                     ;SCRITTA
+		CALL    TRDIS           ;AZZER
+		JP      ESCI
+FUN3:           LD      BC,(ERATTU)     ;CARICO L'ERRORE
+		LD      (SHIFT),BC      ;LETTO IN SHIFT                                          
+		LD      A,(MSCORR)      ;VEDO SE IN AVANTI
+		CP      01H             ;O IN RITARDO E
+		JR      Z,FUN1          ;CHIAMO LA ROUTINE
+		LD      A,70H           ;SPOSTA PER CEN-
+		LD      (PIUMEN),A      ;TRARLO NEL GATE.
+		JR      FUN2
+FUN1:           LD      A,40H
+		LD      (PIUMEN),A
+FUN2:           CALL    SPOSTA
+		JP      CLEA1
+		
+		;PARAMETRI CILINDRO
+
+FUNZ1:          LD      A,01H
+		LD      (MEM1),A
+		LD      DE,(CILIN)
+		LD      (BINSET),DE
+		LD      A,39H           ;C
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      ESCI
+KBRD1:
+                LD      A,(MEM5)        ;FF55
+                BIT     0,A             ;FF55
+                JP      NZ,ESCI         ;FF55
+
+		IN      A,(PA)
+		AND     0FH
+		LD      L,A
+		LD      H,00H
+		LD      DE,TABLE
+		ADD     HL,DE
+		LD      A,(HL)
+		CP      0AH
+		JP      Z,CLEA1
+		CP      0BH
+		JP      Z,ENTE1
+		CP      0AH             ;SE NON NUMERO
+		JP      NC,ESCI         ;ESCI
+		LD      B,A
+		LD      A,(MEMID)       ;SE E' IL PRIMO
+		BIT     0,A             ;NUMERO INSERITO
+		JR      NZ,ADIS1        ;INIZIALIZZA IL
+		LD      A,01H           ;DISPLAY METTENDO
+		LD      (MEMID),A       ;DEGLI ZERI
+		CALL    INIZDI
+ADIS1:          LD      A,B
+		CALL    MUOVO
+		CALL    BIOTT
+		JP      ESCI
+
+		;PARAMETRI ALLARME
+
+FUNZ2:          LD      A,01H
+		LD      (MEM2),A
+		LD      DE,(ALLAR)
+		LD      (BINSET),DE
+		LD      A,77H           ;A
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      ESCI
+	       
+		;PARAMETRI AMPIEZZA GATE
+
+FUNZ3:          LD      A,01H
+		LD      (MEM3),A
+		LD      DE,(AMPGA)
+		LD      (BINSET),DE
+		LD      A,73H           ;P
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      ESCI
+		
+		;SEGNALAZIONE FASATURA AUTOMATICA
+
+FUNZ4:          LD      A,01H
+		LD      (MRIC+00H),A
+		LD      A,00H
+		;LD      (MRIC+02H),A	MMCC
+		LD	(DOPPIO),A	;MMSS
+                LD      (SUPCOR),A      ;
+
+		LD      A,05H		;MMCC
+		LD      (MRIC+02H),A	;MMCC
+
+		LD      A,60H           ;INIZIO CON MMCC
+		LD      (GUADS1),A      ;GUADAGNO MINIMO
+		JP      ESCI
+
+		;FASATURA MANUALE E RICENTRATURA
+
+FUNZ5:         
+		LD	(SHIFT1),A	;SSCC
+		LD	(SHIFT2),A	;SSCC
+		IN      A,(10H)         ;SENTO SE EEOO
+		LD      L,A             ;L'ENCODER
+		IN      A,(20H)         ;STA GIRANDO
+		LD      H,A             ;SE E' FERMO
+		LD      BC,07FFFH       ;ESEGUO FSABO
+FUNZ51:         DEC     BC              ;SE GIRA ESEGUO
+		LD      A,B             ;RICENTRATURA
+		OR      C
+		JR      NZ,FUNZ51
+		IN      A,(10H)      
+		LD      E,A
+		IN      A,(20H)
+		CP      H
+		JR      NZ,FUNZ52
+		LD      A,E
+		CP      L
+		JR      Z,FUNZ53
+FUNZ52:         LD      A,3FH           ;O
+		LD      (BINSET+10H),A
+		LD      A,6DH           ;S
+		LD      (BINSET+0FH),A
+		LD      A,39H           ;C
+		LD      (BINSET+0EH),A
+		LD      A,06H           ;I
+		LD      (BINSET+0DH),A
+		LD      A,38H           ;L
+		LD      (BINSET+0CH),A
+		LD      A,01H           ;FF57
+                LD      (MEM5),A        ;FF57
+		EXX
+		CALL    TRDIS
+		JP      ESCI           
+FUNZ53:         IN      A,(10H)         ;LEGGO LA POSI-
+		LD      E,A             ;ZIONE
+		IN      A,(20H)
+		LD      D,A
+		LD      (FASE),DE
+		LD      (MOLTI),DE      ;MOLTIPLICO PER
+		LD      A,0AH           ;10 PER AVERE IL
+		LD      (MOLPL),A       ;RIFERIMENTO 
+		CALL    MOLT            ;TOTALE.
+		LD      DE,(PROD)
+		LD      (RIFTOT),DE
+		CALL    CENTRA
+		LD      A,71H           ;F
+		LD      (BINSET+10H),A
+		LD      A,77H           ;A
+		LD      (BINSET+0FH),A
+		LD      A,6DH           ;S
+		LD      (BINSET+0EH),A
+		LD      A,7CH           ;b
+		LD      (BINSET+0DH),A
+		LD      A,5CH           ;o
+		LD      (BINSET+0CH),A
+		EXX
+		CALL    TRDIS
+		JP      ESCI
+
+
+
+
+     
+		;LETTURA PARAMETRI LAVORO
+
+FUNZ6:          JP      CLEA1           ;###########
+		LD      A,01H           ;#SOPPRESSA#
+		LD      (MEM6),A        ;###########
+		LD      DE,(LAVORO)
+		LD      (BINSET),DE
+		LD      A,50H           ;r
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      ESCI
+		
+ENTE6:          LD      BC,0020H        ;PER CALCOLARE
+		LD      A,(LAVORO)      ;L'INDIRIZZO DI
+		LD      (MOLTI),BC      ;INIZIO DEI DATI 
+		LD      (MOLPL),A       ;DI UN LAVORO
+		CALL    MOLT            ;MOLTIPLICO IL
+		LD      DE,(PROD)       ;Nø DEL LAVORO 
+		LD      HL,TABLAV       ;PER 32 E IL
+		ADD     HL,DE           ;RISULTATO LO
+		LD      DE,CILIN        ;SOMMO ALL'INDI-
+		LDIR                    ;RIZZ0 DI INIZIO
+		LD      A,01H           ;DELLA TABELLA
+		LD      (MEM6A),A       
+		JP      CLEA1
+
+		;SCRITTURA PARAMETRI LAVORO
+
+FUNZ7:          JP      CLEA1           ;###########
+		LD      A,01H           ;#SOPPRESSA#
+		LD      (MEM7),A        ;###########
+		LD      DE,(LAVORO)
+		LD      (BINSET),DE
+		LD      A,1CH           ;u
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      ESCI
+
+ENTE7:          LD      BC,0020H        ;COME SOPRA SOLO
+		LD      A,(LAVORO)      ;CHE VENGONO
+		LD      (MOLTI),BC      ;INVERTITI TRA 
+		LD      (MOLPL),A       ;LORO LA DESTINA-
+		CALL    MOLT            ;ZIONE E LA SOR- 
+		LD      DE,(PROD)       ;GENTE
+		LD      HL,TABLAV
+		ADD     HL,DE
+		EX      DE,HL
+		LD      HL,CILIN
+		LDIR
+		JP      CLEA1
+
+
+                ;FUNZIONE 8 REGOLA TIRO  TEC
+
+FUNZ8:          LD      A,(TIMER)       ;SE TIMER 
+                CP      00H             ;EGUALE A ZERO
+                JP      Z,CLEA1         ;SALTO
+                LD      A,(FUN8AM)
+                CP      00H
+                JR      NZ,FUNZ81
+                CALL    DISMAN
+                JR      FUNZ82
+FUNZ81:         CALL    DISAUT
+
+
+FUNZ82:         LD      BC,0AFFFH        ;RITARDO ANTI-
+FUNZ83:         DEC     BC               ;RIMBALZO
+                LD      A,B
+                OR      C
+                JR      NZ,FUNZ83
+                IN      A,(PA)
+                AND     1FH              ;TASTO
+                CP      0EH              ;MAN/AUTO
+                JP      Z,F8AUMA
+                IN      A,(PA)
+                AND     1FH              ;TASTO
+                CP      0BH              ;ENTER
+                JP      Z,ESCI
+
+                LD      A,(FUN8AM)
+                CP      00H
+                JR      NZ,FUNZ86
+
+FUNZ84:         IN      A,(PA)
+                AND     1FH              ;TASTO
+                CP      0DH              ;MENO
+                JR      NZ,FUNZ85
+                LD      A,(MEMC)
+                RES     6,A
+                SET     7,A
+                LD      (MEMC),A
+                OUT     (PC),A
+
+                LD      A,40H           ;-
+		LD      (BINSET+10H),A
+                LD      A,73H           ;P
+		LD      (BINSET+0FH),A
+                LD      A,77H           ;A
+		LD      (BINSET+0EH),A
+                LD      A,73H           ;P
+		LD      (BINSET+0DH),A
+                LD      A,79H           ;E
+		LD      (BINSET+0CH),A
+                CALL    TRDIS
+                JR      FUNZ84
+
+FUNZ85:         IN      A,(PA)
+                AND     1FH             ;TASTO
+                CP      0CH             ;PIU'
+                JR      NZ,FUNZ86
+                LD      A,(MEMC)
+                SET     6,A
+                RES     7,A
+                LD      (MEMC),A
+                OUT     (PC),A
+
+                LD      A,70H           ;+
+		LD      (BINSET+10H),A
+                LD      A,73H           ;P
+		LD      (BINSET+0FH),A
+                LD      A,77H           ;A
+		LD      (BINSET+0EH),A
+                LD      A,73H           ;P
+		LD      (BINSET+0DH),A
+                LD      A,79H           ;E
+		LD      (BINSET+0CH),A
+                CALL    TRDIS
+                JR      FUNZ85
+
+FUNZ86:         LD      A,(MEMC)
+                RES     6,A
+                RES     7,A
+                LD      (MEMC),A
+                OUT     (PC),A
+
+                JP      FUNZ8
+
+F8AUMA:         LD      A,(FUN8AM)      
+                BIT     0,A
+                JR      NZ,F8AUM1
+                SET     0,A             ;AUTO = 1
+                JR      F8AUM2
+F8AUM1:         RES     0,A             ;MAN = 0
+F8AUM2:         LD      (FUN8AM),A
+                JP      FUNZ8
+
+
+                ;FUNZIONE 9 PER NORD MECCANICA
+
+FUNZ9:          LD      A,(MEMC)        ;NORD
+                RES     0,A
+                SET     1,A
+                SET     2,A
+                SET     5,A             ;TEC
+                LD      (MEMC),A
+                OUT     (PC),A
+                LD      A,02H           ;CARICO LA
+                LD      (MNORD),A       ;MEM A DECRE-
+                JP      CLEA1           ;MENTO
+
+
+AUTMAN:         LD      DE,0FFFH        ;CONTROLLO
+KRIT3:          DEC     DE              ;ANTIDISTURBO  
+		LD      A,D
+		OR      E
+		JR      NZ,KRIT3
+		IN      A,(PA)          
+		BIT     4,A
+		JP      NZ,ESCI
+		AND     0FH             
+		LD      L,A             ;LEGGO DUE VOLTE
+		LD      H,00H           ;LA TASTIERA CON
+		LD      DE,TABLE        ;UN RITARDO TRA 
+		ADD     HL,DE           ;PRIMA E LA SECON-
+		LD      B,(HL)          ;DA LETTURA SE 
+		LD      DE,0FFFH        ;SONO EGUALI 
+KRIT4:          DEC     DE              ;PROCEDO SE NO 
+		LD      A,D             ;ESCO
+		OR      E
+		JR      NZ,KRIT4
+		IN      A,(PA)
+		BIT     4,A
+		JP      NZ,ESCI
+		AND     0FH             
+		LD      L,A
+		LD      H,00H
+		LD      DE,TABLE
+		ADD     HL,DE
+		LD      A,(HL)          ;SECONDA LETTURA
+		CP      B               ;B= PRIMA LETTU-
+		JP      NZ,ESCI         ;RA.
+
+		LD      A,00H           ;TOLGO USO DELLA                
+		LD      (MKBUSY),A      ;TASTIERA
+		LD      A,(MEMC)
+		BIT     2,A
+		JR      NZ,MANUAL
+		LD      A,(MEMC)
+		SET     2,A             ;METTO IN AUTOMAT.
+		LD      (MEMC),A
+		OUT     (PC),A
+		JP      ESCI
+
+MANUAL:         LD      A,(MEMC)
+		RES     0,A
+		RES     1,A
+		RES     2,A             ;METTO IN MANUALE
+		RES     6,A
+		RES     7,A
+		LD      (MEMC),A
+		OUT     (PC),A
+		JP      ESCI
+
+MANAVA:         LD      A,(MEMC)        ;SE E' IN AUTO-
+		BIT     2,A             ;MATICO SALTO
+		JR      NZ,MANEND
+		RES     1,A
+		SET     0,A
+		LD      (MEMC),A
+		OUT     (PC),A          ;MOTORE AVANTI
+		IN      A,(PA)
+		AND     1FH             ;XXXXXXXXX      
+		CP      0CH             ;XXXXXXXXX
+		JR      Z,MANAVA
+		JR      MANEND
+
+MANRIT:         LD      A,(MEMC)        ;SE E' IN AUTO-
+		BIT     2,A             ;MATICO SALTA
+		JR      NZ,MANEND
+		RES     0,A
+		SET     1,A
+		LD      (MEMC),A
+		OUT     (PC),A          ;MOTORE RITARDO
+		IN      A,(PA)
+		AND     1FH             ;XXXXXXXXX
+		CP      0DH             ;XXXXXXXXXXXX
+		JR      Z,MANRIT
+
+MANEND:         LD      A,00H           ;TOLGO L'USO
+		LD      (MKBUSY),A      ;DELLA TASTIERA
+		LD      A,(MEMC)
+		RES     0,A
+		RES     1,A
+		LD      (MEMC),A
+		OUT     (PC),A
+		JP      ESCI    
+
+MUOVO:          LD      IX,BINSET+06H
+		LD      B,(IX+00H)      ;MEMORIZZO I
+		LD      C,(IX+01H)      ;NUMERI E LI
+		LD      D,(IX+02H)      ;MUOVO VERSO
+		LD      E,(IX+03H)      ;SINISTRA
+		LD      (IX+00H),A
+		LD      (IX+01H),B
+		LD      (IX+02H),C
+		LD      (IX+03H),D
+		LD      (IX+04H),E
+		RET
+
+INIZDI:         LD      A,00H
+		LD      IX,BINSET+06H
+		LD      (IX+00H),A
+		LD      (IX+01H),A
+		LD      (IX+02H),A
+		LD      (IX+03H),A
+		LD      (IX+04H),A
+		RET
+
+ESCI:           LD      A,(MEMA)               
+		SET     7,A
+		OUT     (PA),A          
+		LD      (MEMA),A
+		LD      A,(MEM6A)       ;SE FINITA LA
+		CP      00H             ;FUNZIONE 6
+		JR      NZ,ESCI1        ;RIPARTI DALLO
+		POP     IY              ;INIZIO COSI'
+		POP     IX              ;AGGIORNA IL
+		POP     AF              ;TUTTO.
+		POP     HL
+		POP     DE
+		POP     BC
+		JR      ESCI2
+ESCI1:          LD      HL,VIA
+		EX      (SP),HL
+ESCI2:          EI
+		RETI
+
+		
+
+
+PIOB:           PUSH    BC
+		PUSH    DE
+		PUSH    HL
+		PUSH    AF
+		PUSH    IX
+		PUSH    IY
+		LD      A,0D7H          ;CONTROLLO CTC0
+		OUT     (70H),A         ;CARICO AMPIEZZA
+		LD      A,(AMPIMP)      ;GATE IN IMPULSI
+		OUT     (70H),A         ;ENCODER. 
+
+	        LD      A,(GUADS1)      ;AMPLIFICAZIONE MMCC
+		LD      B,A             ;S1
+                LD      A,(MEMA)        
+		RES     5,A
+		RES     6,A
+		ADD     A,B
+		LD      (MEMA),A
+                OUT     (PA),A          ;MMCC
+
+	        LD      A,(TMEM4)       ;SE ATTIVATA SSDD
+                CP      00H             ;CORREZIONE
+                JR      NZ,PIOB1        ;SALTA MMSS
+
+		LD	A,(ABIDOP)	;CONTROLLO SE DDAA
+		CP	00H		;SEGNALARE
+		JR	Z,PIOB1		;DOPPIO SEGNO
+
+		LD	A,(DOPPIO)	;SE INSERITA  LA NON SSDD MMSS
+		CP	02H		;VISUALIZZAZIONE 
+		JR	Z,PIOB1		;DELLA SCRITTA SALTO SSDD
+                LD      A,0D7H          ;ATTIVO IL CTC3 PER CONTROLLARE SSDD
+                OUT     (73H),A         ;IL SEGNO DOPPIO DURANTE IL GATE
+                LD      A,02H           ;CIOE' LO ATTIVO A PIOB E LO
+                OUT     (73H),A         ;RESETTO ALL'INIZIO DI CTC0 MMSS
+PIOB1:					;MMSS
+		POP     IY
+		POP     IX
+		POP     AF
+		POP     HL
+		POP     DE
+		POP     BC
+		EI
+		RETI
+
+
+
+
+CTC0:           PUSH    BC
+		PUSH    DE
+		PUSH    HL
+		PUSH    AF
+		PUSH    IX
+		PUSH    IY
+
+	        LD      A,(TMEM4)       ;SE ATTIVATA SSDD
+                CP      00H             ;CORREZIONE
+                JR      NZ,CTC017       ;SALTA 
+CTC017: 
+                LD      A,(ENCOD1)     ;SE NON   
+                CP      02H            ;ABILITATO
+                JR      NZ,CTC013      ;SALTA
+                LD      A,(ENCOD2)     ;INCREMENTO
+                INC     A              ;A OGNI 255
+                LD      (ENCOD2),A     ;IMPULSI
+                LD      A,0DFH         ;RICARICO CTC0 
+		OUT     (70H),A
+                LD      A,0FFH
+                OUT     (70H),A
+                JP      CTC014         
+
+CTC013:         LD      A,40H           ;CARICO MEMORIA
+		LD      (ROLF),A        ;PER RESET
+		LD      A,(MEMAB+02H)   ;CONTROLLO SE
+		CP      00H             ;SONO FINITI
+		JP      NZ,CTC06        ;I GATE FITTIZI
+		LD      A,(MRIC+00H)    ;PER POTER GENE-
+		CP      00H             ;RARE QUELLO
+		JR      Z,CTC01         ;VERO.
+		LD      A,43H
+		OUT     (70H),A
+                JP      CTC02
+CTC01:          IN      A,(30H)         ;LEGGO IL VALORE
+		LD      E,A             ;DI PIENO
+		IN      A,(40H)
+		LD      D,A
+		LD      (PIENO),DE
+		IN      A,(50H)         ;LEGGO IL VALORE
+		LD      E,A             ;DELLA POSIZIONE
+		IN      A,(60H)
+		LD      D,A
+		LD      (POSIZ),DE
+		IN      A,(61H)         ;LEGGO IL VALORE
+		LD      E,A             ;DI ENCODER
+		IN      A,(62H)         ;ALL'ARRIVO DI S1
+		LD      D,A
+		LD      (FASES1),DE
+	
+                LD      A,(MEM5)        ;FF57
+                CP      01H             ;FF55
+                JR      NZ,CTC015       ;FF55
+                CALL    SPOFAS          ;EEOO
+                
+
+                LD      HL,(FASE)       ;CARICO IL FF55
+                LD      A,H             ;CONTATORE PER FF55
+                OUT     (20H),A         ;LEGGERE POI S1 FF55
+                LD      A,L             ;FF55
+                OUT     (10H),A         ;FF55        
+                
+CTC015:					;FF55		
+		LD      A,(MEMB)
+		SET     5,A             ;ATTIVO IL MONO-
+		OUT     (PB),A          ;STABILE DA 5 mS
+		RES     5,A
+		LD      (MEMB),A
+		OUT     (PB),A
+                LD      BC,011DH        ;4mS TEMPO
+                LD      IX,IMPVEL       ;PER MISURARE
+                LD      A,00H           ;GLI IMPULSI
+                LD      (IX+01H),A
+                LD      A,057H          ;SETTO CTC0
+                OUT     (70H),A         ;SENZA INTERUPT
+                LD      A,0FFH          
+                OUT     (70H),A         
+CTC011:         IN      A,(70H)         ;NEL CASO IL 
+                CP      00H             ;DECREMENTO 
+                JR      NZ,CTC012       ;ARRIVI A ZERO
+                INC     (IX+01H)        ;LO MEMORIZZO
+CTC012:         DEC     BC              ;IN IX+01
+                LD      A,B
+                OR      C
+                JR      NZ,CTC011       
+                IN      A,(70H)         
+                CPL                     ;IMPULSI PROPOR
+                LD      (IMPVEL),A      ;ALLA VELOCITA.
+		LD      A,0D7H          ;CARICO L'AM-
+		OUT     (70H),A         ;PIEZZA DEL GATE
+		LD      A,(AMPIMP)      ;FITTIZIO E QUAN-
+		OUT     (70H),A         ;TE  VOLTE DEVE
+		LD      A,(MEMAB+00H)   ;DARE L'INTERRUPT
+		LD      (MEMAB+02H),A   ;IN UN GIRO.
+		LD      A,(MEMA)        ;TOLGO L'ABILITA-
+		RES     7,A             ;ZIONE GATE
+		LD      (MEMA),A
+		OUT     (PA),A
+		LD      A,01H           ;SEGNALA AL MAIN
+		LD      (MCALER),A      ;CHE HA LETTO.
+CTC02:          LD      A,(MRIC+00H)    ;SE E'IN RICERCA
+		CP      00H             ;AUTOMATICA SALTO
+		JR      NZ,CTC03
+		LD      A,(MEMC)        ;SE SONO IN MA-
+		BIT     2,A             ;NUALE SALTO
+		JR      Z,CTC03
+		IN      A,(PB)          ;SE MANCA IL 
+		BIT     3,A             ;SEGNO BLOCCO
+		JR      Z,CTC03         ;LA CORREZIONE
+                LD      A,02H           ;AUMENTANDO I
+		LD      (MATTES),A      ;CICLI DI ATTESA.
+		LD      A,(MNOPRI)      ;ASPETTO 2 NOPRI
+		INC     A               ;CONSECUTIVI
+		LD      (MNOPRI),A      ;PRIMA DI SCRI-
+		CP      02H             ;VERLO SUL
+		JR      NZ,CTC05        ;DISPLAY.
+                
+                LD      A,01H           ;BBLL
+                LD      (MNOP01),A      ;BBLL
+
+		CALL    NOPRI           
+CTC03:          LD      A,00H           ;SE NON ARRIVA A 2
+		LD      (MNOPRI),A      ;ANNULLO LA CONTA
+CTC05:          IN      A,(PB)
+		BIT     3,A
+		JR      Z,CTC04
+
+                LD      A,(MEMC)        ;TEC
+                BIT     5,A             ;TEC
+                JR      NZ,CTC08        ;TEC
+
+		LD      A,(MEMC)
+		RES     0,A
+		RES     1,A
+		SET     4,A
+		LD      (MEMC),A
+		OUT     (PC),A
+		JR      CTC08
+CTC06:          LD      A,0D7H
+		OUT     (70H),A
+		LD      A,(AMPIMP)      ;CARICO L'AMPIEZ-
+		OUT     (70H),A         ;DEL GATE FITTI-
+		LD      A,(MEMAB+02H)   ;ZIO E DECREMENTO
+		DEC     A               ;GLI INTERRUPT.
+		LD      (MEMAB+02H),A
+		CP      00H
+		JR      Z,CTC07
+                JR      CTC08
+CTC07:
+                LD      A,(MEMA)
+		SET     7,A
+		LD      (MEMA),A
+		OUT     (PA),A
+		LD      A,43H
+		OUT     (70H),A
+CTC04:          IN      A,(PB)          ;QUANDO C'E IL 
+		BIT     3,A             ;SEGNO ANNULLO
+		JR      NZ,CTC08        ;SEGNALAZ. TCM
+
+
+                LD      A,00H           ;BBLL
+                LD      (MNOP01),A      ;BBLL
+
+CTC08:          LD      A,(MEMC)        ;SALTO PER TEC
+                BIT     5,A             ;FUNZ8 NORD TEC
+                JR      NZ,CTC010       ;MECCANICA.
+                LD      A,(MEMC)        ;SE SONO IN 
+                BIT     2,A             ;MANUALE SALTO
+                JR      Z,CTC010        ;
+
+                LD      IX,TRIP
+                LD      A,(IX)          
+                CP      00H
+                JR      Z,CTC010        
+
+                LD      HL,(VELMED)     ;CONTROLLO SE
+                LD      DE,(VELPRE)     ;TRA LA NUOVA 
+                SBC     HL,DE           ;E LA VECCHIA 
+                JR      C,CTC09         ;VELOCITA'C'E' 
+                LD      A,L             ;LA DIFFERENZA
+                CP      (IX)            ;TRIP IN METRI 
+                JP      M,CTC010        ;SIA IN PIU' CHE
+                CALL    ACCEL           ;IN MENO SE C'E'
+                JR      CTC010          ;BLOCCO CON
+CTC09:          CCF                     ;LA SCRITTA
+                LD      HL,(VELPRE)     ;APPROPIATA
+                LD      DE,(VELMED)
+                SBC     HL,DE
+                LD      A,L
+                CP      (IX)
+                JP      M,CTC010
+                CALL    DECEL
+CTC010:         LD      DE,(VELMED)
+                LD      (VELPRE),DE
+
+CTC014:
+	        LD      A,(MOSCI1)      ;FF57
+                CP      01H
+                JR      NZ,CTC016       ;FF57
+                LD      A,(MCENOS)      ;ASPETTO UN
+		DEC     A		;GIRO PER
+                LD      (MCENOS),A      ;CENTRARE
+                CP      00H
+                JR      NZ,CTC016
+                CALL    CENTRO          ;FF57
+                LD      A,00H           ;FF57
+                LD      (MOSCI1),A      ;FF57
+
+                LD      HL,(POSTOT)
+                LD      (RIFTOT),HL
+
+                CALL    NOPRI6
+
+CTC016:         POP     IY
+		POP     IX
+		POP     AF
+		POP     HL
+		POP     DE
+		POP     BC
+		EI
+		RETI
+
+
+
+		;USCITA DA RICERCA AUTOMATICA FALLITA
+
+
+CTC1:           PUSH    BC
+		PUSH    DE
+		PUSH    AF
+		PUSH    IX
+		PUSH    IY
+		LD      A,(ENCOD1)      ;VEDO SE SONO
+		CP      00H             ;IN TEST
+		JR      Z,CTC13         ;ENCODER
+		CP      01H
+		JR      Z,CTC14
+		CP      02H
+		JR      Z,CTC15
+CTC14:          LD      A,02H           ;PARTENZA TEST
+		LD      (ENCOD1),A
+                LD      HL,ENC2        
+		JR      CTC12           
+CTC15:          LD      HL,ENC6         ;FINE TEST                        
+                JR      CTC12           ;
+CTC13:        ;  LD      A,(MRIC+02H)    ;CONTROLLO SE
+		;CP      00H             ;DEVO FARE IL 
+	;	JR      Z,CTC10         ;2ø TENTATIVO
+
+		CALL    GAINS1		;MMCC
+                LD      A,(MRIC+02H)
+		DEC     A
+		LD      (MRIC+02H),A
+		CP      00H
+		JR	NZ,CTC10        ;MMCC
+
+		LD      A,00H
+		LD      (MRIC+00H),A    ;AZZERO LE MEMO-
+		LD      (MRIC+02H),A    ;RIE DELLA RI-
+		LD      A,43H           ;CERCA E RESETTO
+		OUT     (71H),A         ;CTC1.
+		CALL    ERROR
+		LD      A,(MEMB)
+		RES     6,A             ;SBLOCCO GATE
+		LD      (MEMB),A
+		OUT     (PB),A
+		JR      CTC11
+CTC10:          LD      HL,CODICE       ;CARICO INDIRIZ- SSVV MMCC 
+		JR      CTC12           ;ZO 2øTENTATIVO.
+CTC11:          LD      HL,GIR1         ;CARICO INDIRIZ- SSVV 
+CTC12:          POP     IY              ;ZO GIR1
+		POP     IX
+		POP     AF
+		POP     DE      
+		POP     BC
+		EX      (SP),HL
+		EI              
+		RETI
+
+
+
+
+
+CTC2:           PUSH    BC              
+                PUSH    DE              
+                PUSH    HL              
+		PUSH    AF
+		PUSH    IX
+		PUSH    IY
+
+                LD      A,(DECORR)      ;SE EXTRA 
+                CP      00H             ;CORREZIONE 
+                JR      NZ,CTC21        ;ATTIVA SALTO.
+CTC23:          LD      A,(MEMC)        ;FINE DELLA
+		RES     0,A             ;CORREZIONE
+		RES     1,A
+		LD      (MEMC),A
+		OUT     (PC),A
+		LD      A,43H           ;RESETTO
+		OUT     (71H),A         ;CTC1
+		OUT     (72H),A         ;CTC2
+                JR      CTC22           
+CTC21:          LD      A,37H           ;CONTROLLO CTC1
+		OUT     (71H),A         
+                LD      A,40H           ;COSTANTE DI
+		OUT     (71H),A         ;TEMPO
+                LD      A,0D7H          ;CONTROLLO CTC2
+                OUT     (72H),A         ;CARICO PER 
+                LD      A,0FFH          ;EXTRA CORREZ.
+		OUT     (72H),A
+
+                LD      A,(DECORR)      ;SE E' MAGGIORE 
+                DEC     A               ;DI UNO LA CORREZ-
+                LD      (DECORR),A      ;ZIONE DIVENTA
+                CP      00H             ;CONTINUA
+                JR      NZ,CTC22
+
+                LD      A,(CIDE75)      ;SE FATTO 75% ZZZ
+                CP      00H             ;DEL CICLO
+                JR      Z,CTC23         ;BLOCCO CORREZ.
+
+CTC22:          POP     IY
+		POP     IX
+		POP     AF
+                POP     HL              
+                POP     DE              
+                POP     BC              
+		EI
+		RETI
+
+
+
+
+
+
+CTC3:           PUSH    BC
+		PUSH    DE
+		PUSH    HL
+		PUSH    AF
+		PUSH    IX
+		PUSH    IY
+
+                LD      A,(TMEM4)       ;SE ATTIVATA 
+                CP      00H             ;CORREZIONE
+                JP      NZ,CTC32        ;SALTA      
+CTC34:		
+		LD      A,01H		;ATTIVA SCRITTA  SSDD
+		LD	(DOPPIO),A	;SSDD	MMSS
+		LD      A,(LINGUA+00H)
+		CP      00H
+		JR      Z,CTC3E
+		CP      01H
+		JR      Z,CTC3I
+		CP      02H
+		JR      Z,CTC3S
+		CP      03H
+		JR      Z,CTC3E
+                CP      04H             ;TTDD
+                JR      Z,CTC3D         ;TTDD
+CTC3E:          LD      A,5EH           ;d
+		LD      (BINSET+10H),A
+		LD      A,5CH           ;o
+		LD      (BINSET+0FH),A
+		LD      A,1CH           ;u
+		LD      (BINSET+0EH),A
+		LD      A,7CH           ;b
+		LD      (BINSET+0DH),A
+		LD      A,38H           ;L
+		LD      (BINSET+0CH),A
+                JR      CTC33
+CTC3I:          LD      A,5EH           ;d
+		LD      (BINSET+10H),A
+		LD      A,3FH           ;O
+		LD      (BINSET+0FH),A
+		LD      A,73H           ;P
+		LD      (BINSET+0EH),A
+		LD      (BINSET+0DH),A
+		LD      A,06H           ;I
+		LD      (BINSET+0CH),A
+                JR      CTC33
+CTC3S:          LD      A,5EH           ;d
+		LD      (BINSET+10H),A
+		LD      A,5CH           ;o
+		LD      (BINSET+0FH),A
+		LD      A,7CH           ;b
+		LD      (BINSET+0EH),A
+		LD      A,38H           ;L
+		LD      (BINSET+0DH),A
+		LD      A,79H           ;E
+		LD      (BINSET+0CH),A
+                JR      CTC33           ; TTDD
+CTC3D:          LD      A,5EH           ;d
+		LD      (BINSET+10H),A
+		LD      A,5CH           ;o
+		LD      (BINSET+0FH),A
+                LD      A,73H           ;P
+		LD      (BINSET+0EH),A
+		LD      (BINSET+0DH),A
+                LD      A,79H           ;E
+		LD      (BINSET+0CH),A
+
+
+CTC33:          EXX
+		DI
+                CALL    TRDIS
+		IN      A,(PA)          ;SE TASTO CANC SSDD
+		AND	0FH
+		CP      0AH             ;PIGIATO CANCELLA  
+		JR      Z,CTC31        ;SCRITTA DOPPIO SSDD
+
+		JP	CTC34
+
+CTC32:          LD      BC,(TMEM5)      ;CONTIENE IL   
+                DEC     BC              ;VALORE 
+                LD      (TMEM5),BC      ;DELL'ERRORE
+                LD      A,B             
+                OR      C               
+		JR      NZ,CTC31
+
+                LD      A,(MEMC)        ;FINITO IL DE-   
+                RES     6,A             ;CREMENTO DELLO
+                RES     7,A             ;ERRORE TOGLI
+                LD      (MEMC),A        ;LE CORREZZIONI
+		OUT     (PC),A
+		LD      A,43H
+		OUT     (73H),A
+		LD      A,00H
+		LD      (TMEM4),A
+CTC31:          POP     IY
+		POP     IX
+		POP     AF
+		POP     HL
+		POP     DE
+		POP     BC
+		EI
+		RETI
+
+
+
+TABLE:          DEFB    00H             ;0
+		DEFB    01H             ;1
+		DEFB    02H             ;2
+		DEFB    03H             ;3
+		DEFB    04H             ;4
+		DEFB    05H             ;5
+		DEFB    06H             ;6
+		DEFB    07H             ;7
+		DEFB    08H             ;8
+		DEFB    09H             ;9
+		DEFB    0AH             ;CLEAR
+		DEFB    0BH             ;ENTER
+		DEFB    0CH             ;PIU'
+		DEFB    0DH             ;MENO
+		DEFB    0EH             ;MAN/AUTO
+		DEFB    0FH             ;FUNZIONE
+
+
+SSEG:           DEFB    3FH             ;0
+		DEFB    06H             ;1
+		DEFB    5BH             ;2
+		DEFB    4FH             ;3
+		DEFB    66H             ;4
+		DEFB    6DH             ;5
+		DEFB    7DH             ;6
+		DEFB    07H             ;7
+		DEFB    7FH             ;8
+		DEFB    6FH             ;9
+
+
+		;CONVERSIONE BINARIO SETTE SGMENTI
+
+		;REG. D CONTIENE IL NUMERO DI BYTE BINARI
+		;REG. E CONTIENE IL NUMERO DI BYTE BCD
+		;ADDR. 4100H E 4101H MEM. NUMERO BINARIO
+		;ADDR. 4102H E 4103H MEM. NUMERO BCD
+
+
+BIN7:           EXX
+		LD      D,02H
+		LD      E,05H
+		LD      A,00H
+		LD      B,E
+		LD      HL,BINSET+02H
+CLR:            LD      (HL),A
+		INC     HL
+		DJNZ    CLR
+		LD      A,D             ;A=NUMERO BYTE
+		ADD     A,A
+		ADD     A,A
+		ADD     A,A
+		LD      C,A             ;C=NUMERO BIT
+LOOP:           LD      L,00H
+		LD      B,D
+SHLB:           RL      (HL)
+		INC     HL
+		DJNZ    SHLB
+		LD      L,02H
+		LD      B,E
+BCDADJ:         LD      A,(HL)
+		ADC     A,A
+		DAA
+		LD      (HL),A
+		INC     HL
+		DJNZ    BCDADJ
+		DEC     C
+		JR      NZ,LOOP
+
+		;METTE IN MEMORIA UN SINGOLO BCD
+
+		LD      IY,BINSET+05H   ;TAB.BCD SING-1
+		LD      HL,BINSET+02H   ;TAB.COPPIA BCD
+		RRD
+		LD      (IY+01H),A
+		RRD
+		LD      (IY+02H),A
+		INC     HL
+		RRD
+		LD      (IY+03H),A
+		RRD
+		LD      (IY+04H),A
+		INC     HL
+		RRD
+		LD      (IY+05H),A
+		EXX
+      
+		;CONVERSIONE BCD SETTE SEGMENTI
+					 
+BIOTT:          EXX
+		LD      C,05H
+		LD      B,04H           ;N.BYTE - LETTERA
+		LD      IY,BINSET+0BH   ;MEM.-1 7 SEG
+SOM:            LD      HL,BINSET+05H   ;INIZ. MEM.-1 BCD
+		INC     C
+		LD      L,C
+		INC     IY
+		LD      A,(HL)          ;PRENDI DATO
+		LD      L,A             ;INDICE A 16 BIT
+		LD      H,0
+		LD      DE,SSEG         ;BASE TAB.7SEG.
+		ADD     HL,DE           
+		LD      A,(HL)          ;SALVA IL CODICE
+		LD      (IY),A
+		DJNZ    SOM
+
+
+		;TRASMISSIONE DISPLAY
+	  
+TRDIS:          LD      A,(FUN8AM)      ;SE MAN 7/12
+                CP      00H             ;SALTO
+                JR      Z,MONO2
+                LD      A,(TMEM7)       ;CONTROLLO 7/12
+                CP      00H             ;PRIMO PASSAGGIO
+                JR      NZ,MONO2        ;DOPO SCRITTURA
+                LD      A,(TMEM8)       ;SALTA PER 7/12
+                CP      00H             ;MANTENERE +PAPER
+                JR      Z,MONO2         ;-PAPER
+                DEC     A
+                LD      (TMEM8),A
+                JR      MONO1
+
+MONO2:          XOR     A               ;7/12
+		OUT     (PB),A
+		SET     0,A             ;START
+		OUT     (PB),A
+		SET     7,A
+		OUT     (PB),A
+		RES     7,A
+		OUT     (PB),A
+		LD      C,05H           ;NUMERO DISPLAY
+LOOP2:          LD      B,07H           ;NUMERO SEGMENTI
+LOOP1:          RES     0,A             ;SPENGO TUTTI
+		RES     5,A             ;I SEGMENTI
+		OUT     (PB),A          
+		SET     7,A
+		OUT     (PB),A
+		RES     7,A
+		OUT     (PB),A
+		SRL     D
+		DJNZ    LOOP1
+		DEC     C
+		JR      NZ,LOOP2
+		XOR     A
+		OUT     (PB),A
+		SET     0,A             ;START
+		OUT     (PB),A
+		SET     7,A
+		OUT     (PB),A
+		RES     7,A
+		OUT     (PB),A
+		LD      HL,BINSET+0BH   ;TAB.7SEG.-1
+		LD      C,05H           ;NUMERO DISPLAY
+LOOP4:          LD      B,07H           ;NUMERO SEGMENTI
+		INC     HL
+		LD      A,(HL)
+		LD      D,A
+LOOP3:          LD      A,D
+		RES     5,A             ;PER NON ATTIVA-
+		RES     6,A             ;RE MONOSTABILE
+		RES     7,A             ;DA 5mS.
+		OUT     (PB),A
+		SET     7,A
+		OUT     (PB),A
+		RES     7,A
+		OUT     (PB),A
+		SRL     D
+		DJNZ    LOOP3
+		DEC     C
+		JR      NZ,LOOP4
+MONO:           XOR     A               ;AZZERO PB 
+		OUT     (PB),A          ;PER AVERLO 
+		LD      (MEMB),A        ;PULITO QUANDO
+MONO1:          EXX                     ;ESEGUIRO'IN (PB)  7/12
+		RET                     
+					    
+
+		;CONVERSIONE BCD BINARIO PER 10 DIGIT
+
+
+BCDBIN:         EXX        
+		LD      IX,BINSET+06H
+		LD      A,(IX+03H)
+		RL      A
+		RL      A
+		RL      A
+		RL      A
+		ADD     A,(IX+02H)
+		LD      IY,TABCON
+		LD      (IY+05H),A
+		LD      A,(IX+01H)
+		RL      A
+		RL      A
+		RL      A
+		RL      A
+		ADD     A,(IX+00H)
+		LD      (IY+04H),A
+		LD      A,00H
+		LD      (IY+06H),A
+		LD      (IY+07H),A
+		LD      (IY+08H),A
+		LD      C,20H
+DBLP:           LD      B,05H
+		XOR     A
+		LD      HL,TABCON+08H
+COR0:           LD      A,(HL)
+		RRA
+		PUSH    AF
+		BIT     7,A
+		JR      Z,COR1
+		SUB     30H
+COR1:           BIT     3,A
+		JR      Z,COR2
+		SUB     03H
+COR2:           LD      (HL),A
+		DEC     HL
+		POP     AF
+		DJNZ    COR0
+		LD      B,04H
+SHR4:           RR      (HL)
+		DEC     HL
+		DJNZ    SHR4
+		DEC     C
+		JR      NZ,DBLP
+                LD      A,(BINSET+10H)  ;MEMORIZZO IL
+		CP      39H             ;VALORE DELLA 
+		JR      Z,LETTC         ;FUNZIONE NELLA
+		CP      77H             ;SUA MEMORIA
+		JR      Z,LETTA
+		CP      73H
+		JR      Z,LETTP
+		CP      50H
+		JR      Z,LETRU
+		CP      1CH
+		JR      Z,LETRU
+		CP      40H
+		JR      Z,LEMEN
+		CP      70H
+		JR      Z,LEPIU
+		JR      LETT
+LETTC:          LD      HL,(TABCON)
+		LD      (CILIN),HL
+		JR      LETT
+LETTA:          LD      HL,(TABCON)
+		LD      (ALLAR),HL
+		JR      LETT
+LETTP:          LD      HL,(TABCON)
+		LD      (AMPGA),HL
+		JR      LETT
+LETRU:          LD      HL,(TABCON)
+		LD      (LAVORO),HL
+		JR      LETT
+LEMEN:          LD      HL,(TABCON)
+		LD      (SHIFT),HL
+
+            
+		LD      A,(BINSET+10H)
+		LD      (PIUMEN),A
+		JR      LETT
+LEPIU:          LD      HL,(TABCON)
+		LD      (SHIFT),HL
+
+            
+
+		LD      A,(BINSET+10H)
+		LD      (PIUMEN),A
+LETT:           LD      A,(MEMC)        ;SE E'IN MANUALE
+		BIT     2,A             ;ACCETTO SPOSTA-
+		JR      NZ,LETT2        ;MENTI MAX DI 255
+		LD      DE,(SHIFT)
+		LD      HL,00FFH
+		SBC     HL,DE
+		JR      NC,LETT1
+		CCF
+		LD      A,01H
+		LD      (MDATER),A
+		JR      LETT1
+
+LETT2:          LD      DE,(SHIFT)      ;SE E'IN AUTO 
+		LD      D,00H           ;ACCETTO SPOSTA-
+                LD      HL,(AMPI40)     ;MENTI MASSIMI 
+                LD      H,00H           ;DEL 40% DI MEZZO
+                SBC     HL,DE           ;GATE
+		JR      NC,LETT1
+		CCF
+		LD      A,01H
+                LD      (SUPCOR),A      
+
+                LD      HL,(SHIFT)      ;VEDO QUANTE 
+                LD      (DIVDEN),HL     ;VOLTE AMPI40
+                LD      BC,(AMPI40)     ;STA IN SHIFT
+                LD      (DIVSOR),BC     ;E LO MEM. IN
+                CALL    DIVIS           ;SHIFT1
+                LD      BC,(QUOZIE)
+                LD      (SHIFT1),BC     ;IL RESTO LO
+                LD      BC,(RESTO)      ;MEM IN SHIFT2
+                LD      (SHIFT2),BC     
+                LD      HL,(SHIFT)      ;SLAVO LA SUPER 
+                LD      DE,(AMPI40)
+                SBC     HL,DE
+                JR      NC,LETT3
+                CCF
+                LD      A,01H
+                LD      (MDATER),A
+                JR      LETT1
+
+LETT3:          LD      DE,(AMPI40)     ;CARICO IL MAX 
+                LD      (SHIFT),DE      ;ACCETTABILE 
+LETT1:          EXX
+		RET
+
+		;ROUTINE DI DIVISIONE A 16 BIT
+
+
+DIVIS:          EXX
+		LD      DE,(DIVDEN)
+		LD      BC,(DIVSOR)
+DIV16:          XOR     A
+		LD      H,A
+		LD      L,A
+		LD      A,10H
+DV0:            RL      E
+		RL      D
+		ADC     HL,HL
+		SBC     HL,BC
+		JR      NC,DIV1
+		ADD     HL,BC
+DIV1:           CCF
+		DEC     A
+		JR      NZ,DV0
+                LD      (RESTO),HL      
+		EX      DE,HL
+		ADC     HL,HL
+		LD      (QUOZIE),HL
+		EXX
+		RET
+
+
+
+                ;DIVISIONE PER 1000 DOPO MOL32
+
+
+                EXX
+DI1000:         LD      IX,PTO032
+                LD      DE,3E8H         ;1000
+                LD      BC,0000H
+		LD      A,16
+		LD      (MDIVIS),A
+DI1001:         LD      H,(IX+03H)
+		LD      L,(IX+02H)
+		SBC     HL,DE
+                JP      M,DI1002
+		LD      (IX+03H),H      ;RESTO
+		LD      (IX+02H),L
+		INC     BC
+DI1002:         SLA     (IX+00H)        ;ROTAZ.DIV.DO
+		RL      (IX+01H)
+		RL      (IX+02H)
+		RL      (IX+03H)
+		SLA     C               ;ROTAZ.QUO.TE
+		RL      B
+		LD      A,(MDIVIS)
+		DEC     A
+		LD      (MDIVIS),A
+                JR      NZ,DI1001
+		LD      H,(IX+03H)
+		LD      L,(IX+02H)
+		SBC     HL,DE
+                JP      M,DI1003
+		INC     BC
+DI1003:         LD      (QU1000),BC
+                EXX
+                RET
+
+		;ROUTINE DI MOLTIPLICAZIONE
+
+
+MOLT:           EXX
+		LD      DE,(MOLTI)      ;MOLTIPLICANDO
+		LD      A,(MOLPL)       ;MOLTIPLICATORE
+		LD      HL,00H
+		LD      B,08H
+MULT:           ADD     HL,HL
+		RLA
+		JR      NC,CHCNT
+		ADD     HL,DE
+CHCNT:          DJNZ    MULT            ;SE IL RISULTATO
+		CP      00H             ;E'> DI FFFFH IL
+		JR      Z,CHC1          ;REGISTRO A SARA'
+		LD      HL,0FFFFH       ;DIVERSO DA 0 PER
+CHC1:           LD      (PROD),HL       ;CUI CARICA IL MAX
+		EXX                     ;(SOLO IN CASO DI
+		RET                     ;CORREZ.MOTORE)
+
+
+
+	       ;MOLTIPLICZIONE A 32 BIT
+
+
+MOL32:          EXX                     ;DIW7
+                LD      B,04H
+		LD      HL,PTO032
+INIT:           LD      (HL),00H
+		INC     HL
+		DJNZ    INIT
+SHIFTX:         LD      B,04H
+		LD      IX,MDO032+03H
+		XOR     A
+RTX:            RR      (IX)
+		DEC     IX
+		DJNZ    RTX
+		JR      NC,ZERO
+		LD      B,04H
+		LD      HL,PTO032
+		LD      IY,MRE032
+		CCF
+NXTBYT:         LD      A,(IY)
+		ADC     A,(HL)
+		LD      (HL),A
+		INC     IY
+		INC     HL
+		DJNZ    NXTBYT
+ZERO:           LD      B,04H
+		LD      IX,MDO032
+		XOR     A
+ZCHK:           OR      (IX)
+		JR      NZ,SHIFTY
+		INC     IX
+		DJNZ    ZCHK
+		JR      END32
+SHIFTY:         LD      B,04H
+		LD      IY,MRE032
+		XOR     A
+LEFTY:          RL      (IY)
+		INC     IY
+		DJNZ    LEFTY
+		JR      SHIFTX
+END32:          EXX
+		RET
+
+
+		;MOLTIPLICAZIONE A 24 BIT  
+
+MOL24:          EXX                                                                                        
+		LD      DE,(MOLT24)
+		LD      A,(MOLP24)
+		LD      BC,800H                
+		LD      H,C
+		LD      L,C
+MPX1:           ADD     HL,HL
+		RLA
+		JR      NC,MPX2
+		ADD     HL,DE
+		ADC     A,C             ;IL RISULTATO
+MPX2:           DJNZ    MPX1            ;SI TROVA IN AHL
+		LD      (PROD24),HL
+		LD      (PROD24+02H),A
+                LD      A,00H
+                LD      (PROD24+03H),A
+		EXX
+		RET
+
+		
+;&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& NNDD
+;		SOMMA A 32 BIT
+;
+;	AUGENDO = ADDENDO + AUGENDO
+;	si definisce il primo operando addendo e il secondo augendo. 
+;	Il risultato somma va poi a sostituire il valore dell'augendo 
+;&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&		
+                
+
+SOMM32:         EXX
+		LD      DE,ADDEN0
+		LD      HL,AUGEN0
+		LD      B,04H
+		AND     A
+ADDW:           LD      A,(DE)
+		ADC     A,(HL)
+		LD      (HL),A
+		INC     DE              ;IL RISULTATO
+		INC     HL              ;SI TROVA NELLA
+		DJNZ    ADDW            ;LOCAZIONE 
+		EXX                     ;ADDEN0 E ADDEN2
+		RET
+
+;&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& NNDD
+;		SOTTRAZIONE A 32 BIT
+;
+;	RESTO = MINUENDO - SOTTRAENDO
+;&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&		
+
+CSOTT32:        EXX
+                AND     A
+                LD      HL,(CINUE2)
+                LD      DE,(CUBTR2)
+                SBC     HL,DE
+                JR      NC,COT00
+                LD      HL,(CINUE2)
+                LD      (CINUE2),DE
+                LD      (CUBTR2),HL
+                LD      HL,(CINUE0)
+                LD      DE,(CUBTR0)
+                LD      (CINUE0),DE
+                LD      (CUBTR0),HL
+COT00:          LD      HL,(CINUE0)
+                LD      DE,(CINUE2)
+                LD      BC,(CUBTR0)
+                AND     A
+                SBC     HL,BC
+                LD      (CESTO0),HL
+                JR      NC,COT01
+                DEC     DE
+COT01:          EX      DE,HL
+                LD      DE,(CUBTR2)
+                AND     A
+                SBC     HL,DE
+                LD      (CESTO2),HL
+                EXX
+                RET
+
+               
+CSOM32:         EXX
+                SCF
+                CCF
+                LD      HL,(CADDE0)
+                LD      DE,(CAUGE0)
+                ADC     HL,DE
+                LD      (CSOMM0),HL
+                LD      HL,(CADDE2)
+                LD      DE,(CAUGE2)
+                ADC     HL,DE
+                LD      (CSOMM2),HL
+                SCF
+                CCF
+                EXX
+                RET
+
+		;ROUTINE DI AGGIUSTAMENTO DECIMALE
+
+
+AGGIUS:         EXX                     ;USO LA CONVER-
+		LD      D,02H           ;SIONE BINARIO
+		LD      E,05H           ;BCD E CONTROLLO
+		LD      A,00H           ;SE L'UNITA' E'
+		LD      B,E             ;TRA 0-5 LASCIO
+		LD      HL,AGGIU+02H    ;COSI'SE E'TRA 
+CLRA:           LD      (HL),A          ;6-9 AUMENTO LA
+		INC     HL              ;DECINA DI UNO
+		DJNZ    CLRA
+		LD      A,D             ;A=NUMERO BYTE
+		ADD     A,A
+		ADD     A,A
+		ADD     A,A
+		LD      C,A             ;C=NUMERO BIT
+LOOPA:          LD      L,00H
+		LD      B,D
+SHLBA:          RL      (HL)
+		INC     HL
+		DJNZ    SHLBA
+		LD      L,02H
+		LD      B,E
+BCDADA:         LD      A,(HL)
+		ADC     A,A
+		DAA
+		LD      (HL),A
+		INC     HL
+		DJNZ    BCDADA
+		DEC     C
+		JR      NZ,LOOPA
+		LD      IX,QUOZIE
+		LD      HL,AGGIU+02H    ;TAB.COPPIA BCD
+		RRD
+		CP      06H
+		JR      Z,PI4
+		CP      07H
+		JR      Z,PI3
+		CP      08H
+		JR      Z,PI2
+		CP      09H
+		JR      Z,PI1
+		JR      FINP1
+PI4:            LD      L,(IX+00H)
+		LD      H,(IX+01H)
+		LD      BC,0004H
+		ADD     HL,BC
+		JR      FINP0
+PI3:            LD      L,(IX+00H)
+		LD      H,(IX+01H)
+		LD      BC,0003H
+		ADD     HL,BC
+		JR      FINP0
+PI2:            LD      L,(IX+00H)
+		LD      H,(IX+01H)
+		LD      BC,0002H
+		ADD     HL,BC
+		JR      FINP0
+PI1:            LD      L,(IX+00H)
+		LD      H,(IX+01H)
+		LD      BC,0001H
+		ADD     HL,BC
+FINP0:          LD      (QUOZIE),HL
+FINP1:          EXX
+		RET
+
+		;CALCOLO CENTRATURA GATE
+
+
+CENTRA:         EXX
+		LD      HL,(FASE)       ;SOTTRAGGO IL VA-
+		LD      BC,(MEZGA)      ;LORE DI 1/2 GATE
+		LD      B,00H           ;DAL VALORE LETTO
+		SBC     HL,BC           ;SE IL RISULTATO
+		JR      C,RISNEG        ;E'POSITIVO LO
+		JR      TRFASE          ;MEMORIZZO IN
+RISNEG:         CCF                     ;IN FASE.
+		LD      HL,1000H        ;SE E'NEGATIVO
+		SBC     HL,BC           ;SOTTRAGGO DA 4096
+		LD      BC,(FASE)       ;IL 1/2 GATE E IL
+		ADD     HL,BC           ;RESTO LO SOMMO
+TRFASE:         LD      (FASE),HL       ;AL VALORE LETTO.
+		LD      A,H
+		OUT     (20H),A
+		LD      A,L
+		OUT     (10H),A
+		LD      A,04H           ;4 GIRI ATTESA
+		LD      (MEMRIF),A      ;PER MEMORIZZARE
+		EXX                     ;IL RIFERIMENTO
+		RET
+
+		;CALCOLO DELLO SPOSTAMENTO REGISTRO E GATE
+
+
+SPOSTA:         EXX
+		LD      BC,(SHIFT)      ;SHIFT x 100 = A
+                LD      B,00H          
+		LD      (MOLTI),BC
+		LD      A,64H
+		LD      (MOLPL),A
+		CALL    MOLT
+		LD      DE,(PROD)       ;FLO2 = A
+		LD      (DIVDEN),DE     ;A : CENTES = B
+		LD      BC,(CENTES)
+		LD      B,00H
+		LD      (DIVSOR),BC
+		CALL    DIVIS
+		LD      DE,(QUOZIE)     ;FLO2 = B
+		LD      A,(PIUMEN)
+		CP      70H
+		JR      Z,SPOMEN
+		LD      HL,(RIFTOT)
+		ADD     HL,DE           ;RIFTOT + B = C
+		EX      DE,HL           ;SE C < 40960 
+		LD      HL,0A000H       ;ALLORA C = Z
+		SBC     HL,DE           ;SE C > 40960
+		EX      DE,HL           ;SI FARA'
+		JR      NC,SPOFIN       ;C - 40960 = Z
+		CCF
+		LD      DE,0A000H
+		SBC     HL,DE
+		JR      SPOFIN
+SPOMEN:         LD      HL,(RIFTOT)     ;RIFTOT - B = C
+		SBC     HL,DE           ;SE C = POSITIVO
+		JR      NC,SPOFIN       ;C = Z
+		CCF                     ;SE C = NEGATIVO
+		LD      HL,0A000H       ;SI FARA'
+		SBC     HL,DE           ;40960 - B = D
+		LD      DE,(RIFTOT)     ;D + RIFTOT = Z
+		ADD     HL,DE
+SPOFIN:         LD      (RIFTOT),HL     ;FLO2 = Z
+
+		;RIFTOT/10=POSIZIONE ENCODER
+		;POSIZIONE ENCODER - 1/2GATE = NUOVA FASE
+
+		LD      (DIVDEN),HL
+		LD      BC,000AH
+		LD      (DIVSOR),BC
+		CALL    DIVIS
+		LD      HL,(QUOZIE)
+		LD      DE,(QUOZIE)
+		LD      BC,(MEZGA)
+		LD      B,00H
+		SBC     HL,BC
+		JR      C,RISNE1
+		JR      TRFAS1
+RISNE1:         CCF                     ;SE 1/2GATE > DI
+		LD      HL,1000H        ;QUOZIE ALLORA
+		SBC     HL,BC           ;4096-1/2GAT = A
+		ADD     HL,DE           ;A + QUOZIE=FASE
+TRFAS1:         LD      (FASE),HL
+		LD      A,H
+		OUT     (20H),A
+		LD      A,L
+		OUT     (10H),A
+
+                LD      A,(MOTPOT)      ;23/7/02 
+                CP      00H             ;A UNO SHIFT
+                JR      Z,TRFAS2        ;VIENE TRIPLI-
+                LD      B,A             ;CATO IL 
+                RLA                     ;TEMPO DI
+                ADD     A,B             ;ATTESA  
+                LD      (POTRIT),A      ;DEL TIRO
+                LD      (POTAVA),A       
+                LD      (MOTPO1),A      
+
+TRFAS2:         EXX
+		RET
+
+
+		;ROUTINE SCRITTA ERRORE
+
+
+ERROR:
+                LD      A,(LINGUA+00H)   ;TTDD
+		CP      00H
+                JR      Z,ERRE
+		CP      01H
+                JR      Z,ERRE
+		CP      02H
+                JR      Z,ERRE
+		CP      03H
+                JR      Z,ERRE
+                CP      04H
+                JR      Z,ERRD
+                
+ERRE:           LD      A,79H           ;E
+		LD      (BINSET+10H),A
+		LD      A,50H           ;r
+		LD      (BINSET+0FH),A
+		LD      (BINSET+0EH),A
+		LD      A,5CH           ;o
+		LD      (BINSET+0DH),A
+		LD      A,50H           ;r
+		LD      (BINSET+0CH),A
+                JR      ERRFIN
+ERRD:           LD      A,71H           ;F
+		LD      (BINSET+10H),A
+                LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+                LD      A,76H           ;H
+		LD      (BINSET+0EH),A
+                LD      A,38H           ;L
+		LD      (BINSET+0DH),A
+                LD      A,79H           ;E
+		LD      (BINSET+0CH),A
+
+ERRFIN:         EXX
+		CALL    TRDIS
+		LD      A,01H           ;ERRORE SI ELI-
+		LD      (MDATER),A      ;MINA CON CLEAR.
+		RET
+
+       
+		;SCRITTURA ERRORE IN F1	  EEOO
+
+ERRF1:          LD      A,79H           ;E EEOO
+		LD      (BINSET+10H),A
+		LD      A,50H           ;r
+		LD      (BINSET+0FH),A
+		LD	A,40H		;-
+		LD      (BINSET+0EH),A
+		LD      A,71H           ;F
+		LD      (BINSET+0DH),A
+		LD      A,06H           ;1
+		LD      (BINSET+0CH),A
+                
+	        EXX
+		CALL    TRDIS
+		LD      A,02H           ;ERRORE SI ELI-
+		LD      (MDATER),A      ;MINA CON CLEAR.
+		RET
+ 
+
+ 		;SCRITTURA ERRORE IN F3	  EEOO
+
+ERRF3:          LD      A,79H           ;E
+		LD      (BINSET+10H),A
+		LD      A,50H           ;r
+		LD      (BINSET+0FH),A
+		LD	A,40H		;-
+		LD      (BINSET+0EH),A
+		LD      A,71H           ;F
+		LD      (BINSET+0DH),A
+		LD      A,4FH           ;3
+		LD      (BINSET+0CH),A
+                
+	        EXX
+		CALL    TRDIS
+		LD      A,03H           ;ERRORE SI ELI-
+		LD      (MDATER),A      ;MINA CON CLEAR.
+		RET			;EEOO
+
+ 
+                ;ROUTINE SCRITTURA STOP 
+
+
+STOP:           LD      A,6DH           ;S 
+		LD      (BINSET+10H),A
+                LD      A,78H           ;t
+		LD      (BINSET+0FH),A
+                LD      A,3FH           ;O
+		LD      (BINSET+0EH),A
+                LD      A,73H           ;P
+		LD      (BINSET+0DH),A
+                LD      A,00H           ;
+		LD      (BINSET+0CH),A
+                EXX                     
+		CALL    TRDIS
+		LD      A,(MEMC)        ;METTO LA
+		RES     0,A             ;PROTEZIONE
+		RES     1,A         
+		SET     4,A
+		LD      (MEMC),A
+		OUT     (PC),A
+
+                LD      DE,0000H        
+                LD      (VELMED),DE     ;AZZERO LE MEM.
+                LD      HL,VELMED       ;DELLA VELOCITA
+                LD      DE,VELMED+01H   
+                LD      BC,001CH
+                LDIR                    
+
+		RET
+
+
+
+
+		;ROUTINE SCRITTURA NO PRINT
+
+
+
+NOPRI:
+
+                LD      A,(ALLAR)       ;SE ALLARME E'   BBLL
+		CP      00H             ;MESSO A ZERO
+                JR      Z,NOPR12        ;SALTA.
+		LD      A,(MEMC)        ;SE SONO IN
+		BIT     2,A             ;MANUALE SALTO
+                JR      Z,NOPR12
+
+                CALL    VELIST          ;BBLL
+                LD      HL,(ISTVEL)     
+                LD      DE,(INSER)      
+                SBC     HL,DE            
+                JR      C,NOPR13         ;BBLL
+
+                LD      A,(MEMC)
+		SET     3,A             ;ATTIVO ALLARME
+		LD      (MEMC),A
+		OUT     (PC),A
+                JR      NOPR12
+
+NOPR13:
+                CCF                     ;BBLL
+                LD      A,(MEMC)
+                RES     3,A             ;DISATTIVO 
+                LD      (MEMC),A        ;ALLARME
+                OUT     (PC),A          ;BBLL
+
+NOPR12:                                 ;BBLL
+
+                LD      A,(MEMC)        ;METTO PROTEZIONE
+                SET     4,A             
+                LD      (MEMC),A
+		LD      A,00H
+		LD      (MNOPRI),A
+                LD      A,(MEMC)        ;NORD
+                BIT     5,A             ;TEC
+                JP      NZ,NOPFUN       ;TEC
+
+		LD      A,(LINGUA+00H)
+		CP      00H
+		JR      Z,NOPE
+		CP      01H
+		JR      Z,NOPI
+		CP      02H
+		JR      Z,NOPS
+		CP      03H
+		JR      Z,NOPS
+                CP      04H             ;TTDD
+                JR      Z,NOPD          ;TTDD
+NOPE:           LD      A,54H           ;n
+		LD      (BINSET+10H),A
+		LD      A,5CH           ;o
+		LD      (BINSET+0FH),A
+		LD      A,73H           ;P
+		LD      (BINSET+0EH),A
+		LD      A,50H           ;r
+		LD      (BINSET+0DH),A
+		LD      A,04H           ;i
+		LD      (BINSET+0CH),A
+		JR      NOPFIN 
+NOPI:           LD      A,7CH           ;b
+		LD      (BINSET+10H),A
+		LD      A,06H           ;I
+		LD      (BINSET+0FH),A
+		LD      A,77H           ;A
+		LD      (BINSET+0EH),A
+		LD      A,54H           ;n
+		LD      (BINSET+0DH),A
+		LD      A,39H           ;C
+		LD      (BINSET+0CH),A
+		JR      NOPFIN
+NOPS:           LD      A,7CH           ;b
+		LD      (BINSET+10H),A
+		LD      A,38H           ;L
+		LD      (BINSET+0FH),A
+		LD      A,77H           ;A
+		LD      (BINSET+0EH),A
+		LD      A,54H           ;n
+		LD      (BINSET+0DH),A
+		LD      A,39H           ;C
+		LD      (BINSET+0CH),A
+		JR      NOPFIN
+NOPD:           LD      A,38H           ;L
+		LD      (BINSET+10H),A
+                LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+		LD      (BINSET+0EH),A
+                LD      A,50H           ;r
+		LD      (BINSET+0DH),A
+                LD      A,40H           ;-
+                LD      (BINSET+0CH),A  ;TTDD
+
+
+
+                JR      NOPFIN          ;NORD
+NOPFUN:         LD      A,71H           ;F
+		LD      (BINSET+10H),A
+                LD      A,1CH           ;u
+		LD      (BINSET+0FH),A
+                LD      A,54H           ;n
+		LD      (BINSET+0EH),A
+                LD      A,40H           ;-
+		LD      (BINSET+0DH),A
+                LD      A,67H           ;9
+		LD      (BINSET+0CH),A
+
+NOPFIN:         EXX
+                CALL    TRDIS           ;METTO LA
+                LD      A,(MEMC)        ;PROTEZIONE.
+                BIT     5,A             ;NORD TEC
+                JR      NZ,NOPRI7
+                RES     0,A             
+		RES     1,A
+		SET     4,A
+                RES     6,A
+                RES     7,A
+                JR      NOPRI8
+NOPRI7:         RES     0,A
+                SET     1,A
+                SET     4,A
+NOPRI8:         LD      (MEMC),A
+		OUT     (PC),A
+		JR      NOPRI6
+NOPRI4:         LD      A,(MEMC)
+		RES     0,A
+		SET     1,A
+NOPRI5:         LD      (MEMC),A
+		OUT     (PC),A
+		LD      A,71H           ;F
+		LD      (BINSET+10H),A
+		LD      A,77H           ;A
+		LD      (BINSET+0FH),A
+		LD      A,6DH           ;S
+		LD      (BINSET+0EH),A
+		LD      A,77H           ;A
+		LD      (BINSET+0DH),A
+		LD      A,78H           ;t
+		LD      (BINSET+0CH),A
+		EXX
+		CALL    TRDIS
+                CALL    RITDIS
+                
+NOPRI6:         
+		CALL	AZZTOT		;AAZZ
+                RET
+
+
+
+
+		;ROUTINE SCRITTURA LOW-SPEED
+
+
+                
+
+LOWSPE:         LD      A,(MEMC)        ;METTO PROTEZIONE
+                SET     4,A             
+                LD      (MEMC),A
+                LD      A,(LINGUA+00H)
+		CP      00H
+		JR      Z,LOWE
+		CP      01H
+		JR      Z,LOWI
+		CP      02H
+		JR      Z,LOWS
+		CP      03H
+		JR      Z,LOWF
+                CP      04H             ;TTDD
+                JR      Z,LOWD          ;TTDD
+LOWE:           LD      A,38H           ;L
+		LD      (BINSET+10H),A
+		LD      A,6DH           ;S
+		LD      (BINSET+0FH),A
+		LD      A,73H           ;P
+		LD      (BINSET+0EH),A
+		LD      A,79H           ;E
+		LD      (BINSET+0DH),A
+		LD      (BINSET+0CH),A
+		JR      LOWFIN
+LOWI:           LD      A,38H           ;L
+		LD      (BINSET+10H),A
+		LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+		LD      A,54H           ;n
+		LD      (BINSET+0EH),A
+		LD      A,78H           ;t
+		LD      (BINSET+0DH),A
+		LD      A,77H           ;A
+		LD      (BINSET+0CH),A
+		JR      LOWFIN 
+LOWS:           LD      A,38H           ;L
+		LD      (BINSET+10H),A
+		LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+		LD      A,54H           ;n
+		LD      (BINSET+0EH),A
+		LD      A,78H           ;t
+		LD      (BINSET+0DH),A
+		LD      A,5CH           ;o
+		LD      (BINSET+0CH),A
+		JR      LOWFIN
+LOWF:           LD      A,38H           ;L
+		LD      (BINSET+10H),A
+		LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+		LD      A,54H           ;n
+		LD      (BINSET+0EH),A
+		LD      A,78H           ;t
+		LD      (BINSET+0DH),A
+                LD      A,00H           ;
+		LD      (BINSET+0CH),A
+                JR      LOWFIN          ;TTDD
+LOWD:           LD      A,38H           ;L
+		LD      (BINSET+10H),A
+                LD      A,77H           ;A
+		LD      (BINSET+0FH),A
+		LD      A,54H           ;n
+		LD      (BINSET+0EH),A
+                LD      A,6FH           ;G
+                LD      (BINSET+0DH),A
+                LD      A,6DH           ;S
+		LD      (BINSET+0CH),A
+
+
+LOWFIN:         EXX      
+		CALL	RESEPC		;SSDD
+		CALL    TRDIS           
+		LD      A,04H           ;AUMENTANDO I
+		LD      (MATTES),A      ;CICLI DI ATTESA.
+		RET
+
+
+		;CONTROLO ZONA MORTA
+
+CORREZ:         LD      A,(MEMC)        ;SE PROT. SALTO
+                BIT     4,A             ;PER ELIMINARE
+                JP      NZ,COFINE       ;FLASH AL DISPLAY
+                LD      HL,(ERMEDI)     ;SE ZONA MORTA E'
+		LD      DE,(ZONA)       ;> DELL'ERRORE
+		SBC     HL,DE           ;NON CORREGGO
+		JR      NC,CORREZIONI_1 ;NNDD
+		CCF
+		JP      COFINE
+
+
+
+
+		;##################################################################### NNDD
+		;# CALCOLO CORREZIONE MOTORE                                         #
+		;# [Ea x C/10 + (Ea - Ep) x D] x G                                   #
+		;# [Ea x (C/10 + D) x G] - [Ep x D x G]	                             #
+		;# CORRATT = 80000000h + [Ea x (C/10 + D) x G] - [Ep x D x G]        #
+		;#####################################################################
+
+
+CORREZIONI_1:   
+		;[Ea x (C/10 + D) x G]
+		LD      DE,(CILDIV)	
+		LD	HL,(DERIVA)
+		ADD	HL,DE		;HL = C/10+D
+		LD	(MDO032),HL
+		LD	HL,(GUADA)	;HL = G
+		LD	(MRE032),HL
+		LD	HL,0000H
+		LD	(MDO232),HL
+		LD	(MRE232),HL
+		CALL	MOL32		;PT = (C/10+D)*G
+		LD	HL,(PTO032)
+		LD	(MDO032),HL
+		LD	HL,(PTO232)
+		LD	(MDO232),HL
+		LD	HL,(ERATTU)	;HL = Ea
+		LD	(MRE032),HL	
+		CALL	MOL32		;PT = [Ea x (C/10 + D) x G]
+
+		LD      A,(MSCORR_ATT)	
+		CP      01H        
+		JR      Z,CORREZIONI_2	
+
+		;CORRATT = 80000000h - [Ea x (C/10 + D) x G]
+		LD	HL,(PTO032)
+		LD	(CUBTR0),HL	;SOTTRAENDO = [Ea x (C/10 + D) x G]
+		LD	HL,(PTO232)
+		LD	(CUBTR2),HL
+		LD	HL,0000H	;MINUENDO = 80000000h
+		LD	(CINUE0),HL
+		LD	HL,8000H
+		LD	(CINUE2),HL
+		CALL	CSOTT32		;RESTO = MINUENDO - SOTTRAENDO
+		LD	HL,(CESTO0)
+		LD	(CORRATT),HL	;BASSO
+		LD	HL,(CESTO2)
+		LD	(CORRATT+02H),HL ;ALTO
+		JR	CORREZIONI_3
+
+CORREZIONI_2:
+		;CORRATT = 80000000h + [Ea x (C/10 + D) x G]
+		LD	HL,(PTO032)
+		LD	(ADDEN0),HL	;ADDENDO = [Ea x (C/10 + D) x G]
+		LD	HL,(PTO232)
+		LD	(ADDEN2),HL
+		LD	HL,0000H	;AUGEND0 = 80000000h
+		LD	(AUGEN0),HL
+		LD	HL,8000H
+		LD	(AUGEN2),HL
+		CALL	SOMM32		;AUGENDO = ADDENDO + AUGENDO
+		LD	HL,(AUGEN0)
+		LD	(CORRATT),HL	;BASSO
+		LD	HL,(AUGEN2)
+		LD	(CORRATT+02H),HL ;ALTO
+		JR	CORREZIONI_3
+		
+
+CORREZIONI_3:
+		;[Ep x D x G]
+		LD      HL,(ERPREC)     
+		LD      (MOLTI),HL
+		LD      A,(DERIVA)
+		LD      (MOLPL),A
+		CALL    MOLT
+		LD      HL,(PROD)      
+		LD      (MOLT24),HL       ;RISULTATO
+		LD      A,(GUADA)
+                LD      (MOLP24),A      
+                CALL    MOL24
+
+		LD      A,(MSCORR_PREC)	
+		CP      01H        
+		JR      Z,CORREZIONI_4	
+
+		;CORRATT = CORRATT + [Ep x D x G]
+		LD	HL,(CORRATT)
+		LD	(ADDEN0),HL	;ADDENDO = CORRATT
+		LD	HL,(CORRATT+02H)
+		LD	(ADDEN2),HL
+		LD	HL,(PROD24)	;AUGEND0 = [Ep x D x G]
+		LD	(AUGEN0),HL
+		LD	HL,(PROD24+02H)
+		LD	(AUGEN2),HL
+		CALL	SOMM32		;AUGENDO = ADDENDO + AUGENDO
+		LD	HL,(AUGEN0)
+		LD	(CORRATT),HL	;BASSO
+		LD	HL,(AUGEN2)
+		LD	(CORRATT+02H),HL ;ALTO
+		JR	CORREZIONI_5
+
+CORREZIONI_4:
+		;CORRATT = CORRATT - [Ep x D x G]
+		LD	HL,(PROD24)
+		LD	(CUBTR0),HL	;SOTTRAENDO = [Ep x D x G]
+		LD	HL,(PROD24+02H)
+		LD	(CUBTR2),HL
+		LD	HL,(CORRATT)	;MINUENDO = CORRATT
+		LD	(CINUE0),HL
+		LD	HL,(CORRATT+02H)
+		LD	(CINUE2),HL
+		CALL	CSOTT32		;RESTO = MINUENDO - SOTTRAENDO
+		LD	HL,(CESTO0)
+		LD	(CORRATT),HL	;BASSO
+		LD	HL,(CESTO2)
+		LD	(CORRATT+02H),HL ;ALTO
+
+		JR	CORREZIONI_5
+CORREZIONI_5:
+		LD	A,(CORRATT+03H) ;IF CORRATT > 80000000h THEN MSCORR=01H ELSE MSCORR=D_RITARDO
+		BIT	7,A
+		JR	Z,CORREZIONI_6
+
+		LD      A,01H
+		LD      (MSCORR),A
+		JR	CORREZIONI_7
+
+CORREZIONI_6:
+		LD      A,08H
+		LD      (MSCORR),A
+		JR	CORREZIONI_7
+
+CORREZIONI_7:	
+		LD	HL,0000H
+		LD	(CUBTR0),HL	;SOTTRAENDO = 80000000h
+		LD	HL,8000h
+		LD	(CUBTR2),HL
+		LD	HL,(CORRATT)	;MINUENDO = CORRATT
+		LD	(CINUE0),HL
+		LD	HL,(CORRATT+02H)
+		LD	(CINUE2),HL
+		CALL	CSOTT32		;RESTO = MINUENDO - SOTTRAENDO
+		LD	HL,(CESTO0)
+		LD	(CORRATT),HL	;BASSO
+		LD	HL,(CESTO2)
+		LD	(CORRATT+02H),HL ;ALTO
+		
+CORREZIONI_8:		
+
+		LD      A,(CORRATT+03H)
+		AND	7FH
+		CP	00H
+		JR	Z,CORREZIONI_9
+                LD      BC,0FFFFH
+                LD      A,0FFH
+		JR	CORREZIONI_10
+CORREZIONI_9:
+                LD      BC,(CORRATT)
+                LD      A,(CORRATT+02H)
+		JR	CORREZIONI_10
+CORREZIONI_10:
+
+                LD      (MDECOR),A      ;VALORE PER 
+                CP      00H             ;EXTRA CORREZ.
+                JR      NZ,CORREZIONI_11
+
+                LD      A,B
+
+                LD      (CORRE),A
+                JR      CORREZIONI_12          
+CORREZIONI_11:  LD      A,0FFH
+                LD      (CORRE),A
+
+
+
+		;ROUTINE DI CORREZIONE
+
+
+CORREZIONI_12:  LD      A,(CIDE75)      ;DECREMENTO 
+                CP      00H             ;DEL 75% DEL
+                JR      Z,CORREZIONI_13        ;CICLO
+                DEC     A
+                LD      (CIDE75),A
+
+
+CORREZIONI_13:       
+;		LD      A,(PROPRI)		;SE IN PROTEZIONE 
+;                CP      01H			;(ALLARME) ATTIVO
+;                JP      Z,COFINE                ;ESCO 
+;		LD      A,(PROVEL)		;SE IN PROTEZIONE 
+;                CP      01H			;(ALLARME) ATTIVO
+;                JP      Z,COFINE		;ESCO 
+
+		LD      A,(MATTES)		;CONTROLLO CICLO
+		DEC     A			;DI ATTESA
+		LD      (MATTES),A
+		CP      00H
+		JP      NZ,COFINE
+
+                LD      A,(CICL75)		;RICARICO IL 
+                LD      (CIDE75),A		;75% DEL CICLO 
+
+                LD      A,(CICLO)		;RICARICO IL CI-
+		LD      (MATTES),A		;CLO DI ATTESA.
+
+                LD      HL,(ERMEDI)
+		LD      DE,(ZONA)
+		SBC     HL,DE			;SE ZONA MORTA
+		JR      NC,CORREZIONI_14		;MAGGIORE DI
+		CCF				;ERMEDI SALTO
+		JP     COFINE
+CORREZIONI_14:         
+		LD	A,(MEMC)		;SE SONO IN 
+		BIT	2,A			;MANUALE SALTO
+		JP      Z,COFINE
+
+                LD      A,(CORRE)
+                CP      00H			;SALTO
+                JP      Z,KRAPIN        
+
+                LD      A,(MDECOR)
+                LD      (DECORR),A
+
+
+                LD      A,37H			;CONTROLLO CTC1   
+		OUT     (71H),A         
+                LD      A,40H			;COSTANTE DI TEMPO
+		OUT     (71H),A			
+		LD      A,0D7H			;CONTROLLO CTC2
+		OUT     (72H),A
+                LD      A,(CORRE)		;MSB ERRORE  
+                OUT     (72H),A
+
+
+		LD      A,(MSCORR)		;VEDO IN CHE
+		CP      01H		;SENSO CORREG.
+		JR      NZ,AUTRIT
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                LD      A,(MOTPOT)		;SE INTERVALLO TIRO E' A ZERO SALTA
+                CP      00H			
+                JR      Z,AUTAVA
+
+                LD	A,(FUN8AM)		;SE TIRO E' IN MANUALE SALTA 
+                CP	00H			
+                JR      Z,AUTAVA
+
+		LD	BC,(MOTPO1)
+		LD      A,(POTRIT)
+		INC	A
+		CP	C
+		JR	C,CORREZIONI_15 
+		LD      A,(MOTPO1)
+CORREZIONI_15:
+		LD      (POTRIT),A
+
+		LD      A,(POTAVA)
+		DEC     A
+		LD      (POTAVA),A
+		CP      00H
+		JR      NZ,AUTAVA
+                LD      A,(MOTPO1)
+		LD      (POTAVA),A
+                
+                LD      A,01H           
+                LD      (TMEM6),A		;PIU' CARTA
+                LD      (TMEM4),A		;ATTIVO 
+                CALL    TCORRE                  ;CORREZ.TIRO
+                JR     COFINE
+;&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+AUTAVA:         LD      A,(MEMC)        ;CORREZIONE IN
+		RES     1,A		
+		SET     0,A		;AVANTI
+		RES	4,A
+		LD      (MEMC),A
+		OUT     (PC),A
+
+		
+		JR     COFINE
+
+AUTRIT:
+                LD      A,(MOTPOT)      ;SE A ZERO  
+                CP      00H             ; SALTA
+                JR      Z,AUTRI1
+
+                LD	A,(FUN8AM)	;SE IN MANUALE
+                CP	00H		;TIRO SALTA 
+                JR      Z,AUTRI1
+
+		LD	BC,(MOTPO1)
+		LD      A,(POTAVA)
+		INC	A
+		CP	C
+		JR	C,CORREZIONI_16 
+		LD      A,(MOTPO1)
+CORREZIONI_16:
+		LD      (POTAVA),A
+
+		LD      A,(POTRIT)
+		DEC     A
+		LD      (POTRIT),A
+		CP      00H
+		JR      NZ,AUTRI1
+                LD      A,(MOTPO1)      
+		LD      (POTRIT),A
+                LD      A,02H           ;MENO CARTA
+                LD      (TMEM6),A
+                LD      A,01H           ;ATTIVO
+                LD      (TMEM4),A       ;CORREZ.TIRO 
+                CALL    TCORRE
+                JR     COFINE
+
+
+
+AUTRI1:         LD      A,(MEMC)        ;CORREZIONE IN
+		RES     0,A             ;RITARDO
+		SET     1,A
+                RES     4,A             
+		LD      (MEMC),A
+		OUT     (PC),A
+COFINE:         RET
+
+
+;*********************************************NNDD
+
+
+
+KRAPIN:        
+		CALL	RESEPC		;SSDD
+                LD      A,43H           ;INDESIDERATE
+                OUT     (71H),A         ;COME A KRAPINA
+                OUT     (72H),A
+                LD      A,(MOTPO1)      
+                LD      (POTAVA),A
+                LD      (POTRIT),A
+                RET                     
+
+
+                ;CALCOLO ERRORE MEDIO PER CORREZIONE LONG
+
+
+LMEDIA:
+                LD      A,(PRIMOB)      ;WWAA
+                LD      B,A
+                LD      IX,MAVA00               ;+5CH     ;DMEP1C WWAA   ;SU SEDICI
+                LD      DE,(VALORX)
+                ADD     IX,DE
+LMED01:
+                LD      E,(IX)          ;DATI LETTI
+                LD      D,(IX+01H)      ;INSERENDO
+                LD      (IX+02H),E      ;IL NUOVO
+                LD      (IX+03H),D      ;ERRORE AL
+                DEC     IX              ;PRIMO POSTO
+                DEC     IX              ;ED ELIMINANDO
+                DJNZ    LMED01          ;L'ULTIMO
+                INC     IX
+                INC     IX
+
+
+                LD      A,(PRIMOB)      ; LD      B,2FH           ;WWAA
+                LD      B,A             ;WWAA
+                LD      IY,MRIT00       ;+5CH   ;DMED1C       WWAA
+                LD      DE,(VALORX)     ;WWAA
+                ADD     IY,DE           ;WWAA
+LMED02:
+                LD      E,(IY)          ;RIPETE QUELLO
+                LD      D,(IY+01H)      ;VISTO SOPRA
+                LD      (IY+02H),E      ;CON ALTRE  
+                LD      (IY+03H),D      ;16 CELLE
+                DEC     IY
+                DEC     IY
+                DJNZ    LMED02
+                INC     IY
+                INC     IY
+
+
+                LD      DE,(ERATTU)      ;WWAA  LD      DE,(ERMEDI)    INSERIMENTO
+                LD      BC,0000H         ;NUOVO ERRORE
+                LD      A,(MSCORR)       ;NELLA PRIMA
+                CP      01H              ;DELLE 16 CELLE
+                JR      Z,LMED04
+LMED03:
+                LD      (MAVA00),DE
+                LD      (MRIT00),BC
+                JR      LMED05
+LMED04:         
+                LD      (MAVA00),BC
+                LD      (MRIT00),DE
+LMED05:
+                LD      A,(SECONB)      ;WWAA
+                LD      B,A             ;WWAA LD      B,30H           
+                JR      NC,LMED06       ;48 CELLE 16 CELLE TMEPXX WWAA
+                CCF                      ; 
+LMED06:         LD      HL,0000H
+LMED07:
+                LD      E,(IX+00H)
+                LD      D,(IX+01H)
+                ADC     HL,DE
+                INC     IX
+                INC     IX
+                DJNZ    LMED07
+                LD      (SOMLO1),HL
+
+                LD      A,(SECONB)      ;WWAA
+                LD      B,A             ;WWAA LD      B,30H 
+                JR      NC,LMED08        ;48 CELLE 16 CELLE DTEDXX    WWAA
+                CCF
+LMED08:         LD      HL,0000H
+LMED09:
+                LD      E,(IY+00H)
+                LD      D,(IY+01H)
+                ADC     HL,DE
+                INC     IY
+                INC     IY
+                DJNZ    LMED09
+
+                LD      (SOMLO2),HL
+                LD      DE,(SOMLO1)
+		SBC     HL,DE
+                JR      C,LMED10        
+                LD      A,01H           ;CORREZIONE
+                LD      (MSCORR),A      ;IN AVANTI
+
+                LD      A,23H           ;SIMBOLO ERRORE
+                LD      (BINSET+10H),A  ;RITARDO
+
+                JR      LMED11
+
+LMED10:         CCF
+                LD      A,08H           ;CORREZIONE
+                LD      (MSCORR),A      ;IN RITARDO
+
+                LD      A,1CH           ;SIMBOLO ERRORE
+                LD      (BINSET+10H),A  ;AVANTI
+
+
+
+
+                EX      DE,HL
+                LD      DE,(SOMLO2)
+		SBC     HL,DE
+LMED11:         LD      (DIVDEN),HL
+                LD      BC,(SECONB)     ;DIVISIONE    WWAA
+                LD      B,00H           ;WWAA
+                LD      (DIVSOR),BC     ;PER XX GGAA
+		CALL    DIVIS
+		LD      HL,(QUOZIE)
+                LD      (ERMEDI),HL
+
+LMED12:         LD      DE,0000H
+		SBC     HL,DE
+                JR      NZ, LMED13 
+
+                LD      A,00H           ;NESSUNA
+                LD      (MSCORR),A      ;CORREZIONE
+
+
+                LD      A,09H           ;SIMBOLO =
+                LD      (BINSET+10H),A
+
+
+LMED13:         
+
+           ;MEDIA ERRORE SU QUATTRO PER DISPLY LONGITUDINALE
+
+		
+		LD      B,03H           ;FFFE        0FH           ;WWAA 
+                LD      IX,DAVA00       ;
+                LD      DE,0004H        ;FFFE     ;001CH
+                ADD     IX,DE
+MEDL01:
+                LD      E,(IX)          ;DATI LETTI
+                LD      D,(IX+01H)      ;INSERENDO
+                LD      (IX+02H),E      ;IL NUOVO
+                LD      (IX+03H),D      ;ERRORE AL
+                DEC     IX              ;PRIMO POSTO
+                DEC     IX              ;ED ELIMINANDO
+                DJNZ    MEDL01          ;L'ULTIMO
+                INC     IX
+                INC     IX
+
+
+                LD      B,03H           ;FFFE  0FH           ;WWAA
+                LD      IY,DRIT00       ;WWAA
+                LD      DE,0004H        ;FFFE     001CH
+                ADD     IY,DE           ;WWAA
+MEDL02:
+                LD      E,(IY)          ;RIPETE QUELLO
+                LD      D,(IY+01H)      ;VISTO SOPRA
+                LD      (IY+02H),E      ;CON ALTRE  
+                LD      (IY+03H),D      ;4 CELLE
+                DEC     IY
+                DEC     IY
+                DJNZ    MEDL02
+                INC     IY
+                INC     IY
+
+
+                LD      DE,(ERMEDI)      ;FFFE  (ERATTU)   INSERIMENTO
+                LD      BC,0000H         ;NUOVO ERRORE
+                LD      A,(MSCORR)       ;NELLA PRIMA
+                CP      01H              ;DELLE 4 CELLE
+                JR      Z,MEDL04
+MEDL03:
+                LD      (DAVA00),DE
+                LD      (DRIT00),BC
+                JR      MEDL05
+MEDL04:         
+                LD      (DAVA00),BC
+                LD      (DRIT00),DE
+MEDL05:
+                LD      B,04H              ;FFFE 10H            ;SOMMA DELLE  
+                JR      NC,MEDL06        ;4 CELLE  WWAA
+                CCF                      ; 
+MEDL06:         LD      HL,0000H
+MEDL07:
+                LD      E,(IX+00H)
+                LD      D,(IX+01H)
+                ADC     HL,DE
+                INC     IX
+                INC     IX
+                DJNZ    MEDL07
+                LD      (SOMDL1),HL
+
+                LD      B,04H            ; FFFE  10H            ;SOMMA DELLE   WWAA
+                JR      NC,MEDL08        ;4 CELLE  WWAA
+                CCF
+MEDL08:         LD      HL,0000H
+MEDL09:
+                LD      E,(IY+00H)
+                LD      D,(IY+01H)
+                ADC     HL,DE
+                INC     IY
+                INC     IY
+                DJNZ    MEDL09
+
+                LD      (SOMDL2),HL
+                LD      DE,(SOMDL1)
+                SBC     HL,DE
+                JR      C,MEDL10       ;SIMBOLO ERRORE
+                JR      MEDL11   
+MEDL10:         CCF
+		EX      DE,HL
+                LD      DE,(SOMDL2)     ;WWAA
+		SBC     HL,DE
+MEDL11:         LD      (DIVDEN),HL
+                LD      BC,0004H        ;FFFE     0010H        ;
+                LD      (DIVSOR),BC     ;
+                CALL    DIVIS
+                LD      DE,(QUOZIE)
+                
+                LD      (BINSET),DE     ;OOPP
+                JR      DACEN4          
+
+   
+                ;GENERAZIONE USCITA ERRORE ANALOGICO
+
+                LD      A,(MEMC)        ;SE E'IN 
+                BIT     2,A             ;MANUALE 
+                JR      Z,DACEN3        ;SALTO
+
+                LD      A,E             ;SE IL VALORE
+                CP      21H             ;SUPERA 33
+                JR      C,DACEN1        ;IMPONGO COME
+                CCF                     ;MAX 32
+                LD      A,20H
+                LD      E,A
+DACEN1:
+                LD      (MOLTI),DE      ;UN DECIMO
+                LD      A,1FH           ;CORRISPONDE 
+                LD      (MOLPL) ,A      ;AD UN VALORE
+                CALL    MOLT            ;DI 31
+                LD      HL,(PROD)
+                LD      A,(MSCORR)
+                CP      00H
+                JR      Z,DACEN3
+                CP      01H
+                JR      Z,AVADAC
+                LD      DE,03FFH        ;SE E'IN RI-
+                EX      DE,HL           ;TARDO SOT-
+                SBC     HL,DE           ;TRAGGO AL
+                JR      DACEN2          ;VALORE DI 
+AVADAC:                                 ;ZERO
+                LD      DE,03FFH
+                ADD     HL,DE
+                JR      DACEN2
+DACEN3:         LD      HL,03FFH
+DACEN2:         LD      (RIFDAC),HL     ;OOPP
+DACEN4:
+                RET
+
+
+
+
+
+
+
+                ;CALCOLO CORREZIONE TIRO   
+                
+
+                ;##################################
+                ;# CALCOLO CORREZIONE MOTORE TIRO #
+                ;# Et x Gt = TEMPO DI CORREZIONE  #   
+                ;##################################
+		
+TCORRE:         LD      A,(TIMER)       ;SE ZERO 
+                CP      00H             ;SALTO
+                JP      Z,TOFINE        ;TTTT
+
+                LD      A,(MEMC)        ;SE ATTIVA TEC
+                BIT     5,A             ;FUNZ9 SALTO TEC
+                JP      NZ,TOFINE       ;TEC
+
+                LD      DE,(ERATTU)     
+                LD      A,(TIMER)       
+                LD      (MOLT24),DE     
+                LD      (MOLP24),A      
+                CALL    MOL24           
+                LD      BC,(PROD24)
+                LD      A,(PROD24+02H)
+                CP      00H
+                JR      Z,TCORR1        ;BC = ERRORE    
+                LD      B,0FFH          ;EXTRA CORR.
+TCORR1:         LD      (TMEM5),BC      ;BC = ERRORE
+TCORR2:         LD      A,B             ;SE ERRORE = 0
+                OR      C               ;SALTO
+                JP      Z,TKRAPI        ;TTTT
+
+
+
+
+                ;ROUTINE DI CORREZIONE TIRO
+
+
+                LD      A,(TMEM4)      
+		CP      00H
+                JR      Z,TOFINE        
+
+                LD      A,(TMEM6)       
+                CP      00H
+                JR      Z,TOFINE
+                CP      01H
+                JR      Z,PIUPAP        
+                CP      02H
+                JR      Z,MENPAP        
+                JR      TOFINE
+PIUPAP:         CALL    PIUCAR         
+
+
+                LD      A,(TIMER)       ;SE TIMER >  TTTT
+                CP      65H             ;DI 100 LA
+                JR      C,PIUPA1        ;CORREZZIONE
+                SBC     A,64H           ;DIVENTA FIS-
+                LD      BC,0000H        ;SA UNA UNITA'
+                LD      (TMEM5),BC      ;DELLA SOT-
+                LD      (TMEM5),A       ;TRAZIONE E'
+                LD      A,0B7H          ;UGULE A 1mS      
+                OUT     (73H),A         
+                LD      A,10H           
+                OUT     (73H),A          
+                JR      PIUPA2
+PIUPA1:         CCF                     ;TTTT
+
+                LD      A,0B7H          ;CON ERORE 0.1mmm      
+                OUT     (73H),A         ;E TIMER = 10
+                LD      A,30H           ;TEMPO DI  ZZZ
+                OUT     (73H),A         ;CORREZ. = 30mS  
+
+PIUPA2:         LD      A,(MEMC)        ;DIMINUZIONE
+                RES     7,A             ;TIRO
+		SET     6,A
+		LD      (MEMC),A
+		OUT     (PC),A
+                JR      TOFINE          
+MENPAP:         CALL    MENCAR          
+
+
+                LD      A,(TIMER)       ;VEDI SOPRA TTTT
+                CP      65H
+                JR      C,MENPA1
+                SBC     A,64H
+                LD      BC,0000H
+                LD      (TMEM5),BC
+                LD      (TMEM5),A
+                LD      A,0B7H                
+                OUT     (73H),A         
+                LD      A,10H           
+                OUT     (73H),A          
+                JR      MENPA2
+MENPA1:         CCF
+
+                LD      A,0B7H          ;CON ERORE 0.1mmm      
+                OUT     (73H),A         ;E TIMER = 10
+                LD      A,30H           ;TEMPO DI  
+                OUT     (73H),A         ;CORREZ. = 30mS 
+
+MENPA2:         LD      A,(MEMC)        ;AUMENTO
+                RES     6,A             ;TIRO
+		SET     7,A
+		LD      (MEMC),A
+		OUT     (PC),A
+TOFINE:         LD      A,00H           
+                LD      (TMEM6),A
+                RET
+		      
+TKRAPI:         LD      A,(MEMC)        ;QUANDO L'ERRORE 
+                RES     6,A             ;E' A ZERO
+                RES     7,A             ;SI ANNULLA 
+                LD      (MEMC),A        ;TUTTO PER
+                OUT     (PC),A          ;EVITARE CHE
+                LD      A,43H           ;CHE AVVENGANO
+                OUT     (73H),A         ;CORREZIONI
+                LD      A,00H           ;INDESIDERATE
+                LD      (TMEM4),A       ;COME A KRAPINA
+                RET
+
+
+
+
+                ;GESTIONE DELLA CORREZIONE SUPERIORE
+                ;A MEZZO GATE  
+
+OVERCO:         LD      HL,(ERATTU)     ;SE ERRORE > 1mm  
+                LD      DE,000AH        ;SALTO SE NO
+                SBC     HL,DE           ;RICARICO LA
+                JR      NC,OVERC3       ;SOVRA CORREZ-
+                CCF                     ;ZIONE.
+
+                LD      A,(SHIFT1)      ;METTO IN SHIFT
+                DEC     A               ;AMPI40 FINO
+                LD      (SHIFT1),A      ;A CHE SHIFT1
+                CP      00H             ;ARRIVI A ZERO
+                JR      Z,OVERC1
+                LD      DE,(AMPI40)     
+                LD      (SHIFT),DE      
+                JR      OVERC2
+
+OVERC1:         LD      DE,(SHIFT2)     ;ALLA FINE 
+                LD      (SHIFT),DE      ;CARICO IL
+                LD      A,00H           ;RESTO IN
+                LD      (SUPCOR),A      ;SHIFT
+
+OVERC2:         CALL    SPOSTA
+
+OVERC3:         LD      A,(MOTPOT)      ;QUADRU-
+                RLA                     ;PLICO
+                RLA                     ;IL TEMPO DI 
+                LD      (POTRIT),A      ;ATTESA DEL
+                LD      (POTAVA),A      ;TIRO 
+                LD      (MOTPO1),A      
+
+                RET
+
+
+                ;###########################
+                ;# CALCOLO DELLA  VELOCITA'#
+                ;###########################
+
+                ;4mS x 4096 = 16384000
+                ;60\1638400 = 0,000003662
+                ;0,000003662 x CILINDRO = X
+                ;X\1000 = COSVEL (COSVEL E' CALCOLATA
+                ;AL CAMBIO CILINDRO)
+                ;COSVEL x IMPVEL = Y
+                ;Y/1000 = VELOCITA m/m
+
+VELO:           LD      DE,(COSVEL)     
+                LD      (MDO032),DE
+                LD      DE,0000H
+                LD      (MDO232),DE
+                LD      (MRE232),DE
+                LD      DE,(IMPVEL)
+                LD      (MRE032),DE
+                LD      A,01H
+                LD      (ALTDIV),A      
+                CALL    MOL32
+                CALL    DI1000
+                LD      BC,(QU1000)     ;VELOCITA         
+                LD      (ISTVEL),BC     ;ISTANTANEA    
+
+
+                ;MEDIA VELOCITA SU QUATTRO LETTURE WWAA
+
+                LD      B,03H           ;WWAA 
+                LD      IX,MVEL00       ;
+                LD      DE,0004H
+                ADD     IX,DE
+MEDV01:
+                LD      E,(IX)          ;DATI LETTI
+                LD      D,(IX+01H)      ;INSERENDO
+                LD      (IX+02H),E      ;IL NUOVO
+                LD      (IX+03H),D      ;DATO AL
+                DEC     IX              ;PRIMO POSTO
+                DEC     IX              ;ED ELIMINANDO
+                DJNZ    MEDV01          ;L'ULTIMO
+                INC     IX
+                INC     IX
+
+
+                LD      DE,(ISTVEL)      ;
+                LD      (MVEL00),DE
+
+                LD      B,04H            ;SOMMA DELLE  
+                JR      NC,MEDV02        ;4 CELLE  WWAA
+                CCF                      ; 
+MEDV02:         LD      HL,0000H
+MEDV03:
+                LD      E,(IX+00H)
+                LD      D,(IX+01H)
+                ADC     HL,DE
+                INC     IX
+                INC     IX
+                DJNZ    MEDV03
+                
+
+                LD      (DIVDEN),HL
+                LD      BC,0004H        ;
+                LD      (DIVSOR),BC     ;
+		CALL    DIVIS
+		LD      HL,(QUOZIE)
+
+		LD      (VELMED),HL                 
+
+                RET                     ;WWAA
+
+
+                ;SCRITTURA ACCEL DECEL
+
+ACCEL:
+                LD      A,(LINGUA+00H)   ;TTDD
+		CP      00H
+                JR      Z,ACCE
+		CP      01H
+                JR      Z,ACCE
+		CP      02H
+                JR      Z,ACCE
+		CP      03H
+                JR      Z,ACCE
+                CP      04H
+                JR      Z,ACCD
+
+ACCE:           LD      A,77H           ;A
+		LD      (BINSET+10H),A
+                LD      A,39H           ;C
+		LD      (BINSET+0FH),A
+                LD      A,39H           ;C
+		LD      (BINSET+0EH),A
+                LD      A,79H           ;E
+		LD      (BINSET+0DH),A
+                LD      A,38H           ;L
+		LD      (BINSET+0CH),A
+                JR      DECE1                     
+ACCD:           LD      A,7CH           ;b
+		LD      (BINSET+10H),A
+                LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+                LD      A,6DH           ;S
+		LD      (BINSET+0EH),A
+                LD      A,39H           ;C
+		LD      (BINSET+0DH),A
+                LD      A,76H           ;H
+		LD      (BINSET+0CH),A
+                JR      DECE1                     
+
+DECEL:
+                LD      A,(LINGUA+00H)   ;TTDD
+		CP      00H
+                JR      Z,DCCE
+		CP      01H
+                JR      Z,DCCE
+		CP      02H
+                JR      Z,DCCE
+		CP      03H
+                JR      Z,DCCE
+                CP      04H
+                JR      Z,DCCD
+
+DCCE:          
+		LD      A,5EH           ;d
+		LD      (BINSET+10H),A
+		LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+                LD      A,39H           ;C
+		LD      (BINSET+0EH),A
+                LD      A,79H           ;E
+		LD      (BINSET+0DH),A
+                LD      A,38H           ;L
+		LD      (BINSET+0CH),A
+                JR      DECE1
+DCCD:           LD      A,1CH           ;v
+		LD      (BINSET+10H),A
+		LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+                LD      A,50H           ;r
+		LD      (BINSET+0EH),A
+                LD      A,5BH           ;Z
+		LD      (BINSET+0DH),A
+                LD      A,3FH           ;O
+                LD      (BINSET+0CH),A     ;TTDD
+
+DECE1:          EXX
+		CALL	RESEPC		;SSDD
+                CALL    TRDIS
+                LD      BC,01FFH        
+RITVE1:         DI
+                LD      D,077H
+RITVE2:         DEC     D
+                JR      NZ,RITVE2
+                LD      A,(CICLO)       ;RICARICO I
+                RLA                     ;CICLI
+                RLA                     ;QUADRUPLI-
+                LD      (MATTES),A      ;CATI DI
+                LD      A,(MOTPO1)      ;MOTOPOTENZ.
+                RLA                     ;CORREZIONE
+                RLA
+                LD      (POTAVA),A
+                LD      (POTRIT),A      
+                EI                      
+                DEC     BC
+                LD      A,B
+                OR      C
+                JR      NZ,RITVE1
+		CALL	NOPRI6		;AADD
+		RET
+
+
+
+                ;SCRITTURA MANUALE/AUTOMATICO
+                ;DELLA FUNZIONE 9
+
+
+DISMAN:         LD      A,37H           ;M
+		LD      (BINSET+10H),A
+                LD      A,77H           ;A
+		LD      (BINSET+0FH),A
+                LD      A,54H           ;n
+		LD      (BINSET+0EH),A
+                LD      A,3EH           ;u
+		LD      (BINSET+0DH),A
+                LD      A,77H           ;A
+		LD      (BINSET+0CH),A
+                EXX                     ;7/12
+                CALL    TRDIS
+                LD      A,00H           ;PER AVERE
+                LD      (FUN8AM),A      ;ZERO 0 UNO
+                RET                     ;ALL'INIZIAL.
+
+DISAUT:         LD      A,77H           ;A
+		LD      (BINSET+10H),A
+                LD      A,3EH           ;U
+		LD      (BINSET+0FH),A
+                LD      A,78H           ;t
+		LD      (BINSET+0EH),A
+                LD      A,3FH           ;O
+		LD      (BINSET+0DH),A
+                LD      A,00H           ;
+		LD      (BINSET+0CH),A
+                EXX                     ;7/12
+                CALL    TRDIS
+                LD      A,01H           ;PER AVERE
+                LD      (FUN8AM),A      ;ZERO 0 UNO
+                                        ;ALL'INIZIAL
+                LD      A,(MOTPO1)      ;PER NON AVER TTTT
+                LD      (POTAVA),A      ;FF QUANDO SI
+                LD      (POTRIT),A      ;METTE IN AUTO TTTT
+
+                RET                     
+
+
+                ;SCRITTURA PIU TENSIONE,MENO TENSIONE
+                ;DELLA FUNZIONE 8
+
+
+PIUCAR:         LD      A,02H           ;SEGNALA PRIMO7/12 BBLL
+                LD      (TMEM7),A       ;PASSAGGIO TRDIS
+                LD      (TMEM8),A       ;E MANTENIMENTO 7/12
+
+                LD      A,70H           ;+
+		LD      (BINSET+10H),A
+                LD      A,73H           ;P
+		LD      (BINSET+0FH),A
+                LD      A,77H           ;A
+		LD      (BINSET+0EH),A
+                LD      A,73H           ;P
+		LD      (BINSET+0DH),A
+                LD      A,79H           ;E
+		LD      (BINSET+0CH),A
+                EXX                     ;7/12
+                CALL    TRDIS
+                LD      A,00H           ;7/12
+                LD      (TMEM7),A       ;7/12
+                LD      A,(MOTPOT)      ;
+                LD      (MOTPO1),A      ;
+                LD      (POTAVA),A      ;
+                LD      (POTRIT),A      ;
+                RET
+
+MENCAR:         LD      A,02H           ;7/12   BBLL
+                LD      (TMEM7),A
+                LD      (TMEM8),A       ;7/12
+                LD      A,40H           ;-
+		LD      (BINSET+10H),A
+                LD      A,73H           ;P
+		LD      (BINSET+0FH),A
+                LD      A,77H           ;A
+		LD      (BINSET+0EH),A
+                LD      A,73H           ;P
+		LD      (BINSET+0DH),A
+                LD      A,79H           ;E
+		LD      (BINSET+0CH),A
+                EXX                     ;7/12
+                CALL    TRDIS
+                LD      A,00H           ;7/12
+                LD      (TMEM7),A       ;7/12
+
+                LD      A,(MOTPOT)      
+                LD      (MOTPO1),A      
+                LD      (POTAVA),A      
+                LD      (POTRIT),A      
+
+
+                RET                     
+
+
+
+		;CONTROLLO PARAMETRI E EVENTUALE
+		;INSERIMENTO VALORI DI DEFAULT
+
+
+
+DEFAUL:         LD      IX,TRIP         
+		LD      (IX+01H),00H
+                LD      A,(IX)
+                CP      0FH
+                JR      NC,DEF1
+		JR      DEF2
+DEF1:           LD      A,06H
+		LD      (IX),A
+
+DEF2:           LD      IX,GUADA
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF3
+		CP      64H
+                JR      NC,DEF3
+                JR      DEF4
+DEF3:           LD      A,0AH
+		LD      (IX),A
+		
+DEF4:           LD      IX,CICLO
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF5
+		CP      64H
+                JR      NC,DEF5
+                JR      DEF6
+DEF5:           LD      A,03H
+		LD      (IX),A
+		
+DEF6:           LD      IX,DERIVA       
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF7
+                CP      0FEH            ;DDEE
+                JR      NC,DEF7
+                JR      DEF8
+DEF7:           LD      A,01H           ;DDEE
+		LD      (IX),A
+		
+DEF8:           LD      IX,ZONA
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF9
+		CP      15H
+                JR      NC,DEF9
+                JR      DEF10
+DEF9:           LD      A,00H
+		LD      (IX),A
+		
+DEF10:          LD      IX,INSER
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF11
+                CP      0FFH
+                JR      NC,DEF11
+                JR      DEF12
+DEF11:          LD      A,0AH
+		LD      (IX),A
+
+DEF12:          LD      IX,SALTO
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      0AH
+                JR      NC,DEF13
+                JR      DEF14
+DEF13:          LD      A,01H           
+		LD      (IX),A
+
+DEF14:          LD      IX,MOTPOT
+		LD      (IX+01H),00H
+		LD      A,(IX)
+                CP      00H
+                JR      Z,DEF15
+		CP      0C8H
+                JR      NC,DEF15
+                JR      DEF16
+DEF15:          LD      A,0FH
+		LD      (IX),A
+
+
+DEF16:          LD      IX,TIMER        
+		LD      (IX+01H),00H
+                LD      A,(IX)          
+                CP      0FFH            ;BBB
+                JR      NC,DEF17
+                JR      DEF18
+DEF17:          LD      A,0AH
+		LD      (IX),A
+
+
+DEF18:          LD      IX,LINGUA       ;REV7
+		LD      (IX+01H),00H
+                LD      A,(IX)
+                CP      00H
+                JR      Z,DEF19
+                CP      05H
+                JR      NC,DEF19
+                JR      DEF20
+DEF19:          LD      A,00H           ;INGLESE
+		LD      (IX),A
+
+
+DEF20: 
+		LD      IX,ABIDOP      ;DDAA
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF21
+                CP      02H
+                JR      NC,DEF21
+                JR      DEF22
+DEF21:          LD      A,00H
+		LD      (IX),A
+DEF22:		
+		RET
+
+
+
+               ;CALCOLO VARIABILI PER MEDIA ERRORE LONG.
+
+VARERR:                                  ;WWAA
+                LD      A,(CICLO)
+                CP      09H
+                JR      NC,MECI01
+                LD      A,07H
+                LD      (PRIMOB),A
+                INC     A
+                LD      (SECONB),A
+                LD      A,0CH
+                LD      (VALORX),A
+                JR      MECI04
+MECI01:
+                LD      A,(CICLO)
+                CP      11H             ;= 17
+                JR      NC,MECI02
+                LD      A,0FH
+                LD      (PRIMOB),A
+                INC     A
+                LD      (SECONB),A
+                LD      A,1CH           ;= 28
+                LD      (VALORX),A
+                JR      MECI04
+MECI02:
+                LD      A,(CICLO)
+                CP      21H             ;= 33
+                JR      NC,MECI03
+                LD      A,1FH           ;= 31
+                LD      (PRIMOB),A
+                INC     A
+                LD      (SECONB),A
+                LD      A,3CH           ;= 60
+                LD      (VALORX),A
+                JR      MECI04
+MECI03:
+                LD      A,2FH           ;= 47
+                LD      (PRIMOB),A
+                INC     A
+                LD      (SECONB),A
+                LD      A,5CH           ;= 92
+                LD      (VALORX),A
+MECI04:
+                RET
+
+
+
+                ;CALCOLO VELOCITA'ISTANTANEA SLEGATO     BBLL
+                ;DAL NORMALE CALCOLO USATO SOLO PER NOPRI
+                
+VELIST:                                 ;BBLL
+
+                LD      BC,011DH        ;4mS TEMPO   
+                LD      IX,IMPVEL       ;PER MISURARE
+                LD      A,00H           ;GLI IMPULSI
+                LD      (IX+01H),A
+                LD      A,057H          ;SETTO CTC0
+                OUT     (70H),A         ;SENZA INTERUPT
+                LD      A,0FFH          
+                OUT     (70H),A         
+VELO1:          IN      A,(70H)         ;NEL CASO IL 
+                CP      00H             ;DECREMENTO 
+                JR      NZ,VELO2        ;ARRIVI A ZERO
+                INC     (IX+01H)        ;LO MEMORIZZO
+
+VELO2:          DEC     BC              
+                LD      A,B
+                OR      C
+                JR      NZ,VELO1       
+                IN      A,(70H)         
+                CPL                     ;IMPULSI PROPOR
+                LD      (IMPVEL),A      ;ALLA VELOCITA.
+
+
+                LD      DE,(COSVEL)
+		LD      (MDO032),DE
+		LD      DE,0000H
+		LD      (MDO232),DE
+		LD      (MRE232),DE
+		LD      DE,(IMPVEL)
+		LD      (MRE032),DE
+		LD      A,02H           
+		LD      (ALTDIV),A      
+		CALL    MOL32
+		CALL    DI1000
+		LD      BC,(QU1000)     ;VELOCITA         
+		LD      (ISTVEL),BC     ;ISTANTANEA    
+
+                RET
+
+
+
+                ;SCRITTURA CIAO
+
+
+CIAO:           LD      A,39H           ;C 
+		LD      (BINSET+10H),A
+                LD      A,06H           ;I
+		LD      (BINSET+0FH),A
+                LD      A,77H           ;A
+		LD      (BINSET+0EH),A
+                LD      A,3FH           ;O
+		LD      (BINSET+0DH),A
+                LD      A,00H           ;
+		LD      (BINSET+0CH),A
+		EXX
+
+                LD      A,(MEMC)        ;TOLGO LA   
+		RES     4,A             ;PROTEZIONE
+		LD      (MEMC),A
+		OUT     (PC),A
+
+
+		CALL    TRDIS
+		CALL    RITDIS
+                RET                           
+
+
+		;RITARDO PER DISPLAY
+
+
+RITDIS:         LD      D,03H
+RITDI1:         LD      BC,0FFFFH
+RITDI2:         DEC     BC
+		LD      A,B
+		OR      C
+		JR      NZ,RITDI2
+		DEC     D
+		JR      NZ,RITDI1
+		RET
+
+
+                ;RITARDO PER DISPLAY PIU'/ MENO CARTA
+
+
+RITPMC:         DI                      
+                LD      D,02H           
+RITPM1:         LD      BC,0FFFFH       
+RITPM2:         DEC     BC
+		LD      A,B
+		OR      C
+                JR      NZ,RITPM2
+		DEC     D
+                JR      NZ,RITPM1       
+                EI                      
+                RET                     
+
+		;AZZERAMENTO TOTALE
+AZZTOT:
+                LD      A,00H           ;AAZZ
+                LD      (MAVA00),A      ;VIENE AZZERATO 
+                LD      HL,MAVA00       ;TUTTO CIO'CHE 
+                LD      DE,MAVA00+01H   ;RIGUARDA LA  
+                LD      BC,130H         ;VISUALIZZAZIONE 
+                LDIR                    ;DELL'ERRORE 
+
+		RET
+
+
+		;######################
+		;# MODIFICA PARAMETRI #
+		;######################
+
+
+
+MODPA:          DI
+		LD      A,00H           
+		LD      (SETUP2),A
+		LD      A,6DH           ;S
+		LD      (BINSET+10H),A
+		LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+		LD      A,78H           ;t
+		LD      (BINSET+0EH),A
+		LD      A,3EH           ;U
+		LD      (BINSET+0DH),A
+		LD      A,73H           ;P
+		LD      (BINSET+0CH),A
+		EXX
+		CALL    TRDIS
+		CALL    RITDIS          ;PER NON AVERE
+		LD      DE,0000H        ;UN NUMERO INCA-
+		LD      (XUNZ),DE       ;SINATORE.
+MODPA1:         LD      BC,0BFFFH       ;RITARDO ANTI
+XONT1:          DEC     BC              ;RIMBALZO
+		LD      A,B
+		OR      C
+		JR      NZ,XONT1
+XONT4:          IN      A,(PA)          
+		AND     1FH             ;SELEZIONA TASTO
+                CP      0FH             ;FUNZIONE  
+		JR      Z,XNCR          ;(CILIN/ALLAR)
+		CP      0CH             ;TASTO +
+		JP      Z,XART6
+		CP      0DH             ;TASTO -
+		JP      Z,XART6
+		CP      0AH             ;TATSO CLEAR
+		JP      Z,XART6
+		CP      0BH             ;TASTO ENTER
+		JP      Z,RESETT
+		JP      XINE
+XART:           LD      A,00H
+		LD      D,A
+		LD      HL,XUNZ
+		LD      (HL),A
+		JR      XERO
+XART1:          LD      A,0BH           ;CONTEGGIO >11  DDAA
+		LD      D,A
+		LD      HL,XUNZ
+		LD      (HL),A
+		JP      XERO
+XNCR:           LD      A,00H           
+                LD      (MLING),A       
+		LD      HL,XUNZ
+		LD      D,(HL)
+		INC     D
+XERO:           LD      A,D
+		LD      (HL),A
+                CP      0BH            ;DDAA  
+		JR      Z,XART
+		CP      0FFH
+		JR      Z,XART1
+		CP      00H
+                JR      Z,TRI
+                CP      01H
+		JR      Z,GUAD
+                CP      02H
+		JR      Z,CIC
+                CP      03H
+                JP      Z,DER
+                CP      04H
+                JP      Z,ZON
+                CP      05H
+		JP      Z,INS
+                CP      06H
+		JP      Z,SALT
+                CP      07H
+		JP      Z,POT
+                CP      08H
+                JP      Z,TIME
+                CP      09H
+		JP      Z,LING
+		CP	0AH		;DDAA
+		JP	Z,DOPP
+		JP      MODPA1		;DDAA
+
+
+TRI:            LD      IX,TRIP         ;CARICO PARAMETRI
+                LD      (IX+02H),00H    ;DEL TRIP DI 
+                LD      (IX+03H),00H    ;VELOCITA'
+                LD      (IX+04H),0FH     
+                LD      DE,(TRIP)
+		LD      (BINSET),DE
+                LD      A,74H           ;h
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      XINE
+
+
+GUAD:           LD      IX,GUADA        ;CARICO PARAMETRI
+                LD      (IX+02H),02H    ;DEL GADAGNO
+		LD      (IX+03H),00H
+		LD      (IX+04H),64H    ; = 100
+		LD      DE,(GUADA)
+		LD      (BINSET),DE
+		LD      A,7CH           ;b
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      XINE
+
+
+CIC:            LD      IX,CICLO        ;CARICO PARAMETRI
+                LD      (IX+02H),01H    ;DEL CICLO CORREZ.
+		LD      (IX+03H),00H
+		LD      (IX+04H),64H
+		LD      DE,(CICLO)
+
+                LD      (BINSET),DE     ;CALCOLO DEL 
+                LD      (MOLTI),DE      ;75% DEL CICLO
+                LD      A,19H           ;CHE VIENE USATO
+                LD      (MOLPL),A       ;ALL'INIZIO DELLE
+                CALL    MOLT            ;EXTRA CORREZ.
+                LD      DE,(PROD)       ;PER FAR SI CHE
+                LD      (DIVDEN),DE     ;VI SIA UNA 
+                LD      BC,64H          ;BREVE INTERRU-
+                LD      (DIVSOR),BC     ;ZIONE PER 
+                CALL    DIVIS           ;EVITARE LA
+                LD      DE,(QUOZIE)     ;CORREZZIONE
+                LD      HL,(CICLO)      ;CONTINUA
+                SBC     HL,DE
+                LD      (CICL75),HL
+
+		LD      A,58H           ;c
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      XINE
+
+
+DER:            LD      IX,DERIVA       ;CARICO PARAMETRI
+                LD      (IX+02H),01H    ;DEL DERIVATIVO
+		LD      (IX+03H),00H
+                LD      (IX+04H),0FEH   ;254   DDEE
+		LD      DE,(DERIVA)
+		LD      (BINSET),DE
+		LD      A,5EH           ;d
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      XINE
+
+
+ZON:            LD      IX,ZONA         ;CARICO PARAMETRI
+		LD      (IX+02H),00H    ;DELLA ZONA MORTA
+		LD      (IX+03H),00H
+		LD      (IX+04H),15H
+		LD      DE,(ZONA)
+		LD      (BINSET),DE
+		LD      A,09H           ;=
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      XINE
+
+
+INS:            LD      IX,INSER        ;CARICO PARAMETRI
+                LD      (IX+02H),02H    ;DELL'INSERZIONE
+		LD      (IX+03H),00H
+                LD      (IX+04H),0FFH   
+		LD      DE,(INSER)
+		LD      (BINSET),DE
+		LD      A,04            ;i
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      XINE
+
+
+SALT:           LD      IX,SALTO        ;CARICO PARAMETRI
+                LD      (IX+02H),00H    ;DEL SALTO DI
+		LD      (IX+03H),00H    ;CORREZIONE
+		LD      (IX+04H),0AH    
+		LD      DE,(SALTO)
+		LD      (BINSET),DE
+		LD      A,5CH           ;o
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      XINE
+
+
+POT:            LD      IX,MOTPOT       ;CARICO PARAMETRI
+                LD      (IX+02H),07H    ;PER GLI INTERVALLI
+		LD      (IX+03H),00H    ;DEL MOTOPOTENZIOM. 
+		LD      (IX+04H),0C8H   ; = 200
+		LD      DE,(MOTPOT)
+		LD      (BINSET),DE
+		LD      A,1CH           ;u
+		LD      (BINSET+10H),A
+		CALL    BIN7
+                JP      XINE
+
+                ;CON VALORE DI TIMER >100 IL TEMPO DI
+                ;CORREZZIONE DIVENTA FISSO IN FUNZIONE
+                ;DEL VALORE MESSO ES. 101 = 1mS
+                ;ES. 110 = 10mS E COSI' VIA
+
+TIME:           LD      IX,TIMER        ;GUADAGNO TIRO
+                LD      (IX+02H),00H    ;CARTA
+                LD      (IX+03H),00H     
+                LD      (IX+04H),0FFH   ; = 255
+		LD      DE,(TIMER)
+		LD      (BINSET),DE
+		LD      A,78H           ;t
+		LD      (BINSET+10H),A
+		CALL    BIN7
+                JP      XINE
+
+LING:           LD      A,01H           
+                LD      (MLING),A       
+		LD      IX,LINGUA       ;CARICO PARAMETRI                                                              
+		LD      (IX+02H),00H    ;DELLA LINGUA
+		LD      (IX+03H),00H    
+                LD      (IX+04H),05H    ;TTDD
+		LD      DE,(LINGUA)
+		LD      (BINSET),DE
+		LD      A,38H           ;L
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		LD      A,E
+		CP      00H
+		JR      Z,LING0
+		CP      01H
+		JR      Z,LING1
+		CP      02H
+		JR      Z,LING2
+		CP      03H
+		JR      Z,LING3
+                CP      04H             ;TTDD
+                JR      Z,LING4         ;TTDD
+		JP      XINE
+LING0:          LD      A,79H           ;E
+		LD      (BINSET+10H),A
+		LD      A,54H           ;n
+		LD      (BINSET+0FH),A
+		LD      A,6FH           ;g
+		LD      (BINSET+0EH),A
+		LD      A,38H           ;L
+		LD      (BINSET+0DH),A
+		LD      A,06H           ;I
+		LD      (BINSET+0CH),A
+                JR      LING5
+LING1:          LD      A,06H           ;I
+		LD      (BINSET+10H),A
+		LD      A,78H           ;t
+		LD      (BINSET+0FH),A
+		LD      A,77H           ;A
+		LD      (BINSET+0EH),A
+		LD      A,38H           ;L
+		LD      (BINSET+0DH),A
+		LD      A,06H           ;I
+		LD      (BINSET+0CH),A
+                JR      LING5              ;TTDD
+LING2:          LD      A,79H           ;E
+		LD      (BINSET+10H),A
+		LD      A,6DH           ;S
+		LD      (BINSET+0FH),A
+		LD      A,73H           ;P
+		LD      (BINSET+0EH),A
+		LD      A,77H           ;A
+		LD      (BINSET+0DH),A
+		LD      A,54H           ;n
+		LD      (BINSET+0CH),A
+                JR      LING5                ;TTDD
+LING3:          LD      A,71H           ;F
+		LD      (BINSET+10H),A
+		LD      A,50H           ;r
+		LD      (BINSET+0FH),A
+		LD      A,77H           ;A
+		LD      (BINSET+0EH),A
+		LD      A,54H           ;n
+		LD      (BINSET+0DH),A
+		LD      A,39H           ;C
+		LD      (BINSET+0CH),A
+                JR      LING5                ;TTDD
+LING4:          LD      A,5EH           ;d
+		LD      (BINSET+10H),A
+                LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+                LD      A,3EH           ;U
+		LD      (BINSET+0EH),A
+                LD      A,78H           ;t
+		LD      (BINSET+0DH),A
+                LD      A,6DH           ;S
+		LD      (BINSET+0CH),A
+
+LING5:          EXX                          ;TTDD
+		CALL    TRDIS
+		JP      XINE
+
+DOPP:           LD      IX,ABIDOP       ;0= DISABILITA  DDAA
+		LD      (IX+02H),00H    ;1= ABILITA BLOC-  
+                LD      (IX+03H),00H    ;CO DOPPIO SEGNO 
+                LD      (IX+04H),02H     
+                LD      DE,(ABIDOP)     
+                LD      (BINSET),DE     
+                LD      A,54H           ;n
+		LD      (BINSET+10H),A
+		CALL    BIN7
+		JP      XINE
+
+
+
+		;GESTIONE CONTEGGIO
+
+XONT5:          LD      BC,0AFFFH       ;cont. lento
+XONT7:          DEC     BC
+		LD      A,B
+		OR      C
+		JR      NZ,XONT7
+XART6:          IN      A,(PA)          
+		AND     1FH             ;sente che
+		CP      0CH             ;tasto Š
+		JR      Z,XNCR2         ;premuto
+		CP      0DH
+		JR      Z,XECR2
+		CP      0AH             ;SE CLEAR AZZERA
+		JR      Z,XZZER         ;IL DISPLAY
+		JP      XINE
+XECR2:          LD      E,(IX+00H)
+		LD      D,(IX+01H)
+		LD      A,D             ;VEDO SE E'ZERO 
+		OR      E               ;PER NON AVERE IN
+		JR      Z,XENT2         ;DECREMENTO FFFFH
+		LD      A,(MEM1)
+		BIT     0,A
+		JR      Z,XENTO
+XENT2:          LD      D,(IX+03H)
+		LD      E,(IX+04H)
+		XOR     A
+		LD      (MEM1),A
+		JR      XENT1
+XENTO:          LD      E,(IX+00H)      ;CARICO I 
+		LD      D,(IX+01H)      ;PARAMETRI
+XENT1:          DEC     DE
+		LD      (IX+00H),E      ;SALVO I PARAMETRI
+		LD      (IX+01H),D
+		LD      (BINSET),DE
+		CALL    BIN7            ;TRASMISSIONE
+		LD      A,E
+		CP      (IX+02H)
+		JR      Z,XZZ3
+		JR      XERO2
+XZZ3:           LD      A,01H
+		LD      (MEM1),A
+		LD      (IX+00H),E      ;AZZERAMENTO
+		LD      (IX+01H),D      ;FASE E ALLARME
+		JP      XERO2
+XNCR2:          LD      E,(IX+00H)
+		LD      D,(IX+01H)
+		INC     DE
+		LD      (IX+00H),E
+		LD      (IX+01H),D
+		LD      (BINSET),DE
+		CALL    BIN7
+		LD      A,E
+		CP      (IX+04H)
+		JR      Z,XZZER
+		JP      XERO2           ;SECONDO LA
+XZZER:          LD      D,00H           ;FUNZIONE
+                LD      E,(IX+02H)      ;RICHIESTA
+                LD      (IX+00H),E      
+		LD      (IX+01H),D
+		LD      (BINSET),DE
+		CALL    BIN7
+		JR      XERO2
+XECR3:          LD      A,01H
+		LD      (MEM2),A
+		IN      A,(PA)
+		AND     1FH
+		CP      0DH
+		JR      Z,XECR3
+XNCR3:          LD      A,01H
+		LD      (MEM3),A
+		IN      A,(PA)
+		AND     1FH
+		CP      0CH
+		JR      Z,XNCR3
+XERO2:          LD      A,(MLING)       
+		CP      01H
+		JP      Z,LING
+		IN      A,(PA)          
+		AND     1FH             ;SENTE SE TASTO
+		CP      0DH             ;ANCORA PREMUTO
+		JP      Z,XONT5         ;RIPETE IL CICLO
+		CP      0CH
+		JP      Z,XONT5
+XINE:           LD      (XTASTO),IX
+		JP      MODPA1
+RESETT:         LD      A,01H           ;PER NON VEDERLO 
+                LD      (NOCIAO),A      ;QUANDO RITORNA 
+                JP      VIA
+                
+
+		;VERIFICA FUNZIONAMENTO TESTA
+		;E ENCODER
+
+TEST:           DI
+		LD      A,00H           ;RESETTO PORTA C
+		LD      (MEMC),A        ;IMPONENDO MANUALE
+		OUT     (PC),A
+		LD      (TEST2),A
+		LD      A,78H           ;t
+		LD      (BINSET+10H),A
+		LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+		LD      A,6DH           ;S
+		LD      (BINSET+0EH),A
+		LD      A,78H           ;t
+		LD      (BINSET+0DH),A
+                LD      A,00H           ;
+		LD      (BINSET+0CH),A
+		EXX
+		CALL    TRDIS
+		CALL    RITDIS          
+TES1:           LD      BC,01FFH        ;RITARDO ANTI 
+TES2:           DEC     BC              ;RIMBALZO
+		LD      A,B
+		OR      C
+		JR      NZ,TES2
+                IN      A,(PA)
+		AND     1FH
+		CP      01H            ;TEST TESTA
+		JR      Z,TES3
+		CP      02H            ;TEST ENCODER
+		JP      Z,ENC1
+                CP      04H
+                JP      Z,RELES
+		CP      0BH
+		JP      Z,TESEND
+		JR      TES1
+TES3:           CALL    TESDIS
+		LD      A,(MEMB)
+		SET     6,A             ;BLOCCO GATE
+		LD      (MEMB),A
+		OUT     (PB),A
+		LD      D,0FFH
+TES4:           IN      A,(PB)          
+		BIT     2,A
+		JR      NZ,TESSI
+		LD      BC,0A00H        ;5 SECONDI
+TES5:           DEC     BC              ;DI TEST 
+		LD      A,B             
+		OR      C                
+		JR      NZ,TES5         
+		DEC     D
+		LD      A,00H
+		CP      D
+		JR      NZ,TES4
+		LD      A,78H           ;t
+		LD      (BINSET+10H),A
+		LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+		LD      A,40H           ;-
+		LD      (BINSET+0EH),A
+		LD      A,54H           ;n
+		LD      (BINSET+0DH),A
+		LD      A,3FH           ;O
+		LD      (BINSET+0CH),A
+		EXX
+		CALL    TRDIS
+		CALL    RITDIS          
+                CALL    RITDIS          ;XXTT
+                JR      TESEND          ;XXTT
+TESSI:          LD      A,78H           ;t
+		LD      (BINSET+10H),A
+		LD      A,79H           ;E
+		LD      (BINSET+0FH),A
+		LD      A,40H           ;-
+		LD      (BINSET+0EH),A
+		LD      A,6DH           ;S
+		LD      (BINSET+0DH),A
+		LD      A,06H           ;I
+		LD      (BINSET+0CH),A
+		EXX
+		CALL    TRDIS
+		CALL    RITDIS          
+                CALL    RITDIS          ;XXTT
+TESEND:         EI  
+                JP      VIA
+
+
+
+TESDIS:         LD      A,40H           ;-
+		LD      (BINSET+10H),A  ;SCRITTURA
+		LD      (BINSET+0FH),A  ;CHE INDICA
+		LD      (BINSET+0EH),A  ;L'INIZIO
+		LD      (BINSET+0DH),A  ;DEL TEST
+		LD      (BINSET+0CH),A
+		EXX
+		CALL    TRDIS
+		RET
+
+		;TEST DELL'ENCODER
+		
+ENC1:           CALL    TESDIS         
+                LD      A,01H          ;CARICO UN
+                LD      (ENCOD1),A     ;GIRO IN CTC1
+                LD      A,0D7H         ;AL GIRO
+                OUT     (71H),A        
+                LD      A,01H          
+                OUT     (71H),A        
+                LD      A,00H          ;AZZERO IL 
+                LD      (ENCOD2),A     ;CONTATORE
+                LD      BC,0000H       ;XXTT2
+                LD      (ENCOD4),BC
+                EI                     ;PER 16
+		JP      TES1
+
+                
+
+ENC2:          
+                LD      A,37H           ;DISABILITO
+                OUT     (03H),A         ;INTERUPT DI
+                LD      A,0FFH          ;PIOB
+                OUT     (03H),A         ;
+ENC3:
+                IN      A,(PB)          ;XXTT
+		BIT     4,A
+                JR      Z,ENC3
+ENC7:           IN      A,(PB)
+                BIT     4,A
+                JR      NZ,ENC7
+                LD      BC,(ENCOD4)
+                INC     BC
+                LD      (ENCOD4),BC
+                JR      ENC3            ;XXTT
+
+
+ENC6:           LD      A,00H
+                LD      (ENCOD1),A      ;
+                LD      A,(ENCOD2)
+		LD      A,43H
+		OUT     (71H),A
+                LD      A,(ENCOD3)      ;TENTA PER
+                INC     A               ;10 VOLTE 
+                LD      (ENCOD3),A      ;IL TEST
+                CP      03H             ;XXTT
+                JP      NZ,ENC1
+
+                LD      HL,(ENCOD4)     ;XXTT2
+                LD      DE,07FDH        ;2045
+                SBC     HL,DE
+                JR      C,ENC41
+
+ENC5:
+                LD      A,79H           ;E
+		LD      (BINSET+10H),A
+		LD      A,54H           ;n
+		LD      (BINSET+0FH),A
+		LD      A,40H           ;-
+		LD      (BINSET+0EH),A
+		LD      A,6DH           ;S
+		LD      (BINSET+0DH),A
+		LD      A,06H           ;I
+		LD      (BINSET+0CH),A
+		EXX
+		CALL    TRDIS
+		CALL    RITDIS
+                CALL    RITDIS          ;XXTT
+                LD      A,00H
+                LD      (ENCOD3),A
+                JR      ENC8            ;XXTT2  JP      TES1
+ENC41:
+                CCF                     ;XXTT2
+ENC4:           LD      A,79H           ;E
+		LD      (BINSET+10H),A
+		LD      A,54H           ;n
+		LD      (BINSET+0FH),A
+		LD      A,40H           ;-
+		LD      (BINSET+0EH),A
+		LD      A,54H           ;n
+		LD      (BINSET+0DH),A
+		LD      A,3FH           ;O
+		LD      (BINSET+0CH),A
+		EXX
+		CALL    TRDIS
+		CALL    RITDIS
+                CALL    RITDIS          ;XXTT
+ENC8:
+                LD      A,00H
+                LD      (ENCOD3),A
+                JP      VIA             ;XXTTJP      TES1
+
+
+		;SCRITTURA Nø VERSIONE PROGRAMMA
+RELES:
+
+                LD      A,08H           ;_
+		LD      (BINSET+10H),A
+                LD      A,5EH           ;d 
+		LD      (BINSET+0FH),A
+                LD      A,04H           ;i 
+		LD      (BINSET+0EH),A
+                LD      A,1CH           ;v   
+		LD      (BINSET+0DH),A
+                LD      A,08H           ;_
+		LD      (BINSET+0CH),A
+		EXX
+
+		CALL    TRDIS
+		CALL    RITDIS
+		CALL    RITDIS
+
+		LD      A,4FH		;3
+		LD      (BINSET+10H),A
+                LD      A,06H           ;1 
+		LD      (BINSET+0FH),A
+                LD      A,08H           ;_ 
+		LD      (BINSET+0EH),A
+                LD      A,3FH           ;0   
+		LD      (BINSET+0DH),A
+                LD      A,77H           ;A
+		LD      (BINSET+0CH),A
+		EXX
+
+		CALL    TRDIS
+		CALL    RITDIS
+		CALL    RITDIS
+            
+                LD      A,5BH           ;2
+		LD      (BINSET+10H),A
+                LD      A,4FH           ;3 DDAA
+		LD      (BINSET+0FH),A
+                LD      A,40H           ;- 
+		LD      (BINSET+0EH),A
+                LD      A,3FH           ;0   
+		LD      (BINSET+0DH),A
+                LD      A,7DH           ;6
+		LD      (BINSET+0CH),A
+		EXX
+
+
+		CALL    TRDIS
+		CALL    RITDIS
+		CALL    RITDIS
+
+                LD      A,00H           
+		LD      (BINSET+10H),A
+                LD      A,5BH           ;2 
+		LD      (BINSET+0FH),A
+                LD      A,3FH           ;0 
+		LD      (BINSET+0EH),A
+                LD      A,3FH           ;0   
+		LD      (BINSET+0DH),A
+                LD      A,07H           ;7
+		LD      (BINSET+0CH),A
+		EXX
+
+		CALL    TRDIS
+		CALL    RITDIS
+		CALL    RITDIS
+
+                JP      TESEND          
+
+                ;VERIFICA TIPO DI ERRORE DA SCRIVERE
+		
+CONTR:          LD      A,(MDATER)
+		CP      00H
+		JR      Z,CO4
+		CP	01H		;EEOO
+		JR	Z,CO1		;EEOO
+		CP	02H
+		JR	Z,CO2
+		CP	03H
+		JR	Z,CO3
+		JR	CO4
+CO1:		CALL    ERROR		;EEOO
+		JR	CO4		;EEOO
+CO2:		CALL	ERRF1		;EEOO
+		JR	CO4
+CO3:		CALL	ERRF3		;EEOO
+CO4:
+		RET
+	       
+	       
+	       
+	       ;FASATURA CON OSCILLOSCOPIO ESTERNO  FF55
+
+SPOFAS:                         
+                IN      A,(PA)          ;
+		BIT     4,A
+                JP      NZ,SPOEN1       ;
+                LD      DE,(INCEXT)
+		LD      A,00H
+		CP      E
+                JR      NZ,EXTE1
+                LD      E,14H		 ;ERA 2 CON OSCIL
+                LD      (INCEXT),DE	 ;NORMALE MESSO A 		
+                JR      EXTE2		 ;20 PER TAJ SCOPE 
+EXTE1:          LD      A,01H		 ;ERA 5 CON OSCIL
+		ADD     A,E		 ;NORMALE MESSO 1
+		LD      E,A		 ;PER TAJ SCOPE	
+                LD      (INCEXT),DE
+
+EXTE2:
+                IN	A,(PA)          ;VERIFICO SE
+                AND     1FH             ;PIGIATO
+                CP      08H             ;AVANTI/RITARDO
+                JP      Z,SXSPOS        ;LLLL
+		CP      09H
+                JR      Z,DXSPOS
+		JR	SPOEND
+DXSPOS:                
+                LD      HL,(FASE)
+                LD      DE,(INCEXT)
+                SBC     HL,DE
+                JR      C,SPOF01
+                LD      (FASE),HL
+                JR      SPOF02
+SPOF01:         CCF
+                LD      HL,0FFFH
+SPOF02:         LD      (FASE),HL
+                JR      SPOEND
+SXSPOS:
+                LD      HL,(FASE)
+                LD      DE,(INCEXT)
+                ADD     HL,DE
+                LD      A,H
+                CP      10H
+                JR      NZ,SPOF07
+                LD      HL,0000H
+SPOF07:         LD      (FASE),HL
+                JR      SPOEND
+
+SPOEN1:         LD      DE,0000H
+                LD      (INCEXT),DE
+
+SPOEND:
+                RET
+
+
+		;CENTRATURA DOPO FASE CON OSCILLOSCOPIO ESTERNO FF57
+
+CENTRO:         EXX                     ;SOTTRAGGO IL VA- FF57
+                LD      HL,(FASES1)     ;LORE DI 1/2 GATE
+		LD      BC,(MEZGA)       ;DAL VALORE LETTO
+                SBC     HL,BC           ;SE IL RISULTATO
+		JR      C,CENTR1        ;E'POSITIVO LO
+		JR      CENTR2          ;MEMORIZZO IN
+CENTR1:         CCF                     ;IN FASE.
+		LD      HL,1000H        ;SE E'NEGATIVO
+		SBC     HL,BC           ;SOTTRAGGO DA 4096
+                LD      BC,(FASES1)       ;IL 1/2 GATE E IL
+		ADD     HL,BC           ;RESTO LO SOMMO
+CENTR2:         LD      (FASE),HL       ;AL VALORE LETTO.
+		LD      A,H
+		OUT     (20H),A
+		LD      A,L
+		OUT     (10H),A
+		LD      A,04H           ;4 GIRI ATTESA
+                LD      (MEMRIF),A      ;PER MEMORIZZARE
+		EXX                     ;IL RIFERIMENTO
+		RET
+		
+
+
+		;RESETTO PORTA C
+RESEPC:
+		LD      A,(MEMC)	;SSSSS       
+                RES     0,A
+                RES     1,A
+		SET	4,A
+                RES     6,A
+                RES     7,A
+                LD      (MEMC),A
+                OUT     (PC),A
+		RET
+
+
+
+		END
+
+
+
+
+                ;USCITA PER CONVERTITORE D/A
+                ;TRASMISSIONE SERIALE 
+
+
+SERDAC:         PUSH    BC
+                PUSH    HL              ;DDDD
+
+                LD      DE,0003H
+                LD      HL,(RIFDAC)
+                SBC     HL,DE
+                JP      C,ENDAC1
+                LD      DE,(RIFDAC)
+                LD      HL,07FFH
+                SBC     HL,DE
+                JP      C,ENDAC2
+
+                LD      A,00H           ;AZZERO IL
+                RLA                     ;CARRY
+                RL      E               ;MOLTIPLICO
+                RL      D               ;PER 2 DE
+
+                LD      B,04H           ;D COTIENE 
+                LD      C,D             ;MSB DA
+                RL      C               ;TRASMETTERE
+                RL      C
+                RL      C
+                RL      C
+SERDA1:         LD      A,(MEMC)        ;PER FAR 
+                SET     5,A             ;PARTIRE IL
+                LD      (MEMC),A        ;CLOK DA ZERO
+                OUT     (PC),A
+                RL      C
+                JR      NC,DAC1
+                SET     7,A             ;DATO 
+                JR      DAC2            ;TRASMESSO 
+DAC1:           RES     7,A             
+DAC2:           LD      (MEMC),A
+                OUT     (PC),A
+                RES     5,A             ;CLOK
+                OUT     (PC),A
+                LD      L,04H           ;RITARDO
+DAC3:           DEC     L               ;PER DIUTY
+                JR      NZ,DAC3
+                SET     5,A             ;CLOK
+                OUT     (PC),A
+                LD      (MEMC),A
+                DJNZ    SERDA1
+                LD      H,08H
+                LD      B,08H           ;E COTIENE 
+                LD      C,E             ;LSB DA 
+SERDA2:         LD      A,(MEMC)        ;TRASMETTERE
+                RL      C
+                JR      NC,DAC4
+                SET     7,A             ;DATO 
+                JR      DAC5            ;TRASMESSO 
+DAC4:           RES     7,A             
+DAC5:           LD      (MEMC),A
+                OUT     (PC),A
+                DEC     H
+                JR      NZ,DAC6
+                SET     6,A             ;ON STROBE
+DAC6:           RES     5,A             ;CLOK
+                OUT     (PC),A
+                LD      L,04H           ;RITARDO
+DAC7:           DEC     L               ;PER DIUTY
+                JR      NZ,DAC7
+                SET     5,A             ;CLOK
+                OUT     (PC),A
+                LD      (MEMC),A
+                DJNZ    SERDA2
+                LD      A,(MEMC)        
+                RES     6,A             ;OFF STROBE
+                LD      (MEMC),A
+                OUT     (PC),A
+                JR      ENDAC
+
+ENDAC1:         CCF
+                LD      DE,0004H
+                LD      (RIFDAC),DE
+                JR      ENDAC
+ENDAC2:         CCF
+                LD      DE,07FFH
+                LD      (RIFDAC),DE
+ENDAC:
+                LD      A,(MEMC)        ;PER SPEGNERE       
+                RES     7,A             ;IL LED TRASM.
+                LD      (MEMC),A
+                OUT     (PC),A
+
+                POP     HL              ;SSNN
+                POP     BC
+                RET
+
+                                                       

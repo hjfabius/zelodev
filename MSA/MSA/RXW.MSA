@@ -1,0 +1,667 @@
+
+
+
+		;########################################
+                ;# PROGRAMMA GESTIONE TESTA MOTORIZZATA #
+		;########################################
+
+
+;MODIFIFICHE PER GESTIONE MOTORE PASSO PASSO  PPPP
+;24/01/04 19,05
+;28/01/04 15,30
+;30/01/04 09.30
+;30/01/04 18,30
+;31/01/04 16,05
+;31/01/04 19,55
+;28/02/04 17,55
+;29/02/04 16,50
+;29/02/04 18,50
+;01/03/04 10,30          
+;20/04/04 08,15
+;22/04/04 17,50  MODIFICA PER SCHEDE SECONDARIE SSSS
+;24/04/04 17,10  MODIFICA A VELOCE DEL MOVIMENTO 0,25mm
+;24/04/04 18,10  INIZIO MODIFICA PER MOVIMEMTO 2mm 2 A DX E 2 A SX
+
+
+;25/05/04 salvataggio prima delle modifiche per sapere che led acceso
+;04/06/04 controllo fine corsa cccc
+;07/06/04 FINE CENTRATURA MECCANICA CCCC1
+;08/06/04 PORTATO A 400Hz CENTRATURA MECCANICA  CCCC2
+
+		ORG     0000H
+
+PA:             EQU     00H     ;dati porta A
+PB:             EQU     01H     ;dati porta B
+PC:             EQU     10H     ;dati porta C
+PD:             EQU     11H     ;dati porta D
+MEMA:   EQU     4016H   ;MEMORIA DELL PORTA A   SSSS
+MEMB:   EQU     4018H   ;memoria porta B
+LENVEL: EQU     401AH   ;MEM.PER MOTORE LENTO O VELOCE
+BASCRA: EQU     4E08H   ;NUMERO STEP DI SPOSTAMENTO
+MCENTR: EQU     4E10H   ;MEM,SEGNALAZIONE FINE CENTRAT.MECCANICA
+RXDATO: EQU     4E10H   ;MEMORIA DATO RICEVUTO
+TXDATO: EQU     4E12H   ;MEMORIA DATO DA TRASMETTERE
+MEMFC:  EQU     4E14H   ;MEM.ULTIMO FINE CORSA ATTIVATO
+RITATX: EQU     4E16H   ;TEMPO DI RITARDO TRA DUE TX 
+SWEEP:  EQU     4E18H   ;CONTEGGIO MOVIMENTO 2 mm
+TAP1:   EQU     5020H   ;tabella ind. inter.PIO1
+TAP2:   EQU     5024H   ;tabella ind. inter.PIO2
+
+
+		;INIZIALIZZAZIONE SISTEMA
+                ;C1 CENTRATURA MECCANICA
+                ;C2 LED LONGITUDINALE
+                ;C4 LED TRASVERSALE
+                ;C7 0,25mm TESTA DX
+                ;C8 0,25mm TESTA SX
+                ;CB RICERCA SEGNO 2mm DX
+                ;CD RICERCA SEGNO 2mm SX
+                ;CE RICERCA AUTOMATICA
+                ;E0 CONTROLLO FINE CORSA
+                ;D7 FINE CORSA LATO SX
+                ;D8 FINE CORSA LATO DX
+                ;DB FINE CENTRATURA MECCANICA
+
+		;INIZIALIZZAZIONE SISTEMA       
+		
+		ORG     0000H           ;SSVV
+
+		JP      VIA             ;SSVV
+
+
+		ORG     38H             ;SSVV
+
+		JP      VIA             ;SSVV
+
+
+VIA:            LD      SP,5FFFH        ;def.area stack
+		IM      2               ;modo 2
+		LD      A,50H           ;ind.alto tab.
+		LD      I,A
+                LD      IY,1000H        ;ind.rout. int.
+		LD      (TAP1),IY       ;car.tab.int.
+		LD      A,20H           ;vet. int. PIO A
+		OUT     (02H),A         ;controllo PIO A
+		LD      A,0CFH          ;porta A modo 3
+		OUT     (02H),A
+                LD      A,0FCH          ;bit7-2 in/0-1 out
+		OUT     (02H),A
+		LD      A,97H           ;parola di contr.
+		OUT     (02H),A 
+                LD      A,7FH           ;parola di masche- PPPP
+                OUT     (02H),A         ;ra BIT7       PPPP
+		LD      A,0FH           ;porta B out
+		OUT     (03H),A         ;controllo PIO B
+		EI                      ;abil.int.
+
+                JP      GIGIO
+
+
+                ORG     200H
+
+GIGIO:         
+
+
+                LD      A,(RXDATO)      ;SE IL DATO
+                CP      00H             ;E' COMMUT.
+                JR      Z,GIGIO1        ;LED O CETRA-
+                CP      0C1H            ;TURA MECCA-
+                JR      Z,GIGIO1        ;NICA SALTA
+
+
+
+                IN      A,(PA)
+                BIT     3,A
+                JR      NZ,GIGIO3
+                LD      A,0D7H
+                LD      (TXDATO),A
+                LD      (MEMFC),A
+
+
+                LD      A,(RXDATO)      ;SE RICERCA
+                CP      0CEH            ;AUTOMA.FC
+                JR      Z,GIGIO1        ;NON VISUAL.
+
+                CALL    FINE
+
+
+                JR      GIGIO1
+
+
+GIGIO3:         BIT     4,A
+                JR      NZ,GIGIO1
+                LD      A,0D8H
+                LD      (TXDATO),A
+                LD      (MEMFC),A
+
+                LD      A,(RXDATO)      ;SE RICERCA
+                CP      0CEH            ;AUTOMA.FC
+                JR      Z,GIGIO1        ;NON VISUAL.
+
+
+                CALL    FINE
+
+
+                
+GIGIO1:         LD      BC,(RITATX)
+GIGIO2:         DEC     BC
+                LD      (RITATX),BC
+
+
+GIGIO4:         LD      A,B
+		OR      C
+                JR      NZ,GIGIO2
+
+                LD      BC,03FFH
+                LD      (RITATX),BC
+
+                JR      GIGIO
+
+TESTFC:
+                LD      A,(MEMA)        ;SSSS
+                SET     0,A
+                SET     1,A
+                LD      (MEMA),A
+                OUT     (PA),A          ;SSSS
+
+                LD      A,(MEMB)
+                SET     1,A
+                RES     0,A
+                LD      (MEMB),A
+                OUT     (PB),A
+
+                IN      A,(PA)         ;CCCC
+                BIT     3,A
+                JR      NZ,TEST1
+                LD      A,0D7H
+                LD      (TXDATO),A
+                JR      TEST2
+TEST1:          BIT     4,A
+                JR      NZ,TEST3
+                LD      A,0D8H
+                LD      (TXDATO),A
+TEST2:          CALL    FINE
+
+TEST3:          RET
+
+                ;STEPDX MOVIMENTO A DESTRA DI 0,25mm O 2mm
+
+STEPDX:         LD      DE,000AH       ;0,25mm
+                LD      A,01H          ;VELOCE
+                LD      (LENVEL),A
+                JR      DX01
+ST20DX:         LD      DE,0050H       ;2mm
+                LD      A,01H          ;VELOCE
+                LD      (LENVEL),A
+DX01:           LD      (BASCRA),DE
+STEPD1:         LD      A,(MEMB)
+                RES     3,A            ;DESTRA
+                RES     2,A            ;ABILITA
+                RES     4,A
+                LD      (MEMB),A
+                OUT     (PB),A
+DX02:
+                CALL    MOVE
+                LD      A,(LENVEL)
+                CP      00H
+                JR      NZ,DX03
+                CALL    DEL80
+                JR      DX04
+DX03:           CALL    DEL200
+DX04:           LD      A,(MEMB)       ;GENERAZIONE
+                SET     4,A            ;ONDA QUADRA
+                OUT     (PB),A
+
+                LD      A,(LENVEL)
+                CP      00H
+                JR      NZ,DX05
+                CALL    DEL80
+                JR      DX06
+DX05:           CALL    DEL200
+DX06:           LD      A,(MEMB)
+                RES     4,A
+                OUT     (PB),A
+                IN      A,(PA)         ;CONTROLLO 
+                BIT     4,A            ;FINE CORSA
+                JP      Z,LIMDX
+                LD      DE,(BASCRA)
+                LD      A,D
+                OR      E
+                JR      NZ,DX02
+                NOP                     ;LD      A,0D2H          ;FINE
+                NOP                     ;LD      (TXDATO),A       ;OPERAZIONE
+                LD      A,(MCENTR)
+                CP      01H
+                JR      NZ,DX07
+                LD      A,0DBH          ;FINE   CCCC1
+                LD      (TXDATO),A      ;OPERAZIONE
+                LD      A,00H
+                LD      (MCENTR),A
+
+                CALL    FINE
+
+DX07:           RET
+       
+
+                ;STEPDX MOVIMENTO A SINISTRA DI 0,25mm O 2mm
+
+STEPSX:         LD      DE,000AH       ;0,25mm
+                LD      A,01H          ;VELOCE
+                LD      (LENVEL),A
+                JR      SX01
+ST20SX:         LD      DE,0050H       ;2mm
+                LD      A,01H          ;VELOCE
+                LD      (LENVEL),A
+SX01:           LD      (BASCRA),DE
+                LD      A,(MEMB)
+                SET     3,A            ;SINISTRA
+                RES     2,A            ;ABILITA
+                RES     4,A            ;
+                LD      (MEMB),A
+                OUT     (PB),A
+SX02:
+                CALL    MOVE
+                LD      A,(LENVEL)
+                CP      00H
+                JR      NZ,SX03
+                CALL    DEL80
+                JR      SX04
+SX03:           CALL    DEL200
+SX04:           LD      A,(MEMB)       ;GENERAZIONE
+                SET     4,A            ;ONDA QUADRA
+                OUT     (PB),A
+
+                LD      A,(LENVEL)
+                CP      00H
+                JR      NZ,SX05
+                CALL    DEL80
+                JR      SX06
+SX05:           CALL    DEL200
+SX06:           LD      A,(MEMB)
+                RES     4,A
+                OUT     (PB),A
+                IN      A,(PA)         ;CONTROLLO 
+                BIT     3,A            ;FINE CORSA
+                JP      Z,LIMSX
+                LD      DE,(BASCRA)
+                LD      A,D
+                OR      E
+                JR      NZ,SX02
+
+                RET
+
+                JP      GIGIO
+
+
+                ;ST30 MOVIMENTO A SX/DX DI CIRCA 3,5mm
+
+
+ST30:           LD      DE,003CH       ; 1,5mm  =3mm LD      DE,008CH       ;3,5mm
+                LD      (BASCRA),DE
+                LD      A,(MEMFC)
+                CP      0D7H
+                JR      Z,ST301
+
+                LD      A,(MEMB)
+                SET     3,A            ;SINISTRA
+                RES     2,A            ;ABILITA
+                RES     4,A            ;
+                LD      (MEMB),A
+                OUT     (PB),A
+                JR      ST302
+ST301:
+                LD      A,(MEMB)
+                RES     3,A            ;DESTRA
+                RES     2,A            ;ABILITA
+                RES     4,A            ;
+                LD      (MEMB),A
+                OUT     (PB),A
+
+ST302:
+
+                CALL    MOVE
+                CALL    DEL200
+                LD      A,(MEMB)       ;GENERAZIONE
+                SET     4,A            ;ONDA QUADRA
+                OUT     (PB),A
+
+                CALL    DEL200
+                LD      A,(MEMB)
+                RES     4,A
+                OUT     (PB),A
+                LD      DE,(BASCRA)
+                LD      A,D
+                OR      E
+                JR      NZ,ST302
+
+                RET
+
+
+                ;SPOSTAMENTO INCREMENTANDO PRIMA A DESTRA
+                ;E POI A SINISTRA FINO A UN MAX DI 4 CONTINUO
+
+SPOD20:         
+                LD      A,(SWEEP)       ;SE COMPLETATO
+                CP      00H             ;MOVIMENTO A DX
+                JR      Z,SPOD21
+                CP      01H
+                JR      Z,SPOS20
+                CP      02H
+                JR      Z,SPOS20
+                CP      03H
+                JR      Z,SPOD21
+                CP      04H
+                JR      Z,SPOD21
+                CP      05H
+                JR      Z,SPOD21
+                CP      06H
+                JR      Z,SPOS20
+                CP      07H
+                JR      Z,SPOS20
+                CP      08H
+                JR      Z,SPOS20
+                CP      09H
+                JR      Z,SPOS20
+                LD      A,00H
+                LD      (SWEEP),A
+                NOP                     ;LD      BC,00A0H        ;RIMETTE IN
+                NOP                     ;JR      SPOD22          ;MEZZO. 4mm
+
+                RET
+
+SPOD21:         CALL    ST20DX
+                JR      SPOD22
+                
+SPOS20:         CALL    ST20SX
+SPOD22:         LD      A,(SWEEP)
+                INC     A
+                LD      (SWEEP),A
+
+                RET
+
+                ;CENTRATURA MECCANICA
+
+CENTRA:
+                LD      A,(MEMA)        ; USCITA PER SSSS
+                SET     0,A             ;SCHEDE SLAVE CCCC1
+                SET     1,A
+                LD      (MEMA),A
+                OUT     (PA),A          ;SSSS
+
+                LD      A,(MEMB)
+                RES     3,A            ;DESTRA
+                RES     2,A            ;ABILITA
+                RES     4,A
+
+                SET     1,A             ;LED LONG CCCC1
+
+                LD      (MEMB),A
+                OUT     (PB),A
+CMDX:
+                CALL    DEL400         ;CCCC2
+                LD      A,(MEMB)       ;GENERAZIONE
+                SET     4,A            ;ONDA QUADRA
+                OUT     (PB),A
+                CALL    DEL200
+                LD      A,(MEMB)
+                RES     4,A
+                OUT     (PB),A
+                IN      A,(PA)         ;CONTROLLO 
+                BIT     4,A            ;FINE CORSA
+                JR      NZ,CMDX
+
+                LD      A,(MEMB)
+                SET     3,A            ;SINISTRA
+                RES     2,A            ;ABILITA
+                RES     4,A            ;
+
+                SET     1,A             ;LED LONG CCCC1
+
+                LD      (MEMB),A
+                OUT     (PB),A
+                LD      DE,0000H
+
+CMSX:
+                INC     DE
+                CALL    DEL400         ;CCCC2
+                LD      A,(MEMB)       ;GENERAZIONE
+                SET     4,A            ;ONDA QUADRA
+                OUT     (PB),A
+                CALL    DEL200
+                LD      A,(MEMB)
+                RES     4,A
+                OUT     (PB),A
+                IN      A,(PA)         ;CONTROLLO 
+                BIT     3,A            ;FINE CORSA
+                JR      NZ,CMSX
+
+                SCF                    ;DIVISIONE 
+                CCF                    ;PER DUE
+                RR      E
+                SCF
+                CCF
+                RR      D
+                JR      NC,CMSX1
+                SET     7,E
+
+
+CMSX1:          LD      (BASCRA),DE
+                LD      A,01H           ;VELOCE
+                LD      (LENVEL),A
+                LD      (MCENTR),A      ;SEGNALA
+                JP      STEPD1          ;QUANDO FINISC.
+
+
+
+FINE:                                   ;JP      GIGIO
+                LD      A,(TXDATO)      ;PER AVERE LO           
+                ADD     A,A             ;STESSO VALORE
+                LD      H,A
+                LD      B,09H           ;IN RICEZIONE.
+TBIT:           SET     1,H             ;ABILILITA TX
+                LD      C,PA
+                OUT     (C),H           ;VIENE SETTATO
+                RRA                     ;PER TRASMETTERE
+                SCF                     ;SEMPRE.
+                LD      H,A
+                CALL    DFULL
+                DJNZ    TBIT
+                RET
+     
+LIMDX:          NOP
+LIMSX:          NOP
+                RET
+                JP      GIGIO
+
+
+DEL80:
+                LD      BC,0277H        ;80Hz
+DEL81:          DEC     BC
+                LD      A,B
+                OR      C
+                JR      NZ,DEL81
+                RET
+
+
+
+DEL200:
+                LD      BC,0177H        ;200Hz
+DEL201:         DEC     BC
+                LD      A,B
+                OR      C
+                JR      NZ,DEL201
+                RET
+
+DEL400:          LD      B,0BCH         ;400Hz CCCC2
+DEL401:          DEC     B
+                 JR      NZ,DEL401
+                 RET
+
+MOVE:           LD      BC,(BASCRA)
+                DEC     BC
+                LD      (BASCRA),BC
+                LD      A,B
+                OR      C
+                JP      NZ,END
+
+
+                LD      A,(MEMB)
+                SET     2,A            
+                LD      (MEMB),A
+                OUT     (PB),A
+
+                NOP
+END:            RET
+
+
+
+
+
+DHALF:
+                PUSH    DE
+                LD      D,2H            ;LD      D,4H
+                JR      DLY16
+
+DFULL:
+                PUSH    DE
+                LD      D,04H           ;LD      D,8H
+DLY16:          LD      E,23H           ;LD      E,46H
+DLY1:           DEC     E
+                JR      NZ,DLY1
+                DEC     D
+                JR      NZ,DLY16
+                POP     DE
+                RET
+
+
+
+
+
+
+                ORG     1000H
+
+
+PIOA:           PUSH    BC
+		PUSH    DE
+		PUSH    HL
+		PUSH    AF
+		PUSH    IX
+		PUSH    IY
+
+WTSTB:
+                IN      A,(PA)
+                RLA
+                JR      C,WTSTB
+                CALL    DHALF
+                LD      D,80H
+RCVB:
+                CALL    DFULL
+                IN      A,(PA)
+                RLA
+                RR      D
+                JR      NC,RCVB
+                LD      A,D
+                OR      A
+                JP      PE,ESCI                 ;FINE
+                LD      (RXDATO),A
+                CP      0C2H
+                JR      Z,LEDL
+                CP      0C4H
+                JR      Z,LEDT
+
+                CP      0C1H
+                JR      Z,PIOA01                ;CENTRA
+                CP      0C7H
+                JR      Z,PIOA02                ;STEPDX
+                CP      0C8H
+                JR      Z,PIOA03                ;STEPSX
+                CP      0CBH
+                JR      Z,PIOA04                ;ST20DX
+                CP      0CDH
+                JR      Z,PIOA05                ;ST20SX
+                CP      0CEH
+                JR      Z,PIOA06                ;ST30
+                CP      0E0H
+                JR      Z,PIOA07                ;CONTROLLO FC CCCC
+                JR      ESCI
+
+PIOA01:         CALL    CENTRA
+                JR      ESCI
+PIOA02:         CALL    STEPDX
+                JR      ESCI
+PIOA03:         CALL    STEPSX
+                JR      ESCI
+
+
+PIOA04:         NOP                             ;CALL    SPOD20   CCCC
+                JR      ESCI
+PIOA05:         NOP                             ;CALL    ST20SX   CCCC
+                JR      ESCI
+PIOA06:         CALL    ST30
+                JR      ESCI
+PIOA07:         CALL    TESTFC
+                JR      ESCI
+
+
+LEDL:
+                LD      A,(MEMA)        ; USCITA PER SSSS
+                SET     0,A             ;SCHEDE SLAVE
+                SET     1,A
+                LD      (MEMA),A
+                OUT     (PA),A          ;SSSS
+
+                LD      A,(MEMB)
+                SET     1,A
+                RES     0,A
+                JR      LED
+LEDT:
+                LD      A,(MEMA)        ;SSSS
+                RES     0,A
+                SET     1,A
+                LD      (MEMA),A
+                OUT     (PA),A          ;SSSS
+
+                LD      A,(MEMB)
+                SET     0,A
+                RES     1,A
+LED:            LD      (MEMB),A        ;QUANDO E'
+                OUT     (PB),A          ;DATO PER LED
+LED1:           LD      A,00H           ;NON VIENE
+                LD      (RXDATO),A      ;MEMORIZZATO
+
+ESCI:           POP     IY
+		POP     IX
+		POP     AF
+		POP     HL
+		POP     DE
+		POP     BC
+		EI
+		RETI
+
+
+
+
+                END
+
+-;APPUNTI SUI DIVERSI MOVIMENTI DELL TESTA
+
+
+;MOVIMEMTO PER RIMANERE CENTRATO SUL SEGNO (TRACKING)
+
+Il motore si muove per un tempo di 50mS alla velocita 
+di 200steps al secondo (200Hz) che equivale ad una velocita'
+di 5mm/sec.Ogni 50ms si sposta di 0,25mm 
+
+;MOVIMENTO DI RICERCA SEGNO (SEARCH)
+
+Lo oscillatore passa da 200Hz a 80Hz e la testa si muove
+ad una velocita di 2mm/sec fino ad arrivare al fine corsa
+che le inverte la direzione questo movimento in senso e
+nello alrto finche non trova i segni.
+
+;PERDITA DEI SEGNI DURANTE IL FUNZIONAMENTO NORMALE
+
+Viene eseguita una piccola ricerca di +/- 4mm nel seguente modo
+2mm a dx ancora 2mm dx ,poi 2mm a sx piu 2mm sx piu 2mm sx piu 2mm sx
+poi 2mm dx piu 2mm dx ogni spostamemto viene fatto ogni 4 formati
+ad una velocita di 5mm/sec (200Hz)

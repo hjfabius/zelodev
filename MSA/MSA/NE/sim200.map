@@ -1,0 +1,29 @@
+
+Segment List
+------------
+
+C:\Programmi\inDART-ST7\Work\NE\sim200.asm[7]   24-   81         0 -       67                 'periph'  [void] <C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC>
+C:\Programmi\inDART-ST7\Work\NE\sim200.asm[9]   42-   88        80 -       9F                 'ram0'  [void]
+C:\Programmi\inDART-ST7\Work\NE\sim200.asm[10]   89-  876      FA00 -     FE44                 'rom'  [textdata]
+C:\Programmi\inDART-ST7\Work\NE\sim200.asm[8]   82-  101      FFE0 -     FFFF                 'vettori'  [data] <C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC>
+
+
+Class List
+----------
+
+0 '      periph'   byte from        0 to       67 (lim       7F) = 81% D
+0 '        ram0'   byte from       80 to       9F (lim       BF) = 49% D
+0 '       stack'   byte from       C0 to       BF (lim       FF) =  0% V
+0 '      eeprom'   byte from     1000 to      FFF (lim     107F) =  0% V
+0 '         rom'   byte from     FA00 to     FE44 (lim     FFDF) = 72% CS
+0 '     vettori'   byte from     FFE0 to     FFFF (lim     FFFF) =100% S
+
+
+
+External Label list
+-------------------
+
+Symbol Name                       Value     Scope  Def(line)
+
+
+0 labels

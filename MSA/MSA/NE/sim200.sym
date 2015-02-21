@@ -1,0 +1,15 @@
+000002;00001;
+'CONSTANTS' 
+
+'periph' D
+
+'ram0' D
+
+'stack' V
+
+'eeprom' V
+
+'rom' CS
+
+'vettori' S
+

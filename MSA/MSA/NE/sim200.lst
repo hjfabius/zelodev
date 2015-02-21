@@ -1,0 +1,1384 @@
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 1  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+   1                             st7/      
+   2                             
+   3                             ;*********************************************************** 
+   4                             ; TITOLO:   pwm01  Semplice programma di esempio
+   5                             ;           		Esempio di generazione di un segnale PWM
+   6                             ;					Premendo P1 il Duty cicle Aumenta
+   7                             ;                   Premendo P2 il Duty cicle Diminuisce
+   8                             ;           
+   9                             ; 			In questo esempio non viene gestito il Watchdog          
+                                 ;         
+  10                             ; AUTORE:          Nuova Elettronica 
+  11                             ; DATA:            30/01/2003
+  12                             ; DESCRIPTION:     ST72FLITE09B 
+  13                             ;      
+  14                             ;***********************************************************
+  15  0000                                 TITLE    "SIM200.ASM"  ;010 Titolo del programma
+  16  0000                                 INTEL                  ;020 Formato linguaggio
+   0  0000                                 #INCLUDE "ST72FL09.INC"  ;030 Inserimento Copy standard
+   1                             ;*************************************************************
+                                 ;*********** 
+   2                             ; TITOLO:               ST72FLT0.INC
+   3                             ; AUTORE:               Nuova Elettronica
+   4                             ; DESCRIPTION:          ST72FLITE0 Mappa dei Registri e della 
+                                 ;Memoria 
+   5                             ;                       Non modificare mai questo File
+   6                             ;*************************************************************
+                                 ;*********
+   7                             ;*************************************************************
+                                 ;*********
+   8                             ;*************************************************************
+                                 ;***********
+   9                             ; Assegnazione areee di memoria
+  10                             
+  11  0000                                 WORDS                  ; 16 bit
+  12                                       segment  byte at 0-7F 'periph'           ;Periferiche
+  13                                       segment  byte at 80-BF 'ram0'            ;Data Ram 
+  14                                       segment  byte at C0-FF 'stack'           ;Stack Area
+  15                                       segment  byte at 1000-107F 'eeprom'      ;EEprom Data Area          
+  16                                       segment  byte at FA00-FFDF 'rom'         ;Program Area          
+  17                                       segment  byte at FFE0-FFFF 'vettori'     ;Vettori di Interrupt
+  18                             ;*************************************************************
+                                 ;*********
+  19                             ;*************************************************************
+                                 ;*********
+  20                             ;*************************************************************
+                                 ;*********
+  21                             
+  22                             
+  23  FFE0                                 BYTES                  ; 8 bit 
+  24                                       segment  'periph'      ;
+  25                             ;*************************************************************
+                                 ;*********
+  26                             ;                        I/O Ports registers
+  27                             ;*************************************************************
+                                 ;*********
+  28  0000                       PORT_A    DS.B     1             ; Port A Data Register
+  29  0001                       PDIR_A    DS.B     1             ; Port A Data Direction 
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 2  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+
+                                                                  ;Register
+  30  0002                       POPT_A    DS.B     1             ; Port A Option Register
+  31  0003                       PORT_B    DS.B     1             ; Port B Data Register
+  32  0004                       PDIR_B    DS.B     1             ; Port B Data Direction 
+                                                                  ;Register
+  33  0005                       POPT_B    DS.B     1             ; Port B Option Register
+  34  0006                                 DS.B     5             ; Non usati
+  35                             ;*************************************************************
+                                 ;*********
+  36                             ;                        LITE TIMER
+  37                             ;*************************************************************
+                                 ;*********
+  38  000B                       LTCSR     DS.B     1             ; Lite Timer Control/Status 
+                                                                  ;Register
+  39  000C                       LTICR     DS.B     1             ; Lite Timer Input Capture 
+                                                                  ;Register
+  40                             ;*************************************************************
+                                 ;*********
+  41                             ;                        Auto-Reload TIMER
+  42                             ;*************************************************************
+                                 ;*********
+  43  000D                       ATCSR     DS.B     1             ; Timer Control/Status Register
+  44  000E                       CNTRH     DS.B     1             ; Counter Register High
+  45  000F                       CNTRL     DS.B     1             ; Counter Register low
+  46  0010                       ATRH      DS.B     1             ; Auto-Reload Register High
+  47  0011                       ATRL      DS.B     1             ; Auto-Reload Register low
+  48  0012                       PWMCR     DS.B     1             ; PWM Output Control Register
+  49  0013                       PWM0CSR   DS.B     1             ; PWM 0 Control/Status Register
+  50  0014                                 DS.B     3             ; Non usati
+  51  0017                       DCR0H     DS.B     1             ; PWM 0 Duty Cycle Register 
+                                                                  ;High
+  52  0018                       DCR0L     DS.B     1             ; PWM 0 Duty Cycle Register Low
+  53  0019                                 DS.B     22            ; Non Usati
+  54                             ;*************************************************************
+                                 ;*********
+  55                             ;                        FLASH/EEPROM 
+  56                             ;*************************************************************
+                                 ;*********
+  57  002F                       FCSR      DS.B     1             ; Flash Control/Status Register
+  58  0030                       EECSR     DS.B     1             ; Data EEPROM Control/Status 
+                                                                  ;Register
+  59                             ;*************************************************************
+                                 ;*********
+  60                             ;                        SPI  registers
+  61                             ;*************************************************************
+                                 ;*********
+  62  0031                       SPIDR     DS.B     1             ; SPI Data Register
+  63  0032                       SPICR     DS.B     1             ; SPI Control Register
+  64  0033                       SPISR     DS.B     1             ; SPI Status Register
+  65                             ;*************************************************************
+                                 ;*********
+  66                             ;                       ADC registers
+  67                             ;*************************************************************
+                                 ;*********
+  68  0034                       ADCCSR    DS.B     1             ; A/D Control Status Register
+  69  0035                       ADCDR     DS.B     1             ; A/D Data Register
+  70  0036                       ADCCAMP   DS.B     1             ; A/D Amplifier Control 
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 3  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+
+                                                                  ;Register
+  71                             ;*************************************************************
+                                 ;*********
+  72                             ;                       Miscellaneous registers
+  73                             ;*************************************************************
+                                 ;*********
+  74  0037                       EICR      DS.B     1             ; External Interrupt Control 
+                                                                  ;Register
+  75  0038                       MCCSR     DS.B     1             ; Main Clock Control/Status 
+                                                                  ;Register
+  76  0039                       RCCR      DS.B     1             ; RC Oscillator Control 
+                                                                  ;Register
+  77  003A                       SICSR     DS.B     1             ; System Integrity 
+                                                                  ;Control/Status Register
+  78  003B                                 DS.B     45            ; Not Used
+  79                             
+  80                             
+  81  0068                                 WORDS                  ; 16 bit length
+  82                                       segment  'vettori'
+  83                             ;*************************************************************
+                                 ;*********
+  84                             ;                       Vettori di interrupt
+  85                             ;*************************************************************
+                                 ;*********
+  86  FFE0   FA00                          DC.W     dummy         ;FFE0-FFE1h 
+  87  FFE2   FA01                          DC.W     Spi_int       ;FFE2-FFE3h Serial 
+                                                                  ;Perif.Interface(SPI )          
+                                                                  ;     
+  88  FFE4   FA02                          DC.W     Ltrtc_int     ;FFE4-FFE5h Lite Timer RTC 
+                                                                  ;interrupt  
+  89  FFE6   FA03                          DC.W     Ltic_int      ;FFE6-FFE7h Lite Timer Input 
+                                                                  ;Capture
+  90  FFE8   FA04                          DC.W     Atovl_int     ;FFE8-FFE9h ARTimer Oferflow   
+  91  FFEA   FA05                          DC.W     Atouc_int     ;FFEA-FFEBh ARTimer Output 
+                                                                  ;Compare  
+  92  FFEC   FA06                          DC.W     Avd_int       ;FFEC-FFEDh AVD interrupt       
+                                                                  ;        
+  93  FFEE   FA00                          DC.W     dummy         ;FFEE-FFEFh 
+  94  FFF0   FA00                          DC.W     dummy         ;FFE0-FFF1h 
+  95  FFF2   FA07                          DC.W     Ext3_int      ;FFF2-FFF3h (EI3) PB_0 
+  96  FFF4   FA08                          DC.W     Ext2_int      ;FFF4-FFF5h (EI2) PB_3          
+                                                                  ;             
+  97  FFF6   FA09                          DC.W     Ext1_int      ;FFF6-FFF7h (EI1) PA_7  
+  98  FFF8   FA29                          DC.W     Ext0_int      ;FFF8-FFF9h (EI0) PA_0
+  99  FFFA   FA00                          DC.W     dummy         ;FFFA-FFFBh                     
+                                                                  ;  
+ 100  FFFC   FA2A                          DC.W     Sw_int        ;FFFC-FFFDh Software ( TRAP )   
+                                                                  ;                    
+ 101  FFFE   FA2B                          DC.W     St7_main      ;FFFE-FFFFh Reset ( RESET )
+<END_OF_INCLUSION>
+  18                                       
+  19                             ;****************************************
+  20                             ; *****  D E F I N E ********************
+  21                             ;****************************************
+  22                             ; a questo punto noi possiamo inserite le
+  23                             ; DEFINE, EQU e SET  che vengono utilizzate
+  24                             ; dal Compilatore
+  25                             ;  	
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 4  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+  26  0000                                 #DEFINE  D_R00 1       ;mettendo D_R00 =1 e D_R01 = 50 
+                                                                  ;FUNZ1=480                      
+                                                                  ;                               
+                                                                  ;           ;per 
+  27  0000                                 #DEFINE  D_R01 50              ;si simula una velocita'di circa
+                                                                  ; 1000mt/min 
+  28                                                              ;D_R00=3 e D_R01=100 circa 
+                                                                  ;100mt/min     
+  29  0000                                 #DEFINE  D_R02 255             
+  30  0000                                 #DEFINE  D_R03 255  
+  31  0000                                 #DEFINE  D_R04 39      ;ATTENZIONE QUESTI VALORI SONO 
+                                                                  ;UGUALI
+  32  0000                                 #DEFINE  D_R05 254     ;PER TUTTI I MICRO BASTA CHE 
+                                                                  ;VENGANO
+  33                                                              ;TARATI CON PROCEDURA DELLA 
+                                                                  ;RIVISTA  N° 225
+  34                             ;*************************************
+  35                             ;*****  VARIABILI ********************
+  36                             ;*************************************
+  37                             ; in questa area vengono definite le
+  38                             ; variabili utilizzate da programma
+  39                             ;*************************************
+  40                             
+  41  0000                                 BYTES                  ;8 bit 
+  42                                       segment  'ram0'           ;Data Ram 
+  43                             
+  44  0080                       PUN1TH    DS.B     1             ;
+  45  0081                       PUN1TL    DS.B     1             ;
+  46  0082                       PUN2TH    DS.B     1             ;
+  47  0083                       PUN2TL    DS.B     1             ;                  
+  48  0084                       DELAY0    DS.B     1             ;Per fare ritardo
+  49  0085                       DELAY1    DS.B     1             ;Per fare ritardo      
+  50  0086                       DELAY2    DS.B     1             ;Per fare ritardo
+  51  0087                       DELAY3    DS.B     1             ;Per fare ritardo
+  52  0088                       DELAY4    DS.B     1             ;Per fare ritardo
+  53  0089                       DELAY5    DS.B     1             ;Per fare ritardo  
+  54  008A                       FLAG      DS.B     1
+  55  008B                       TEST_OK   DS.B     1
+  56  008C                       MEMADC    DS.B     1                 ;confronto per seconda lettura 
+                                                                  ;ADC
+  57  008D                       S1_START  DS.B     1             ;inizio S1	
+  58  008E                       S1_END    DS.B     1             ;fine S1            
+  59  008F                       VELOCITA  DS.B     1             ;VELOCITA MACCHINA
+  60  0090                       IMPULSI   DS.B     2             ;N°impulsi encoder   
+  61  0090                       STEP0     EQU      {IMPULSI+0}
+  62  0091                       STEP1     EQU      {IMPULSI+1}   
+  63  0092                       CILINDRO  DS.B     2             ;sviluppo cilindro in decimi   
+  64  0092                       CILIN0    EQU      {CILINDRO+0}                                                                           
+  65  0093                       CILIN1    EQU      {CILINDRO+1}  
+  66  0094                       DIGIT     DS.B     6             ;DIGITS usati nella trasmissione
+                                                                  ;                               
+                                                                  ;                               
+                                                                  ; 
+  67  0094                       DIG1      EQU      {DIGIT+0}
+  68  0095                       DIG2      EQU      {DIGIT+1}
+  69  0096                       DIG3      EQU      {DIGIT+2}
+  70  0097                       DIG4      EQU      {DIGIT+3}
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 5  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+  71  0098                       DIG5      EQU      {DIGIT+4}
+  72  0099                       DIG6      EQU      {DIGIT+5} 
+  73  009A                       MDIGIT    DS.B     6
+  74  009A                       MDIG1     EQU      {MDIGIT+0}
+  75  009B                       MDIG2     EQU      {MDIGIT+1}
+  76  009C                       MDIG3     EQU      {MDIGIT+2}
+  77  009D                       MDIG4     EQU      {MDIGIT+3}
+  78  009E                       MDIG5     EQU      {MDIGIT+4}
+  79  009F                       MDIG6     EQU      {MDIGIT+5}
+  80                                       
+  81                             
+  82                             ;****************************************
+  83                             ;*****  PROGRAMMA  ********************
+  84                             ;****************************************
+  85                             ; in questa area vengono inserite 
+  86                             ; le istruzioni del programma
+  87                             ;****************************************
+  88  00A0                                 WORDS                  ;16 bit 
+  89                                       segment  'rom'                 ;Program Area          
+  90                             
+  91                             
+  92                             ;***********************************************************
+  93                             ;   	Routine Gestione Vettori di interrupt 
+  94                             ;***********************************************************
+  95                             ; Questo programma non prevede interrupt mascherabili
+  96                             ; Solo St7_main e' indirizzato da RESET all'accensione
+  97                             
+  98  FA00   80                  dummy     iret                   ; 
+  99  FA01   80                  Spi_int   iret                   ;014 Serial Perif.Interface(SPI)
+                                                                  ;               
+ 100  FA02   80                  Ltrtc_int  iret                   ;015 Lite Timer RTC interrupt  
+ 101  FA03   80                  Ltic_int  iret                   ;016 Lite Timer Input Capture
+ 102  FA04   80                  Atovl_int  iret                   ;017 ARTimer Overflow
+ 103  FA05   80                  Atouc_int  iret                   ;018 ARTimer Output Compare  
+ 104  FA06   80                  Avd_int   iret                   ;019 AVD interrupt              
+                                                                  ; 
+ 105  FA07   80                  Ext3_int  iret                   ;020 (EI3) PB_0 
+ 106  FA08   80                  Ext2_int  iret                   ;021 (EI2) PB_3                 
+                                                                  ;      
+ 107                                       
+ 108                             Ext1_int                         ;022 (EI1) PA_7        
+ 109                             
+ 110                             
+ 111                             ;+----------------------------------------------+
+ 112                             ;|				GESTIONE INTERRUPT  DA  PA7     |
+ 113                             ;+----------------------------------------------+	
+ 114                                       
+ 115  FA09   A601                          ld       a,#1             ;segnalo alla conversione
+ 116  FA0B   B78A                          ld       FLAG,a           ;che sono in intrrupt
+ 117  FA0D   CDFD62                        call     out_test_1       ;per eseguirla piu velocemente
+ 118  FA10   A600                          ld       a,#0
+ 119  FA12   B78A                          ld       FLAG,a
+ 120  FA14   B635                          ld       a,ADCDR       ;Carica in a il valore di AD  
+ 121  FA16   A163                          cp       a,#63h           ;valore 57h
+ 122  FA18   250B                          jrult    meno_cil         ;uscita meno formato
+ 123  FA1A   A179                          cp       a,#79h        ;valore 72h
+ 124  FA1C   2502                          jrult    piu_cil       ;uscita piu' formato
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 6  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 125  FA1E   2008                          jra      fine_int
+ 126  FA20   CDFCC8              piu_cil   call     inc_form      
+ 127  FA23   2003                          jra      fine_int
+ 128  FA25   CDFD06              meno_cil  call     dec_form  
+ 129  FA28   80                  fine_int  iret     
+ 130                                       
+ 131  FA29   80                  Ext0_int  iret                   ;023 (EI0) PA_0
+ 132  FA2A   80                  Sw_int    iret                   ;024 Software (TRAP)
+ 133                                       
+ 134                             St7_main                         ;-------------------------------
+                                                                  ;---------
+ 135                                                              ; Inizializzazione periferiche
+ 136  FA2B   9C                            rsp                    ; resetto Stack Pointer
+ 137                                                              ;-------------------
+ 138  FA2C   C61000                        ld       a,1000h                  ;1000h Posizione dimemeoria 
+                                                                  ;EPROM dove si
+ 139  FA2F   B739                          ld       RCCR,a                   ;trova il valore di taratura 
+                                                                  ;della frc (freq.CLK )
+ 140                                                              ; --    MCCSR 
+ 141                                                              ; Main Clock Control 
+ 142                                                              ;  Status Register
+ 143  FA31   A600                          ld       a,#00000000b     ; B7-2 = 0 Riservati
+ 144  FA33   B738                          ld       MCCSR,a          ; B1 = 0 MCO Mai Clock Out    
+ 145                                                              ; B0 = 0 SMS Slow Mode Select
+ 146                                                              ;---------------------
+ 147                                                              ; --    EICR 
+ 148                                                              ; External Interrupt 
+ 149                                                              ;  Control Register
+ 150  FA35   A600                          ld       a,#00000000b     ; B7-6=ei3  00
+ 151  FA37   B737                          ld       EICR,a           ; B5-4=ei2  00 
+ 152                                                              ; B3-2=ei1  00
+ 153                                                              ; B1-0=ei0  00
+ 154                                                              ; Disabilito irq sulle 
+ 155                                                              ;     porte      
+ 156                                                              ;---------------------
+ 157                                                              ; --    LTCSR
+ 158                                                              ; Lite Timer Control
+ 159                                                              ;  Status Register
+ 160  FA39   A600                          ld       a,#00000000b     ; Disabilito Lite Timer
+ 161  FA3B   B70B                          ld       LTCSR,a          ;  e WatchDog
+ 162                                                              ;---------------------
+ 163                                                              ; --    EECSR
+ 164                                                              ; EEprom Control Status		
+ 165                                                              ;   Register
+ 166  FA3D   A600                          ld       a,#00000000b     ; Abilito solo in lettura  
+ 167  FA3F   B730                          ld       EECSR,a          ; per proteggere da scritture
+ 168                                                              ;  anomale in POR la EEprom
+ 169                                                              ;---------------------
+ 170                                                              ; --    ATCSR
+ 171                                                              ; Auto Reload Control
+ 172                                                              ;  Status Register
+ 173  FA41   A600                          ld       a,#00000000b     ; Disabilito Auto-Reload 
+ 174  FA43   B70D                          ld       ATCSR,a       ;    Timer  
+ 175                                                              ;---------------------
+ 176                                                              ; --    ADCCSR
+ 177                                                              ; A/D Converter Control
+ 178                                                              ;  Status Register
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 7  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 179  FA45   A600                          ld       a,#00000000b     ; Disabilito A/D 
+ 180  FA47   B734                          ld       ADCCSR,a      ;     
+ 181                                                              ;---------------------
+ 182                                                              ; --    SPICR
+ 183                                                              ; Serial Peripheral Interface
+ 184                                                              ;  Control Register
+ 185  FA49   A600                          ld       a,#00000000b     ; Disabilito SPI 
+ 186  FA4B   B732                          ld       SPICR,a       ;     
+ 187                                                              ;-------------------
+ 188                                                              ; --    SICSR 
+ 189                                                              ; System Integrity Contr. 
+ 190                                                              ;  Status Register
+ 191  FA4D   A600                          ld       a,#00000000b     ; B3=LOCKED (hw)
+ 192  FA4F   B73A                          ld       SICSR,a          ; B2=LVDRF   0 
+ 193                                                              ; B1=AVDF   (hw)
+ 194                                                              ; B0=AVDIE   0                
+ 195                                                              ;---------------------
+ 196                                                              ; Porte
+ 197                                                              ;---------------------
+ 198                                                              ; Porta A PA0 - PA7
+ 199                                                              ;---------------------   
+ 200                                                              ;---------------------
+ 201  FA51   A67B                          ld       a,#01111011b     ; PA0 = Out P-Pull progr 
+                                                                  ;a,#01111011b \debag 
+                                                                  ;a,#00011011b 
+ 202  FA53   B701                          ld       PDIR_A,a         ; PA1 = Out P-Pull 
+ 203  FA55   A6FB                          ld       a,#11111011b  ; PA2 = float	  
+                                                                  ;progr	a,#11111011b \debag 
+                                                                  ;a,#10011011b
+ 204  FA57   B702                          ld       POPT_A,a         ; PA3 = Out P-Pull 
+ 205                                                              ; PA4 = Out P-Pull
+ 206                                                              ; PA5 = Out P-Pull
+ 207                                                              ; PA6 = Out P-Pull
+ 208                                                              ; PA7 = In Pull-Up interrupt   
+ 209                                                              ;-------------------
+ 210                                                              ; Porta B PB0 - PB4
+ 211                                                              ;---------------------
+ 212  FA59   A61C                          ld       a,#00011100b     ; PB0 = float  progr  
+                                                                  ;a,#00011100b \ debag 
+                                                                  ;a,#00001100b 
+ 213  FA5B   B704                          ld       PDIR_B,a         ; PB1 = float  progr  
+                                                                  ;a,#00011100b \ debag 
+                                                                  ;a,#00001100b
+ 214  FA5D   A61C                          ld       a,#00011100b     ; PB2 = Out P-Pull
+ 215  FA5F   B705                          ld       POPT_B,a         ; PB3 = Out P-Pull
+ 216                                                              ; PB4 = Out P-PULL
+ 217  FA61   9A                            rim                    ;-------------------    
+ 218                             
+ 219                             
+ 220                                       
+ 221                             ;+----------------------------------------------------+
+ 222                             ;|				INIZIALIZZAZIONI                      |
+ 223                             ;+----------------------------------------------------+   
+ 224                                       
+ 225  FA62   A600                          ld       a,#00h        ;---------------- 
+ 226  FA64   B790                          ld       STEP0,a       ;azzero L_STEP
+ 227  FA66   B791                          ld       STEP1,a          ;azzero	H_STEP	
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 8  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 228  FA68   A67C                          ld       a,#7ch           ;partenza generezione S1
+ 229  FA6A   B78D                          ld       S1_START,a    
+ 230  FA6C   A684                          ld       a,#84h           ;fine S1
+ 231  FA6E   B78E                          ld       S1_END,a    
+ 232  FA70   A61E                          ld       a,#30  
+ 233  FA72   B78F                          ld       VELOCITA,a
+ 234                                       
+ 235  FA74   A601                          ld       a,#1          ;inizio il programma
+ 236  FA76   B794                          ld       DIG1,a        ;con un  cilindro	  
+ 237  FA78   A600                          ld       a,#0             ;di sviluppo 480,0
+ 238  FA7A   B795                          ld       DIG2,a  
+ 239  FA7C   A604                          ld       a,#4
+ 240  FA7E   B796                          ld       DIG3,a  
+ 241  FA80   B79C                          ld       MDIG3,a
+ 242  FA82   A608                          ld       a,#8
+ 243  FA84   B797                          ld       DIG4,a 
+ 244  FA86   B79D                          ld       MDIG4,a 
+ 245  FA88   A600                          ld       a,#0
+ 246  FA8A   B798                          ld       DIG5,a 
+ 247  FA8C   B79E                          ld       MDIG5,a
+ 248  FA8E   A600                          ld       a,#0
+ 249  FA90   B799                          ld       DIG6,a 
+ 250  FA92   B79F                          ld       MDIG6,a
+ 251  FA94   CDFB52                        call     tx_dati       
+ 252                                       
+ 253                             
+ 254                             ;+------------------------------------------------------------
+                                 ;--------+
+ 255                             ;| Questa soubroutine serve per impostare L'Artimer	          
+                                 ;        |
+ 256                             ;| Viene "puntata" la tabella dei 10 valori di Duty Cycle
+ 257                             ;| da 2096 a 4096 - 10 valori di duty cycle con step 200
+ 258                             ;+------------------------------------------------------------
+                                 ;--------+
+ 259                             ;
+ 260                             art_set   
+ 261  FA97   AE00                          ld       x,#0          ;  0
+ 262  FA99   A6FE                          ld       a,#TB1PWMH.h    ;  Punto Tabella MSB
+ 263  FA9B   B780                          ld       PUN1TH,a        ;  carico indirizzo 
+ 264  FA9D   A62F                          ld       a,#TB1PWMH.l   ;  Punto Tabella MSB
+ 265  FA9F   B781                          ld       PUN1TL,a      ;  carico indirizzo
+ 266                                                              ;-----
+ 267  FAA1   A6FE                          ld       a,#TB1PWML.h   ;  Punto Tabella LSB
+ 268  FAA3   B782                          ld       PUN2TH,a      ;  carico indirizzo
+ 269  FAA5   A630                          ld       a,#TB1PWML.l  ;  Punto Tabella LSB
+ 270  FAA7   B783                          ld       PUN2TL,a      ;  carico indirizzo
+ 271                                                              ;-----
+ 272  FAA9   A600                          ld       a,#0          ; Pwm Control Status
+ 273  FAAB   B713                          ld       PWM0CSR,a     ;   Register
+ 274                                                              ; B1=0 POLARITA'
+ 275                                                              ; B0=0 Compare Flag
+ 276                                                              ;-- PWMCR
+ 277  FAAD   B712                          ld       PWMCR,a       ;   Register
+ 278  FAAF   1012                          bset     PWMCR,#0      ; ON PWM
+ 279                                                              ;-- ATR
+ 280                                                              ; Auto Reload Register
+ 281  FAB1   92D680                        ld       a,([PUN1TH.W],x)  ; carico il duty=ATR
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 9  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 282  FAB4   B710                          ld       ATRH,a        ;
+ 283  FAB6   B717                          ld       DCR0H,a       ;
+ 284  FAB8   92D682                        ld       a,([PUN2TH.W],x)  ; 
+ 285  FABB   B711                          ld       ATRL,a        ;
+ 286  FABD   B718                          ld       DCR0L,a       ;
+ 287                                                              ;-- ATCSR
+ 288  FABF   B60D                          ld       a,ATCSR       ;
+ 289  FAC1   A610                          ld       a,#00010000b  ; ARTimer Control Status
+ 290  FAC3   B70D                          ld       ATCSR,a       ;   Register
+ 291                                                              ; B4-3 Counter Clock = 10 F/cpu
+ 292                                                              ; B2=0 Overflow Flag
+ 293                                                              ; B1=0 Ovrl Irq Disable
+ 294                                                              ; B0=0 cmp Irq Disable
+ 295  FAC5   CCFE1D                        jp       main          ;-------------------
+ 296                                       
+ 297                                       
+ 298                             ;***********************************************************
+ 299                             ;       Subroutine  
+ 300                             ;***********************************************************
+ 301                             
+ 302                             ;+------------------------------------------------------------
+                                 ;--------+
+ 303                             ;|Prima routine per fare un ritardo                           
+                                 ;        |
+ 304                             ;+------------------------------------------------------------
+                                 ;--------+
+ 305                             ;                                       
+ 306  FAC8   A601                ritardo_1  ld       a,#1          ;025 Carica in a il valore 
+                                                                  ;D_R00
+ 307  FACA   B784                          ld       DELAY0,a         ;026 Carica in DELAY0 il valore 
+                                                                  ;in a
+ 308  FACC   B68F                rit1_01   ld       a,VELOCITA       ;027 Carica in a il valore 
+                                                                  ;D_R01
+ 309  FACE   B785                          ld       DELAY1,a         ;028 Carica in DELAY1 il valore 
+                                                                  ;in a
+ 310  FAD0   3A85                rit1_02   dec      DELAY1           ;029 Decrementa di 1 il valore 
+                                                                  ;in DELAY1
+ 311  FAD2   26FC                          jrne     rit1_02        ;030 salta a rit_02 se non 0
+ 312  FAD4   3A84                          dec      DELAY0           ;031 per 0 decrementa di 1 il 
+                                                                  ;val in DELAY0
+ 313  FAD6   2702                          jreq     f_rit_1         ;032 se arrivato a 0 salta a 
+                                                                  ;f_rit
+ 314  FAD8   20F2                          jra      rit1_01       ;033 altrimenti salta a rit_01
+ 315  FADA   81                  f_rit_1   ret                    ;-------
+ 316                             
+ 317                             
+ 318                             ;+------------------------------------------------------------
+                                 ;--------+
+ 319                             ;|Seconda routine per fare un ritardo                         
+                                 ;        |
+ 320                             ;+------------------------------------------------------------
+                                 ;--------+
+ 321                             ;                                      
+ 322  FADB   A6FF                ritardo_2  ld       a,#255        ;vedi sopra
+ 323  FADD   B786                          ld       DELAY2,a         
+ 324  FADF   A6FF                rit2_01   ld       a,#255         
+ 325  FAE1   B787                          ld       DELAY3,a         
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 10  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 326  FAE3   3A87                rit2_02   dec      DELAY3           
+ 327  FAE5   26FC                          jrne     rit2_02        
+ 328  FAE7   3A86                          dec      DELAY2           
+ 329  FAE9   2702                          jreq     f_rit_2         
+ 330  FAEB   20F2                          jra      rit2_01       
+ 331  FAED   81                  f_rit_2   ret      
+ 332                             
+ 333                             
+ 334                             ;+------------------------------------------------------------
+                                 ;--------+
+ 335                             ;|Routine per fare un ritardo intrasmissione                  
+                                 ;        |
+ 336                             ;+------------------------------------------------------------
+                                 ;--------+
+ 337                             ;                                       
+ 338  FAEE   A627                rit_tx    ld       a,#39         ;vedi sopra
+ 339  FAF0   B788                          ld       DELAY4,a         
+ 340  FAF2   A6FE                rit3_01   ld       a,#254         
+ 341  FAF4   B789                          ld       DELAY5,a         
+ 342  FAF6   3A89                rit3_02   dec      DELAY5           
+ 343  FAF8   26FC                          jrne     rit3_02        
+ 344  FAFA   3A88                          dec      DELAY4           
+ 345  FAFC   2702                          jreq     f_rit_3         
+ 346  FAFE   20F2                          jra      rit3_01       
+ 347  FB00   81                  f_rit_3   ret      
+ 348                                       
+ 349                             ;+------------------------------------------------------+
+ 350                             ;| Generazione onda quadra su canale A					|               
+ 351                             ;+------------------------------------------------------+
+ 352                                       
+ 353  FB01   CDFAC8              can_A     call     ritardo_1     ;Eseguo un ritardo  
+ 354  FB04   070004                        btjf     PORT_A,#3,on_A       ;Salta a accendi se PA3=0
+ 355  FB07   1700                off_A     bres     PORT_A,#3            ;altrimenti se PA3=1  
+ 356  FB09   2002                          jra      f_can_A              ;vai a f_can_A
+ 357  FB0B   1600                on_A      bset     PORT_A,#3      ;
+ 358  FB0D   81                  f_can_A   ret                    ;Ritorna al programma 
+                                                                  ;principale
+ 359                                       
+ 360                             ;+------------------------------------------------------+
+ 361                             ;| Generazione onda quadra su canale B					|               
+ 362                             ;+------------------------------------------------------+
+ 363                                       
+ 364  FB0E   CDFAC8              can_B     call     ritardo_1     ;Eseguo un ritardo  
+ 365  FB11   090004                        btjf     PORT_A,#4,on_B       ;Salta a accendi se PA4=0
+ 366  FB14   1900                off_B     bres     PORT_A,#4            ;altrimenti se PA4=1 
+ 367  FB16   2002                          jra      f_can_B              ;vai a f_can_B
+ 368  FB18   1800                on_B      bset     PORT_A,#4      ;
+ 369  FB1A   81                  f_can_B   ret                    ;Ritorna al programma principale
+                                                                  ;    
+ 370                             
+ 371                             ;+-------------------------------------------------------+
+ 372                             ;| Generazione impulso su canale Z                       |
+ 373                             ;+-------------------------------------------------------+
+ 374                                       
+ 375                                       
+ 376  FB1B   1703                can_Z     bres     PORT_B,#3     ;resetto impulso di zero 
+ 377  FB1D   98                            rcf      
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 11  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 378  FB1E   A601                          ld       a,#01h               ;STEP0 se supero 255 
+                                                                  ;inccremento
+ 379  FB20   BB90                          add      a,STEP0              ;STEP1 di uno
+ 380  FB22   2412                          jrnc     can_Z1    
+ 381  FB24   B790                          ld       STEP0,a              ;salvo in STEP0 l'incremento
+ 382  FB26   3C91                          inc      STEP1
+ 383  FB28   B691                          ld       a,STEP1              ;vedo se supera 1024
+ 384  FB2A   A108                          cp       a,#08h
+ 385  FB2C   260A                          jrne     f_can_Z       
+ 386  FB2E   1603                          bset     PORT_B,#3     ;setto impulso di zero  
+ 387  FB30   A600                          ld       a,#0
+ 388  FB32   B791                          ld       STEP1,a
+ 389  FB34   2002                          jra      f_can_Z                
+ 390  FB36   B790                can_Z1    ld       STEP0,a              ;salvo in STEP0 l'incremento
+ 391  FB38   81                  f_can_Z   ret      
+ 392                             
+ 393                                       
+ 394                             
+ 395                             ;+--------------------------------------------------------+
+ 396                             ;| Generazione senale S1                                  |
+ 397                             ;+--------------------------------------------------------+   
+                                 ;
+ 398                                       
+ 399                                       
+ 400  FB39   B691                mark      ld       a,STEP1       ;vedo se sono nei primi 255
+ 401  FB3B   A100                          cp       a,#00h        ;impulsi di encoder se non
+ 402  FB3D   2612                          jrne     f_mark        ;lo sono salto  
+ 403  FB3F   B690                          ld       a,STEP0
+ 404  FB41   B18D                          cp       a,S1_START      
+ 405  FB43   2604                          jrne     mark_1
+ 406  FB45   1403                          bset     PORT_B,#2 
+ 407  FB47   2008                          jra      f_mark
+ 408  FB49   B690                mark_1    ld       a,STEP0
+ 409  FB4B   B18E                          cp       a,S1_END      
+ 410  FB4D   2602                          jrne     f_mark
+ 411  FB4F   1503                          bres     PORT_B,#2     ;resetto impulso per S1 	       
+                                                                  ; 
+ 412  FB51   81                  f_mark    ret      
+ 413                                       
+ 414                                       
+ 415                                       
+ 416                             ;+--------------------------------------------------------+
+ 417                             ;| Trasmissioni dati                                      |
+ 418                             ;+--------------------------------------------------------+  
+ 419                             
+ 420  FB52   AE94                tx_dati   ld       x,#DIG1       ;Carico in x L'Indirizzo di 
+                                                                  ;DIG1
+ 421  FB54   5A                            dec      x             ;sottraggo 1 (per il loop)
+ 422  FB55   5C                  m_1       inc      x                 ;Incremento x  
+ 423  FB56   78                            sll      (x)           ;sposto a sinistra di 4
+ 424  FB57   78                            sll      (x)           ;posizioni prima di
+ 425  FB58   78                            sll      (x)           ;iniziare la trasmissione
+ 426  FB59   78                            sll      (x)           
+ 427  FB5A   90AE04                        ld       y,#4          ;4 sono i bit da trasmettere per
+                                                                  ; DIGIT
+ 428  FB5D   98                            rcf                    ;resetto il Carry flag
+ 429  FB5E   78                  m_2       sll      (x)               ;Shifto a sinistra il valore 
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 12  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+                                                                  ;contenuto nel 
+ 430                                                              ;dato indirizzato da x (prima 
+                                                                  ;volta DIG1)
+ 431  FB5F   2504                          jrc      m_3               ;se c'e Carry salto
+ 432  FB61   1100                          bres     PORT_A,#0     ;altrimenti data low
+ 433  FB63   2002                          jra      m_4           ;salta a m_4
+ 434  FB65   1000                m_3       bset     PORT_A,#0     ;data hig  
+ 435  FB67   CDFAC8              m_4       call     ritardo_1
+ 436  FB6A   1200                          bset     PORT_A,#1     ;clock  | 
+ 437  FB6C   CDFAEE                        call     rit_tx
+ 438  FB6F   1300                          bres     PORT_A,#1   
+ 439  FB71   CDFAEE                        call     rit_tx        
+ 440  FB74   905A                          dec      y             ;loop per 4
+ 441  FB76   26E6                          jrne     m_2           ;per diverso da 0 salto
+ 442  FB78   A399                          cp       x,#DIG6       ;loop per 6
+ 443  FB7A   26D9                          jrne     m_1               ;per diverso da 0 salto     
+ 444  FB7C   1100                          bres     PORT_A,#0
+ 445  FB7E   81                            ret      
+ 446                             
+ 447                             
+ 448                                       
+ 449                             ;+--------------------------------------------------------+
+ 450                             ;| Gestione tastiera                                      |
+ 451                             ;+--------------------------------------------------------+  
+ 452                                       
+ 453  FB7F   A600                key       ld       a,#00000000b    
+ 454                             ;                                 |
+ 455                             ;                                 +-------- attivo AIN0
+ 456  FB81   B734                          ld       ADCCSR,a      
+ 457                             
+ 458  FB83   1B34                          bres     ADCCSR,#5     ;metto in OFF AD
+ 459  FB85   A630                          ld       a,#00110000b   ;A/D senza amplificatore 
+ 460                             ;   					     ||	   			
+ 461                             ;	                         |+------------ B2 AMPSEL=0 
+                                 ;Amplificatore OFF		
+ 462                             ;   					     +------------- B3 SLOW=0   A/D in FCpu
+ 463  FB87   B736                          ld       ADCCAMP,a           
+ 464  FB89   1A34                          bset     ADCCSR,#5      ;AD On inizio conversione
+ 465  FB8B   B635                          ld       a,ADCDR       ;pulisco lettura A/D
+ 466  FB8D   0F34FD                        btjf     ADCCSR,#7,$   ;attendo fine conversione  
+ 467  FB90   B635                          ld       a,ADCDR       ;Carica in a il valore di AD   
+ 468  FB92   A1C0                          cp       a,#0c0h               ;se non pigiato nessun tasto
+ 469  FB94   242A                          jruge    f_key                 ;esci  
+ 470  FB96   B78C                          ld       MEMADC,a      ;salva la lettura    
+ 471  FB98   CDFADB                        call     ritardo_2             ;ritardo antirimbalzo
+ 472  FB9B   1A34                          bset     ADCCSR,#5      ;AD On inizio conversione
+ 473  FB9D   B635                          ld       a,ADCDR       ;pulisco lettura A/D
+ 474  FB9F   0F34FD                        btjf     ADCCSR,#7,$   ;attendo fine conversione       
+                                                                  ;      
+ 475  FBA2   B635                          ld       a,ADCDR       ;Carica in a il valore di AD 
+ 476  FBA4   B18C                          cp       a,MEMADC
+ 477  FBA6   2618                          jrne     f_key              
+ 478                                       
+ 479  FBA8   A110                          cp       a,#10h        ;valore 00h
+ 480  FBAA   2564                          jrult    t_manual      ;tasto manuale
+ 481  FBAC   A130                          cp       a,#30h        ;valore 1fh
+ 482  FBAE   2553                          jrult    t_auto        ;tasto auto
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 13  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 483  FBB0   A150                          cp       a,#50h                ;valore 3eh
+ 484  FBB2   251A                          jrult    t_piu                 ;tasto piu'
+ 485  FBB4   A170                          cp       a,#70h                ;valore 5dh
+ 486  FBB6   2509                          jrult    t_meno                ;tasto meno
+ 487  FBB8   A190                          cp       a,#90h                ;valore 7ch
+ 488  FBBA   251F                          jrult    t_fre_su              ;tasto freccia in su'
+ 489  FBBC   A1B0                          cp       a,#0b0h               ;valore 9bh
+ 490  FBBE   252F                          jrult    t_fre_giu             ;tasto freccia in giu'
+ 491  FBC0   81                  f_key     ret      
+ 492                             
+ 493                                       
+ 494  FBC1   CDFE13              t_meno    call     extra_rit
+ 495  FBC4   0A0053                        btjt     PORT_A,#5,appog1
+ 496  FBC7   0C0056                        btjt     PORT_A,#6,vel_meno
+ 497  FBCA   CDFC42                        call     meno  
+ 498  FBCD   81                            ret      
+ 499                                       
+ 500  FBCE   CDFE13              t_piu     call     extra_rit
+ 501  FBD1   0A0049                        btjt     PORT_A,#5,appog2 
+ 502  FBD4   0C0054                        btjt     PORT_A,#6,vel_piu
+ 503  FBD7   CDFC37                        call     piu  
+ 504  FBDA   81                            ret      
+ 505                                       
+ 506  FBDB   CDFE13              t_fre_su  call     extra_rit  
+ 507  FBDE   A600                          ld       a,#00h                ;azzero memoria TEST_OK
+ 508  FBE0   B78B                          ld       TEST_OK,a             ;spengo il led pericolo
+ 509  FBE2   1903                          bres     PORT_B,#4
+ 510  FBE4   0B0003                        btjf     PORT_A,#5,su_on
+ 511  FBE7   1B00                          bres     PORT_A,#5   
+ 512  FBE9   81                            ret      
+ 513  FBEA   1A00                su_on     bset     PORT_A,#5     ;accendi led freccia in su' 
+ 514  FBEC   1D00                          bres     PORT_A,#6
+ 515  FBEE   81                            ret      
+ 516                                       
+ 517  FBEF   CDFE13              t_fre_giu  call     extra_rit  
+ 518  FBF2   A600                          ld       a,#00h                ;azzero memoria TEST_OK
+ 519  FBF4   B78B                          ld       TEST_OK,a             ;spengo il led pericolo
+ 520  FBF6   1903                          bres     PORT_B,#4
+ 521  FBF8   0D0003                        btjf     PORT_A,#6,giu_on
+ 522  FBFB   1D00                          bres     PORT_A,#6   
+ 523  FBFD   81                            ret      
+ 524  FBFE   1C00                giu_on    bset     PORT_A,#6     ;accendi led freccia in giu'
+ 525  FC00   1B00                          bres     PORT_A,#5
+ 526  FC02   81                            ret      
+ 527  FC03   CDFE13              t_auto    call     extra_rit
+ 528  FC06   0A0044                        btjt     PORT_A,#5,test_T3
+ 529  FC09   0C0066                        btjt     PORT_A,#6,test_F4
+ 530  FC0C   CDFC9C                        call     automat  
+ 531  FC0F   81                            ret      
+ 532  FC10   CDFE13              t_manual  call     extra_rit
+ 533  FC13   0A0072                        btjt     PORT_A,#5,test_F6
+ 534                             ;			btjt		PORT_A,#6,non utilizzato SCORTA
+ 535  FC16   CDFCB2                        call     manuale  
+ 536  FC19   81                            ret      
+ 537                                       
+ 538  FC1A   CCFD06              appog1    jp       dec_form      
+ 539  FC1D   CCFCC8              appog2    jp       inc_form      
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 14  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 540                             
+ 541                                       
+ 542                             ;+-------------------------------------------------------+
+ 543                             ;|         VARIAZIONE VELOCITA                           |
+ 544                             ;+-------------------------------------------------------+
+ 545                             
+ 546                                       
+ 547  FC20   B68F                vel_meno  ld       a,VELOCITA           ;decremento la
+ 548  FC22   4C                            inc      a                    ;velocita
+ 549  FC23   A1FE                          cp       a,#254             
+ 550  FC25   270F                          jreq     fin_vel
+ 551  FC27   B78F                          ld       VELOCITA,a
+ 552  FC29   200B                          jra      fin_vel
+ 553                             
+ 554  FC2B   B68F                vel_piu   ld       a,VELOCITA           ;incremento la
+ 555  FC2D   4A                            dec      a                    ;velocita   
+ 556  FC2E   A101                          cp       a,#1               
+ 557  FC30   2704                          jreq     fin_vel
+ 558  FC32   B78F                          ld       VELOCITA,a
+ 559  FC34   2000                          jra      fin_vel
+ 560  FC36   81                  fin_vel   ret      
+ 561                                       
+ 562  FC37   B68D                piu       ld       a,S1_START   
+ 563  FC39   4A                            dec      a
+ 564  FC3A   B78D                          ld       S1_START,a
+ 565  FC3C   B68E                          ld       a,S1_END
+ 566  FC3E   4A                            dec      a
+ 567  FC3F   B78E                          ld       S1_END,a     
+ 568  FC41   81                            ret      
+ 569                                       
+ 570                                       
+ 571  FC42   B68D                meno      ld       a,S1_START   
+ 572  FC44   4C                            inc      a
+ 573  FC45   B78D                          ld       S1_START,a
+ 574  FC47   B68E                          ld       a,S1_END
+ 575  FC49   4C                            inc      a
+ 576  FC4A   B78E                          ld       S1_END,a     
+ 577  FC4C   81                            ret      
+ 578                                       
+ 579  FC4D   A602                test_T3   ld       a,#2          ;test dell uscite
+ 580  FC4F   B794                          ld       DIG1,a        
+ 581  FC51   A600                          ld       a,#0
+ 582  FC53   B795                          ld       DIG2,a 
+ 583  FC55   B796                          ld       DIG3,a
+ 584  FC57   B797                          ld       DIG4,a 
+ 585  FC59   B798                          ld       DIG5,a
+ 586  FC5B   A601                          ld       a,#1
+ 587  FC5D   B799                          ld       DIG6,a
+ 588  FC5F   CDFB52                        call     tx_dati       
+ 589  FC62   A600                          ld       a,#00h               ;azzero memoria TEST_OK
+ 590  FC64   B78B                          ld       TEST_OK,a
+ 591  FC66   CDFD5E                        call     out_test
+ 592  FC69   B68B                          ld       a,TEST_OK
+ 593  FC6B   A106                          cp       a,#06h               ;controllo se ha contato
+ 594  FC6D   2702                          jreq     T3_fine       ;tutte le uscite se non
+ 595  FC6F   1803                          bset     PORT_B,#4     ;arrivato a 6led pericolo on
+ 596  FC71   81                  T3_fine   ret      
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 15  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 597                                       
+ 598                             
+ 599  FC72   A602                test_F4   ld       a,#2          ;trasmissione comando		   
+ 600  FC74   B794                          ld       DIG1,a        ;fasatura automatica
+ 601  FC76   A600                          ld       a,#0
+ 602  FC78   B795                          ld       DIG2,a  
+ 603  FC7A   B796                          ld       DIG3,a
+ 604  FC7C   B797                          ld       DIG4,a
+ 605  FC7E   B798                          ld       DIG5,a   
+ 606  FC80   A604                          ld       a,#4
+ 607  FC82   B799                          ld       DIG6,a
+ 608  FC84   CDFB52                        call     tx_dati       
+ 609  FC87   81                            ret      
+ 610                             
+ 611                                       
+ 612  FC88   A602                test_F6   ld       a,#2          ;test correzzione veloce		   
+ 613  FC8A   B794                          ld       DIG1,a        ;in cambio di bobina automatico
+ 614  FC8C   A600                          ld       a,#0
+ 615  FC8E   B795                          ld       DIG2,a  
+ 616  FC90   B796                          ld       DIG3,a
+ 617  FC92   B797                          ld       DIG4,a
+ 618  FC94   B798                          ld       DIG5,a 
+ 619  FC96   B799                          ld       DIG6,a
+ 620  FC98   CDFB52                        call     tx_dati       
+ 621  FC9B   81                            ret      
+ 622                             
+ 623  FC9C   A602                automat   ld       a,#2          ;trasmissione comando		   
+ 624  FC9E   B794                          ld       DIG1,a        ;automatico
+ 625  FCA0   A600                          ld       a,#0
+ 626  FCA2   B795                          ld       DIG2,a  
+ 627  FCA4   B796                          ld       DIG3,a
+ 628  FCA6   B797                          ld       DIG4,a
+ 629  FCA8   B798                          ld       DIG5,a   
+ 630  FCAA   A603                          ld       a,#3
+ 631  FCAC   B799                          ld       DIG6,a
+ 632  FCAE   CDFB52                        call     tx_dati       
+ 633  FCB1   81                            ret      
+ 634                                       
+ 635  FCB2   A602                manuale   ld       a,#2          ;trasmissione comando		   
+ 636  FCB4   B794                          ld       DIG1,a        ;manuale
+ 637  FCB6   A600                          ld       a,#0
+ 638  FCB8   B795                          ld       DIG2,a  
+ 639  FCBA   B796                          ld       DIG3,a
+ 640  FCBC   B797                          ld       DIG4,a
+ 641  FCBE   B798                          ld       DIG5,a   
+ 642  FCC0   A602                          ld       a,#2
+ 643  FCC2   B799                          ld       DIG6,a
+ 644  FCC4   CDFB52                        call     tx_dati       
+ 645  FCC7   81                            ret      
+ 646                                       
+ 647                                       
+ 648                             
+ 649                             ;+---------------------------------------------------+
+ 650                             ;|           VARIAZIONE FOMATO					     |
+ 651                             ;+---------------------------------------------------+
+ 652                                       
+ 653  FCC8   B69F                inc_form  ld       a,MDIG6       ;quando l'icremento	
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 16  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 654  FCCA   4C                            inc      a                     ;arriva a 10 metto
+ 655  FCCB   A10A                          cp       a,#10                 ;zero e incremento
+ 656  FCCD   2704                          jreq     in_dig5               ;la cella successiva
+ 657  FCCF   B79F                          ld       MDIG6,a
+ 658  FCD1   206F                          jra      fin_form
+ 659  FCD3   A600                in_dig5   ld       a,#0
+ 660  FCD5   B79F                          ld       MDIG6,a 
+ 661  FCD7   B69E                          ld       a,MDIG5
+ 662  FCD9   4C                            inc      a
+ 663  FCDA   A10A                          cp       a,#10
+ 664  FCDC   2704                          jreq     in_dig4 
+ 665  FCDE   B79E                          ld       MDIG5,a
+ 666  FCE0   2060                          jra      fin_form
+ 667  FCE2   A600                in_dig4   ld       a,#0
+ 668  FCE4   B79E                          ld       MDIG5,a 
+ 669  FCE6   B69D                          ld       a,MDIG4
+ 670  FCE8   4C                            inc      a
+ 671  FCE9   A10A                          cp       a,#10
+ 672  FCEB   2704                          jreq     in_dig3  
+ 673  FCED   B79D                          ld       MDIG4,a
+ 674  FCEF   2051                          jra      fin_form
+ 675  FCF1   A600                in_dig3   ld       a,#0
+ 676  FCF3   B79D                          ld       MDIG4,a 
+ 677  FCF5   B69C                          ld       a,MDIG3
+ 678  FCF7   4C                            inc      a
+ 679  FCF8   A10A                          cp       a,#10
+ 680  FCFA   2704                          jreq     in_dig2 
+ 681  FCFC   B79C                          ld       MDIG3,a
+ 682  FCFE   2042                          jra      fin_form
+ 683  FD00   A609                in_dig2   ld       a,#9
+ 684  FD02   B79C                          ld       MDIG3,a
+ 685  FD04   203C                          jra      fin_form       
+ 686                                       
+ 687  FD06   B69F                dec_form  ld       a,MDIG6       ;quando il decremento arriva
+ 688  FD08   4A                            dec      a                     ;a 255 metto 9 e decremento
+ 689  FD09   A1FF                          cp       a,#255                ;la cella successiva
+ 690  FD0B   2704                          jreq     de_dig5  
+ 691  FD0D   B79F                          ld       MDIG6,a
+ 692  FD0F   2031                          jra      fin_form
+ 693  FD11   A609                de_dig5   ld       a,#9
+ 694  FD13   B79F                          ld       MDIG6,a 
+ 695  FD15   B69E                          ld       a,MDIG5
+ 696  FD17   4A                            dec      a
+ 697  FD18   A1FF                          cp       a,#255
+ 698  FD1A   2704                          jreq     de_dig4 
+ 699  FD1C   B79E                          ld       MDIG5,a
+ 700  FD1E   2022                          jra      fin_form
+ 701  FD20   A609                de_dig4   ld       a,#9
+ 702  FD22   B79E                          ld       MDIG5,a 
+ 703  FD24   B69D                          ld       a,MDIG4
+ 704  FD26   4A                            dec      a
+ 705  FD27   A1FF                          cp       a,#255
+ 706  FD29   2704                          jreq     de_dig3  
+ 707  FD2B   B79D                          ld       MDIG4,a
+ 708  FD2D   2013                          jra      fin_form
+ 709  FD2F   A609                de_dig3   ld       a,#9
+ 710  FD31   B79D                          ld       MDIG4,a 
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 17  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 711  FD33   B69C                          ld       a,MDIG3
+ 712  FD35   4A                            dec      a
+ 713  FD36   A1FF                          cp       a,#255
+ 714  FD38   2704                          jreq     de_dig2 
+ 715  FD3A   B79C                          ld       MDIG3,a
+ 716  FD3C   2004                          jra      fin_form
+ 717  FD3E   A609                de_dig2   ld       a,#9
+ 718  FD40   B79C                          ld       MDIG3,a
+ 719                             
+ 720                                       
+ 721  FD42   B69F                fin_form  ld       a,MDIG6               ;scambio tra memoria
+ 722  FD44   B799                          ld       DIG6,a        ;temporanea e quella
+ 723  FD46   B69E                          ld       a,MDIG5               ;di trasmissione
+ 724  FD48   B798                          ld       DIG5,a        
+ 725  FD4A   B69D                          ld       a,MDIG4
+ 726  FD4C   B797                          ld       DIG4,a        
+ 727  FD4E   B69C                          ld       a,MDIG3
+ 728  FD50   B796                          ld       DIG3,a        
+ 729  FD52   A601                          ld       a,#1
+ 730  FD54   B794                          ld       DIG1,a
+ 731  FD56   A600                          ld       a,#0
+ 732  FD58   B795                          ld       DIG2,a
+ 733  FD5A   CDFB52                        call     tx_dati       
+ 734                                       
+ 735  FD5D   81                            ret      
+ 736                                       
+ 737                                       
+ 738                                       
+ 739                                       
+ 740                             ;+--------------------------------------------------------+
+ 741                             ;|			Lettura test uscite                           |
+ 742                             ;+--------------------------------------------------------+  
+ 743                                       
+ 744  FD5E   CDFE13              out_test  call     extra_rit      
+ 745                             
+ 746  FD61   9B                            sim                    ;durante out_test disabilito 
+                                                                  ;interrupt
+ 747                             
+ 748  FD62   A601                out_test_1  ld       a,#00000001b 
+ 749                             ;                                 |
+ 750                             ;                                 +-------- attivo AIN1  
+ 751  FD64   B734                          ld       ADCCSR,a      
+ 752  FD66   1B34                          bres     ADCCSR,#5     ;metto in OFF AD
+ 753  FD68   A630                          ld       a,#00110000b   ;A/D senza amplificatore  
+ 754                             ;   					     ||	  		
+ 755                             ;	                         |+------------ B2 AMPSEL=0 
+                                 ;Amplificatore OFF		
+ 756                             ;   					     +------------- B3 SLOW=0   A/D in FCpu
+ 757  FD6A   B736                          ld       ADCCAMP,a       
+ 758  FD6C   1A34                          bset     ADCCSR,#5      ;AD On inizio conversione
+ 759  FD6E   B635                          ld       a,ADCDR       ;pulisco lettura A/D
+ 760  FD70   0F34FD                        btjf     ADCCSR,#7,$   ;attendo fine conversione 
+ 761                                       
+ 762  FD73   B68A                          ld       a,FLAG                ;se sono in interrup
+ 763  FD75   A101                          cp       a,#1                  ;velocizzo la procedura
+ 764  FD77   2724                          jreq     fin_out_1
+ 765                                       
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 18  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 766  FD79   B635                          ld       a,ADCDR       ;Carica in a il valore di AD   
+ 767  FD7B   A1C0                          cp       a,#0c0h               ;se nessuna uscita  
+ 768  FD7D   2418                          jruge    fin_out               ;esci  
+ 769                                       
+ 770  FD7F   A128                          cp       a,#28h        ;valore 21h   24
+ 771  FD81   251B                          jrult    fase_vel      ;uscita fase veloce
+ 772  FD83   A145                          cp       a,#45h        ;valore 3ch   3d
+ 773  FD85   2527                          jrult    allarme       ;uscita allarme
+ 774  FD87   A164                          cp       a,#64h              ;valore 57h    59
+ 775  FD89   2533                          jrult    meno_form             ;uscita meno formato
+ 776  FD8B   A179                          cp       a,#79h                ;valore 72h    75
+ 777  FD8D   253F                          jrult    piu_form              ;uscita piu' formato
+ 778  FD8F   A195                          cp       a,#95h                ;valore 8dh    8f
+ 779  FD91   254B                          jrult    ritardo               ;uscita ritardo
+ 780  FD93   A1B0                          cp       a,#0b0h               ;valore a8h     aa
+ 781  FD95   2557                          jrult    avanti        ;uscita avanti   
+ 782                             
+ 783  FD97   AE00                fin_out   ld       x,#0
+ 784  FD99   CDFDFE                        call     pwm           
+ 785                                       
+ 786  FD9C   9A                            rim                    ;alla fine di out_test abilito 
+                                                                  ;l'interrupt
+ 787                                       
+ 788  FD9D   81                  fin_out_1  ret      
+ 789                             
+ 790                                       
+ 791                                       
+ 792  FD9E   AE0C                fase_vel  ld       x,#12
+ 793  FDA0   CDFDFE                        call     pwm           
+ 794  FDA3   B68B                          ld       a,TEST_OK
+ 795  FDA5   A105                          cp       a,#05h
+ 796  FDA7   2602                          jrne     fase_vel_1
+ 797  FDA9   3C8B                          inc      TEST_OK     
+ 798  FDAB   CCFD5E              fase_vel_1  jp       out_test
+ 799                                       
+ 800                             
+ 801  FDAE   AE0A                allarme   ld       x,#10         
+ 802  FDB0   CDFDFE                        call     pwm
+ 803  FDB3   B68B                          ld       a,TEST_OK
+ 804  FDB5   A104                          cp       a,#04h
+ 805  FDB7   2602                          jrne     allarme_1
+ 806  FDB9   3C8B                          inc      TEST_OK     
+ 807  FDBB   CCFD5E              allarme_1  jp       out_test
+ 808                                       
+ 809  FDBE   AE08                meno_form  ld       x,#8          
+ 810  FDC0   CDFDFE                        call     pwm           
+ 811  FDC3   B68B                          ld       a,TEST_OK
+ 812  FDC5   A103                          cp       a,#03h
+ 813  FDC7   2602                          jrne     meno_form_1
+ 814  FDC9   3C8B                          inc      TEST_OK     
+ 815  FDCB   CCFD5E              meno_form_1  jp       out_test
+ 816                             
+ 817  FDCE   AE06                piu_form  ld       x,#6  
+ 818  FDD0   CDFDFE                        call     pwm           
+ 819  FDD3   B68B                          ld       a,TEST_OK
+ 820  FDD5   A102                          cp       a,#02h
+ 821  FDD7   2602                          jrne     piu_form_1
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 19  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 822  FDD9   3C8B                          inc      TEST_OK     
+ 823  FDDB   CCFD5E              piu_form_1  jp       out_test
+ 824                                       
+ 825  FDDE   AE04                ritardo   ld       x,#4          
+ 826  FDE0   CDFDFE                        call     pwm           
+ 827  FDE3   B68B                          ld       a,TEST_OK
+ 828  FDE5   A101                          cp       a,#01h   
+ 829  FDE7   2602                          jrne     ritard_1
+ 830  FDE9   3C8B                          inc      TEST_OK       
+ 831  FDEB   CCFD5E              ritard_1  jp       out_test
+ 832                                       
+ 833  FDEE   AE02                avanti    ld       x,#2
+ 834  FDF0   CDFDFE                        call     pwm    
+ 835  FDF3   B68B                          ld       a,TEST_OK
+ 836  FDF5   A100                          cp       a,#00h
+ 837  FDF7   2602                          jrne     avanti_1
+ 838  FDF9   3C8B                          inc      TEST_OK     
+ 839  FDFB   CCFD5E              avanti_1  jp       out_test
+ 840                             
+ 841  FDFE   040D03              pwm       btjt     ATCSR,#2,overf        ;
+ 842  FE01   CCFDFE                        jp       pwm           ;	                
+ 843  FE04   B613                overf     ld       a,PWM0CSR     ; reset ovl
+ 844  FE06   B60D                          ld       a,ATCSR       ; reset ovl
+ 845  FE08   92D680                        ld       a,([PUN1TH.W],x)  ; ricarico il duty
+ 846  FE0B   B717                          ld       DCR0H,a               ;
+ 847  FE0D   92D682                        ld       a,([PUN2TH.W],x)  ; ricarico il duty
+ 848  FE10   B718                          ld       DCR0L,a               ;
+ 849  FE12   81                            ret      
+ 850                                       
+ 851                             ;+--------------------------------------------------+ 
+ 852                             ;|			SUPER RITARDO							| 
+ 853                             ;+--------------------------------------------------+  
+ 854                             
+ 855                             
+ 856  FE13   CDFADB              extra_rit  call     ritardo_2
+ 857  FE16   CDFADB                        call     ritardo_2
+ 858  FE19   CDFADB                        call     ritardo_2    
+ 859  FE1C   81                            ret      
+ 860                             ;============================================================
+ 861                             ;= I  N  I  Z  I  O      P  R  O  G  R  A  M  M  A  ========= 
+                                 ;   
+ 862                             ;============================================================
+ 863                             
+ 864                                       
+ 865  FE1D   CDFB01              main      call     can_A               ;1^ routine onda quadra 
+ 866  FE20   CDFB0E                        call     can_B               ;2^ routine onda quadra
+ 867  FE23   CDFB1B                        call     can_Z 
+ 868  FE26   CDFB39                        call     mark                ;generazione S1  
+ 869  FE29   CDFB7F                        call     key                 ;gestione tastiera   
+ 870  FE2C   CCFE1D                        jp       main       
+ 871                                       
+ 872  FE2F   08                  TB1PWMH   DC.B     08h                       ; 2095
+ 873  FE30   2F                  TB1PWML   DC.B     2fh                       ;   "                    
+ 874  FE31   089308F7095B09BF    
+ 874  FE39   0A230A870AEB0E6F              
+ 874  FE41   0F370FFF                      DC.W     2195,2295,2395,2495,2595,2695,2795,3695,3895,4095
+ 875                             
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 20  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ 876                                       
+ 877  FE45                                 end      
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 21  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+Symbol Name                       Value     Type  Scope      Rel.  Line  Privacy  Segment   Size  Bytes File
+
+ATCSR                                   0D  BYTE  Internal   ABS     43  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+ATRH                                    10  BYTE  Internal   ABS     46  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+ATRL                                    11  BYTE  Internal   ABS     47  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+ADCCSR                                  34  BYTE  Internal   ABS     68  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+ADCDR                                   35  BYTE  Internal   ABS     69  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+ADCCAMP                                 36  BYTE  Internal   ABS     70  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+Atovl_int                             FA04  WORD  Internal   ABS    102  private  textdata     1     0  -
+Atouc_int                             FA05  WORD  Internal   ABS    103  private  textdata     1     0  -
+Avd_int                               FA06  WORD  Internal   ABS    104  private  textdata     1     0  -
+
+CNTRH                                   0E  BYTE  Internal   ABS     44  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+CNTRL                                   0F  BYTE  Internal   ABS     45  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+CILINDRO                                92  BYTE  Internal   ABS     63  private  bss          2     1  -
+CILIN0                                  92  BYTE  Internal   ABS     64  private  bss          0     0  -
+CILIN1                                  93  BYTE  Internal   ABS     65  private  bss          0     0  -
+
+DCR0H                                   17  BYTE  Internal   ABS     51  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+DCR0L                                   18  BYTE  Internal   ABS     52  private  bss         23     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+DELAY0                                  84  BYTE  Internal   ABS     48  private  bss          1     1  -
+DELAY1                                  85  BYTE  Internal   ABS     49  private  bss          1     1  -
+DELAY2                                  86  BYTE  Internal   ABS     50  private  bss          1     1  -
+DELAY3                                  87  BYTE  Internal   ABS     51  private  bss          1     1  -
+DELAY4                                  88  BYTE  Internal   ABS     52  private  bss          1     1  -
+DELAY5                                  89  BYTE  Internal   ABS     53  private  bss          1     1  -
+DIGIT                                   94  BYTE  Internal   ABS     66  private  bss          6     1  -
+DIG1                                    94  BYTE  Internal   ABS     67  private  bss          0     0  -
+DIG2                                    95  BYTE  Internal   ABS     68  private  bss          0     0  -
+DIG3                                    96  BYTE  Internal   ABS     69  private  bss          0     0  -
+DIG4                                    97  BYTE  Internal   ABS     70  private  bss          0     0  -
+DIG5                                    98  BYTE  Internal   ABS     71  private  bss          0     0  -
+DIG6                                    99  BYTE  Internal   ABS     72  private  bss          0     0  -
+
+EECSR                                   30  BYTE  Internal   ABS     58  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+EICR                                    37  BYTE  Internal   ABS     74  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+Ext3_int                              FA07  WORD  Internal   ABS    105  private  textdata     1     0  -
+Ext2_int                              FA08  WORD  Internal   ABS    106  private  textdata     1     0  -
+Ext1_int                              FA09  WORD  Internal   ABS    108  private  textdata    23     0  -
+Ext0_int                              FA29  WORD  Internal   ABS    131  private  textdata     1     0  -
+
+FCSR                                    2F  BYTE  Internal   ABS     57  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+FLAG                                    8A  BYTE  Internal   ABS     54  private  bss          1     1  -
+
+IMPULSI                                 90  BYTE  Internal   ABS     60  private  bss          2     1  -
+
+LTCSR                                   0B  BYTE  Internal   ABS     38  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+LTICR                                   0C  BYTE  Internal   ABS     39  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+Ltrtc_int                             FA02  WORD  Internal   ABS    100  private  textdata     1     0  -
+Ltic_int                              FA03  WORD  Internal   ABS    101  private  textdata     1     0  -
+
+MCCSR                                   38  BYTE  Internal   ABS     75  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+MEMADC                                  8C  BYTE  Internal   ABS     56  private  bss          1     1  -
+MDIGIT                                  9A  BYTE  Internal   ABS     73  private  bss          6     1  -
+MDIG1                                   9A  BYTE  Internal   ABS     74  private  bss          0     0  -
+MDIG2                                   9B  BYTE  Internal   ABS     75  private  bss          0     0  -
+MDIG3                                   9C  BYTE  Internal   ABS     76  private  bss          0     0  -
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 22  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+MDIG4                                   9D  BYTE  Internal   ABS     77  private  bss          0     0  -
+MDIG5                                   9E  BYTE  Internal   ABS     78  private  bss          0     0  -
+MDIG6                                   9F  BYTE  Internal   ABS     79  private  bss          0     0  -
+
+PORT_A                                  00  BYTE  Internal   ABS     28  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+PDIR_A                                  01  BYTE  Internal   ABS     29  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+POPT_A                                  02  BYTE  Internal   ABS     30  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+PORT_B                                  03  BYTE  Internal   ABS     31  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+PDIR_B                                  04  BYTE  Internal   ABS     32  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+POPT_B                                  05  BYTE  Internal   ABS     33  private  bss          6     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+PWMCR                                   12  BYTE  Internal   ABS     48  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+PWM0CSR                                 13  BYTE  Internal   ABS     49  private  bss          4     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+PUN1TH                                  80  BYTE  Internal   ABS     44  private  bss          1     1  -
+PUN1TL                                  81  BYTE  Internal   ABS     45  private  bss          1     1  -
+PUN2TH                                  82  BYTE  Internal   ABS     46  private  bss          1     1  -
+PUN2TL                                  83  BYTE  Internal   ABS     47  private  bss          1     1  -
+
+RCCR                                    39  BYTE  Internal   ABS     76  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+
+SPIDR                                   31  BYTE  Internal   ABS     62  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+SPICR                                   32  BYTE  Internal   ABS     63  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+SPISR                                   33  BYTE  Internal   ABS     64  private  bss          1     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+SICSR                                   3A  BYTE  Internal   ABS     77  private  bss         46     1  C:\Programmi\inDART-ST7\Work\NE\ST72FL09.INC
+S1_START                                8D  BYTE  Internal   ABS     57  private  bss          1     1  -
+S1_END                                  8E  BYTE  Internal   ABS     58  private  bss          1     1  -
+STEP0                                   90  BYTE  Internal   ABS     61  private  bss          0     0  -
+STEP1                                   91  BYTE  Internal   ABS     62  private  bss          0     0  -
+Spi_int                               FA01  WORD  Internal   ABS     99  private  textdata     1     0  -
+Sw_int                                FA2A  WORD  Internal   ABS    132  private  textdata     1     0  -
+St7_main                              FA2B  WORD  Internal   ABS    134  private  textdata   108     0  -
+
+TEST_OK                                 8B  BYTE  Internal   ABS     55  private  bss          1     1  -
+T3_fine                               FC71  WORD  Internal   ABS    596  private  textdata     1     0  -
+TB1PWMH                               FE2F  WORD  Internal   ABS    872  private  textdata     1     1  -
+TB1PWML                               FE30  WORD  Internal   ABS    873  private  textdata    21     1  -
+
+VELOCITA                                8F  BYTE  Internal   ABS     59  private  bss          1     1  -
+
+art_set                               FA97  WORD  Internal   ABS    260  private  textdata    49     0  -
+appog1                                FC1A  WORD  Internal   ABS    538  private  textdata     3     0  -
+appog2                                FC1D  WORD  Internal   ABS    539  private  textdata     3     0  -
+automat                               FC9C  WORD  Internal   ABS    623  private  textdata    22     0  -
+allarme                               FDAE  WORD  Internal   ABS    801  private  textdata    13     0  -
+allarme_1                             FDBB  WORD  Internal   ABS    807  private  textdata     3     0  -
+avanti                                FDEE  WORD  Internal   ABS    833  private  textdata    13     0  -
+avanti_1                              FDFB  WORD  Internal   ABS    839  private  textdata     3     0  -
+
+can_A                                 FB01  WORD  Internal   ABS    353  private  textdata     6     0  -
+can_B                                 FB0E  WORD  Internal   ABS    364  private  textdata     6     0  -
+can_Z                                 FB1B  WORD  Internal   ABS    376  private  textdata    27     0  -
+can_Z1                                FB36  WORD  Internal   ABS    390  private  textdata     2     0  -
+
+dummy                                 FA00  WORD  Internal   ABS     98  private  textdata     1     0  -
+dec_form                              FD06  WORD  Internal   ABS    687  private  textdata    11     0  -
+de_dig5                               FD11  WORD  Internal   ABS    693  private  textdata    15     0  -
+de_dig4                               FD20  WORD  Internal   ABS    701  private  textdata    15     0  -
+de_dig3                               FD2F  WORD  Internal   ABS    709  private  textdata    15     0  -
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 23  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+de_dig2                               FD3E  WORD  Internal   ABS    717  private  textdata     4     0  -
+
+extra_rit                             FE13  WORD  Internal   ABS    856  private  textdata    10     0  -
+
+fine_int                              FA28  WORD  Internal   ABS    129  private  textdata     1     0  -
+f_rit_1                               FADA  WORD  Internal   ABS    315  private  textdata     1     0  -
+f_rit_2                               FAED  WORD  Internal   ABS    331  private  textdata     1     0  -
+f_rit_3                               FB00  WORD  Internal   ABS    347  private  textdata     1     0  -
+f_can_A                               FB0D  WORD  Internal   ABS    358  private  textdata     1     0  -
+f_can_B                               FB1A  WORD  Internal   ABS    369  private  textdata     1     0  -
+f_can_Z                               FB38  WORD  Internal   ABS    391  private  textdata     1     0  -
+f_mark                                FB51  WORD  Internal   ABS    412  private  textdata     1     0  -
+f_key                                 FBC0  WORD  Internal   ABS    491  private  textdata     1     0  -
+fin_vel                               FC36  WORD  Internal   ABS    560  private  textdata     1     0  -
+fin_form                              FD42  WORD  Internal   ABS    721  private  textdata    28     0  -
+fin_out                               FD97  WORD  Internal   ABS    783  private  textdata     6     0  -
+fin_out_1                             FD9D  WORD  Internal   ABS    788  private  textdata     1     0  -
+fase_vel                              FD9E  WORD  Internal   ABS    792  private  textdata    13     0  -
+fase_vel_1                            FDAB  WORD  Internal   ABS    798  private  textdata     3     0  -
+
+giu_on                                FBFE  WORD  Internal   ABS    524  private  textdata     5     0  -
+
+inc_form                              FCC8  WORD  Internal   ABS    653  private  textdata    11     0  -
+in_dig5                               FCD3  WORD  Internal   ABS    659  private  textdata    15     0  -
+in_dig4                               FCE2  WORD  Internal   ABS    667  private  textdata    15     0  -
+in_dig3                               FCF1  WORD  Internal   ABS    675  private  textdata    15     0  -
+in_dig2                               FD00  WORD  Internal   ABS    683  private  textdata     6     0  -
+
+key                                   FB7F  WORD  Internal   ABS    453  private  textdata    65     0  -
+
+meno_cil                              FA25  WORD  Internal   ABS    128  private  textdata     3     0  -
+mark                                  FB39  WORD  Internal   ABS    400  private  textdata    16     0  -
+mark_1                                FB49  WORD  Internal   ABS    408  private  textdata     8     0  -
+m_1                                   FB55  WORD  Internal   ABS    422  private  textdata     9     0  -
+m_2                                   FB5E  WORD  Internal   ABS    429  private  textdata     7     0  -
+m_3                                   FB65  WORD  Internal   ABS    434  private  textdata     2     0  -
+m_4                                   FB67  WORD  Internal   ABS    435  private  textdata    24     0  -
+meno                                  FC42  WORD  Internal   ABS    571  private  textdata    11     0  -
+manuale                               FCB2  WORD  Internal   ABS    635  private  textdata    22     0  -
+meno_form                             FDBE  WORD  Internal   ABS    809  private  textdata    13     0  -
+meno_form_1                           FDCB  WORD  Internal   ABS    815  private  textdata     3     0  -
+main                                  FE1D  WORD  Internal   ABS    865  private  textdata    18     0  -
+
+off_A                                 FB07  WORD  Internal   ABS    355  private  textdata     4     0  -
+on_A                                  FB0B  WORD  Internal   ABS    357  private  textdata     2     0  -
+off_B                                 FB14  WORD  Internal   ABS    366  private  textdata     4     0  -
+on_B                                  FB18  WORD  Internal   ABS    368  private  textdata     2     0  -
+out_test                              FD5E  WORD  Internal   ABS    744  private  textdata     4     0  -
+out_test_1                            FD62  WORD  Internal   ABS    748  private  textdata    53     0  -
+overf                                 FE04  WORD  Internal   ABS    843  private  textdata    15     0  -
+
+piu_cil                               FA20  WORD  Internal   ABS    126  private  textdata     5     0  -
+piu                                   FC37  WORD  Internal   ABS    562  private  textdata    11     0  -
+piu_form                              FDCE  WORD  Internal   ABS    817  private  textdata    13     0  -
+piu_form_1                            FDDB  WORD  Internal   ABS    823  private  textdata     3     0  -
+pwm                                   FDFE  WORD  Internal   ABS    841  private  textdata     6     0  -
+
+METAi Assembler  6.02  (C)1987-91 Crash Barrier  Sat Jun 21 17:31:34 2008
+Page 24  "SIM200.ASM"	   	        ;010 Titolo del programma
+                                               C:\Programmi\inDART-ST7\Work\NE\sim200.asm
+
+ritardo_1                             FAC8  WORD  Internal   ABS    306  private  textdata     4     0  -
+rit1_01                               FACC  WORD  Internal   ABS    308  private  textdata     4     0  -
+rit1_02                               FAD0  WORD  Internal   ABS    310  private  textdata    10     0  -
+ritardo_2                             FADB  WORD  Internal   ABS    322  private  textdata     4     0  -
+rit2_01                               FADF  WORD  Internal   ABS    324  private  textdata     4     0  -
+rit2_02                               FAE3  WORD  Internal   ABS    326  private  textdata    10     0  -
+rit_tx                                FAEE  WORD  Internal   ABS    338  private  textdata     4     0  -
+rit3_01                               FAF2  WORD  Internal   ABS    340  private  textdata     4     0  -
+rit3_02                               FAF6  WORD  Internal   ABS    342  private  textdata    10     0  -
+ritardo                               FDDE  WORD  Internal   ABS    825  private  textdata    13     0  -
+ritard_1                              FDEB  WORD  Internal   ABS    831  private  textdata     3     0  -
+
+su_on                                 FBEA  WORD  Internal   ABS    513  private  textdata     5     0  -
+
+tx_dati                               FB52  WORD  Internal   ABS    420  private  textdata     3     0  -
+t_meno                                FBC1  WORD  Internal   ABS    494  private  textdata    13     0  -
+t_piu                                 FBCE  WORD  Internal   ABS    500  private  textdata    13     0  -
+t_fre_su                              FBDB  WORD  Internal   ABS    506  private  textdata    15     0  -
+t_fre_giu                             FBEF  WORD  Internal   ABS    517  private  textdata    15     0  -
+t_auto                                FC03  WORD  Internal   ABS    527  private  textdata    13     0  -
+t_manual                              FC10  WORD  Internal   ABS    532  private  textdata    10     0  -
+test_T3                               FC4D  WORD  Internal   ABS    579  private  textdata    36     0  -
+test_F4                               FC72  WORD  Internal   ABS    599  private  textdata    22     0  -
+test_F6                               FC88  WORD  Internal   ABS    612  private  textdata    20     0  -
+
+vel_meno                              FC20  WORD  Internal   ABS    547  private  textdata    11     0  -
+vel_piu                               FC2B  WORD  Internal   ABS    554  private  textdata    11     0  -
+
+
+169 labels
+No errors on assembly of 'C:\Programmi\inDART-ST7\Work\NE\sim200.asm'

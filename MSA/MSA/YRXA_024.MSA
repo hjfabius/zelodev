@@ -1,0 +1,5925 @@
+
+                        ;################################
+                        ;# PROGRAMMA OSCILLOSCOPIO CON  #
+                        ;# GENERAZIONE DOPPIO GATE      #
+                        ;################################
+
+
+;10/09/05 INIZIO MODIFICHE CAMBIO SEGNO DI RIFERIMENTO SSRR
+
+
+                ;MODIFICHE DEL 14/06/05 WWNN DIVENTA YRXA_011
+;08/04/06  MODIFICHE VVVV VEDI W1
+;29/04/06 MIGLIORIE SU SI STEMA MC MMMC 
+;24/05/06 TOLTO PROBLEMI SU MODIFICHE VVVV
+;24/05/06 SISTEMAZIONE OSCILLOSCOPIO ESTERNO FF55 FF56 SSRR
+;26/05/06 SCRITTURA ERRORE DATO ERRATO F1 E F3 EEOO EEUU
+	  ;MODIFICHE PER CORREZIONE SOLO PROPORZIONALE PPPP
+;10/01/07 SISTEMATO RESEPC
+;18/10/07 INIZIO MODIFICHE CHIAMATA A NOPRI E FATTO GENRARE GATE 2 ANCHE IN CASO DI NOPRI
+	  ;QUANDO FINITO DIVENTERA' 024	PUNTI DI MODIFICA JJJJ
+	  
+
+                NAME    YRXA_024
+                ASEG
+                PUBLIC  YRXA_024,GENCAR,FINOSC,CAG,FUNDIS,MACI
+                PUBLIC  FORCIL,SOALLR,AZZER1,AZZER2,POSSEG,COLORE
+                PUBLIC  IIRIGA,AVANTI,RITARD,OPERAT,TRASMI,FASEAU
+                PUBLIC  ESEGUI,ERRORE,NOSTAM,VADASI,ACELER,DECELE
+                PUBLIC  PARAME,TRIDIS,GUADAG,CICLIC,DISDER,INSERZ
+                PUBLIC  DSALTO,ZONAMO,TRAGUA,TRACIC,TRAZON,DISLIN
+                PUBLIC  DIADIS,DIADI1,DIADI2,VELONG,VETRAV,DITEST
+                PUBLIC  TTESTA,TENCOD,LAVANO,LAVA,SECUND,NETA,MACODE
+                PUBLIC  SETTA,TABLE,SSEG,SOLDIS,SOLBAS,GATEW,INTIR
+                PUBLIC  NORDIS,GUATIR,DOPPIO,FNOVE,MODPA,TESREL
+                PUBLIC  ATIDIS,FLXDIS,MESS0,MESS1,MESS2,MCSSEG
+                PUBLIC  TEST,ENC2,ENC6,RITDIS,FLASH,FUNDI5,PERC40
+		PUBLIC	ERALTO,NOPRI,VELO,LOWSPE,DISPLL,BIOTTD
+                PUBLIC  DIVIS,MOLT,AGGIUS,AGGIU1,MOL24,DI1000,FADA
+                PUBLIC  DI2000,MOL32,DIV32,SOTT32,TSOTT32,AZZTOT
+                PUBLIC  SOMM32,CSOTT32,CSOM32,ERR_01,ERR_F1,ERR_F3
+		PUBLIC	BCDBIN,DISPLD,DISPLT,BIN7,INTCOR,TINTCO
+		PUBLIC  VERIFI,CONTR,VARERR,OCIO,DEFAUL,FABIOSOMM32
+
+                EXTERN  MEMC,PC,MOSCIL,FASE,TRIGFA,PB,MEMB,MPUNTO
+                EXTERN  IMPMIL,FORMAR,SCRIOS,GATOSC,SPOINC,MEM5
+                EXTERN  MKBUSY,PA,SERITA,TX,INISI,BASSA,FASRIF
+                EXTERN  RSZERO,ADDRCG,SERPAR,RSUNO,MERITA,PIUMEN
+                EXTERN  MEZGA,FASES1,MOLTI,MOLPL,RIFTOT,PROD,MCALER
+                EXTERN  GUAOSC,GUADS1,MEMA,OSGAIN,POSGA1,POSGA2
+		EXTERN	VELMED,VELPRE,ISTVEL,VELMEM,IMPVEL,MVEL00
+		EXTERN	COSVEL,MDO232,MRE232,RESEPC,MAVA00,SIMCOT
+                EXTERN  TRIP,GUADA,CICLO,DERIVA,ZONA,INSER,AMPIM1
+                EXTERN  SALTO,GUATRA,TCICLO,ZONT,LINGUA,SHIFT,MRIC
+                EXTERN  VCLONG,VCTRAV,DIAGON,MDIAGO,MESSA,CENTRA 
+                EXTERN  MM_MC,XUNZ,XTASTO,MEM1,MEM2,MEM3,ALTERR
+                EXTERN  BINSET,QUOZIE,CICL75,DIVSOR,CENTES,TXUNO
+                EXTERN  DIVDEN,SPACOD,NORINV,SEGRIF,INCEXT,PERCE
+                EXTERN  INFLAS,ENCOD1,ENCOD2,ENCOD3,ENCOD4,RISPER  
+                EXTERN  TCICAT,CICATT,PROTEZ,PIOB1,VELIST,NUMCOL     
+		EXTERN	ALLAR,ALTERN,MDATER,CILIN,OF_ROT,GATEPU
+                EXTERN  MAGGIU,MAGGI1,PROD24,ALTDIV,PTO032,RESTO0
+                EXTERN  TREST0,MDIVIS,QU1000,MOLT24,MOLP24,CILI12
+                EXTERN  MDO032,MRE032,MSCORR,MIXUE0,MIXUE2,SUXTR0
+                EXTERN  SUXTR2,MREST0,MREST2,EDEND0,EDEND2,QUOZ32
+                EXTERN  MINUE0,MINUE2,SUBTR0,SUBTR2,RESTO2,TMSCOR
+                EXTERN  TIXUE0,TIXUE2,TUXTR0,TUXTR2,TREST2,TINUE0
+                EXTERN  TINUE2,TUBTR0,TUBTR2,CUBTR0,CUBTR2,CESTO0
+                EXTERN  CESTO2,CADDE0,CADDE2,CSOMM0,CSOMM2,CAUGE0
+                EXTERN  CAUGE2,CINUE0,CINUE2,ADDEN0,AUGEN0,RESTO
+		EXTERN	SPOSTA,SUPCOR,SHIFT3,SHIFT4,AMPI40,SECERR
+		EXTERN	MTSHIF,TIUMEN,ERATTU,TABCON,TSHIFT,SEQSEG
+		EXTERN	MSHIFT,LAVORO,AMPGA,CALIBR,PROGR1,TALTER
+		EXTERN  BINSE1,BINSE2,SECFUN,SIMCOL,VELBCD,PROGR2
+		EXTERN	TVALOX,TPRIMB,TSECOB,VALORX,SECONB,PRIMOB
+		EXTERN	MNOPRI
+
+              
+                ORG     3648H    
+
+
+
+                ;LEGGO PER 500 IMPULSI DI 2048 E MEMORIZZO
+                ;IN MOSCIL CON FF SE C'E'STAMPA E CON 00 
+                ;QUANDO MANCA
+YRXA_024:
+                LD      BC,0FFFFH       ;SE L'ENCODER
+ESCI1:                                  ;NON GIRA
+                DEC     BC              ;BISOGNA 
+                LD      A,B             ;RITORNARE
+                OR      C               ;SE NO NONH
+                JR      NZ,ESCI2        ;SENTENDO
+                RET                     ;L'ENCODER
+ESCI2:                                  ;RIMANE
+                IN      A,(PB)          ;IMPALATO
+		BIT     4,A             ;SE 2048 = 0
+                JR      Z,ESCI1         ;ASPETTA
+ESCI3:
+                DEC     BC
+                LD      A,B
+                OR      C
+                JR      NZ,ESCI4
+                RET
+ESCI4:
+                IN      A,(PB)          ;SE 2048 = 1
+		BIT     4,A             ;ASPETTA
+                JR      NZ,ESCI3
+
+
+                LD      A,(GUADS1)      ;IMPONGO IN  LLLL  OOTT
+                LD      (GUAOSC),A      ;OSCILLOSCOPIO
+
+		CALL	RESEPC
+OSCIL1:                                 ;AAOO
+
+		IN      A,(PA)
+		BIT     4,A
+                JR      NZ,EXITAM
+                CALL    SERITA
+
+
+                LD      A,(HL)          ;VERIFICO SE 
+                AND     1FH             ;PIGIATO
+                CP      01H
+                JR      Z,OSCNU1
+                CP      02H
+                JR      Z,OSCNU2
+                CP      03H
+                JR      Z,OSCNU3
+                CP      04H
+                JR      Z,OSCNU4
+                JR      EXITAM
+
+OSCNU1:         LD      A,01H
+                LD      (OSGAIN),A
+                JR      EXITAM
+OSCNU2:         LD      A,02H
+                LD      (OSGAIN),A
+                JR      EXITAM
+OSCNU3:         LD      A,03H
+                LD      (OSGAIN),A
+                JR      EXITAM
+OSCNU4:         LD      A,04H
+                LD      (OSGAIN),A
+EXITAM:                                 ;AAOO
+
+
+                LD      A,(OSGAIN)      ;OOGG
+                CP      04H
+                JR      Z,OGA1
+                CP      03H
+                JR      Z,OGA2
+                CP      02H
+                JR      Z,OGA3
+                LD      A,60H
+                JR      OGA4            ;OOGG
+OGA1:           LD      A,00H           ;OOGG
+                JR      OGA4
+OGA2:           LD      A,20H
+                JR      OGA4
+OGA3:           LD      A,40H           ;OOGG
+
+OGA4:           LD      (GUADS1),A      ;
+                LD      B,A             ;AMPLIFICAZIONE
+                LD      A,(MEMA)        ;S1
+		RES     5,A
+		RES     6,A
+		ADD     A,B
+		LD      (MEMA),A
+                OUT     (PA),A          
+
+
+                LD      A,00H
+                LD      (MOSCIL),A      ;LOC. INIZIALE
+                LD      HL,MOSCIL
+                LD      DE,MOSCIL+01H
+                LD      BC,0600H
+		LDIR                    
+
+                LD      HL,(FASE)       ;SOTTRAGGO  
+                LD      DE,(SPACOD)     ;28mm DALLA  TTGG
+                SBC     HL,DE           ;FASE PER AVERE
+                JR      C,OSC1          ;LA FASE DI
+                JR      OSC2            ;TRIGGER
+OSC1:           CCF                     ;SE SONO A
+                LD      HL,1000H        ;CAVALLO DELLO
+                LD      BC,(FASE)       ;ZERO SOMMO A
+                ADD     HL,BC           ;4096 LA FASE
+                SBC     HL,DE           ;E POI TOLGO
+OSC2:           LD      A,H             ;I 28mm
+		OUT     (20H),A
+		LD      A,L
+		OUT     (10H),A
+                LD      (TRIGFA),HL
+
+                LD      A,43H
+                OUT     (70H),A        
+                OUT     (71H),A        
+                DI                     ;PER 16
+
+OSC6:           IN      A,(PB)
+                BIT     1,A
+                JR      NZ,OSC6
+
+                LD      A,(MEMB)        
+		SET     6,A             ;BLOCCO GATE
+		LD      (MEMB),A
+		OUT     (PB),A
+                LD      HL,MOSCIL
+
+OSC3:           IN      A,(PB)
+		BIT     4,A             ;SE 2048 = 0
+                JR      Z,OSC3          ;ASPETTA
+OSC4:           IN      A,(PB)          ;SE 2048 = 1
+		BIT     4,A             ;ASPETTA
+                JR      NZ,OSC4
+                INC     HL      
+
+                LD      A,H
+                CP      0D9H            ;1000 LOCAZIO
+                JP      Z,ENDO1
+
+                IN      A,(PB)          ;SE MANCA
+		BIT     2,A             ;STAMPA ASPETTA
+                JR      NZ,OSC5
+                JR      OSC3
+
+OSC5:           LD      A,0FFH
+                LD      (HL),A
+                JR      OSC3
+
+
+                ;SAPENDO QUANTE LOCAZIONI DI MOSCIL
+                ;CORRISPONONO A 1mm MEMORIZZO IN 200
+                ;LOCAZIONI (PUNTI TOTALI DEL DISPLAY)
+                ;I SEGNALI DA 1mm, IN ALTRE PAROLE
+                ;UN PUNTO SUL DISPLAY CORRISPONDE A 
+                ;1mm VENGONO MEMORIZZATI IN MPUNTO
+
+
+ENDO1:
+                LD      A,(MEMB)        
+                RES     6,A             ;SBLOCCO GATE
+		LD      (MEMB),A
+		OUT     (PB),A
+
+
+                LD      IY,MOSCIL-01H
+                LD      HL,MPUNTO-01H
+                LD      IX,IMPMIL
+ENDO5:          LD      C,00H
+
+                LD      A,(IX)
+                INC     A
+                LD      B,A
+
+ENDO2:          DJNZ    ENDO3
+                INC     HL
+                LD      A,L
+                CP      0C9H            ;200
+                JR      Z,ENDO6
+                LD      A,C
+                CP      (IX)
+                JR      Z,ENDO4
+                LD      A,00H
+                LD      (HL),A
+                JR      ENDO5
+ENDO4:          LD      A,01H
+                LD      (HL),A
+                JR      ENDO5
+
+
+ENDO3:          INC     IY
+                LD      A,(IY)
+                CP      0FFH
+                JR      Z,ENDO7
+                DEC     C
+                JR      ENDO2
+ENDO7:          INC     C
+                JR      ENDO2
+
+
+
+                ;ELIMINAZIONE DEGLI UNI SUPERFLUI
+
+ENDO6:          LD      B,0C9H          ;200+1 LOCAZIONI
+                LD      IY,MPUNTO-01H
+AZ1:            LD      C,00H
+AZ2:            INC     IY
+                DJNZ    AZ3
+                JR      AZ4
+AZ3:            LD      A,(IY)
+                CP      01H
+                JR      NZ,AZ1
+                INC     C
+                ADD     A,C
+                CP      02H
+                JR      Z,AZ2
+                LD      A,00H
+                LD      (IY),A
+                JR      AZ2
+        
+AZ4:            JP      PUN0
+
+
+
+                ;LEGGO I 200 PUNTI IN MPUNTO E IN BASE
+                ;AGLI UNI E AGLI ZERI LI RAGGRUPPO IN
+                ;40 LOCAZIONI DI MEMORIA FORMAR E OTTENGO
+                ;UN VALORE CHE CORRISPONDE ALLA POSIZIONE
+                ;DEL SEGNO NELL'AMBITO DI UNA CASELLA DI
+                ;UN CARATTERE DEL DISPLAY
+
+PUN0:           LD      B,0C8H          ;200 LOCAZIONI
+                LD      IX,FORMAR-01H
+                LD      IY,MPUNTO-01H
+PUN1:           LD      C,00H           
+                INC     IY              ;LEGGO 5 LOCA-
+                LD      A,(IY)          ;ZIONI E SETTO
+                CP      01H             ;A 1 IL BIT CON
+                JR      NZ,PUN2         ;SEGNO E OTTENGO
+                SET     4,C             ;40 VALORI MEMO-
+PUN2:           INC     IY              ;RIZZATI IN FORMAR
+                LD      A,(IY)          ;CHE POI TRASFOR-
+                CP      01H             ;MERO' IN SEGNALI
+                JR      NZ,PUN3         ;PER L'OSCILLO-
+                SET     3,C             ;SCOPIO
+PUN3:           INC     IY
+                LD      A,(IY)
+                CP      01H
+                JR      NZ,PUN4
+                SET     2,C
+PUN4:           INC     IY
+                LD      A,(IY)
+                CP      01H
+                JR      NZ,PUN5
+                SET     1,C
+PUN5:           INC     IY
+                LD      A,(IY)
+                CP      01H
+                JR      NZ,PUN6
+                SET     0,C
+PUN6:           INC     IX
+                LD      A,C
+                LD      (IX),A
+                DJNZ    PUN1
+
+
+                ;TRASFORMAZIONE DEI BYTE FORMAR
+                ;IN ADDRES PER LA CGRAM
+
+CGRA0:          LD      B,28H           ;40 CARATTERI
+                LD      IY,FORMAR-01H
+                LD      IX,SCRIOS-01H
+CGRA1:          INC     IY
+                INC     IX
+                LD      A,(IY)
+                CP      00H
+                JR      Z,CGR0D
+                BIT     4,A
+                JR      NZ,CGR08
+                BIT     3,A
+                JR      NZ,CGR09
+                BIT     2,A
+                JR      NZ,CGR0A
+                BIT     1,A
+                JR      NZ,CGR0B
+                BIT     0,A
+                JR      NZ,CGR0C
+
+CGR0D:          LD      A,0DH
+                LD      (IX+00H),A
+                DJNZ    CGRA1
+                JR      CGRGAT
+CGR08:          LD      A,08H
+                LD      (IX+00H),A
+                DJNZ    CGRA1
+                JR      CGRGAT
+CGR09:          LD      A,09H
+                LD      (IX+00H),A
+                DJNZ    CGRA1
+                JR      CGRGAT
+CGR0A:          LD      A,0AH
+                LD      (IX+00H),A
+                DJNZ    CGRA1
+                JR      CGRGAT
+CGR0B:          LD      A,0BH
+                LD      (IX+00H),A
+                DJNZ    CGRA1
+                JR      CGRGAT
+CGR0C:          LD      A,0CH
+                LD      (IX+00H),A
+                DJNZ    CGRA1
+
+                ;TRASFORMAZIONE DEI BYTE ADDRES CGRAM
+                ;IN ADDRES PER LA CGRAM DEL GATE 1
+
+CGRGAT:         LD      IX,SCRIOS-01H
+                LD      A,(POSGA1)
+                LD      B,00H
+                LD      C,A
+                ADD     IX,BC
+                LD      A,(GATOSC)
+                LD      B,A
+CGRGA1:         INC     IX
+                LD      A,(IX)
+                CP      0DH
+                JR      Z,CGR20
+                LD      A,(IX)
+                CP      08H
+                JR      Z,CGR0E
+                CP      09H
+                JR      Z,CGR7C
+                CP      0AH
+                JR      Z,CGR7C
+                CP      0BH
+                JR      Z,CGR7C
+                CP      0CH
+                JR      Z,CGR0F
+
+CGR20:          LD      A,20H
+                LD      (IX+00H),A
+                DJNZ    CGRGA1
+                JR      CGRGA2
+CGR0E:          LD      A,0EH
+                LD      (IX+00H),A
+                DJNZ    CGRGA1
+                JR      CGRGA2
+CGR7C:          LD      A,7CH
+                LD      (IX+00H),A
+                DJNZ    CGRGA1
+                JR      CGRGA2
+CGR0F:          LD      A,0FH
+                LD      (IX+00H),A
+                DJNZ    CGRGA1
+                NOP                     ;JR      CGRFIN
+
+
+                ;TRASFORMAZIONE DEI BYTE ADDRES CGRAM
+                ;IN ADDRES PER LA CGRAM DEL GATE  2
+
+
+CGRGA2:	
+		LD      A,(MM_MC)       ;MMCC
+                CP      00H		;MMXX
+                JR      NZ,CGRFIN
+
+		LD      IX,SCRIOS-01H
+                LD      A,(POSGA2)
+                LD      B,00H
+                LD      C,A
+                ADD     IX,BC
+                LD      A,(GATOSC)
+                LD      B,A
+CGRGA3:         INC     IX
+                LD      A,(IX)
+                CP      0DH
+                JR      Z,CGR202
+                LD      A,(IX)
+                CP      08H
+                JR      Z,CGR0E2
+                CP      09H
+                JR      Z,CGR7C2
+                CP      0AH
+                JR      Z,CGR7C2
+                CP      0BH
+                JR      Z,CGR7C2
+                CP      0CH
+                JR      Z,CGR0F2
+
+CGR202:         LD      A,20H
+                LD      (IX+00H),A
+                DJNZ    CGRGA3
+                JR      CGRFIN
+CGR0E2:         LD      A,0EH
+                LD      (IX+00H),A
+                DJNZ    CGRGA3
+                JR      CGRFIN
+CGR7C2:         LD      A,7CH
+                LD      (IX+00H),A
+                DJNZ    CGRGA3
+                JR      CGRFIN
+CGR0F2:         LD      A,0FH
+                LD      (IX+00H),A
+                DJNZ    CGRGA3
+CGRFIN:
+                LD      A,(OSGAIN)                    ;AAOO
+                ADD     A,48
+                LD      (SCRIOS+00H),A
+
+                CALL    INISI           
+                LD      HL,SCRIOS
+                CALL    TX
+                CALL    BASSA
+                LD      HL,SCRIOS+14H
+                CALL    TX              
+                CALL    RITDIS
+
+                EI
+
+
+
+		IN      A,(PA)          ;!!!!!!!!!
+		BIT     4,A             ;!VERIFICARE
+                JR      NZ,SPOSS6       ;JR      NZ,SPOSS0  LLLL
+		CALL    SERITA
+
+                IN      A,(PA)          ;AAOO
+		BIT     4,A
+                JP      NZ,SPOSS5       ;AAOO
+                CALL    SERITA          ;AAOO
+
+                LD      A,(HL)          ;VERIFICO SE
+                AND     1FH             ;PIGIATO
+                CP      08H             ;AVANTI/RITARDO
+                JP      Z,SPOSDX        ;LLLL
+		CP      09H
+		JR      Z,SPOSSX
+
+SPOSS5:         EI                      ;LLLL
+                IN      A,(PA)
+                BIT     4,A
+                JR      NZ,SPOSS6       ;JR      NZ,SPOSS0  LLLL
+                CALL    SERITA
+                LD      A,(HL)
+                LD      (MERITA),A      ;VEDI RITDIS FFXX
+                AND     1FH
+                CP      0BH
+                JP      Z,FINOSC
+                CP      0AH
+                JP      Z,FINOSC
+                CP      0CH
+                JR      Z,SPOAVA
+                CP      0DH
+                JR      Z,SPORIT
+                JR      SPOSS6
+SPOAVA:         LD      A,(MEMC)
+		RES     1,A
+		SET     0,A
+		LD      (MEMC),A
+		OUT     (PC),A          ;MOTORE AVANTI
+                JR      SPOSS0
+SPORIT:         LD      A,(MEMC)
+		RES     0,A
+		SET     1,A
+		LD      (MEMC),A
+		OUT     (PC),A          ;MOTORE RITARDO
+                JR      SPOSS0
+SPOSS6:         LD      A,(MEMC)
+		RES     0,A
+                RES     1,A
+		LD      (MEMC),A
+                OUT     (PC),A          
+         
+SPOSS0:         LD      DE,0000H
+		LD      (SPOINC),DE
+                JP      OSCIL1                  ;AAOO
+
+SPOSSX:         LD      DE,(SPOINC)
+		LD      A,00H
+		CP      E
+		JR      NZ,SPOSS1
+		LD      E,05H
+		LD      (SPOINC),DE
+		JR      SPOSS2
+SPOSS1:         LD      A,0AH
+		ADD     A,E
+		LD      E,A
+		LD      (SPOINC),DE
+
+SPOSS2:         LD      HL,(FASE)       ;SOTTRAGGO 20
+		LD      DE,(SPOINC)     ;20
+		SBC     HL,DE           ;FASE PER AVERE
+		JR      C,OSC11         ;LA FASE DI
+		JR      OSC12           ;TRIGGER
+OSC11:          CCF                     ;SE SONO A
+		LD      HL,1000H        ;CAVALLO DELLO
+		LD      BC,(FASE)       ;ZERO SOMMO A
+		ADD     HL,BC           ;4096 LA FASE
+		SBC     HL,DE           ;POI TOLGO 20
+		JR      OSC12
+
+
+
+SPOSDX:         LD      DE,(SPOINC)
+		LD      A,00H
+		CP      E
+		JR      NZ,SPOSS3
+		LD      E,05H
+		LD      (SPOINC),DE
+		JR      SPOSS4
+SPOSS3:         LD      A,0AH
+		ADD     A,E
+		LD      E,A
+		LD      (SPOINC),DE
+
+SPOSS4:         LD      HL,(FASE)
+		LD      BC,(SPOINC)
+		ADD     HL,BC
+		EX      DE,HL
+		LD      HL,1000H        ;4096
+		SBC     HL,DE
+		JR      NC,OSC21
+		CCF
+		LD      D,00H
+OSC21:          EX      DE,HL
+OSC12:          LD      A,H
+		OUT     (20H),A
+		LD      A,L
+		OUT     (10H),A
+		LD      (FASE),HL
+                JP      OSCIL1          ;LLLL
+
+FINOSC:         LD      A,00H
+                LD      (MKBUSY),A
+		CALL	RESEPC
+                LD      A,(GUAOSC)      ;RIPRISTINO  LLLL
+                LD      (GUADS1),A      ;AMPLIFICAZ. LLLL
+                                 
+                RET
+
+
+                
+
+                ;CREAZIONE DEI CARATTERI SPECIALI
+
+GENCAR:         CALL    RSZERO
+                LD      A,38H
+                CALL    SERPAR
+
+                LD      IY,ADDRCG
+                LD      A,3FH           ;3FH + 01H = 40H
+                LD      (ADDRCG+00H),A
+                LD      IX,DATACG-01H
+                LD      B,40H
+
+CG1:            INC     (IY)
+                INC     IX
+
+                CALL    RSZERO
+                LD      A,(IY+00H)
+                CALL    SERPAR
+
+                CALL    RSUNO
+                LD      A,(IX+00H)
+                CALL    SERPAR
+
+                DJNZ    CG1
+
+                RET
+
+
+
+		;CONVERSIONE BCD BINARIO PER 10 DIGIT
+
+                
+
+BCDBIN:         EXX        
+		LD      IX,BINSET+06H
+		LD      A,(IX+03H)
+		RL      A
+		RL      A
+		RL      A
+		RL      A
+		ADD     A,(IX+02H)
+		LD      IY,TABCON
+		LD      (IY+05H),A
+		LD      A,(IX+01H)
+		RL      A
+		RL      A
+		RL      A
+		RL      A
+		ADD     A,(IX+00H)
+		LD      (IY+04H),A
+		LD      A,00H
+		LD      (IY+06H),A
+		LD      (IY+07H),A
+		LD      (IY+08H),A
+		LD      C,20H
+DBLP:           LD      B,05H
+		XOR     A
+		LD      HL,TABCON+08H
+COR0:           LD      A,(HL)
+		RRA
+		PUSH    AF
+		BIT     7,A
+		JR      Z,COR1
+		SUB     30H
+COR1:           BIT     3,A
+		JR      Z,COR2
+		SUB     03H
+COR2:           LD      (HL),A
+		DEC     HL
+		POP     AF
+		DJNZ    COR0
+		LD      B,04H
+SHR4:           RR      (HL)
+		DEC     HL
+		DJNZ    SHR4
+		DEC     C
+		JR      NZ,DBLP
+                LD      A,(BINSET+10H)  ;MEMORIZZO IL
+		CP      39H             ;VALORE DELLA 
+		JR      Z,LETTC         ;FUNZIONE NELLA
+		CP      77H             ;SUA MEMORIA
+		JR      Z,LETTA
+		CP      73H
+		JR      Z,LETTP
+		CP      50H
+		JR      Z,LETRU
+		CP      1CH
+		JR      Z,LETRU
+		CP      40H
+		JR      Z,LEMEN
+		CP      70H
+		JR      Z,LEPIU
+                CP      3FH
+                JP      Z,LETTO
+                CP      78H
+                JP      Z,LETTT
+                CP      1EH              ;CCMM
+                JR      Z,LETTJ          ;CCMM
+                JR      LETT2
+LETTC:          LD      HL,(TABCON)
+		LD      (CILIN),HL
+                JR      LETT2
+LETTA:          LD      HL,(TABCON)
+		LD      (ALLAR),HL
+                JR      LETT2
+LETTP:         	LD	A,(MM_MC)	;NNCC MMXX
+		CP	01H
+		JR	Z,LETTP1
+		LD      HL,(TABCON)
+		LD      (SEQSEG),HL
+		JR      LETT2
+LETTP1:		LD      HL,(TABCON)	;NNCC
+		LD      (AMPGA),HL
+		JR      LETT2
+LETRU:          LD      HL,(TABCON)
+		LD      (LAVORO),HL
+                JR      LETT2
+
+LETTJ:          LD      HL,(TABCON)      ;CCMM
+                LD      (CALIBR),HL
+                JR      LETT2
+
+
+LEMEN:          LD      HL,(TABCON)
+		LD      (SHIFT),HL
+
+                LD      A,(CICLO)       ;MI SERVE WWAA
+                ADD     A,01H           ;PER VISUALIZZARE
+                LD      (MSHIFT),A      ;I VALORI PICCOLI WWAA
+                LD      A,(BINSET+10H)  ;DI SHIFT SUL
+                LD      (PIUMEN),A      ;DISPLAY
+
+                JR      LETT2
+LEPIU:          LD      HL,(TABCON)
+		LD      (SHIFT),HL
+
+                LD      A,(CICLO)      ;MI SERVE WWAA
+                ADD     A,01H           ;PER VISUALIZZARE
+                LD      (MSHIFT),A      ;I VALORI PICCOLI WWAA
+                LD      A,(BINSET+10H)  ;DI SHIFT SUL
+                LD      (PIUMEN),A      ;DISPLAY
+
+LETT2:         
+		LD	A,(MM_MC)	;MMXX SSCC
+		CP	00H
+		JR	NZ,LETT3
+
+		LD      DE,(SHIFT)      ;ACCETTO SPOSTA-
+		LD      HL,01F4H        ;MENTO MASSIMO
+		SBC     HL,DE           ;DI 500 CENTESIMI
+		JP      NC,LETT1
+		CCF
+		LD      A,01H
+		LD      (MDATER),A
+		LD	DE,0000H	;JJPP
+		LD	(SHIFT),DE
+		CALL	CONTR
+
+                JP      LETT1
+
+LETT3:          LD      DE,(SHIFT)      ;SE E'IN AUTO SSCC
+                LD      HL,(AMPI40)     ;MENTI MASSIMI 
+                SBC     HL,DE           ;GATE
+		JP      NC,LETT1
+		CCF
+		LD      A,01H
+                LD      (SUPCOR),A      ;LD      (MDATER),A
+
+                LD      HL,(SHIFT)      ;VEDO QUANTE 
+                LD      (DIVDEN),HL     ;VOLTE AMPI401
+                LD      BC,(AMPI40)     ;STA IN SHIFT
+                LD      (DIVSOR),BC     ;E LO MEM. IN
+                CALL    DIVIS           ;SHIFT3
+                LD      BC,(QUOZIE)
+                LD      (SHIFT3),BC     ;IL RESTO LO
+                LD      BC,(RESTO)      ;MEM IN SHIFT4
+                LD      (SHIFT4),BC     ;
+                LD      HL,(SHIFT)      ;SLAVO LA SUPER 
+                LD      DE,(AMPI40)
+                SBC     HL,DE
+                JR      NC,LETT4
+                CCF
+                LD      A,01H
+                LD      (MDATER),A
+                JR      LETT1
+
+LETT4:          LD      DE,(AMPI40)     ;CARICO IL MAX 
+                LD      (SHIFT),DE      ;ACCETTABILE 
+
+		JR	LETT1
+
+
+LETTO:          LD      HL,(TABCON)
+		LD      (TSHIFT),HL
+
+                LD      A,(TCICLO)       ;IL VALORE E'WWAA
+                ADD     A,01H            ;BASSO PERCHE
+                LD      (MTSHIF),A       ;CICLO E'GRANDE WWAA
+
+		LD      A,(BINSET+10H)
+		LD      (TIUMEN),A
+		JR      LETT5
+LETTT:          LD      HL,(TABCON)
+		LD      (TSHIFT),HL
+
+                LD      A,(TCICLO)       ;WWAA
+                ADD     A,01H      
+                LD      (MTSHIF),A      ;WWAA
+
+		LD      A,(BINSET+10H)
+		LD      (TIUMEN),A
+
+LETT5:
+		LD      DE,(TSHIFT)     ;ACCETTO SPOSTA-
+		LD      HL,012CH        ;MENTO MASSIMO
+		SBC     HL,DE           ;DI 300 CENTESIMI
+		JP      NC,LETT1
+		CCF
+		LD      A,01H
+		LD      (MDATER),A
+		LD	DE,0000H	;JJPP
+		LD	(TSHIFT),DE
+		CALL	CONTR
+
+
+LETT1:          EXX
+		RET
+
+
+
+
+		;CONVERSIONE BINARIO SETTE SGMENTI
+
+		;REG. D CONTIENE IL NUMERO DI BYTE BINARI
+		;REG. E CONTIENE IL NUMERO DI BYTE BCD
+                ;ADDR. 4200H E 4201H MEM. NUMERO BINARIO
+                ;ADDR. 4202H E 4203H MEM. NUMERO BCD
+
+BIN7:           EXX
+                LD      D,02H           ;OOOO AAAA
+		LD      E,05H
+		LD      A,00H
+		LD      B,E
+		LD      HL,BINSET+02H
+CLR:            LD      (HL),A
+		INC     HL
+		DJNZ    CLR
+		LD      A,D             ;A=NUMERO BYTE
+		ADD     A,A
+		ADD     A,A
+		ADD     A,A
+		LD      C,A             ;C=NUMERO BIT
+LOOP:           LD      L,00H
+		LD      B,D
+SHLB:           RL      (HL)
+		INC     HL
+		DJNZ    SHLB
+		LD      L,02H
+		LD      B,E
+BCDADJ:         LD      A,(HL)
+		ADC     A,A
+		DAA
+		LD      (HL),A
+		INC     HL
+		DJNZ    BCDADJ
+		DEC     C
+		JR      NZ,LOOP
+                LD      A,(MAGGIU)      ;OOOO
+                CP      01H
+                JP      Z,AGGIU1        ;OOOO
+
+
+
+		;METTE IN MEMORIA UN SINGOLO BCD
+
+		LD      IY,BINSET+05H   ;TAB.BCD SING-1
+                LD      HL,BINSET+02H   ;TAB.COPPIA BCD
+		RRD
+		LD      (IY+01H),A
+		RRD
+		LD      (IY+02H),A
+                INC     HL              
+		RRD
+		LD      (IY+03H),A
+		RRD
+		LD      (IY+04H),A
+                INC     HL              
+		RRD
+		LD      (IY+05H),A
+
+                LD      A,(VELMEM)      ;QUANDO ESE-
+                CP      00H             ;GUE VELOCITA'
+                JR      Z,BIOTTD        ;RITORNA DA 
+                LD      HL,BINSET+06H   ;QUESTO PUNTO
+                LD      DE,VELBCD
+                LD      BC,0003H
+                LDIR
+                RET
+
+BIOTTD:         LD      IY,BINSET+05H   
+                LD      IX,SECFUN+07H   
+                LD      A,(IY+01H)      
+                ADD     A,48
+                LD      (IX+04H),A
+                LD      A,(IY+02H)      
+                ADD     A,48
+                LD      (IX+03H),A
+                LD      A,(IY+03H)      
+                ADD     A,48
+                LD      (IX+02H),A
+                LD      A,(IY+04H)      
+                ADD     A,48
+                LD      (IX+01H),A
+
+                CALL    TXUNO           ;DD111
+                CALL    BASSA
+                LD      HL,SECFUN
+                CALL    TX
+		EXX
+                RET
+
+
+                
+
+		;REG. D CONTIENE IL NUMERO DI BYTE BINARI
+		;REG. E CONTIENE IL NUMERO DI BYTE BCD
+                ;ADDR. 4220H E 4221H MEM. NUMERO BINARIO
+                ;ADDR. 4222H E 4223H MEM. NUMERO BCD
+
+DISPLL:         EXX
+                LD      D,02H
+                LD      E,05H
+		LD      A,00H
+		LD      B,E
+                LD      HL,BINSE1+02H
+CLRL:           LD      (HL),A
+		INC     HL
+                DJNZ    CLRL
+		LD      A,D             ;A=NUMERO BYTE
+		ADD     A,A
+		ADD     A,A
+		ADD     A,A
+		LD      C,A             ;C=NUMERO BIT
+LOOPL:          LD      L,20H
+		LD      B,D
+SHLBL:          RL      (HL)
+		INC     HL
+                DJNZ    SHLBL
+                LD      L,22H
+		LD      B,E
+BCDAJL:         LD      A,(HL)
+		ADC     A,A
+		DAA
+		LD      (HL),A
+		INC     HL
+                DJNZ    BCDAJL
+		DEC     C
+                JR      NZ,LOOPL
+
+
+		;METTE IN MEMORIA UN SINGOLO BCD
+
+                LD      IY,BINSE1+05H   ;TAB.BCD SING-1
+                LD      HL,BINSE1+02H   ;TAB.COPPIA BCD
+		RRD
+		LD      (IY+01H),A
+		RRD
+		LD      (IY+02H),A
+                INC     HL              
+		RRD
+		LD      (IY+03H),A
+		RRD
+		LD      (IY+04H),A
+                INC     HL              
+		RRD
+		LD      (IY+05H),A
+                EXX
+                RET
+
+		;REG. D CONTIENE IL NUMERO DI BYTE BINARI
+		;REG. E CONTIENE IL NUMERO DI BYTE BCD
+                ;ADDR. 4230H E 4231H MEM. NUMERO BINARIO
+                ;ADDR. 4232H E 4233H MEM. NUMERO BCD
+
+DISPLT:         EXX
+                LD      D,02H
+                LD      E,05H
+		LD      A,00H
+		LD      B,E
+                LD      HL,BINSE2+02H
+CLRT:           LD      (HL),A
+		INC     HL
+                DJNZ    CLRT
+		LD      A,D             ;A=NUMERO BYTE
+		ADD     A,A
+		ADD     A,A
+		ADD     A,A
+		LD      C,A             ;C=NUMERO BIT
+LOOPT:          LD      L,30H
+		LD      B,D
+SHLBT:          RL      (HL)
+		INC     HL
+                DJNZ    SHLBT
+                LD      L,32H
+		LD      B,E
+BCDAJT:         LD      A,(HL)
+		ADC     A,A
+		DAA
+		LD      (HL),A
+		INC     HL
+                DJNZ    BCDAJT
+		DEC     C
+                JR      NZ,LOOPT
+
+
+		;METTE IN MEMORIA UN SINGOLO BCD
+
+                LD      IY,BINSE2+05H   ;TAB.BCD SING-1
+                LD      HL,BINSE2+02H   ;TAB.COPPIA BCD
+		RRD
+		LD      (IY+01H),A
+		RRD
+		LD      (IY+02H),A
+                INC     HL              
+		RRD
+		LD      (IY+03H),A
+		RRD
+		LD      (IY+04H),A
+                INC     HL              
+		RRD
+		LD      (IY+05H),A
+                EXX
+                RET
+
+DISPLD:         EXX
+                LD      IY,BINSE1+05H   
+                LD      IX,SECERR       
+                LD      A,(IY+01H)      
+                CP      05H             ;PER AVERE
+                JR      C,GIGI4         ;SOLO 0 o 5
+                LD      A,05H
+                JR      GIGI5
+GIGI4:          LD      A,00H                
+GIGI5:          ADD     A,48            
+                LD      (IX+05H),A
+                LD      A,(IY+02H)      
+                ADD     A,48
+                LD      (IX+04H),A
+                LD      A,(IY+03H)      
+                ADD     A,48
+                LD      (IX+02H),A
+                LD      A,(IY+04H)      
+                LD      A,44            ;,
+                LD      (IX+03H),A
+                LD      A,58            ;:
+                LD      (IX+01H),A
+                LD      A,76            ;L
+                LD      (IX+00H),A
+                LD      A,(SIMCOL)
+                LD      (IX+06H),A
+                LD      A,(SIMCOL+01H)  
+                LD      (IX+07H),A
+                LD      A,(SIMCOL+02H)
+                LD      (IX+08H),A
+
+
+                LD      A,(DIAGON)      ;MMCC MMXX SSLL
+                CP      00H		;MMLL
+                JR      Z,GIGI8		;MMLL
+		CP	01H		;MMLL
+		JR	Z,GIGI8		;MMLL
+ 
+
+                LD      A,32            ;VUOTO  MMCC
+                LD      (IX+09H),A      ;MMCC
+                LD      (IX+0AH),A      
+                LD      (IX+0BH),A
+                LD      (IX+0CH),A
+                LD      A,84            ;T
+                LD      (IX+0DH),A
+                LD      A,58            ;:
+                LD      (IX+0EH),A
+                LD      A,45            ;-
+                LD      (IX+0FH),A
+                LD      A,79            ;O
+                LD      (IX+10H),A
+                LD      A,70            ;F
+                LD      (IX+11H),A
+                LD      A,70            ;F
+                LD      (IX+12H),A
+                LD      A,45            ;-   MMCC
+                LD      (IX+13H),A
+                JR      GIGI9           ;MMCC
+
+GIGI8:
+
+                LD      A,(SIMCOT)
+                LD      (IX+11H),A
+                LD      A,(SIMCOT+01H)
+                LD      (IX+12H),A
+                LD      A,(SIMCOT+02H)
+                LD      (IX+13H),A
+                LD      IY,BINSE2+05H   
+                LD      IX,SECERR       
+                LD      A,(IY+01H)      
+                CP      05H             ;PER AVERE
+                JR      C,GIGI6         ;SOLO 0 o 5
+                LD      A,05H
+                JR      GIGI7
+GIGI6:          LD      A,00H                
+GIGI7:          ADD     A,48            
+                LD      (IX+10H),A
+                LD      A,(IY+02H)      
+                ADD     A,48
+                LD      (IX+0FH),A
+                LD      A,(IY+03H)      
+                ADD     A,48
+                LD      (IX+0DH),A
+                LD      A,(IY+04H)      
+                LD      A,44            ;,
+                LD      (IX+0EH),A
+                LD      A,58            ;:
+                LD      (IX+0CH),A
+                LD      A,84            ;T
+                LD      (IX+0BH),A
+                LD      A,32            ;VUOTO
+                LD      (IX+09H),A
+                LD      (IX+0AH),A
+
+GIGI9:                                 ;MMCC
+                LD      IX,VELBCD
+                LD      A,(IX)
+                ADD     A,48
+                LD      (NUMCOL+13H),A  ;UNITA'
+                INC     IX
+                LD      A,(IX)
+                ADD     A,48
+                LD      (NUMCOL+12H),A  ;DECINE
+                INC     IX
+                LD      A,(IX)
+                ADD     A,48
+                LD      (NUMCOL+11H),A  ;CENTINAIA
+
+; 
+
+                LD      A,(SEQSEG)      
+                ADD     A,48
+                LD      (NUMCOL+09H),A
+                JR      GIGI11           ;MMCC
+GIGI11:
+                CALL    INISI
+                LD      HL,NUMCOL
+                CALL    TX              
+GIGI1:
+                CALL    TXUNO           
+                CALL    BASSA
+                LD      HL,SECERR
+                CALL    TX
+
+		EXX
+                RET
+
+
+
+
+					
+
+		;###########################
+		;# CALCOLO DELLA  VELOCITA'#
+		;###########################
+
+		;4mS x 4096 = 16384000
+		;60\1638400 = 0,000003662
+		;0,000003662 x CILINDRO = X
+		;X\1000 = COSVEL (COSVEL E' CALCOLATA
+		;AL CAMBIO CILINDRO)
+		;COSVEL x IMPVEL = Y
+		;Y/1000 = VELOCITA m/m
+
+VELO:           LD      DE,(COSVEL)
+		LD      (MDO032),DE
+		LD      DE,0000H
+		LD      (MDO232),DE
+		LD      (MRE232),DE
+		LD      DE,(IMPVEL)
+		LD      (MRE032),DE
+		LD      A,02H           
+		LD      (ALTDIV),A      
+		CALL    MOL32
+		CALL    DI1000
+		LD      BC,(QU1000)     ;VELOCITA         
+		LD      (ISTVEL),BC     ;ISTANTANEA    
+
+                ;MEDIA VELOCITA SU QUATTRO LETTURE WWAA WWNN
+
+                LD      B,03H           ;WWAA WWNN
+                LD      IX,MVEL00       ;
+                LD      DE,0004H        ;WWNN
+                ADD     IX,DE
+MEDV01:
+                LD      E,(IX)          ;DATI LETTI
+                LD      D,(IX+01H)      ;INSERENDO
+                LD      (IX+02H),E      ;IL NUOVO
+                LD      (IX+03H),D      ;DATO AL
+                DEC     IX              ;PRIMO POSTO
+                DEC     IX              ;ED ELIMINANDO
+                DJNZ    MEDV01          ;L'ULTIMO
+                INC     IX
+                INC     IX
+
+
+                LD      DE,(ISTVEL)      ;
+                LD      (MVEL00),DE
+
+                LD      B,04H            ;SOMMA DELLE  WWNN
+                JR      NC,MEDV02        ;4 CELLE  WWAA   WWNN
+                CCF                      ; 
+MEDV02:         LD      HL,0000H
+MEDV03:
+                LD      E,(IX+00H)
+                LD      D,(IX+01H)
+                ADC     HL,DE
+                INC     IX
+                INC     IX
+                DJNZ    MEDV03
+                
+
+                LD      (DIVDEN),HL
+                LD      BC,0004H        ;WWNN
+                LD      (DIVSOR),BC     ;
+		CALL    DIVIS
+		LD      HL,(QUOZIE)
+
+		LD      (VELMED),HL                 
+
+		LD      DE,(VELPRE)     ;SE NON CAMBIA
+		SBC     HL,DE           ;NON AGGIORNO
+                JR      Z,MEDV05        ;IL DISPLAY ZZZ
+                JR      NC,MEDV04
+		CCF
+
+MEDV04:         LD      HL,(VELMED)
+
+		LD      (BINSET),HL     ;ZZZ
+		LD      A,01H
+		LD      (VELMEM),A
+		CALL    BIN7
+		LD      A,00H
+		LD      (VELMEM),A
+MEDV05:         RET
+
+
+
+
+               ;CALCOLO VARIABILI PER MEDIA ERRORE LONG.
+
+VARERR:                                  ;WWAA
+		LD	A,(OF_ROT)	 ;PUUU	
+		CP	01H
+		JR	Z,VARE1
+		LD	A,(CICATT)
+		JR	VARE2
+VARE1:
+		LD      A,(CICLO)
+VARE2:					;PUUU
+                CP      09H
+                JR      NC,MECI01
+                LD      A,07H
+                LD      (PRIMOB),A
+                INC     A
+                LD      (SECONB),A
+                LD      A,0CH
+                LD      (VALORX),A
+                JR      MECI04
+MECI01:
+                LD      A,(CICLO)
+                CP      11H             ;= 17
+                JR      NC,MECI02
+                LD      A,0FH
+                LD      (PRIMOB),A
+                INC     A
+                LD      (SECONB),A
+                LD      A,1CH           ;= 28
+                LD      (VALORX),A
+                JR      MECI04
+MECI02:
+                LD      A,(CICLO)
+                CP      21H             ;= 33
+                JR      NC,MECI03
+                LD      A,1FH           ;= 31
+                LD      (PRIMOB),A
+                INC     A
+                LD      (SECONB),A
+                LD      A,3CH           ;= 60
+                LD      (VALORX),A
+                JR      MECI04
+MECI03:
+                LD      A,2FH           ;= 47
+                LD      (PRIMOB),A
+                INC     A
+                LD      (SECONB),A
+                LD      A,5CH           ;= 92
+                LD      (VALORX),A
+MECI04:
+               ;CALCOLO VARIABILI PER MEDIA ERRORE TRAVERS
+
+					;PUUU
+		LD	A,(OF_ROT)
+		CP	01H
+		JR	Z,VARE3
+		LD	A,(TCICAT)
+		JR	VARE4
+VARE3:
+		LD      A,(TCICLO)
+VARE4:					;PUUU
+                
+                CP      09H
+                JR      NC,MECI05
+                LD      A,07H
+                LD      (TPRIMB),A
+                INC     A
+                LD      (TSECOB),A
+                LD      A,0CH
+                LD      (TVALOX),A
+                JR      MECI08
+MECI05:
+                LD      A,(TCICLO)
+                CP      11H             ;= 17
+                JR      NC,MECI06
+                LD      A,0FH
+                LD      (TPRIMB),A
+                INC     A
+                LD      (TSECOB),A
+                LD      A,1CH           ;= 28
+                LD      (TVALOX),A
+                JR      MECI08
+MECI06:
+                LD      A,(TCICLO)
+                CP      21H             ;= 33
+                JR      NC,MECI07
+                LD      A,1FH           ;= 31
+                LD      (TPRIMB),A
+                INC     A
+                LD      (TSECOB),A
+                LD      A,3CH           ;= 60
+                LD      (TVALOX),A
+                JR      MECI08
+MECI07:
+                LD      A,2FH           ;= 47
+                LD      (TPRIMB),A
+                INC     A
+                LD      (TSECOB),A
+                LD      A,5CH           ;= 92
+                LD      (TVALOX),A
+MECI08:
+                RET
+
+
+
+
+
+                ;ROUTINE CALCOLO INTERVALLO CORREZIONI
+                ;IN FUNZIONE DELLO SVILUPPO DEL CILINDRO
+                ;E DELLA POSIZIONE DEL GRUPPO STAMPA
+                ;LONGITUDINALE
+
+                
+
+INTCOR:         LD      DE,00FEH        ;254mm  FOFF
+                LD      (MOLTI),DE      ;CALCOLO I
+                LD      A,(CICLO)       ;FORMATI CHE
+                LD      (MOLPL),A       ;CI SONO TRA  
+                CALL    MOLT            ;LA TESTA E
+                LD      DE,(PROD)       ;IL RELATIVO  
+                LD      (DIVDEN),DE     ;GRUPPO STAMPA 
+                LD      DE,(CILIN)      ;IN FUNZIONE
+                LD      (DIVSOR),DE     ;DEL FORMATO
+                CALL    DIVIS           ;MONTATO.
+                LD      DE,(QUOZIE)     ;INCREMENTO
+                INC     DE              ;PER ARROTON-
+                LD      A,E             ;DARE SUI DE- 
+                CP      04H             ;CIMALI.
+                JR      NC,INTCO1       ;SE IL RISUL-
+                CCF                     ;TATO E'MINORE
+                LD      DE,0004H        ;DI 4 IMPONGO
+INTCO1:         LD      (CICATT),DE     ;MINIMO 4  
+
+                NOP                     ;CALCOLO DEL ZZZ
+                LD      (MOLTI),DE      ;75% DEL CICLO
+                LD      A,19H           ;CHE VIENE USATO
+                LD      (MOLPL),A       ;ALL'INIZIO DELLE
+                CALL    MOLT            ;EXTRA CORREZ.
+                LD      DE,(PROD)       ;PER FAR SI CHE
+                LD      (DIVDEN),DE     ;VI SIA UNA 
+                LD      BC,64H          ;BREVE INTERRU-
+                LD      (DIVSOR),BC     ;ZIONE PER 
+                CALL    DIVIS           ;EVITARE LA
+                LD      DE,(QUOZIE)     ;CORREZZIONE
+                LD      HL,(CICLO)      ;CONTINUA
+                SBC     HL,DE
+                LD      (CICL75),HL
+
+                RET
+
+
+                ;ROUTINE CALCOLO INTERVALLO CORREZIONI
+                ;IN FUNZIONE DELLO SVILUPPO DEL CILINDRO
+                ;E DELLA POSIZIONE DEL GRUPPO STAMPA
+                ;TRASVERSALE
+
+                
+
+TINTCO:         LD      DE,00FEH        ;254mm  FOFF
+                LD      (MOLTI),DE      ;CALCOLO I
+                LD      A,(TCICLO)      ;FORMATI CHE
+                LD      (MOLPL),A       ;CI SONO TRA  
+                CALL    MOLT            ;LA TESTA E
+                LD      DE,(PROD)       ;IL RELATIVO  
+                LD      (DIVDEN),DE     ;GRUPPO STAMPA 
+                LD      DE,(CILIN)      ;IN FUNZIONE
+                LD      (DIVSOR),DE     ;DEL FORMATO
+                CALL    DIVIS           ;MONTATO.
+                LD      DE,(QUOZIE)     ;INCREMENTO
+                INC     DE              ;PER ARROTON-
+                LD      A,E             ;DARE SUI DE- 
+                CP      04H             ;CIMALI.
+                JR      NC,INTCO2       ;SE IL RISUL-
+                CCF                     ;TATO E'MINORE
+                LD      DE,0004H        ;DI 4 IMPONGO
+INTCO2:         LD      (TCICAT),DE     ;MINIMO 4  
+                RET
+
+
+
+
+               ;PROGRAMMI PER OPERAZIONI MATEMATICHE
+
+
+                ;ROUTINE DI DIVISIONE A 16 BIT
+
+DIVIS:          EXX
+		LD      DE,(DIVDEN)
+		LD      BC,(DIVSOR)
+DIV16:          XOR     A
+		LD      H,A
+		LD      L,A
+		LD      A,10H
+DV0:            RL      E
+		RL      D
+		ADC     HL,HL
+		SBC     HL,BC
+		JR      NC,DIV1
+		ADD     HL,BC
+DIV1:           CCF
+		DEC     A
+		JR      NZ,DV0
+		LD	(RESTO),HL	;SSCC
+		EX      DE,HL
+		ADC     HL,HL
+		LD      (QUOZIE),HL
+		EXX
+		RET
+
+		;ROUTINE DI MOLTIPLICAZIONE
+
+MOLT:           EXX
+		LD      DE,(MOLTI)      ;MOLTIPLICANDO
+		LD      A,(MOLPL)       ;MOLTIPLICATORE
+		LD      HL,00H
+		LD      B,08H
+MULT:           ADD     HL,HL
+		RLA
+		JR      NC,CHCNT
+		ADD     HL,DE
+CHCNT:          DJNZ    MULT            ;SE IL RISULTATO
+		CP      00H             ;E'> DI FFFFH IL
+		JR      Z,CHC1          ;REGISTRO A SARA'
+		LD      HL,0FFFFH       ;DIVERSO DA 0 PER
+CHC1:           LD      (PROD),HL       ;CUI CARICA IL MAX
+		EXX                     ;(SOLO IN CASO DI
+		RET                     ;CORREZ.MOTORE)
+
+
+		;ROUTINE DI AGGIUSTAMENTO DECIMALE
+
+
+AGGIUS:         LD      A,01H           ;OOOO AAAA
+                LD      (MAGGIU),A      ;OOOO AAAA
+                JP      BIN7            ;OOOO
+AGGIU1:         LD      A,00H           ;OOOO AAAA
+                LD      (MAGGIU),A      ;OOOO AAAA
+
+                LD      A,(MAGGI1)
+                CP      01H
+                JR      Z,AGGIU2
+
+                LD      IX,QUOZIE
+                LD      HL,BINSET+02H   ;OOOO AAAA
+		RRD
+
+		CP      06H
+		JR      Z,PI4
+		CP      07H
+		JR      Z,PI3
+		CP      08H
+		JR      Z,PI2
+		CP      09H
+		JR      Z,PI1
+		JR      FINP1
+PI4:            LD      L,(IX+00H)
+		LD      H,(IX+01H)
+		LD      BC,0004H
+		ADD     HL,BC
+		JR      FINP0
+PI3:            LD      L,(IX+00H)
+		LD      H,(IX+01H)
+		LD      BC,0003H
+		ADD     HL,BC
+		JR      FINP0
+PI2:            LD      L,(IX+00H)
+		LD      H,(IX+01H)
+		LD      BC,0002H
+		ADD     HL,BC
+		JR      FINP0
+PI1:            LD      L,(IX+00H)
+		LD      H,(IX+01H)
+		LD      BC,0001H
+		ADD     HL,BC
+FINP0:          LD      (QUOZIE),HL
+FINP1:          EXX
+		RET
+
+
+AGGIU2:         LD      IX,QUOZIE
+                LD      HL,BINSET+02H   ;OOOO AAAA
+		RRD
+
+                CP      00H
+                JR      Z,PIU0
+                CP      01H
+                JR      Z,MEN1
+                CP      02H
+                JR      Z,MEN2
+                CP      03H
+                JR      Z,PLUS2
+                CP      04H
+                JR      Z,PLUS1
+                CP      05H
+                JR      Z,PIU0
+                CP      06H
+                JR      Z,MEN1
+                CP      07H
+                JR      Z,MEN2
+                CP      08H
+                JR      Z,PLUS2
+                CP      09H
+                JR      Z,PLUS1
+
+PLUS1:          INC     (IX)
+                JR      PIU0
+PLUS2:          INC     (IX)
+                INC     (IX)
+                JR      PIU0
+
+MEN1:           DEC     (IX)
+                JR      PIU0
+MEN2:           DEC     (IX)
+                DEC     (IX)
+                JR      PIU0
+PIU0:           LD      E,(IX+00H)       
+                LD      D,(IX+01H)      
+
+                LD      (DIVDEN),DE     ;DIVISIONE
+                LD      BC,0005H        ;PER CINQUE
+                LD      (DIVSOR),BC     ;PER AVERE
+                CALL    DIVIS           ;IL NUMERO
+                LD      A,00H           ;DI CARATTERI
+                LD      (MAGGI1),A      ;OCCUPATI
+                EXX                     ;DAL GATE
+
+		RET
+
+
+		;MOLTIPLICAZIONE A 24 BIT  
+
+MOL24:          EXX                                                                                        
+		LD      DE,(MOLT24)
+		LD      A,(MOLP24)
+		LD      BC,800H                
+		LD      H,C
+		LD      L,C
+MPX1:           ADD     HL,HL
+		RLA
+		JR      NC,MPX2
+		ADD     HL,DE
+		ADC     A,C             ;IL RISULTATO
+MPX2:           DJNZ    MPX1            ;SI TROVA IN AHL
+		LD      (PROD24),HL
+		LD      (PROD24+02H),A
+		EXX
+		RET
+
+
+		;DIVIS. 24 PER 8 BIT (DIVISIONE PER 1000)
+		
+                
+
+DI1000:         EXX
+                LD      A,(ALTDIV)      
+                CP      00H
+                JR      Z,DI1004
+                CP      01H             
+                JR      Z,DI1005
+                LD      IX,PTO032
+                JR      DI1006
+DI1004:         LD      IX,RESTO0
+                JR      DI1006
+DI1005:         LD      IX,TREST0       
+DI1006:         LD      DE,3E8H         ;1000
+                LD      BC,0000H
+		LD      A,16
+		LD      (MDIVIS),A
+DI1001:         LD      H,(IX+03H)
+		LD      L,(IX+02H)
+		SBC     HL,DE
+		JP      M,DI1002
+		LD      (IX+03H),H      ;RESTO
+		LD      (IX+02H),L
+		INC     BC
+DI1002:         SLA     (IX+00H)        ;ROTAZ.DIV.DO
+		RL      (IX+01H)
+		RL      (IX+02H)
+		RL      (IX+03H)
+		SLA     C               ;ROTAZ.QUO.TE
+		RL      B
+		LD      A,(MDIVIS)
+		DEC     A
+		LD      (MDIVIS),A
+		JR      NZ,DI1001
+		LD      H,(IX+03H)
+		LD      L,(IX+02H)
+		SBC     HL,DE
+		JP      M,DI1003
+		INC     BC
+DI1003:         LD      (QU1000),BC
+		EXX
+		RET
+
+
+
+
+                ;DIVISIONE 24 PER 8 BIT SOLO PER CALCOLO CCPP
+                ;12,5% DELLO SVILUPPO DEL CILINDRO
+
+                EXX
+DI2000:         LD      IX,PROD24
+                LD      DE,0064H
+                LD      BC,0000H
+		LD      A,16
+		LD      (MDIVIS),A
+DI2001:         LD      H,(IX+03H)
+                LD      L,(IX+02H)
+		SBC     HL,DE
+                JP      M,DI2002
+		LD      (IX+03H),H      ;RESTO
+		LD      (IX+02H),L
+		INC     BC
+DI2002:         SLA     (IX+00H)        ;ROTAZ.DIV.DO
+		RL      (IX+01H)
+		RL      (IX+02H)
+		RL      (IX+03H)
+		SLA     C               ;ROTAZ.QUO.TE
+		RL      B
+		LD      A,(MDIVIS)
+		DEC     A
+		LD      (MDIVIS),A
+                JR      NZ,DI2001
+		LD      H,(IX+03H)
+		LD      L,(IX+02H)
+		SBC     HL,DE
+                JP      M,DI2003
+		INC     BC
+DI2003:         LD      (CILI12),BC
+                EXX
+                LD      DE,(CILI12)
+		LD      (DIVDEN),DE
+                LD      BC,000AH
+		LD      (DIVSOR),BC
+		CALL    DIVIS
+		LD      DE,(QUOZIE)
+                LD      (CILI12),DE
+
+                RET
+
+
+	       ;MOLTIPLICZIONE A 32 BIT
+
+                
+
+MOL32:          EXX
+                LD      B,04H
+		LD      HL,PTO032
+INIT:           LD      (HL),00H
+		INC     HL
+		DJNZ    INIT
+SHIFTX:         LD      B,04H
+		LD      IX,MDO032+03H
+		XOR     A
+RTX:            RR      (IX)
+		DEC     IX
+		DJNZ    RTX
+		JR      NC,ZERO
+		LD      B,04H
+		LD      HL,PTO032
+		LD      IY,MRE032
+		CCF
+NXTBYT:         LD      A,(IY)
+		ADC     A,(HL)
+		LD      (HL),A
+		INC     IY
+		INC     HL
+		DJNZ    NXTBYT
+ZERO:           LD      B,04H
+		LD      IX,MDO032
+		XOR     A
+ZCHK:           OR      (IX)
+		JR      NZ,SHIFTY
+		INC     IX
+		DJNZ    ZCHK
+		JR      END32
+SHIFTY:         LD      B,04H
+		LD      IY,MRE032
+		XOR     A
+LEFTY:          RL      (IY)
+		INC     IY
+		DJNZ    LEFTY
+		JR      SHIFTX
+END32:          EXX
+		RET
+
+
+
+		;DIVISIONE, 32BIT DIVISO 4096
+
+                
+
+DIV32:          EXX
+		LD      HL,(EDEND0)
+		LD      DE,(EDEND2)
+		LD      B,0DH           ;PER DIVIDERE
+MPW1:           DJNZ    MPW2            ;IN 4096 SHIFTO
+		JR      MPW8            ;A DESTRA 12 VOLTE
+MPW2:           SRL     L
+		SRL     H
+		JR      C,MPW7
+MPW3:           SRL     E
+		JR      C,MPW6
+MPW4:           SRL     D
+		JR      C,MPW5
+		JR      MPW1
+MPW5:           CCF
+		SET     7,E
+		JR      MPW1
+MPW6            CCF
+		SET     7,H
+		JR      MPW4
+MPW7:           CCF
+		SET     7,L
+		JR      MPW3
+MPW8:           LD      (QUOZ32),HL
+		EXX
+		RET
+
+                
+
+SOTT32:         EXX
+		AND     A
+		LD      HL,(MINUE0)     ;SALVO MINU-
+		LD      (MIXUE0),HL     ;ENDO E SOT-
+		LD      HL,(MINUE2)     ;TRAENDO
+		LD      (MIXUE2),HL     ;ORIGINALI
+		LD      HL,(SUBTR0)
+		LD      (SUXTR0),HL
+		LD      HL,(SUBTR2)
+		LD      (SUXTR2),HL
+		LD      HL,(MIXUE2)     ;VERIFICO CHI E'
+		LD      DE,(SUXTR2)     ;IL NUMERO PIU'
+		SBC     HL,DE           ;GRANDE PER PER
+		JR      Z,SOT01         ;NON AVERE IL
+		JR      NC,SOT03        ;RISULTATO NEGA-
+		JR      SOT02           ;TIVO E PER
+SOT01:          LD      HL,(MIXUE0)     ;DETERMINARE IL
+		LD      DE,(SUXTR0)     ;SENSO DI CORREZ-
+		SBC     HL,DE           ;ZIONE
+		JR      NC,SOT03
+SOT02:          LD      HL,(MIXUE0)
+		LD      DE,(SUXTR0)
+		LD      (MIXUE0),DE
+		LD      (SUXTR0),HL
+		LD      HL,(MIXUE2)
+		LD      DE,(SUXTR2)
+		LD      (MIXUE2),DE
+		LD      (SUXTR2),HL     
+		LD      A,08H
+		LD      (MSCORR),A
+		JR      SOT04
+SOT03:          LD      A,01H
+		LD      (MSCORR),A
+SOT04:          LD      HL,(MIXUE0)
+		LD      DE,(MIXUE2)
+		LD      BC,(SUXTR0)
+		AND     A
+		SBC     HL,BC
+		LD      (RESTO0),HL
+                LD      (MREST0),HL     ;MEMORIZZO
+                JR      NC,SOT05        ;IL RESTO
+                DEC     DE              ;PERCHE' LA
+SOT05:          EX      DE,HL           ;LOCAZIONE
+                LD      DE,(SUXTR2)     ;REST0 VIENE
+                AND     A               ;IN SEGUITO
+                SBC     HL,DE           ;MODIFICATA
+		LD      (RESTO2),HL
+                LD      (MREST2),HL     
+		EXX
+		RET
+
+
+                
+
+TSOTT32:        EXX
+		AND     A
+                LD      HL,(TINUE0)     ;SALVO MINU-
+                LD      (TIXUE0),HL     ;ENDO E SOT-
+                LD      HL,(TINUE2)     ;TRAENDO
+                LD      (TIXUE2),HL     ;ORIGINALI
+                LD      HL,(TUBTR0)
+                LD      (TUXTR0),HL
+                LD      HL,(TUBTR2)
+                LD      (TUXTR2),HL
+                LD      HL,(TIXUE2)     ;VERIFICO CHI E'
+                LD      DE,(TUXTR2)     ;IL NUMERO PIU'
+		SBC     HL,DE           ;GRANDE PER PER
+                JR      Z,TSOT01        ;NON AVERE IL
+                JR      NC,TSOT03       ;RISULTATO NEGA-
+                JR      TSOT02          ;TIVO E PER
+TSOT01:         LD      HL,(TIXUE0)     ;DETERMINARE IL
+                LD      DE,(TUXTR0)     ;SENSO DI CORREZ-
+		SBC     HL,DE           ;ZIONE
+                JR      NC,TSOT03
+TSOT02:         LD      HL,(TIXUE0)
+                LD      DE,(TUXTR0)
+                LD      (TIXUE0),DE
+                LD      (TUXTR0),HL
+                LD      HL,(TIXUE2)
+                LD      DE,(TUXTR2)
+                LD      (TIXUE2),DE
+                LD      (TUXTR2),HL     
+		LD      A,08H
+                LD      (TMSCOR),A
+                JR      TSOT04
+TSOT03:         LD      A,01H
+                LD      (TMSCOR),A
+TSOT04:         LD      HL,(TIXUE0)
+                LD      DE,(TIXUE2)
+                LD      BC,(TUXTR0)
+		AND     A
+		SBC     HL,BC
+                LD      (TREST0),HL
+                JR      NC,TSOT05
+		DEC     DE
+TSOT05:         EX      DE,HL
+                LD      DE,(TUXTR2)
+		AND     A
+		SBC     HL,DE
+                LD      (TREST2),HL
+		EXX
+		RET
+
+
+
+		;SOMMA A 32 BIT
+
+                
+
+SOMM32:         EXX
+		LD      HL,ADDEN0
+		LD      DE,AUGEN0
+		LD      B,04H
+		AND     A
+ADDW:           LD      A,(DE)
+		ADC     A,(HL)
+		LD      (HL),A
+		INC     DE              ;IL RISULTATO
+		INC     HL              ;SI TROVA NELLA
+		DJNZ    ADDW            ;LOCAZIONE 
+		EXX                     ;ADDEN0 E ADDEN2
+		RET
+
+                
+;&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& NNDD
+;		SOMMA A 32 BIT
+;
+;	AUGENDO = ADDENDO + AUGENDO
+;	si definisce il primo operando addendo e il secondo augendo. 
+;	Il risultato somma va poi a sostituire il valore dell'augendo 
+;&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&		
+                
+
+FABIOSOMM32:      
+		EXX
+		LD      DE,ADDEN0
+		LD      HL,AUGEN0
+		LD      B,04H
+		AND     A
+FABIOADDW:      LD      A,(DE)
+		ADC     A,(HL)
+		LD      (HL),A
+		INC     DE              ;IL RISULTATO
+		INC     HL              ;SI TROVA NELLA
+		DJNZ    FABIOADDW            ;LOCAZIONE 
+		EXX                     ;ADDEN0 E ADDEN2
+		RET
+
+                
+
+CSOTT32:        EXX
+                AND     A
+                LD      HL,(CINUE2)
+                LD      DE,(CUBTR2)
+                SBC     HL,DE
+                JR      NC,COT00
+                LD      HL,(CINUE2)
+                LD      (CINUE2),DE
+                LD      (CUBTR2),HL
+                LD      HL,(CINUE0)
+                LD      DE,(CUBTR0)
+                LD      (CINUE0),DE
+                LD      (CUBTR0),HL
+COT00:          LD      HL,(CINUE0)
+                LD      DE,(CINUE2)
+                LD      BC,(CUBTR0)
+                AND     A
+                SBC     HL,BC
+                LD      (CESTO0),HL
+                JR      NC,COT01
+                DEC     DE
+COT01:          EX      DE,HL
+                LD      DE,(CUBTR2)
+                AND     A
+                SBC     HL,DE
+                LD      (CESTO2),HL
+                EXX
+                RET
+
+                
+
+CSOM32:         EXX
+                SCF
+                CCF
+                LD      HL,(CADDE0)
+                LD      DE,(CAUGE0)
+                ADC     HL,DE
+                LD      (CSOMM0),HL
+                LD      HL,(CADDE2)
+                LD      DE,(CAUGE2)
+                ADC     HL,DE
+                LD      (CSOMM2),HL
+                SCF
+                CCF
+                EXX
+                RET
+
+		;CALCOLO DEL 40%
+PERC40:
+		LD	BC,(PERCE)         
+		LD	(MOLTI),BC
+		LD	A,28H
+                LD      (MOLPL),A
+                CALL    MOLT
+                LD      DE,(PROD)
+		LD      (DIVDEN),DE     
+		LD      BC,0064H
+		LD      (DIVSOR),BC
+		CALL    DIVIS
+		LD      DE,(QUOZIE)
+		LD	(RISPER),DE
+		RET
+
+ 
+
+		;ROUTINE SCRITTURA NO PRINT
+
+
+
+NOPRI:
+
+             
+		LD      A,(MEMC)        ;SE SONO IN
+		BIT     2,A             ;MANUALE SALTO
+                JR      Z,NOPRI2
+
+                CALL    VELIST          ;BBLL
+                CALL    DISPLD          ;TTVV
+
+                LD      HL,(ISTVEL)     
+                LD      DE,(INSER)      
+                SBC     HL,DE            
+                JR      C,NOPRI3         ;BBLL
+
+		LD      A,(ALLAR)       ;SE ALLARME E'   NNFF
+		CP      00H             ;MESSO A ZERO
+                JR      Z,NOPRI2        ;SALTA.
+                LD      A,(MEMC)
+		SET     3,A             ;ATTIVO ALLARME
+		LD      (MEMC),A
+		OUT     (PC),A
+                JR      NOPRI2
+
+NOPRI3:
+                CCF                     ;BBLL
+ 
+NOPRI2:                                 ;BBLL
+                CALL    RESEPC          ;FFLL
+ 
+                LD      A,(LINGUA)
+		CP      00H
+                JR      Z,NOPM
+		CP      01H
+                JR      Z,NOPI
+		CP      02H
+                JR      Z,NOPF
+		CP      03H
+                JR      Z,NOPGB
+                CP      04H
+                JR      Z,NOPE
+                CP      05H
+                JR      Z,NOPD          ;DDDD
+
+                JR      NOPFIN
+NOPM:           CALL    BASSA           ;TTVV
+                LD      HL,NOSTAM
+                JR      NOPTX
+NOPI:           CALL    BASSA
+                LD      HL,NOSTAM+14H
+                JR      NOPTX
+NOPF:           CALL    BASSA
+                LD      HL,NOSTAM+28H
+                JR      NOPTX
+NOPGB:          CALL    BASSA
+                LD      HL,NOSTAM+3CH
+                JR      NOPTX
+NOPE:           CALL    BASSA
+                LD      HL,NOSTAM+50H
+                JR      NOPTX
+NOPD:           CALL    BASSA
+                LD      HL,NOSTAM+64H
+
+NOPTX:          CALL    TX
+
+                LD      A,01H           ;FFLL
+                LD      (PROTEZ),A      ;FFLL
+
+NOPFIN:         CALL    FLASH           ;      FFLL
+
+                LD      A,(MEMC)        ;QUANDO NO PRINT
+                RES     5,A             ;IMPONGO SOLO
+                LD      (MEMC),A        ;LETTURE LON-
+                OUT     (PC),A          ;GITUDINALI
+                LD      A,0AH
+                LD      (ALTERN),A
+AZZTOT:              
+             
+		LD	A,0AH		;PUUU
+		LD	(ALTERR),A
+		LD	A,02H		;PUUU
+		LD	(TALTER),A
+		LD      A,00H           ;VVVV
+                LD      (MAVA00),A      ;VVVV  LOC. INIZIALE
+                LD      HL,MAVA00       ;VVVV
+                LD      DE,MAVA00+01H   ;VVVV
+                LD      BC,03FFH        ;VVVV
+                LDIR                    ;VVVV
+
+		LD	A,00H		;RESETTO L'AVVISO JJJJ
+		LD	(MNOPRI),A
+
+		RET
+
+
+
+		;ROUTINE SCRITTURA LOW-SPEED
+
+                
+
+LOWSPE:
+                CALL    RESEPC          ;FFLL
+
+                CALL    VELIST          ;TTVV
+                CALL    DISPLD          ;TTVV
+                LD      A,(LINGUA)
+		CP      00H
+                JR      Z,LOWM
+		CP      01H
+		JR      Z,LOWI
+		CP      02H
+                JR      Z,LOWF
+		CP      03H
+                JR      Z,LOWGB
+                CP      04H
+                JR      Z,LOWE
+                CP      05H             ;DDDD
+                JR      Z,LOWD
+
+		JR      LOWFIN
+LOWM:           CALL    BASSA            ;TTVV
+                LD      HL,VADASI
+                JR      LOWTX
+LOWI:           CALL    BASSA
+                LD      HL,VADASI+14H
+                JR      LOWTX
+LOWF:           CALL    BASSA
+                LD      HL,VADASI+28H
+                JR      LOWTX
+LOWGB:          CALL    BASSA
+                LD      HL,VADASI+3CH
+                JR      LOWTX
+LOWE:           CALL    BASSA
+                LD      HL,VADASI+50H
+                JR      LOWTX
+LOWD:           CALL    BASSA
+                LD      HL,VADASI+64H
+
+LOWTX:          CALL    TX
+
+                LD      A,01H           ;FFLL
+                LD      (PROTEZ),A      ;FFLL
+
+                CALL    FLASH           ;TVVV
+      
+LOWFIN:         RET
+
+
+
+
+		;SCRITTURA FORMATO CILINDRO ERRATO EEUU  SSRR
+
+ERR_F1:
+                CALL	ERALTO
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,C1FM
+                CP      01H
+                JR      Z,C1FI
+                CP      02H
+                JR      Z,C1FF
+                CP      03H
+                JR      Z,C1FGB
+                CP      04H
+                JR      Z,C1FE
+                CP      05H
+                JR      Z,C1FD          ;DDDD
+
+C1FM:           CALL    BASSA
+                LD      HL,FORCIL
+                JR      C1FTX
+C1FI:           CALL    BASSA
+                LD      HL,FORCIL+14H
+                JR      C1FTX
+C1FF:           CALL    BASSA
+                LD      HL,FORCIL+28H
+                JR      C1FTX
+C1FGB:          CALL    BASSA
+                LD      HL,FORCIL+3CH
+                JR      C1FTX
+C1FE:           CALL    BASSA
+                LD      HL,FORCIL+50H
+                JR      C1FTX
+C1FD:           CALL    BASSA
+                LD      HL,FORCIL+64H
+
+C1FTX:          CALL    TX              
+
+		CALL	RITDIS
+		CALL	RITDIS
+		CALL	RITDIS
+
+		RET
+
+		;SCRITTURA POSIZIONE SEGNO ERRATA EEUU  SSRR
+
+ERR_F3:
+		CALL	ERALTO
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,P3FM
+                CP      01H
+                JR      Z,P3FI
+                CP      02H
+                JR      Z,P3FF
+                CP      03H
+                JR      Z,P3FGB
+                CP      04H
+                JR      Z,P3FE
+                CP      05H
+                JR      Z,P3FD
+
+P3FM:           CALL    BASSA
+                LD      HL,POSSEG
+                JR      P3FTX
+P3FI:           CALL    BASSA
+                LD      HL,POSSEG+14H
+                JR      P3FTX
+P3FF:           CALL    BASSA
+                LD      HL,POSSEG+28H
+                JR      P3FTX
+P3FGB:          CALL    BASSA
+                LD      HL,POSSEG+3CH
+                JR      P3FTX
+P3FE:           CALL    BASSA
+                LD      HL,POSSEG+50H
+                JR      P3FTX
+P3FD:           CALL    BASSA
+                LD      HL,POSSEG+64H
+
+P3FTX:          CALL    TX              
+
+		CALL	RITDIS
+		CALL	RITDIS
+		CALL    RITDIS
+               
+		RET
+
+
+		;SCRITTURA ERRORE SELEZIONE SEGNO DI RIFERIMENTO   SSRR
+
+ERR_01:		
+		CALL	ERALTO
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,SEGRM
+                CP      01H
+                JR      Z,SEGRI
+                CP      02H
+                JR      Z,SEGRF
+                CP      03H
+                JR      Z,SEGRGB
+                CP      04H
+                JR      Z,SEGRE
+                CP      05H
+                JR      Z,SEGRD          ;DDDD
+
+SEGRM:          CALL    BASSA
+                LD      HL,SERDIS
+
+                JR      SERTX
+SEGRI:          CALL    BASSA
+                LD      HL,SERDIS+14H
+                JR      SERTX
+SEGRF:          CALL    BASSA
+                LD      HL,SERDIS+28H
+                JR      SERTX
+SEGRGB:         CALL    BASSA
+                LD      HL,SERDIS+3CH
+                JR      SERTX
+SEGRE:          CALL    BASSA
+                LD      HL,SERDIS+50H
+                JR      SERTX
+SEGRD:          CALL    BASSA
+                LD      HL,SERDIS+64H
+
+SERTX:          CALL    TX
+
+                CALL    RITDIS
+                CALL    RITDIS
+		CALL	RITDIS
+
+                RET
+
+
+		;SCRITTURA ERRORE SULLA RIGA ALTA
+
+ERALTO:
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,E1FM
+                CP      01H
+                JR      Z,E1FI
+                CP      02H
+                JR      Z,E1FF
+                CP      03H
+                JR      Z,E1FGB
+                CP      04H
+                JR      Z,E1FE
+                CP      05H
+                JR      Z,E1FD          ;DDDD
+
+E1FM:           CALL    INISI
+                LD      HL,ERRORE
+                JR      EF1TX
+E1FI:           CALL    INISI
+                LD      HL,ERRORE+14H
+                JR      EF1TX
+E1FF:           CALL    INISI
+                LD      HL,ERRORE+28H
+                JR      EF1TX
+E1FGB:          CALL    INISI
+                LD      HL,ERRORE+3CH
+                JR      EF1TX
+E1FE:           CALL    INISI
+                LD      HL,ERRORE+50H
+                JR      EF1TX
+E1FD:           CALL    INISI
+                LD      HL,ERRORE+64H
+
+EF1TX:          CALL    TX
+				
+		LD	A,(MDATER)	;JJPP
+		CP	01H
+		JR	NZ,EALTO
+		CALL    RITDIS
+                CALL    RITDIS
+EALTO:
+		RET
+
+		;######################
+		;# MODIFICA PARAMETRI #
+		;######################
+
+
+
+MODPA:          LD      A,00H           ;RESETTA LE
+                LD      (MEMC),A        ;USCITE
+                OUT     (PC),A
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,PARM
+                CP      01H
+                JR      Z,PARI
+                CP      02H
+                JR      Z,PARF
+                CP      03H
+                JR      Z,PARGB
+                CP      04H
+                JR      Z,PARE
+                CP      05H             ;DDDD
+                JR      Z,PARD
+
+PARM:           CALL    INISI
+                LD      HL,PARAME
+                JR      PARTX
+PARI:           CALL    INISI
+                LD      HL,PARAME+14H
+                JR      PARTX
+PARF:           CALL    INISI
+                LD      HL,PARAME+28H
+                JR      PARTX
+PARGB:          CALL    INISI
+                LD      HL,PARAME+3CH
+                JR      PARTX
+PARE:           CALL    INISI
+                LD      HL,PARAME+50H
+                JR      PARTX
+PARD:           CALL    INISI
+                LD      HL,PARAME+64H
+
+PARTX:          CALL    TX              
+		CALL    RITDIS          ;PER NON AVERE
+		LD      DE,0000H        ;UN NUMERO INCA-
+		LD      (XUNZ),DE       ;SINATORE.
+MODPA1:         LD      BC,0BFFFH
+XONT1:          DEC     BC
+                LD      A,B
+                OR      C
+                JR      NZ,XONT1
+                CALL    SERITA
+                IN      A,(PA)
+                BIT     4,A
+                JR      NZ,MODPA1
+
+                LD      A,(HL)          ;IN      A,(PA)          
+		AND     1FH             ;SELEZIONA TASTO
+                CP      0FH             ;FUNZIONE  
+		JR      Z,XNCR          ;(CILIN/ALLAR)
+		CP      0CH             ;TASTO +
+		JP      Z,XART6
+		CP      0DH             ;TASTO -
+		JP      Z,XART6
+		CP      0AH             ;TATSO CLEAR
+		JP      Z,XART6
+		CP      0BH             ;TASTO ENTER
+		JP      Z,RESETT
+		JP      XINE
+XART:           LD      A,00H
+		LD      D,A
+		LD      HL,XUNZ
+		LD      (HL),A
+		JR      XERO
+XART1:          LD      A,13H           ;CONTEGGIO >19 CCMM
+		LD      D,A
+		LD      HL,XUNZ
+		LD      (HL),A
+		JP      XERO
+XNCR:           LD      A,00H           ;LLLL
+                LD      (MDIAGO),A      ;LLLLL
+                LD      HL,XUNZ
+		LD      D,(HL)
+		INC     D
+XERO:           LD      A,D
+		LD      (HL),A
+                CP      13H             ;BBAA CCMM
+		JR      Z,XART
+		CP      0FFH
+		JR      Z,XART1
+		CP      00H
+                JR      Z,MES		;TRI           
+                CP      01H
+                JP      Z,GUAD
+                CP      02H
+                JP      Z,CIC
+                CP      03H
+                JP      Z,DER
+                CP      04H
+                JP      Z,ZON
+                CP      05H
+		JP      Z,INS
+                CP      06H
+		JP      Z,SALT
+                CP      07H
+                JP      Z,TRI		
+                CP      08H
+                JP      Z,TGUAD		
+                CP      09H
+                JP      Z,TCIC		
+                CP      0AH
+                JP      Z,ZOT		
+                CP      0BH
+                JP      Z,SERI		
+                CP      0CH             
+                JP      Z,ROTO		           
+                CP      0DH             
+                JP      Z,SISTEM	           
+                CP      0EH             
+                JP      Z,CONOIN	
+                CP      0FH             
+                JP      Z,DIA		        
+                CP      10H             
+                JP      Z,VCL		          
+                CP      11H
+                JP      Z,VCT		
+		CP	12H
+		JP	Z,LING		
+
+                JP      MODPA1
+
+
+MES:            LD      A,02H
+                LD      (MDIAGO),A
+                LD      IX,MESSA        ;CARICO PARAMETRI
+                LD      (IX+02H),00H    ;DELL MESSA A
+                LD      (IX+03H),00H    ;REGISTRO
+		LD      (IX+04H),03H
+                LD      A,(LINGUA)
+                CP      00H              
+                JR      Z,MESM
+		CP      01H
+                JR      Z,MESI
+		CP      02H
+                JR      Z,MESF
+		CP      03H
+                JR      Z,MESGB
+		CP      04H
+                JR      Z,MESE
+                CP      05H
+                JR      Z,MESD
+MESM:           CALL    INISI
+                LD      HL,FLXDIS
+                JR      MESTX
+MESI:           CALL    INISI
+                LD      HL,FLXDIS+14H
+                JR      MESTX
+MESF:           CALL    INISI
+                LD      HL,FLXDIS+28H
+                JR      MESTX
+MESGB:          CALL    INISI
+                LD      HL,FLXDIS+3CH
+                JR      MESTX
+MESE:           CALL    INISI
+                LD      HL,FLXDIS+50H
+                JR      MESTX
+MESD:           CALL    INISI
+                LD      HL,FLXDIS+64H
+MESTX:          CALL    TX              
+		PUSH    IX
+		CALL    BIN7
+		POP     IX
+
+                LD      A,(MESSA)      
+		CP      01H                          
+                JR      Z,MANABI
+                CP      02H
+                JP      Z,AUTABI
+		CALL    BASSA
+		LD      A,(LINGUA)
+		CP      00H
+                JR      Z,MESNOM
+		CP      01H
+                JR      Z,MESNOI
+		CP      02H
+                JR      Z,MESNOF
+		CP      03H
+                JR      Z,MESNOGB
+		CP      04H
+                JR      Z,MESNOE
+                CP      05H
+                JR      Z,MESNOD
+MESNOM:         LD      HL,MESS0
+                JR      MESOTX
+MESNOI:         LD      HL,MESS0+14H
+                JR      MESOTX
+MESNOF:         LD      HL,MESS0+28H
+                JR      MESOTX
+MESNOGB:        LD      HL,MESS0+3CH
+                JR      MESOTX
+MESNOE:         LD      HL,MESS0+50H
+                JR      MESOTX
+MESNOD:         LD      HL,MESS0+64H
+MESOTX:         CALL    TX
+		JP      XINE
+
+MANABI:         CALL    BASSA
+		LD      A,(LINGUA)
+		CP      00H
+                JR      Z,MESIM
+		CP      01H
+                JR      Z,MESII
+		CP      02H
+                JR      Z,MESIF
+		CP      03H
+                JR      Z,MESIGB
+		CP      04H
+                JR      Z,MESIE
+                CP      05H
+                JR      Z,MESID
+MESIM:          LD      HL,MESS1
+                JR      MESITX
+MESII:          LD      HL,MESS1+14H
+                JR      MESITX
+MESIF:          LD      HL,MESS1+28H
+                JR      MESITX
+MESIGB:         LD      HL,MESS1+3CH
+                JR      MESITX
+MESIE:          LD      HL,MESS1+50H
+                JR      MESITX
+MESID:          LD      HL,MESS1+64H
+MESITX:         CALL    TX
+		JP      XINE
+
+
+AUTABI:         CALL    BASSA  
+                LD      A,(LINGUA)       
+		CP      00H
+                JR      Z,MEAUM
+		CP      01H
+                JR      Z,MEAUI
+		CP      02H
+                JR      Z,MEAUF
+		CP      03H
+                JR      Z,MEAUGB
+		CP      04H
+                JR      Z,MEAUE
+                CP      05H
+                JR      Z,MEAUD
+MEAUM:          LD      HL,MESS2
+                JR      MEAUTX
+MEAUI:          LD      HL,MESS2+14H
+                JR      MEAUTX
+MEAUF:          LD      HL,MESS2+28H
+                JR      MEAUTX
+MEAUGB:         LD      HL,MESS2+3CH
+                JR      MEAUTX
+MEAUE:          LD      HL,MESS2+50H
+                JR      MEAUTX
+MEAUD:          LD      HL,MESS2+64H
+MEAUTX:         CALL    TX
+		JP      XINE
+
+GUAD:           LD      IX,GUADA        ;CARICO PARAMETRI
+                LD      (IX+02H),02H    ;DEL GADAGNO ZZZ
+		LD      (IX+03H),00H
+		LD      (IX+04H),64H    ; = 100
+		LD      DE,(GUADA)
+		LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,GUAM
+                CP      01H
+                JR      Z,GUAI
+                CP      02H
+                JR      Z,GUAF
+                CP      03H
+                JR      Z,GUAGB
+                CP      04H
+                JR      Z,GUAE
+                CP      05H
+                JR      Z,GUADD
+
+GUAM:           CALL    INISI
+                LD      HL,GUADAG
+                JR      GUATX
+GUAI:           CALL    INISI
+                LD      HL,GUADAG+14H
+                JR      GUATX
+GUAF:           CALL    INISI
+                LD      HL,GUADAG+28H
+                JR      GUATX
+GUAGB:          CALL    INISI
+                LD      HL,GUADAG+3CH
+                JR      GUATX
+GUAE:           CALL    INISI
+                LD      HL,GUADAG+50H
+                JR      GUATX
+GUADD:          CALL    INISI
+                LD      HL,GUADAG+64H
+
+GUATX:          CALL    TX              
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+CIC:            LD      IX,CICLO        ;CARICO PARAMETRI
+                LD      (IX+02H),01H    ;DEL CICLO CORREZ. ZZZ
+		LD      (IX+03H),00H
+		LD      (IX+04H),64H
+		LD      DE,(CICLO)
+
+                LD      (BINSET),DE     ;CALCOLO DEL ZZZ
+                LD      (MOLTI),DE      ;75% DEL CICLO
+                LD      A,19H           ;CHE VIENE USATO
+                LD      (MOLPL),A       ;ALL'INIZIO DELLE
+                CALL    MOLT            ;EXTRA CORREZ.
+                LD      DE,(PROD)       ;PER FAR SI CHE
+                LD      (DIVDEN),DE     ;VI SIA UNA 
+                LD      BC,64H          ;BREVE INTERRU-
+                LD      (DIVSOR),BC     ;ZIONE PER 
+                CALL    DIVIS           ;EVITARE LA
+                LD      DE,(QUOZIE)     ;CORREZZIONE
+                LD      HL,(CICLO)      ;CONTINUA
+                SBC     HL,DE
+                LD      (CICL75),HL
+
+
+
+
+
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,CICM
+                CP      01H
+                JR      Z,CICI
+                CP      02H
+                JR      Z,CICF
+                CP      03H
+                JR      Z,CICGB
+                CP      04H
+                JR      Z,CICE
+                CP      05H
+                JR      Z,CICD            ;DDDD      
+
+CICM:           CALL    INISI
+                LD      HL,CICLIC
+                JR      CICTX
+CICI:           CALL    INISI
+                LD      HL,CICLIC+14H
+                JR      CICTX
+CICF:           CALL    INISI
+                LD      HL,CICLIC+28H
+                JR      CICTX
+CICGB:          CALL    INISI
+                LD      HL,CICLIC+3CH
+                JR      CICTX
+CICE:           CALL    INISI
+                LD      HL,CICLIC+50H
+                JR      CICTX
+CICD:           CALL    INISI
+                LD      HL,CICLIC+64H
+
+
+CICTX:          CALL    TX              
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+DER:            LD      IX,DERIVA       ;CARICO PARAMETRI
+                LD      (IX+02H),00H    ;DEL DERIVATIVO PPPP 
+		LD      (IX+03H),00H
+                LD      (IX+04H),0FEH   ;DDEE 
+		LD      DE,(DERIVA)
+		LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,DISM
+                CP      01H
+                JR      Z,DISI
+                CP      02H
+                JR      Z,DISF
+                CP      03H
+                JR      Z,DISGB
+                CP      04H
+                JR      Z,DISE
+                CP      05H
+                JR      Z,DISD          ;DDDD
+
+DISM:           CALL    INISI
+                LD      HL,DISDER
+                JR      DISTX
+DISI:           CALL    INISI
+                LD      HL,DISDER+14H
+                JR      DISTX
+DISF:           CALL    INISI
+                LD      HL,DISDER+28H
+                JR      DISTX
+DISGB:          CALL    INISI
+                LD      HL,DISDER+3CH
+                JR      DISTX
+DISE:           CALL    INISI
+                LD      HL,DISDER+50H
+                JR      DISTX
+DISD:           CALL    INISI
+                LD      HL,DISDER+64H
+
+DISTX:          CALL    TX              
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+ZON:            LD      IX,ZONA         ;CARICO PARAMETRI
+		LD      (IX+02H),00H    ;DELLA ZONA MORTA
+		LD      (IX+03H),00H
+	        LD      (IX+04H),65H	;EEUU
+		LD      DE,(ZONA)
+		LD      (BINSET),DE
+                CALL    INISI
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,ZONM
+                CP      01H
+                JR      Z,ZONI
+                CP      02H
+                JR      Z,ZONF
+                CP      03H
+                JR      Z,ZONGB
+                CP      04H
+                JR      Z,ZONE
+                CP      05H
+                JR      Z,ZOND           ;DDDD       
+
+ZONM:           CALL    INISI
+                LD      HL,ZONAMO
+                JR      ZONTX
+ZONI:           CALL    INISI
+                LD      HL,ZONAMO+14H
+                JR      ZONTX
+ZONF:           CALL    INISI
+                LD      HL,ZONAMO+28H
+                JR      ZONTX
+ZONGB:          CALL    INISI
+                LD      HL,ZONAMO+3CH
+                JR      ZONTX
+ZONE:           CALL    INISI
+                LD      HL,ZONAMO+50H
+                JR      ZONTX
+ZOND:           CALL    INISI
+                LD      HL,ZONAMO+64H
+
+ZONTX:          CALL    TX              
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+INS:            LD      IX,INSER        ;CARICO PARAMETRI
+                LD      (IX+02H),01H    ;DELL'INSERZIONE  ZZZ
+		LD      (IX+03H),00H
+                LD      (IX+04H),0FFH
+		LD      DE,(INSER)
+		LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,INSM
+                CP      01H
+                JR      Z,INSI
+                CP      02H
+                JR      Z,INSF
+                CP      03H
+                JR      Z,INSGB
+                CP      04H
+                JR      Z,INSE
+                CP      05H
+                JR      Z,INSD          ;DDDD
+INSM:           CALL    INISI
+                LD      HL,INSERZ
+                JR      INSTX
+INSI:           CALL    INISI
+                LD      HL,INSERZ+14H
+                JR      INSTX
+INSF:           CALL    INISI
+                LD      HL,INSERZ+28H
+                JR      INSTX
+INSGB:          CALL    INISI
+                LD      HL,INSERZ+3CH
+                JR      INSTX
+INSE:           CALL    INISI
+                LD      HL,INSERZ+50H
+                JR      INSTX
+INSD:           CALL    INISI
+                LD      HL,INSERZ+64H
+
+INSTX:          CALL    TX              
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+SALT:           LD      IX,SALTO        ;CARICO PARAMETRI
+		LD      (IX+02H),00H    ;DEL SALTO DI
+		LD      (IX+03H),00H    ;CORREZIONE
+		LD      (IX+04H),0AH    
+		LD      DE,(SALTO)
+		LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,DSAM
+                CP      01H
+                JR      Z,DSAI
+                CP      02H
+                JR      Z,DSAF
+                CP      03H
+                JR      Z,DSAGB
+                CP      04H
+                JR      Z,DSAE
+                CP      05H
+                JR      Z,DSAD          ;DDDD
+
+DSAM:           CALL    INISI
+                LD      HL,DSALTO
+                JR      DSATX
+DSAI:           CALL    INISI
+                LD      HL,DSALTO+14H
+                JR      DSATX
+DSAF:           CALL    INISI
+                LD      HL,DSALTO+28H
+                JR      DSATX
+DSAGB:          CALL    INISI
+                LD      HL,DSALTO+3CH
+                JR      DSATX
+DSAE:           CALL    INISI
+                LD      HL,DSALTO+50H
+                JR      DSATX
+DSAD:           CALL    INISI
+                LD      HL,DSALTO+64H
+
+DSATX:          CALL    TX              
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+			
+TRI:            LD      IX,TRIP         ;CARICO PARAMETRI
+                LD      (IX+02H),00H    ;DEL TRIP DI
+                LD      (IX+03H),00H    ;VELOCITA'
+                LD      (IX+04H),0FH    ;ZZZ 
+                LD      DE,(TRIP)
+		LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,TRIM
+                CP      01H
+                JR      Z,TRII
+                CP      02H
+                JR      Z,TRIF
+                CP      03H
+                JR      Z,TRIGB
+                CP      04H
+                JR      Z,TRIE
+                CP      05H
+                JR      Z,TRID          ;DDDD
+
+TRIM:           CALL    INISI
+                LD      HL,TRIDIS
+                JR      TRITX
+TRII:           CALL    INISI
+                LD      HL,TRIDIS+14H
+                JR      TRITX
+TRIF:           CALL    INISI
+                LD      HL,TRIDIS+28H
+                JR      TRITX
+TRIGB:          CALL    INISI
+                LD      HL,TRIDIS+3CH
+                JR      TRITX
+TRIE:           CALL    INISI
+                LD      HL,TRIDIS+50H
+                JR      TRITX
+TRID:           CALL    INISI
+                LD      HL,TRIDIS+64H
+
+TRITX:          CALL    TX             
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+
+TGUAD:          LD      IX,GUATRA       ;CARICO PARAMETRI
+                LD      (IX+02H),02H    ;GUADAGNO TRAVERS ZZZ
+		LD      (IX+03H),00H
+		LD      (IX+04H),64H    ;= 100
+		LD      DE,(GUATRA)
+		LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,TRGM
+                CP      01H
+                JR      Z,TRGI
+                CP      02H
+                JR      Z,TRGF
+                CP      03H
+                JR      Z,TRGGB
+                CP      04H
+                JR      Z,TRGE
+                CP      05H
+                JR      Z,TRGD          ;DDDD
+
+TRGM:           CALL    INISI
+                LD      HL,TRAGUA
+                JR      TRGTX
+TRGI:           CALL    INISI
+                LD      HL,TRAGUA+14H
+                JR      TRGTX
+TRGF:           CALL    INISI
+                LD      HL,TRAGUA+28H
+                JR      TRGTX
+TRGGB:          CALL    INISI
+                LD      HL,TRAGUA+3CH
+                JR      TRGTX
+TRGE:           CALL    INISI
+                LD      HL,TRAGUA+50H
+                JR      TRGTX
+TRGD:           CALL    INISI
+                LD      HL,TRAGUA+64H
+
+TRGTX:          CALL    TX              
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+TCIC:           LD      IX,TCICLO       ;CARICO PARAMETRI
+                LD      (IX+02H),01H    ;CICLO CORREZZONI  ZZZ
+		LD      (IX+03H),00H    ;TRAVERS
+		LD      (IX+04H),64H
+		LD      DE,(TCICLO)
+		LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,TRCM
+                CP      01H
+                JR      Z,TRCI
+                CP      02H
+                JR      Z,TRCF
+                CP      03H
+                JR      Z,TRCGB
+                CP      04H
+                JR      Z,TRCE
+                CP      05H
+                JR      Z,TRCD          ;DDDD
+
+TRCM:           CALL    INISI
+                LD      HL,TRACIC
+                JR      TRCTX
+TRCI:           CALL    INISI
+                LD      HL,TRACIC+14H
+                JR      TRCTX
+TRCF:           CALL    INISI
+                LD      HL,TRACIC+28H
+                JR      TRCTX
+TRCGB:          CALL    INISI
+                LD      HL,TRACIC+3CH
+                JR      TRCTX
+TRCE:           CALL    INISI
+                LD      HL,TRACIC+50H
+                JR      TRCTX
+TRCD:           CALL    INISI
+                LD      HL,TRACIC+64H
+
+TRCTX:          CALL    TX              
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+ZOT:            LD      IX,ZONT         ;CARICO PARAMETRI                                                              
+		LD      (IX+02H),00H    ;DELLA ZONA MORTA
+		LD      (IX+03H),00H    ;TRAVERS
+                LD      (IX+04H),65H	;EEUU
+		LD      DE,(ZONT)
+                LD      (BINSET),DE
+                CALL    INISI
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,ZOTM
+                CP      01H
+                JR      Z,ZOTI
+                CP      02H
+                JR      Z,ZOTF
+                CP      03H
+                JR      Z,ZOTGB
+                CP      04H
+                JR      Z,ZOTE
+                CP      05H
+                JR      Z,ZOTD          ;DDDD
+
+ZOTM:           CALL    INISI
+                LD      HL,TRAZON
+                JR      ZOTTX
+ZOTI:           CALL    INISI
+                LD      HL,TRAZON+14H
+                JR      ZOTTX
+ZOTF:           CALL    INISI
+                LD      HL,TRAZON+28H
+                JR      ZOTTX
+ZOTGB:          CALL    INISI
+                LD      HL,TRAZON+3CH
+                JR      ZOTTX
+ZOTE:           CALL    INISI
+                LD      HL,TRAZON+50H
+                JR      ZOTTX
+ZOTD:           CALL    INISI
+                LD      HL,TRAZON+64H
+
+ZOTTX:          CALL    TX              
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+SERI:           LD      IX,SEGRIF       ;CARICO POSIZIONE  SSRR
+                LD      (IX+02H),02H    ;DEL SEGNO DI
+                LD      (IX+03H),00H    ;RIFERIMENTO
+                LD      (IX+04H),0DH    ;ZZZ 
+                LD      DE,(SEGRIF)
+		LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,SERIM
+                CP      01H
+                JR      Z,SERII
+                CP      02H
+                JR      Z,SERIF
+                CP      03H
+                JR      Z,SERIGB
+                CP      04H
+                JR      Z,SERIE
+                CP      05H
+                JR      Z,SERID          ;DDDD
+
+SERIM:          CALL    INISI
+                LD      HL,SERDIS
+                JR      SERITX
+SERII:          CALL    INISI
+                LD      HL,SERDIS+14H
+                JR      SERITX
+SERIF:          CALL    INISI
+                LD      HL,SERDIS+28H
+                JR      SERITX
+SERIGB:         CALL    INISI
+                LD      HL,SERDIS+3CH
+                JR      SERITX
+SERIE:          CALL    INISI
+                LD      HL,SERDIS+50H
+                JR      SERITX
+SERID:           CALL    INISI
+                LD      HL,SERDIS+64H
+
+SERITX:         CALL    TX             
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+ROTO:           LD      IX,OF_ROT       ;CARICO PARAMETRI  NNII
+                LD      (IX+02H),00H    ;OFFSET = 0
+                LD      (IX+03H),00H    ;ROTOCALCO = 1
+                LD      (IX+04H),02H     
+                LD      DE,(OF_ROT)	
+		LD      (BINSET),DE
+                CALL    INISI
+                LD      HL,OFROTO
+                CALL    TX             
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+                JP      XINE                    ;NNII
+
+
+
+SISTEM:         LD      IX,MM_MC        ;CARICO PARAMETRI  NNII
+                LD      (IX+02H),00H    ;MARCA/MARCA O
+                LD      (IX+03H),00H    ;MARCA/CILINDRO
+                LD      (IX+04H),03H    ;O MC CON CODICE MMXX 
+                LD      DE,(MM_MC)
+		LD      (BINSET),DE
+                CALL    INISI
+                LD      HL,MARCIL
+                CALL    TX             
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+                JP      XINE                    ;NNII
+
+
+CONOIN:         LD      IX,NORINV       ;CARICO PARAMETRI  NNII
+                LD      (IX+02H),00H    ;CORREZ. NORMALE
+                LD      (IX+03H),00H    ; O INVERTITA
+                LD      (IX+04H),02H    ; 
+                LD      DE,(NORINV)
+		LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,NORM
+                CP      01H
+                JR      Z,NORI
+                CP      02H
+                JR      Z,NORF
+                CP      03H
+                JR      Z,NORGB
+                CP      04H
+                JR      Z,NORE
+                CP      05H
+                JR      Z,NORD
+NORM:           CALL    INISI
+                LD      HL,NORDIS
+                JR      NORTX
+NORI:           CALL    INISI
+                LD      HL,NORDIS+14H
+                JR      NORTX
+NORF:           CALL    INISI
+                LD      HL,NORDIS+28H
+                JR      NORTX
+NORGB:          CALL    INISI
+                LD      HL,NORDIS+3CH
+                JR      NORTX
+NORE:           CALL    INISI
+                LD      HL,NORDIS+50H
+                JR      NORTX
+NORD:           CALL    INISI
+                LD      HL,NORDIS+64H
+NORTX:          CALL    TX             
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+                JP      XINE                    ;NNII
+
+
+
+DIA:            LD      A,01H		;SSLL
+		LD      (MDIAGO),A
+		LD      IX,DIAGON       ;CARICO PARAMETRI
+		LD      (IX+02H),00H    ;DEL LATO DELLA
+		LD      (IX+03H),00H    ;IPOTENUSA
+		LD      (IX+04H),04H	;MMLL
+		LD      A,(DIAGON)
+		CP      02H
+		JP      Z,SOLO
+		CP	03H		;MMLL
+		JP	Z,SOLOMM	;MMLL
+		LD      A,(LINGUA)      
+		CP      00H              
+		JR      Z,DIAM
+		CP      01H
+		JR      Z,DIAI
+		CP      02H
+		JR      Z,DIAF
+		CP      03H
+		JR      Z,DIAGB
+		CP      04H
+		JR      Z,DIAE
+                CP      05H
+                JR      Z,DIAD
+DIAM:           CALL    INISI
+		LD      HL,DIADIS
+		JR      DIATX
+DIAI:           CALL    INISI
+		LD      HL,DIADIS+14H
+		JR      DIATX
+DIAF:           CALL    INISI
+		LD      HL,DIADIS+28H
+		JR      DIATX
+DIAGB:          CALL    INISI
+		LD      HL,DIADIS+3CH
+		JR      DIATX
+DIAE:           CALL    INISI
+		LD      HL,DIADIS+50H
+		JR      DIATX
+DIAD:           CALL    INISI
+                LD      HL,DIADIS+64H
+DIATX:          CALL    TX              
+		PUSH    IX
+		CALL    BIN7
+		POP     IX
+
+		LD      A,(DIAGON)      
+		CP      00H		;OOTT                         
+		JR      Z,DITRAS
+		CALL    BASSA
+		LD      A,(LINGUA)
+		CP      00H
+		JR      Z,DIAMO
+		CP      01H
+		JR      Z,DIAIO
+		CP      02H
+		JR      Z,DIAFO
+		CP      03H
+		JR      Z,DIAGBO
+		CP      04H
+		JR      Z,DIAEO
+                CP      05H
+                JR      Z,DIAED
+DIAMO:          LD      HL,DIADI1
+		JR      DIAOPE
+DIAIO:          LD      HL,DIADI1+14H
+		JR      DIAOPE
+DIAFO:          LD      HL,DIADI1+28H
+		JR      DIAOPE
+DIAGBO:         LD      HL,DIADI1+3CH
+		JR      DIAOPE
+DIAEO:          LD      HL,DIADI1+50H
+		JR      DIAOPE
+DIAED:          LD      HL,DIADI1+64H
+DIAOPE:         CALL    TX
+		JP      XINE
+
+DITRAS:         CALL    BASSA
+		LD      A,(LINGUA)
+		CP      00H
+		JR      Z,DIAMT
+		CP      01H
+		JR      Z,DIAIT
+		CP      02H
+		JR      Z,DIAFT
+		CP      03H
+		JR      Z,DIAGBT
+		CP      04H
+		JR      Z,DIAET
+                CP      05H
+                JR      Z,DIADT
+DIAMT:          LD      HL,DIADI2
+		JR      DIATRA
+DIAIT:          LD      HL,DIADI2+14H
+		JR      DIATRA
+DIAFT:          LD      HL,DIADI2+28H
+		JR      DIATRA
+DIAGBT:         LD      HL,DIADI2+3CH
+		JR      DIATRA
+DIAET:          LD      HL,DIADI2+50H
+		JR      DIATRA
+DIADT:          LD      HL,DIADI2+64H
+
+
+
+
+SOLO:       
+		CALL    INISI
+		LD      HL,SOLBAS
+		CALL    TX
+		JR	SOLO1		;MMLL
+SOLOMM:       
+		CALL    INISI		;MMLL
+		LD      HL,SOLMM
+		CALL    TX
+SOLO1:					;MMLL
+		CALL	BASSA
+		LD      A,(LINGUA)       
+		CP      00H
+		JR      Z,SOLM
+		CP      01H
+		JR      Z,SOLI
+		CP      02H
+		JR      Z,SOLF
+		CP      03H
+		JR      Z,SOLGB
+		CP      04H
+		JR      Z,SOLE
+                CP      05H
+                JR      Z,SOLD
+SOLM:           
+		LD      HL,SOLDIS
+		JR      SOLTX
+SOLI:           
+		LD      HL,SOLDIS+14H
+		JR      SOLTX
+SOLF:           
+		LD      HL,SOLDIS+28H
+		JR      SOLTX
+SOLGB:          
+		LD      HL,SOLDIS+3CH
+		JR      SOLTX
+SOLE:           
+		LD      HL,SOLDIS+50H
+		JR      SOLTX
+SOLD:           
+                LD      HL,SOLDIS+64H
+SOLTX:          CALL    TX              
+		
+		JP      XINE
+DIATRA:         CALL    TX
+		JP      XINE
+
+
+
+
+VCL:            LD      IX,VCLONG       ;CARICO PARAMETRI
+                LD      (IX+02H),01H    ;DEL VELOCITA' 
+                LD      (IX+03H),00H    ;CORREZZIONE 
+                LD      (IX+04H),0FFH   ;LONGITUDINALE 
+                LD      DE,(VCLONG)
+                LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,VCLM
+                CP      01H
+                JR      Z,VCLI
+                CP      02H
+                JR      Z,VCLF
+                CP      03H
+                JR      Z,VCLGB
+                CP      04H
+                JR      Z,VCLE
+                CP      05H
+                JR      Z,VCLD          ;DDDD
+
+VCLM:           CALL    INISI
+                LD      HL,VELONG
+                JR      VCLTX
+VCLI:           CALL    INISI
+                LD      HL,VELONG+14H
+                JR      VCLTX
+VCLF:           CALL    INISI
+                LD      HL,VELONG+28H
+                JR      VCLTX
+VCLGB:          CALL    INISI
+                LD      HL,VELONG+3CH
+                JR      VCLTX
+VCLE:           CALL    INISI
+                LD      HL,VELONG+50H
+                JR      VCLTX
+VCLD:           CALL    INISI
+                LD      HL,VELONG+64H
+
+VCLTX:          CALL    TX              
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+VCT:            LD      IX,VCTRAV       ;CARICO PARAMETRI
+                LD      (IX+02H),01H    ;DEL VELOCITA' 
+                LD      (IX+03H),00H    ;CORREZZIONE 
+                LD      (IX+04H),0FFH   ;TRASVERSALE 
+                LD      DE,(VCTRAV)
+                LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,VCTM
+                CP      01H
+                JR      Z,VCTI
+                CP      02H
+                JR      Z,VCTF
+                CP      03H
+                JR      Z,VCTGB
+                CP      04H
+                JR      Z,VCTE
+                CP      05H
+                JR      Z,VCTD          ;DDDD
+
+VCTM:           CALL    INISI
+                LD      HL,VETRAV
+                JR      VCTTX
+VCTI:           CALL    INISI
+                LD      HL,VETRAV+14H
+                JR      VCTTX
+VCTF:           CALL    INISI
+                LD      HL,VETRAV+28H
+                JR      VCTTX
+VCTGB:          CALL    INISI
+                LD      HL,VETRAV+3CH
+                JR      VCTTX
+VCTE:           CALL    INISI
+                LD      HL,VETRAV+50H
+                JR      VCTTX
+VCTD:           CALL    INISI
+                LD      HL,VETRAV+64H
+
+VCTTX:          CALL    TX              
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+
+LING:           LD      IX,LINGUA       ;CARICO PARAMETRI                                                              
+                LD      (IX+02H),00H    ;DELLA LINGUA
+                LD      (IX+03H),00H    
+                LD      (IX+04H),06H    ;DDDD
+                LD      DE,(LINGUA)
+		LD      (BINSET),DE
+                CALL    INISI
+                LD      HL,DISLIN
+                CALL    TX
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+		JP      XINE
+
+
+
+		;GESTIONE CONTEGGIO
+
+XONT5:          LD      BC,0AFFFH       ;cont. lento
+XONT7:          DEC     BC
+		LD      A,B
+		OR      C
+		JR      NZ,XONT7
+                IN      A,(PA)          
+                BIT     4,A             
+                JP      NZ,XINE         
+
+XART6:          CALL    SERITA
+                LD      A,(HL)          ;IN      A,(PA)
+		AND     1FH             ;sente che
+		CP      0CH             ;tasto Š
+		JR      Z,XNCR2         ;premuto
+		CP      0DH
+		JR      Z,XECR2
+		CP      0AH             ;SE CLEAR AZZERA
+		JR      Z,XZZER         ;IL DISPLAY
+		JP      XINE
+XECR2:          LD      A,(MDIAGO)      ;SENZA QUESTO
+                CP      01H             ;PORTA A 99
+                JR      Z,XNCR2         ;GUADAGNO CIRC.
+                CP      02H             ;CCMM
+                JR      Z,XNCR2
+                LD      E,(IX+00H)
+		LD      D,(IX+01H)
+		LD      A,D             ;VEDO SE E'ZERO 
+		OR      E               ;PER NON AVERE IN
+		JR      Z,XENT2         ;DECREMENTO FFFFH
+		LD      A,(MEM1)
+		BIT     0,A
+		JR      Z,XENTO
+XENT2:          LD      D,(IX+03H)
+		LD      E,(IX+04H)
+		XOR     A
+		LD      (MEM1),A
+		JR      XENT1
+XENTO:          LD      E,(IX+00H)      ;CARICO I 
+		LD      D,(IX+01H)      ;PARAMETRI
+XENT1:          DEC     DE
+		LD      (IX+00H),E      ;SALVO I PARAMETRI
+		LD      (IX+01H),D
+		LD      (BINSET),DE
+                PUSH    IX
+                CALL    BIN7            ;TRASMISSIONE
+                POP     IX
+		LD      A,E
+		CP      (IX+02H)
+		JR      Z,XZZ3
+		JR      XERO2
+XZZ3:           LD      A,01H
+		LD      (MEM1),A
+		LD      (IX+00H),E      ;AZZERAMENTO
+		LD      (IX+01H),D      ;FASE E ALLARME
+		JP      XERO2
+XNCR2:          LD      E,(IX+00H)
+		LD      D,(IX+01H)
+		INC     DE
+		LD      (IX+00H),E
+		LD      (IX+01H),D
+		LD      (BINSET),DE
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+
+		LD      A,E
+		CP      (IX+04H)
+		JR      Z,XZZER
+		JP      XERO2           ;SECONDO LA
+XZZER:          LD      DE,0000H        ;FUNZIONE
+		LD      (IX+00H),E      ;RICHIESTA
+		LD      (IX+01H),D
+		LD      (BINSET),DE
+                PUSH    IX
+		CALL    BIN7
+                POP     IX
+
+		JR      XERO2
+XECR3:          LD      A,01H
+		LD      (MEM2),A
+                CALL    SERITA
+                LD      A,(HL)          ;IN      A,(PA)
+		AND     1FH
+		CP      0DH
+		JR      Z,XECR3
+XNCR3:          LD      A,01H
+		LD      (MEM3),A
+                CALL    SERITA
+                LD      A,(HL)          ;IN      A,(PA)
+		AND     1FH
+		CP      0CH
+		JR      Z,XNCR3
+XERO2:          LD      A,(MDIAGO)
+                CP      01H
+                JP      Z,DIA
+                CP      02H             ;CCMM
+                JP      Z,MES
+                IN      A,(PA)          
+                BIT     4,A             
+                JR      NZ,XINE         
+                CALL    SERITA
+                LD      A,(HL)          ;IN      A,(PA)
+		AND     1FH             ;SENTE SE TASTO
+		CP      0DH             ;ANCORA PREMUTO
+		JP      Z,XONT5         ;RIPETE IL CICLO
+		CP      0CH
+		JP      Z,XONT5
+XINE:           LD      (XTASTO),IX
+		JP      MODPA1
+
+RESETT:        
+;		LD      A,01H           ;COSI' QUANDO ZZZ
+;               LD      (MEM6A),A       ;RITORNA VA
+                EI                      ;POI A VIA  ZZZ
+                RET
+
+
+
+                ;RUTINE DI FLASH       ;FFLL
+
+FLASH:
+
+                LD      A,(MEMC)        ;FFLL22
+                BIT     2,A
+                JR      NZ,FL5           ;FFLL22
+                LD      A,00H           ;FFLL22
+                LD      (PROTEZ),A      ;FFLL22
+                JR      FL6             ;FFLL22
+
+FL5:            LD      BC,50FFH        ;VVVV
+FLASH1:
+                IN      A,(PA)         ;WWNN
+                BIT     4,A            ;WWNN
+                JR      Z,FL6          ;WWNN
+
+                DEC     BC
+                LD      A,B
+                OR      C
+                JR      NZ,FLASH1
+
+                LD      A,(MEMC)
+                BIT     2,A
+                JR      NZ,FL1
+                SET     2,A
+                JR      FL2
+FL1:            RES     2,A
+FL2:            BIT     4,A
+                JR      NZ,FL3
+                SET     4,A
+                JR      FL4
+FL3:            RES     4,A
+FL4:            OUT     (PC),A
+                LD      BC,70FFH       ;VVVV
+FLASH2:
+
+                IN      A,(PA)         ;WWNN
+                BIT     4,A            ;WWNN
+                JR      Z,FL6          ;WWNN
+
+                DEC     BC
+                LD      A,B
+                OR      C
+                JR      NZ,FLASH2
+                LD      A,(MEMC)
+                OUT     (PC),A
+                LD      A,05H
+                LD      (INFLAS),A
+FL6:
+
+                RET                    ;FFLL22
+
+
+
+        ;VERIFICA VALORI DI F1 E F3 E SEGNO DI RIFERIMENTO  EEUU
+
+
+VERIFI:
+		LD	HL,(CILIN)	;EEOO
+		LD	DE,0FFFFH	;EEOO
+		ADD	HL,DE
+		JR	C,VERF11 	;EEUU
+		CALL	ERR_F1
+		JR	VERF3		;EEOO
+VERF1:		CCF
+VERF11:		LD	HL,(CILIN)	;EEUU
+		LD	DE,7FFH		;2047mm	MAX SIZE
+		SBC	HL,DE
+		JR	NC,VERF13 	;EEUU
+		CCF
+		JR	VERF3
+VERF13:		CALL	ERR_F1		;EEUU
+VERF3:
+		LD	A,(MM_MC)	;SE SONO IN MMXX
+		CP	01H		;MAR/CIL 
+		JR	Z,VERF6		;SALTO
+
+		LD	A,(SEQSEG)	;EEOO
+		CP	00H
+                JR      NZ,VERF4        ;EEUU
+		CALL	ERR_F3		;EEOO
+
+VERF4:
+		LD	A,(MM_MC)	;SE SONO IN MMXX
+		CP	02H		;MC_CODE 
+		JR	Z,VERF6		;SALTO
+                LD      A,(SEGRIF)      ;SSRR EEUU
+                LD      B,A             ;SSRR
+                LD      A,(SEQSEG)      ;CONTROLLO SE
+                XOR     B               ;SE SONO
+                JR      Z,VERF5         ;UGUALI
+                LD      A,(SEQSEG)      ;SSRR
+                SBC     A,B             ;SSRR
+                JR      NC,VERF6        ;SSRR
+                CCF
+VERF5:          CALL    ERR_01          ;EEUU SSRR
+
+VERF6:          RET                     ;EEUU
+
+
+
+              ;VERIFICA TIPO DI ERRORE DA SCRIVERE
+		
+CONTR:          LD      A,(MDATER)
+		CP      00H
+                JR      Z,CO5
+		CP	01H		;EEOO
+		JR	Z,CO1		;EEOO
+		CP	02H
+		JR	Z,CO2
+		CP	03H
+		JR	Z,CO3
+                CP      04H             ;EEUU
+                JR      Z,CO4           ;EEUU
+                JR      CO5             ;EEUU
+CO1:		CALL    ERALTO		;EEOO	JJPP
+                JR      CO5             ;EEUU
+CO2:		CALL	ERR_F1		;EEOO
+                JR      CO5             ;EEUU
+CO3:		CALL	ERR_F3		;EEOO
+                JR      CO5             ;EEUU
+CO4:            CALL    ERR_01
+CO5:
+		RET
+
+
+
+
+
+		;VERIFICA FUNZIONAMENTO TESTA
+		;E ENCODER
+
+
+TEST:           DI                      ;
+                LD      A,00H           ;RESETTO PORTA C
+		LD      (MEMC),A        ;IMPONENDO MANUALE
+		OUT     (PC),A
+                CALL    INISI
+                LD      HL,DITEST
+                CALL    TX
+		CALL    RITDIS          ;PER NON AVERE
+
+TES1:           LD      BC,01FFH        ;RITARDO ANTI
+TES2:           DEC     BC              ;RIMBALZO
+		LD      A,B
+		OR      C
+		JR      NZ,TES2
+		IN      A,(PA)
+                BIT     4,A
+                JR      NZ,TES1         ;EETT JR      Z,TES1
+                CALL    SERITA
+                LD      A,(HL)
+		AND     1FH
+                CP      01H             ;TEST TESTA
+		JR      Z,TES3
+                CP      02H             ;TEST ENCODER
+		JP      Z,ENC1
+                CP      03H           
+                JP      Z,ATCICLO       
+
+                CP      04H             ;OO11 LLLL
+		JP      Z,PROGRA        ;OO11
+		CP      0BH
+		JP      Z,TESEND
+
+                CP      0CH             ;PPEE
+                JP      Z,TESEND        ;PPEE
+		JR      TES1
+TES3:           LD      A,(LINGUA)
+                CP      00H
+                JR      Z,TESM
+                CP      01H
+                JR      Z,TESI
+                CP      02H
+                JR      Z,TESF
+                CP      03H
+                JR      Z,TESGB
+                CP      04H
+                JR      Z,TESE
+                CP      05H
+                JR      Z,TESD
+
+TESM:           CALL    INISI
+                LD      HL,TTESTA
+                JR      TESTX
+TESI:           CALL    INISI
+                LD      HL,TTESTA+14H
+                JR      TESTX
+TESF:           CALL    INISI
+                LD      HL,TTESTA+28H
+                JR      TESTX
+TESGB:          CALL    INISI
+                LD      HL,TTESTA+3CH
+                JR      TESTX
+TESE:           CALL    INISI
+                LD      HL,TTESTA+50H
+TESD:           CALL    INISI
+                LD      HL,TTESTA+64H
+
+TESTX:          CALL    TX
+
+
+TES8:           LD      BC,0FFFFH        ;RITARDO ANTI EETT
+TES7:           DEC     BC               ;RIMBALZO
+		LD      A,B
+		OR      C
+                JR      NZ,TES7         ;EETT
+                IN      A,(PA)          ;EETT
+                BIT     4,A
+                JR      NZ,TES8         ;EETT 
+
+
+		LD      A,(MEMB)
+		SET     6,A             ;BLOCCO GATE
+		LD      (MEMB),A
+		OUT     (PB),A
+		LD      D,0FFH
+TES4:           IN      A,(PB)          
+		BIT     2,A
+		JR      NZ,TESSI
+		LD      BC,0A00H        ;5 SECONDI
+TES5:           DEC     BC              ;DI TEST 
+		LD      A,B             
+		OR      C                
+		JR      NZ,TES5         
+		DEC     D
+		LD      A,00H
+		CP      D
+		JR      NZ,TES4
+
+
+                CALL    BASSA
+                LD      HL,LAVANO
+                CALL    TX
+                CALL    RITDIS
+                JP      TESEND            ;PPEE
+
+
+TESSI:
+                CALL    BASSA
+                LD      HL,LAVA
+                CALL    TX
+                CALL    RITDIS
+TES6:           JP      TESEND          ;PPEE
+                
+
+                ;TEST DELL'ENCODER,DEVE
+                ;GIRARE AL DISOTTO DI 50 GIRI/MIN
+                
+
+
+ENC1:           CALL    INISI
+                LD      HL,TENCOD
+                CALL    TX
+                CALL    RITDIS
+
+                LD      A,01H          ;CARICO UN
+                LD      (ENCOD1),A     ;GIRO IN CTC1
+                LD      A,0D7H         ;AL GIRO
+                OUT     (71H),A        
+                LD      A,01H          
+                OUT     (71H),A        
+                LD      A,00H          ;AZZERO IL 
+                LD      (ENCOD2),A     ;CONTATORE
+                LD      BC,0000H       ;XXTT2
+                LD      (ENCOD4),BC
+                EI                     ;PER 16
+		JP      TES1
+                
+
+ENC2:          
+                LD      A,37H           ;DISABILITO
+                OUT     (03H),A         ;INTERUPT DI
+                LD      A,0FFH          ;PIOB
+                OUT     (03H),A         ;
+ENC3:
+                IN      A,(PB)          ;XXTT
+		BIT     4,A
+                JR      Z,ENC3
+ENC7:           IN      A,(PB)
+                BIT     4,A
+                JR      NZ,ENC7
+                LD      BC,(ENCOD4)
+                INC     BC
+                LD      (ENCOD4),BC
+                JR      ENC3            ;XXTT
+
+
+ENC6:           LD      A,00H
+                LD      (ENCOD1),A      ;
+                LD      A,(ENCOD2)
+		LD      A,43H
+		OUT     (71H),A
+                LD      A,(ENCOD3)      ;TENTA PER
+                INC     A               ;10 VOLTE 
+                LD      (ENCOD3),A      ;IL TEST
+                CP      03H             ;XXTT
+                JP      NZ,ENC1
+
+                LD      HL,(ENCOD4)     ;XXTT2
+                LD      DE,07FDH        ;2045
+                SBC     HL,DE
+                JR      C,ENC41
+
+
+ENC5:           CALL    INISI
+                LD      HL,TENCOD
+                CALL    TX
+                CALL    BASSA
+                LD      HL,LAVA
+                CALL    TX
+                CALL    RITDIS
+
+                JP      TES1            ;EETT JP      TESEND          ;PPEE
+
+
+ENC41:
+                CCF                    ;XXTT
+ENC4:           CALL    INISI
+                LD      HL,TENCOD
+                CALL    TX
+                CALL    BASSA
+                LD      HL,LAVANO
+                CALL    TX
+                CALL    RITDIS
+
+                JP      TES1
+
+
+
+
+                ;VISUALIZZAZIONE CICLI DI CORREZZIONE
+
+ATCICLO:
+                CALL    INISI           ;EETT
+                LD      HL,ATIDIS
+                CALL    TX
+                CALL    RITDIS          ;EETT
+
+ATC1:           LD      BC,0FFFFH       ;RITARDO ANTI EETT
+ATC2:           DEC     BC              ;RIMBALZO
+		LD      A,B
+		OR      C
+                JR      NZ,ATC2         ;EETT
+                IN      A,(PA)          ;EETT
+                BIT     4,A
+                JR      NZ,ATC1         ;EETT 
+
+
+
+                LD      DE,(CICATT)
+		LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,CICM1
+                CP      01H
+                JR      Z,CICI1
+                CP      02H
+                JR      Z,CICF1
+                CP      03H
+                JR      Z,CICGB1
+                CP      04H
+                JR      Z,CICE1
+                CP      05H
+                JR      Z,CICD1         ;DDDD
+
+CICM1:          CALL    INISI
+                LD      HL,CICLIC
+                JR      CICTX1
+CICI1:          CALL    INISI
+                LD      HL,CICLIC+14H
+                JR      CICTX1 
+CICF1:          CALL    INISI
+                LD      HL,CICLIC+28H
+                JR      CICTX1
+CICGB1:         CALL    INISI
+                LD      HL,CICLIC+3CH
+                JR      CICTX1
+CICE1:          CALL    INISI
+                LD      HL,CICLIC+50H
+CICD1:          CALL    INISI
+                LD      HL,CICLIC+64H
+
+CICTX1:         CALL    TX              
+		CALL    BIN7
+                CALL    RITDIS
+                CALL    RITDIS
+
+
+                LD      DE,(TCICAT)
+		LD      (BINSET),DE
+                LD      A,(LINGUA)
+                CP      00H
+                JR      Z,TRCM1
+                CP      01H
+                JR      Z,TRCI1
+                CP      02H
+                JR      Z,TRCF1
+                CP      03H
+                JR      Z,TRCGB1
+                CP      04H
+                JR      Z,TRCE1
+                CP      05H
+                JR      Z,TRCD1                 ;DDDD
+
+TRCM1:          CALL    INISI
+                LD      HL,TRACIC
+                JR      TRCTX1
+TRCI1:          CALL    INISI
+                LD      HL,TRACIC+14H
+                JR      TRCTX1
+TRCF1:          CALL    INISI
+                LD      HL,TRACIC+28H
+                JR      TRCTX1
+TRCGB1:         CALL    INISI
+                LD      HL,TRACIC+3CH
+                JR      TRCTX1
+TRCE1:          CALL    INISI
+                LD      HL,TRACIC+50H
+TRCD1:          CALL    INISI
+                LD      HL,TRACIC+64H
+
+TRCTX1:         CALL    TX              
+		CALL    BIN7
+                CALL    RITDIS
+                CALL    RITDIS
+                JP      TESEND          ;EETT
+
+
+		;CONTROLLO PARAMETRI E EVENTUALE
+		;INSERIMENTO VALORI DI DEFAULT
+
+
+DEFAUL:         LD      IX,TRIP         
+		LD      (IX+01H),00H
+                LD      A,(IX)
+                CP      0FH
+                JR      NC,DEF1
+		JR      DEF2
+DEF1:           LD      A,06H
+		LD      (IX),A
+
+DEF2:           LD      IX,GUADA
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF3
+		CP      64H
+                JR      NC,DEF3
+                JR      DEF4
+DEF3:           LD      A,0AH
+		LD      (IX),A
+		
+DEF4:           LD      IX,CICLO
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF5
+		CP      64H
+                JR      NC,DEF5
+                JR      DEF6
+DEF5:           LD      A,03H
+		LD      (IX),A
+		
+DEF6:           LD      IX,DERIVA
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF7
+                CP      0FEH            ;DDEE
+                JR      NC,DEF7
+                JR      DEF8
+DEF7:           LD      A,00H		;PPPP
+		LD      (IX),A
+		
+DEF8:           LD      IX,ZONA
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF9
+		CP      65H		;EEUU
+                JR      NC,DEF9
+                JR      DEF10
+DEF9:           LD      A,00H
+		LD      (IX),A
+		
+DEF10:          LD      IX,INSER
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF11
+                CP      0FFH          ;FFLL
+                JR      NC,DEF11
+                JR      DEF12
+DEF11:          LD      A,0AH
+		LD      (IX),A
+
+DEF12:          LD      IX,SALTO
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF13
+		CP      0AH
+                JR      NC,DEF13
+                JR      DEF14
+DEF13:          LD      A,00H           ;EEUU 
+		LD      (IX),A
+                                        
+DEF14:          LD      IX,GUATRA
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF15
+                CP      64H
+                JR      NC,DEF15
+                JR      DEF16
+DEF15:          LD      A,0AH
+		LD      (IX),A
+		
+DEF16:          LD      IX,TCICLO
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF17
+		CP      64H
+                JR      NC,DEF17
+                JR      DEF18
+DEF17:          LD      A,0AH
+		LD      (IX),A
+
+DEF18:          LD      IX,ZONT
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF19
+                CP      65H		;EEUU
+                JR      NC,DEF19
+                JR      DEF20
+DEF19:          LD      A,00H
+		LD      (IX),A
+
+DEF20:          LD      IX,LINGUA
+		LD      (IX+01H),00H
+		LD      A,(IX)
+                CP      0FFH
+                JR      Z,DEF21
+                CP      06H             ;DDDD
+                JR      NC,DEF21
+                JR      DEF22
+DEF21:          LD      A,01H
+		LD      (IX),A
+
+DEF22:          LD      IX,DIAGON
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      0FFH
+                JR      Z,DEF23
+                CP      04H		;SSLL MMLL
+                JR      NC,DEF23
+                JR      DEF24
+DEF23:          LD      A,01H
+		LD      (IX),A
+
+DEF24:          LD      IX,VCLONG       ;FFZZ
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      0AH
+                JR      C,DEF25
+                JR      DEF26
+DEF25:          LD      A,00H           
+		LD      (IX),A
+
+
+DEF26:          LD      IX,VCTRAV       ;FFZZ
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      0AH
+                JR      C,DEF27
+                JR      DEF28
+DEF27:          LD      A,00H           
+		LD      (IX),A
+
+DEF28:          LD      IX,MESSA       ;CCMM
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF29
+                CP      03H
+                JR      NC,DEF29
+                JR      DEF30
+DEF29:          LD      A,00H
+		LD      (IX),A
+
+
+DEF30:          LD      IX,NORINV       ;NNII
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF31
+                CP      02H
+                JR      NC,DEF31
+                JR      DEF32
+DEF31:          LD      A,00H
+		LD      (IX),A
+
+
+DEF32:          LD      IX,MM_MC       
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF33
+                CP      03H              ;MMXX
+                JR      NC,DEF33
+                JR      DEF34
+DEF33:          LD      A,00H
+		LD      (IX),A
+
+
+
+
+DEF34:          LD      IX,SEGRIF       ;SSRR
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF35
+                CP      0DH
+                JR      NC,DEF35
+                JR      DEF36
+DEF35:          LD      A,01H           
+		LD      (IX),A
+
+
+DEF36:          LD      IX,OF_ROT       ;MMXX
+		LD      (IX+01H),00H
+		LD      A,(IX)
+		CP      00H
+                JR      Z,DEF37
+                CP      02H
+                JR      NC,DEF37
+                JR      DEF38
+DEF37:          LD      A,00H
+		LD      (IX),A
+
+
+DEF38:		LD	A,(OSGAIN)
+		CP	00H
+		JR	Z,DEF39
+		CP	05H
+		JR	NC,DEF39
+		JR	DEF40
+DEF39:		LD	A,04H
+		LD	(OSGAIN),A
+
+DEF40:          LD      A,(GUADS1)      ;SE IN PARTENZA CCMM CCDD BBAA
+                CP      00H             ;NON C'E UN
+                JR      Z,DEF41         ;VALORE NORMALE
+                CP      20H             ;CREA CASINO 
+                JR      Z,DEF41         ;IN SERITA.
+                CP      40H
+                JR      Z,DEF41
+                LD      A,60H
+                LD      (GUADS1),A
+DEF41:          RET                     ;OOGG CCDD
+
+
+
+
+		;VISUALIZZAZIONE VERSIONE PROGRAMMA OO11
+
+
+PROGRA:
+                CALL    INISI           ;EETT
+                LD      HL,TESREL
+                CALL    TX
+                CALL    RITDIS          ;EETT
+
+
+
+PRG1:           LD      BC,0FFFFH       ;RITARDO ANTI EETT
+PRG2:           DEC     BC              ;RIMBALZO
+		LD      A,B
+		OR      C
+                JR      NZ,PRG2         ;EETT
+                IN      A,(PA)          ;EETT
+                BIT     4,A
+                JR      NZ,PRG1         ;EETT 
+
+
+                CALL    INISI           ;OO11
+		LD      HL,PROGR1
+		CALL    TX
+		CALL    BASSA
+		LD      HL,PROGR2
+		CALL    TX              
+		CALL    RITDIS
+		CALL    RITDIS          ;OO11
+		CALL    RITDIS          ;OO11
+		CALL    RITDIS          ;OO11
+		CALL    RITDIS          ;OO11
+
+TESEND:       
+;		LD      A,01H           ;COSI' QUANDO ZZZ
+;               LD      (MEM6A),A       ;RITORNA VA
+                EI                      ;POI A VIA  ZZZ
+                RET
+                
+RITDIS:         LD      D,03H
+RITDI1:         LD      BC,0FFFFH
+RITDI2:         DEC     BC
+		LD      A,B
+		OR      C
+		JR      NZ,RITDI2
+
+                LD      A,(MERITA)     ;FFXX FFZZ    ;OO11
+		AND     1FH
+		CP      0BH
+		JP      Z,FINOSC
+		CP      0AH
+		JP      Z,FINOSC        ;OO11
+
+		DEC     D
+		JR      NZ,RITDI1
+		RET
+
+
+CAG:            CP      00H
+		JP      Z,CAGFIN
+		CP      01H
+		JR      Z,CAGA01
+		CP      02H
+		JR      Z,CAGA02
+		CP      03H
+		JR      Z,CAGA03
+		CP      04H
+		JR      Z,CAGA04
+		CP      05H
+		JP      Z,CAGFIN
+		CP      06H
+		JR      Z,CAGA06
+		CP      07H
+		JR      Z,CAGA07
+		CP      08H
+		JR      Z,CAGA08
+		CP      09H
+		JR      Z,CAGA09
+		CP      0AH
+		JP      Z,CAGFIN
+		CP      0BH
+		JR      Z,CAGA0B
+		CP      0CH
+		JR      Z,CAGA0C
+		CP      0DH
+		JR      Z,CAGA0D
+		CP      0EH
+		JR      Z,CAGA0E
+		CP      0FH
+		JR      Z,CAGFIN
+		CP      10H
+		JR      Z,CAGA10
+		CP      11H
+		JR      Z,CAGA11
+		CP      12H
+		JR      Z,CAGA12
+		CP      13H
+		JR      Z,CAGA13
+		CP      14H
+		JR      Z,CAGA14
+		CP      15H
+		JR      Z,CAGA15
+		CP      16H
+		JR      Z,CAGA16
+		CP      17H
+		JR      Z,CAGA17
+CAGA01:         LD      A,04H
+		JR      CAGFIN
+CAGA02:         LD      A,08H
+		JR      CAGFIN
+CAGA03:         LD      A,0CH
+		JR      CAGFIN
+CAGA04:         LD      A,01H
+		JR      CAGFIN
+CAGA06:         LD      A,09H
+		JR      CAGFIN
+CAGA07:         LD      A,0DH
+		JR      CAGFIN
+CAGA08:         LD      A,02H
+		JR      CAGFIN
+CAGA09:         LD      A,06H
+		JR      CAGFIN
+CAGA0B:         LD      A,10H
+		JR      CAGFIN
+CAGA0C:         LD      A,03H
+		JR      CAGFIN
+CAGA0D:         LD      A,07H
+		JR      CAGFIN
+CAGA0E:         LD      A,0BH
+		JR      CAGFIN
+CAGA10:         LD      A,13H
+		JR      CAGFIN
+CAGA11:         LD      A,14H
+		JR      CAGFIN
+CAGA12:         LD      A,11H
+		JR      CAGFIN
+CAGA13:         LD      A,15H
+		JR      CAGFIN
+CAGA14:         LD      A,17H
+		JR      CAGFIN
+CAGA15:         LD      A,16H
+		JR      CAGFIN
+CAGA16:         LD      A,0EH
+		JR      CAGFIN
+CAGA17:         LD      A,12H
+CAGFIN:         RET
+
+
+
+TABLE:          DEFB    00H             ;0
+		DEFB    01H             ;1
+		DEFB    02H             ;2
+		DEFB    03H             ;3
+		DEFB    04H             ;4
+		DEFB    05H             ;5
+		DEFB    06H             ;6
+		DEFB    07H             ;7
+		DEFB    08H             ;8
+		DEFB    09H             ;9
+		DEFB    0AH             ;CLEAR
+		DEFB    0BH             ;ENTER
+		DEFB    0CH             ;PIU/AVANTI
+		DEFB    0DH             ;MENO/RITARDO
+		DEFB    0EH             ;MAN/CIRCONF.
+		DEFB    0FH             ;FUNZIONE
+		DEFB    10H             ;AUTO/CIRCONF
+		DEFB    11H             ;MAN/TRAVERS
+		DEFB    12H             ;AUTO/TRAVERS
+		DEFB    13H             ;OPERATORE
+		DEFB    14H             ;TRASMISSIONE
+		DEFB    15H             ;PUNTO
+		DEFB    16H             ;PARAMETRI
+		DEFB    17H             ;TEST
+
+
+SSEG:           DEFB    3FH             ;0
+		DEFB    06H             ;1
+		DEFB    5BH             ;2
+		DEFB    4FH             ;3
+		DEFB    66H             ;4
+		DEFB    6DH             ;5
+		DEFB    7DH             ;6
+		DEFB    07H             ;7
+		DEFB    7FH             ;8
+		DEFB    6FH             ;9
+
+
+
+SETTA:  DEFB    38H, 0EH, 06H, 01H, 38H, 0EH, 06H, 00H
+
+
+FUNDIS:
+
+                ;##### FUNSIUN #####
+        DEFB    35, 35, 35, 35, 35, 32, 70, 85, 78, 83
+        DEFB    73, 85, 78, 32, 35, 35, 35, 35, 35, 32
+
+                ;##### FUNZIONE #####
+        DEFB    35, 35, 35, 35, 35, 32, 70, 85, 78, 90
+        DEFB    73, 79, 78, 69, 32, 35, 35, 35, 35, 35
+
+                ;##### FONCTION #####
+        DEFB    35, 35, 35, 35, 35, 32, 70, 79, 78, 67
+        DEFB    84, 73, 79, 78, 32, 35, 35, 35, 35, 35
+
+                ;##### FUNCTION #####
+        DEFB    35, 35, 35, 35, 35, 32, 70, 85, 78, 67
+        DEFB    84, 73, 79, 78, 32, 35, 35, 35, 35, 35
+
+                ;###### FUNCION ######
+        DEFB    35, 35, 35, 35, 35, 35, 32, 70, 85, 78
+        DEFB    67, 73, 79, 78, 32, 35, 35, 35, 35, 35
+                       
+                ;##### FUNKTION ######
+        DEFB    35, 35, 35, 35, 35, 32, 70, 85, 78, 75 
+        DEFB    84, 73, 79, 78, 32, 35, 35, 35, 35, 35
+
+FUNDI5:      ;FF55
+
+                ;FAS CON OSCILLOSCOP.
+        DEFB    70, 65, 83, 32, 67, 79, 78, 32, 79, 83
+        DEFB    67, 73, 76, 76, 79, 83, 67, 79, 80, 46
+
+                ;FASE CON OSCILLOSC.
+        DEFB    70, 65, 83, 69, 32, 67, 79, 78, 32, 79
+        DEFB    83, 67, 73, 76, 76, 79, 83, 67, 79, 46
+
+                ;PHASE AVEC OSCILLOS.
+        DEFB    80, 72, 65, 83, 69, 32, 65, 86, 69, 67
+        DEFB    32, 79, 83, 67, 73, 76, 76, 79, 83, 46
+
+                ;  PHASE WITH SCOPE
+        DEFB    32, 32, 80, 72, 65, 83, 69, 32, 87, 73
+        DEFB    84, 72, 32, 83, 67, 79, 80, 69, 32, 32
+
+                ;FASE CON OSCILLOSC.
+        DEFB    70, 65, 83, 69, 32, 67, 79, 78, 32, 79
+        DEFB    83, 67, 73, 76, 76, 79, 83, 67, 79, 46
+                       
+                ;OSCILLOSCOPE BETRIEB
+        DEFB    79, 83, 67, 73, 76, 76, 79, 83, 67, 79 
+        DEFB    80, 69, 32, 66, 69, 84, 82, 73, 69, 66
+
+
+
+FORCIL:
+                ;  FURMAA CILINDER
+        DEFB    32, 32, 70, 85, 82, 77, 65, 65, 32, 67
+        DEFB    73, 76, 73, 78, 68, 69, 82, 32, 32, 32
+
+                ;  FORMATO CILINDRO
+        DEFB    32, 32, 70, 79, 82, 77, 65, 84, 79, 32
+        DEFB    67, 73, 76, 73, 78, 68, 82, 79, 32, 32
+
+                ; DIMENSION CYLINDER
+        DEFB    32, 68, 73, 77, 69, 78, 83, 73, 79, 78
+        DEFB    32, 67, 89, 76, 73, 78, 68, 69, 82, 32
+
+                ;   CYLINDER SIZE
+        DEFB    32, 32, 32, 67, 89, 76, 73, 78, 68, 69
+        DEFB    82, 32, 83, 73, 90, 69, 32, 32, 32, 32
+
+                ;DESARROLLO CILINDRO
+        DEFB    68, 69, 83, 65, 82, 82, 79, 76, 76, 79 
+        DEFB    32, 67, 73, 76, 73, 78, 68, 82, 79, 32
+
+                ;  ZYLINDER FORMAT
+        DEFB    32, 32, 90, 89, 76, 73, 78, 68, 69, 82
+        DEFB    32, 70, 79, 82, 77, 65, 84, 32, 32, 32
+
+SOALLR:
+                ;   LIMIT D'ALARME
+        DEFB    32, 32, 32, 76, 73, 77, 73, 84, 32, 68
+        DEFB    39, 65, 76, 65, 82, 77, 69, 32, 32, 32
+
+                ;   SOGLIA ALLARME
+        DEFB    32, 32, 32, 83, 79, 71, 76, 73, 65, 32
+        DEFB    65, 76, 76, 65, 82, 77, 69, 32, 32, 32
+
+                ;   SEUIL D'ALERTE
+        DEFB    32, 32, 32, 83, 69, 85, 73, 76, 32, 68
+        DEFB    39, 65, 76, 69, 82, 84, 69, 32, 32, 32
+
+                ;  ALARM THRESHOLD
+        DEFB    32, 32, 65, 76, 65, 82, 77, 32, 84, 72
+        DEFB    82, 69, 83, 72, 79, 76, 68, 32, 32, 32
+
+                ;   NIVEL D'ALARMA
+        DEFB    32, 32, 32, 78, 73, 86, 69, 76, 32, 68
+        DEFB    39, 65, 76, 65, 82, 77, 65, 32, 32, 32
+
+                ;      MAKULATUR
+        DEFB    32, 32, 32, 32, 32, 77, 65, 75, 85, 76
+        DEFB    65, 84, 85, 82, 32, 32, 32, 32, 32, 32
+
+AZZER1:
+
+                ;*** METT A SERO ***
+        DEFB    42, 42, 42, 32, 77, 69, 84, 84, 32, 65
+        DEFB    32, 83, 69, 82, 79, 32, 42, 42, 42, 32
+
+                ;*** AZZERAMENTO ***
+        DEFB    42, 42, 42, 32, 65, 90, 90, 69, 82, 65
+        DEFB    77, 69, 78, 84, 79, 32, 42, 42, 42, 32
+
+                ;** METRE AU ZERO **
+        DEFB    42, 42, 32, 77, 69, 84, 82, 69, 32, 65
+        DEFB    85, 32, 90, 69, 82, 79, 32, 42, 42, 32
+
+                ;** TO SET TO ZERO **
+        DEFB    42, 42, 32, 84, 79, 32, 83, 69, 84, 32
+        DEFB    84, 79, 32, 90, 69, 82, 79, 32, 42, 42 
+
+                ;**** PONER CERO ****
+        DEFB    42, 42, 42, 42, 32, 80, 79, 78, 69, 82
+        DEFB    32, 67, 69, 82, 79, 32, 42, 42, 42, 42
+
+                ;** NULL STELLUNG ***
+        DEFB    42, 42, 32, 78, 85, 76, 76, 32, 83, 84
+        DEFB    69, 76, 76, 85, 78, 71, 32, 42, 42, 42
+
+AZZER2:
+                ;CIRCONF. TRASVERSAL
+        DEFB    67, 73, 82, 67, 79, 78, 70, 46, 32, 84
+        DEFB    82, 65, 83, 86, 69, 82, 83, 65, 76, 32
+POSSEG:
+                ;   POSISION SEGN
+        DEFB    32, 32, 32, 80, 79, 83, 73, 83, 73, 79
+        DEFB    78, 32, 83, 69, 71, 78, 32, 32, 32, 32
+
+
+                ;  POSIZIONE SEGNO
+        DEFB    32, 32, 80, 79, 83, 73, 90, 73, 79, 78
+        DEFB    69, 32, 83, 69, 71, 78, 79, 32, 32, 32
+
+                ;  POSITION MARQUE
+        DEFB    32, 32, 80, 79, 83, 73, 84, 73, 79, 78
+        DEFB    32, 77, 65, 82, 81, 85, 69, 32, 32, 32
+
+                ;   MARK POSITION
+        DEFB    32, 32, 32, 77, 65, 82, 75, 32, 80, 79
+        DEFB    83, 73, 84, 73, 79, 78, 32, 32, 32, 32
+
+                ;   POSICION MARCA
+        DEFB    32, 32, 32, 80, 79, 83, 73, 67, 73, 79
+        DEFB    78, 32, 77, 65, 82, 67, 65, 32, 32, 32
+
+                ;   POSITION MARKE
+        DEFB    32, 32, 32, 80, 79, 83, 73, 84, 73, 79
+        DEFB    78, 32, 77, 65, 82, 75, 69, 32, 32, 32
+
+MCSSEG:
+                ;   POSISION SEGN
+        DEFB    32, 32, 80, 79, 83, 73, 83, 73, 79, 78
+        DEFB    32, 83, 69, 71, 78, 32, 77, 67, 32, 32
+
+
+                ;  POSIZIONE SEGNO
+        DEFB    32, 80, 79, 83, 73, 90, 73, 79, 78, 69
+        DEFB    32, 83, 69, 71, 78, 79, 32, 77, 67, 32
+
+                ;  POSITION MARQUE
+        DEFB    32, 80, 79, 83, 73, 84, 73, 79, 78, 32
+        DEFB    77, 65, 82, 81, 85, 69, 32, 77, 67, 32
+
+                ;   MARK POSITION
+        DEFB    32, 32, 77, 65, 82, 75, 32, 80, 79, 83
+        DEFB    73, 84, 73, 79, 78, 32, 77, 67, 32, 32
+
+                ;   POSICION MARCA
+        DEFB    32, 80, 79, 83, 73, 67, 73, 79, 78, 32
+        DEFB    77, 65, 82, 67, 65, 32, 77, 67, 32, 32
+
+                ;   POSITION MARKE
+        DEFB    32, 80, 79, 83, 73, 84, 73, 79, 78, 32
+        DEFB    77, 65, 82, 75, 69, 32, 77, 67, 32, 32
+
+GATEW:
+                ;   SPASI DE LETURA
+        DEFB    32, 32, 32, 83, 80, 65, 83, 73, 32, 68
+        DEFB    69, 32, 76, 69, 84, 85, 82, 65, 32, 32
+
+
+                ;  CAMPO DI LETTURA
+        DEFB    32, 32, 67, 65, 77, 80, 79, 32, 68, 73
+        DEFB    32, 76, 69, 84, 84, 85, 82, 65, 32, 32
+
+                ;  ESPACE DE LECTURE
+        DEFB    32, 32, 32, 69, 83, 80, 65, 69, 32, 68
+        DEFB    69, 32, 76, 69, 67, 84, 85, 82, 69, 32
+
+                ;     GATE WIDTH
+        DEFB    32, 32, 32, 32, 32, 71, 65, 84, 69, 32
+        DEFB    87, 73, 68, 84, 72, 32, 32, 32, 32, 32
+
+                ;   ESPACIO DE LECTURA
+        DEFB    32, 32, 69, 83, 80, 65, 67, 73, 79, 68
+        DEFB    69, 32, 76, 69, 67, 84, 85, 82, 65, 32
+
+                ;     TOR WEITE
+        DEFB    32, 32, 32, 32, 32, 84, 79, 82, 32, 87
+        DEFB    69, 73, 84, 69, 32, 32, 32, 32, 32, 32
+
+
+COLORE:
+                ;  COLOR: 
+        DEFB    32, 32, 67, 79, 76, 79, 82, 58, 32, 32
+        DEFB    32, 32, 109, 116, 47, 109, 32, 32, 32, 32
+            
+
+                ; COLORE:
+        DEFB    32, 67, 79, 76, 79, 82, 69, 58, 32, 32
+        DEFB    32, 32, 109, 116, 47, 109, 32, 32, 32, 32
+
+                ;COULEUR:
+        DEFB    67, 79, 85, 76, 69, 85, 82, 58, 32, 32
+        DEFB    32, 32, 109, 116, 47, 109, 32, 32, 32, 32
+
+                ; COLOUR:
+        DEFB    32, 67, 79, 76, 79, 85, 82, 58, 32, 32
+        DEFB    32, 32, 109, 116, 47, 109, 32, 32, 32, 32
+
+                ;  COLOR: 
+        DEFB    32, 32, 67, 79, 76, 79, 82, 58, 32, 32
+        DEFB    32, 32, 109, 116, 47, 109, 32, 32, 32, 32
+                
+                ;  FARBE:
+        DEFB    32, 32, 70, 65, 82, 66, 69, 58, 32, 32
+        DEFB    32, 32, 109, 116, 47, 109, 32, 32, 32, 32
+
+MACI:
+                ;MAR\CIL
+        DEFB    77, 65, 82, 47, 67, 73, 76, 58, 32, 32
+        DEFB    32, 32, 109, 116, 47, 109, 32, 32, 32, 32
+
+MACODE:
+		;MC_CODE
+	DEFB	77, 67, 95, 67, 79, 68, 69, 58, 32, 32
+	DEFB    32, 32, 109, 116, 47, 109, 32, 32, 32, 32
+INSET:
+                ;INSETTER: 
+        DEFB    32, 73, 78, 83, 69, 84, 84, 69, 82, 32
+        DEFB    32, 32, 109, 116, 47, 109, 32, 32, 32, 32
+
+FNOVE:
+
+                ;##### FUNSIUN 9 ####
+        DEFB    35, 35, 35, 35, 35, 32, 70, 85, 78, 83
+        DEFB    73, 85, 78, 32, 57, 32, 35, 35, 35, 35
+
+                ;#### FUNZIONE 9 ####
+        DEFB    35, 35, 35, 35, 32, 70, 85, 78, 90, 73
+        DEFB    79, 78, 69, 32, 57, 32, 35, 35, 35, 35
+
+                ;##### FONCTION 9 ####
+        DEFB    35, 35, 35, 35, 35, 32, 70, 79, 78, 67
+        DEFB    84, 73, 79, 78, 32, 57, 32, 35, 35, 35
+
+                ;##### FUNCTION 9 ####
+        DEFB    35, 35, 35, 35, 35, 32, 70, 85, 78, 67
+        DEFB    84, 73, 79, 78, 32, 57, 32, 35, 35, 35
+
+                ;###### FUNCION 9 #####
+        DEFB    35, 35, 35, 35, 35, 35, 32, 70, 85, 78
+        DEFB    67, 73, 79, 78, 32, 57, 32, 35, 35, 35
+
+                       
+                ;#### FUNKTION 9 ####
+        DEFB    35, 35, 35, 35, 32, 70, 85, 78, 75, 84
+        DEFB    73, 79, 78, 32, 57, 32, 35, 35, 35, 35
+
+
+IIRIGA:
+
+        DEFB    176, 176, 176, 176, 176, 176, 176, 176, 176, 176
+        DEFB    176, 176, 176, 176, 176, 176, 176, 176, 176, 176
+
+AVANTI:
+                ;****** INANS *******
+        DEFB    42, 42, 42, 42, 42, 42, 32, 73, 78, 65
+        DEFB    78, 83, 32, 42, 42, 42, 42, 42, 42, 42
+
+                ;****** AVANTI ******
+        DEFB    42, 42, 42, 42, 42, 42, 32, 65, 86, 65
+        DEFB    78, 84, 73, 32, 42, 42, 42, 42, 42, 42
+
+                ;****** AVANT ******
+        DEFB    42, 42, 42, 42, 42, 42, 32, 65, 86, 65
+        DEFB    78, 84, 32, 42, 42, 42, 42, 42, 42, 32
+                
+                ;***** ADVANCE *****
+        DEFB    42, 42, 42, 42, 42, 32, 65, 68, 86, 65
+        DEFB    78, 67, 69, 32, 42, 42, 42, 42, 42, 32
+                
+                ;***** ADELANTE *****
+        DEFB    42, 42, 42, 42, 42, 32, 65, 68, 69, 76
+        DEFB    65, 78, 84, 69, 32, 42, 42, 42, 42, 42
+
+                ;***** VORNWARZ *****
+        DEFB    42, 42, 42, 42, 42, 32, 86, 79, 82, 78
+        DEFB    87, 65, 82, 90, 32, 42, 42, 42, 42, 42
+
+RITARD:
+                ;****** INDREE ******
+        DEFB    42, 42, 42, 42, 42, 42, 32, 73, 78, 68
+        DEFB    82, 69, 69, 32, 42, 42, 42, 42, 42, 42
+
+                ;***** RITARDO *****
+        DEFB    42, 42, 42, 42, 42, 32, 82, 73, 84, 65
+        DEFB    82, 68, 79, 32, 42, 42, 42, 42, 42, 32
+
+                ;****** RETARD ******
+        DEFB    42, 42, 42, 42, 42, 42, 32, 82, 69, 84
+        DEFB    65, 82, 68, 32, 42, 42, 42, 42, 42, 42
+
+                ;****** RETARD ******
+        DEFB    42, 42, 42, 42, 42, 42, 32, 82, 69, 84
+        DEFB    65, 82, 68, 32, 42, 42, 42, 42, 42, 42
+
+                ;****** ATRAS *******
+        DEFB    42, 42, 42, 42, 42, 42, 32, 65, 84, 82
+        DEFB    65, 83, 32, 42, 42, 42, 42, 42, 42, 32
+
+                ;***** RUCKWARZ *****
+        DEFB    42, 42, 42, 42, 42, 32, 82, 85, 67, 75
+        DEFB    87, 65, 82, 90, 32, 42, 42, 42, 42, 42
+
+OPERAT:
+                ;***** OPERADOR *****
+        DEFB    42, 42, 42, 42, 42, 32, 79, 80, 69, 82
+        DEFB    65, 68, 79, 82, 32, 42, 42, 42, 42, 42
+
+                ;**** OPERATORE ****
+        DEFB    42, 42, 42, 42, 32, 79, 80, 69, 82, 65
+        DEFB    84, 79, 82, 69, 32, 42, 42, 42, 42, 32
+
+                ;**** OPERATEUR ****
+        DEFB    42, 42, 42, 42, 32, 79, 80, 69, 82, 65
+        DEFB    84, 69, 85, 82, 32, 42, 42, 42, 42, 32
+
+                ;***** OPERATOR *****
+        DEFB    42, 42, 42, 42, 42, 32, 79, 80, 69, 82
+        DEFB    65, 84, 79, 82, 32, 42, 42, 42, 42, 42
+
+                ;**** TRABAJADOR ****
+        DEFB    42, 42, 42, 42, 32, 84, 82, 65, 66, 65
+        DEFB    74, 65, 68, 79, 82, 32, 42, 42, 42, 42
+
+                ;* MASCHINE FUHRER **
+        DEFB    42, 32, 77, 65, 83, 67, 72, 73, 78, 69
+        DEFB    32, 70, 85, 72, 82, 69, 82, 32, 42, 42
+
+TRASMI:
+                ;**** TRASMISION ****
+        DEFB    42, 42, 42, 42, 32, 84, 82, 65, 83, 77
+        DEFB    73, 83, 73, 79, 78, 32, 42, 42, 42, 42
+
+                ;*** TRASMISSIONE ***
+        DEFB    42, 42, 42, 32, 84, 82, 65, 83, 77, 73
+        DEFB    83, 83, 73, 79, 78, 69, 32, 42, 42, 42
+
+                ;*** TRANSMISSION ***
+        DEFB    42, 42, 42, 32, 84, 82, 65, 78, 83, 77
+        DEFB    73, 83, 83, 73, 79, 78, 32, 42, 42, 42
+
+                ;*** TRANSMISSION ***
+        DEFB    42, 42, 42, 32, 84, 82, 65, 78, 83, 77
+        DEFB    73, 83, 83, 73, 79, 78, 32, 42, 42, 42
+
+                ;*** TRANSMISION ***
+        DEFB    42, 42, 42, 32, 84, 82, 65, 78, 83, 77
+        DEFB    73, 83, 73, 79, 78, 32, 42, 42, 42, 32
+
+                ;TRANSMIS.UBERSATZUNG
+        DEFB    84, 82, 65, 78, 83, 77, 73, 83, 46, 85
+        DEFB    66, 69, 82, 83, 65, 84, 90, 85, 78, 71
+
+TENCAR:
+                ; TENSION DELA CARTA 
+        DEFB    32, 84, 69, 78, 83, 73, 79, 78, 32, 68 
+        DEFB    69, 76, 65, 32, 67, 65, 82, 84, 65, 32
+
+                ;** TENSIONE CARTA **
+        DEFB    42, 42, 32, 84, 69, 78, 83, 73, 79, 78
+        DEFB    69, 32, 67, 65, 82, 84, 65, 32, 42, 42
+
+                ; TENSION DU PAPIER *
+        DEFB    32, 84, 69, 78, 83, 73, 79, 78, 32, 68
+        DEFB    85, 32, 80, 65, 80, 73, 69, 82, 32, 42
+
+                ;** PAPER TENSION ***
+        DEFB    42, 42, 32, 80, 65, 80, 69, 82, 32, 84
+        DEFB    69, 78, 83, 73, 79, 78, 32, 42, 42, 42
+
+                ; TENSION DEL PAPEL *
+        DEFB    32, 84, 69, 78, 83, 73, 79, 78, 32, 68
+        DEFB    69, 76, 32, 80, 65, 80, 69, 76, 32, 42
+
+                ;* PAPIER SPANNUNG **
+        DEFB    42, 32, 80, 65, 80, 73, 69, 82, 32, 83
+        DEFB    80, 65, 78, 78, 85, 78, 71, 32, 42, 42
+
+
+FASEAU:
+                ;* METT IN POSISION *
+        DEFB    42, 32, 77, 69, 84, 84, 32, 73, 78, 32
+        DEFB    80, 79, 83, 73, 83, 73, 79, 78, 32, 42
+
+                ;*  FASE AUTOMATICA *
+        DEFB    42, 32, 70, 65, 83, 69, 32, 65, 85, 84
+        DEFB    79, 77, 65, 84, 73, 67, 65, 32, 42, 32
+
+                ; PHASE AUTOMATIQUE
+        DEFB    32, 80, 72, 65, 83, 69, 32, 65, 85, 84
+        DEFB    79, 77, 65, 84, 73, 81, 85, 69, 32, 32
+
+                ;* AUTOMATIC PHASE *
+        DEFB    42, 32, 65, 85, 84, 79, 77, 65, 84, 73
+        DEFB    67, 32, 80, 72, 65, 83, 69, 42, 32, 32
+
+                ;* FASE AUTOMATICA
+        DEFB    42, 32, 70, 65, 83, 69, 32, 65, 85, 84
+        DEFB    79, 77, 65, 84, 73, 67, 65, 32, 42, 32
+
+                ;AUTOMATISCHE BETRIEB
+        DEFB    65, 85, 84, 79, 77, 65, 84, 73, 83, 67 
+        DEFB    72, 69, 32, 66, 69, 84, 82, 73, 69, 66
+
+ESEGUI:
+                ;******* FAA ********
+        DEFB    42, 42, 42, 42, 42, 42, 42, 32, 70, 65
+        DEFB    65, 32, 42, 42, 42, 42, 42, 42, 42, 42
+
+                ;***** ESEGUITA *****
+        DEFB    42, 42, 42, 42, 42, 32, 69, 83, 69, 71
+        DEFB    85, 73, 84, 65, 32, 42, 42, 42, 42, 42
+
+                ;******* FAIT *******
+        DEFB    42, 42, 42, 42, 42, 42, 42, 32, 70, 65
+        DEFB    73, 84, 32, 42, 42, 42, 42, 42, 42, 42
+
+                ;******** OK ********
+        DEFB    42, 42, 42, 42, 42, 42, 42, 42, 32, 79
+        DEFB    75, 32, 42, 42, 42, 42, 42, 42, 42, 42
+
+                ;******** OK ********
+        DEFB    42, 42, 42, 42, 42, 42, 42, 42, 32, 79
+        DEFB    75, 32, 42, 42, 42, 42, 42, 42, 42, 42
+
+                ;******** OK ********
+        DEFB    42, 42, 42, 42, 42, 42, 42, 42, 32, 79
+        DEFB    75, 32, 42, 42, 42, 42, 42, 42, 42, 42
+
+
+ERRORE:
+                     ;****** ERROR ****** EEUU
+        DEFB    42, 42, 42, 42, 42, 42, 32, 69, 82, 82
+        DEFB    79, 82, 32, 42, 42, 42, 42, 42, 42, 32
+
+                ;****** ERRORE ******
+        DEFB    42, 42, 42, 42, 42, 42, 32, 69, 82, 82
+        DEFB    79, 82, 69, 32, 42, 42, 42, 42, 42, 42
+
+                ;****** ERREUR ******
+        DEFB    42, 42, 42, 42, 42, 42, 32, 69, 82, 82
+        DEFB    69, 85, 82, 32, 42, 42, 42, 42, 42, 42
+
+                ;****** ERROR ******
+        DEFB    42, 42, 42, 42, 42, 42, 32, 69, 82, 82
+        DEFB    79, 82, 32, 42, 42, 42, 42, 42, 42, 32
+
+                ;****** ERROR ******
+        DEFB    42, 42, 42, 42, 42, 42, 32, 69, 82, 82
+        DEFB    79, 82, 32, 42, 42, 42, 42, 42, 42, 32
+
+                ;****** IRRTUM ******
+        DEFB    42, 42, 42, 42, 42, 42, 32, 73, 82, 82
+        DEFB    84, 85, 77, 32, 42, 42, 42, 42, 42, 42 
+
+
+
+
+
+
+NOSTAM:         ;* GH'E' NO EL SEGN *
+        DEFB    42, 32, 71, 72, 39, 69, 39, 32, 78, 79
+        DEFB    32, 69, 76, 32, 83, 69, 71, 78, 32, 42
+
+                ;***  MANCA SEGNO ***
+        DEFB    42, 42, 42, 32, 77, 65, 78, 67, 65, 32
+        DEFB    83, 69, 71, 78, 79, 32, 42, 42, 42, 32
+
+                ;*** PAS DE SIGNE ***
+        DEFB    42, 42, 42, 32, 80, 65, 83, 32, 68, 69
+        DEFB    32, 83, 73, 71, 78, 69, 32, 42, 42, 42
+
+                ;** NO SIGNAL MARK **
+        DEFB    42, 42, 32, 78, 79, 32, 83, 73, 71, 78
+        DEFB    65, 76, 32, 77, 65, 82, 75, 32, 42, 42 
+
+                ;** FALTA DE SIGNO **
+        DEFB    42, 42, 32, 70, 65, 76, 84, 65, 32, 68
+        DEFB    69, 32, 83, 73, 71, 78, 79, 42, 42, 32
+
+                ;** FENLENDE MARKE **
+        DEFB    42, 42, 32, 70, 69, 78, 76, 69, 78, 68 
+        DEFB    69, 32, 77, 65, 82, 75, 69, 32, 42, 42
+
+OCIO:
+		;**** ATTENSIUN *****
+	DEFB	42, 42, 42, 42, 32, 65, 84, 84, 69, 78	;SSDD
+	DEFB	83, 73, 85, 78, 32, 42, 42, 42, 42, 42
+
+		;**** ATTENZIONE ****
+	DEFB	42, 42, 42, 42, 32, 65, 84, 84, 69, 78
+	DEFB	90, 73, 79, 78, 69, 32, 42, 42, 42, 42
+
+		;**** ATTENTION *****
+	DEFB	42, 42, 42, 42, 32, 65, 84, 84, 69, 78
+	DEFB	84, 73, 79, 78, 32, 42, 42, 42, 42, 42
+
+		;**** ATTENTION *****
+	DEFB	42, 42, 42, 42, 32, 65, 84, 84, 69, 78
+	DEFB	84, 73, 79, 78, 32, 42, 42, 42, 42, 42
+		
+		;***** ATENCION *****
+	DEFB	42, 42, 42, 42, 42, 32, 65, 84, 69, 78
+	DEFB	67, 73, 79, 78, 32, 42, 42, 42, 42, 42
+
+		;***** ACHTUNG ******
+	DEFB	42, 42, 42, 42, 42, 32, 65, 67, 72, 84
+	DEFB	85, 78, 71, 32, 42, 42, 42, 42, 42, 42
+
+
+DOPPIO:
+                ;**** SEGN DUPI *****
+        DEFB    42, 42, 42, 42, 32, 83, 69, 71, 78, 32
+        DEFB    68, 85, 80, 73, 32, 42, 42, 42, 42, 42
+
+                ;*** SEGNO DOPPIO ***
+        DEFB    42, 42, 42, 32, 83, 69, 71, 78, 79, 32
+        DEFB    68, 79, 80, 80, 73, 79, 32, 42, 42, 42
+
+                ;*** DOUBLE SIGNE ***
+        DEFB    42, 42, 42, 32, 68, 79, 85, 66, 76, 69
+        DEFB    32, 83, 73, 71, 78, 69, 32, 42, 42, 42
+
+                ;*** DOUBLE MARKS ***
+        DEFB    42, 42, 42, 32, 68, 79, 85, 66, 76, 69
+        DEFB    32, 77, 65, 82, 75, 83, 32, 42, 42, 42
+
+                ;*** DOBLE SIGNO ****
+        DEFB    42, 42, 42, 32, 68, 79, 66, 76, 69, 32
+        DEFB    83, 73, 71, 78, 79, 32, 42, 42, 42, 42
+
+
+                ;*** DOPPEL MARKE ***
+        DEFB    42, 42, 42, 32, 68, 79, 80, 80, 69, 76
+        DEFB    32, 77, 65, 82, 75, 69, 32, 42, 42, 42
+
+
+VADASI:
+                ;*** TROPP A DASI ***
+        DEFB    42, 42, 42, 32, 84, 82, 79, 80, 80, 32
+        DEFB    65, 68, 65, 83, 73, 32, 42, 42, 42, 32
+
+                ;*  BASSA VELOCITA'*
+        DEFB    42, 32, 32, 66, 65, 83, 83, 65, 32, 86
+        DEFB    69, 76, 79, 67, 73, 84, 65, 39, 32, 42
+
+                ;*** BAS VITESSE ***
+        DEFB    42, 42, 42, 32, 66, 65, 83, 32, 86, 73
+        DEFB    84, 69, 83, 83, 69, 32, 42, 42, 42, 32
+
+                ;**** LOW SPEED ****
+        DEFB    42, 42, 42, 42, 32, 76, 79, 87, 32, 83
+        DEFB    80, 69, 69, 68, 32, 42, 42, 42, 42, 32
+
+                ;** MAQUINA LENTA **
+        DEFB    42, 42, 32, 77, 65, 81, 85, 73, 78, 65
+        DEFB    32, 76, 69, 78, 84, 65, 32, 42, 42, 32
+
+                ;***** LANGSAM ******
+        DEFB    42, 42, 42, 42, 42, 32, 76, 65, 78, 71
+        DEFB    83, 65, 77, 32, 42, 42, 42, 42, 42, 42
+
+ACELER:
+                ;** PUSEE VELOCITAA *
+        DEFB    42, 42, 32, 80, 85, 83, 69, 69, 32, 86
+        DEFB    69, 76, 79, 67, 73, 84, 65, 65, 32, 42
+
+
+                ;** ACCELERAZIONE ***
+        DEFB    42, 42, 32, 65, 67, 67, 69, 76, 69, 82
+        DEFB    65, 90, 73, 79, 78, 69, 32, 42, 42, 42
+
+                ;*** ACCELERATION ***
+        DEFB    42, 42, 42, 32, 65, 67, 67, 69, 76, 69
+        DEFB    82, 65, 84, 73, 79, 78, 32, 42, 42, 42
+
+                ;*** ACCELERATING ***
+        DEFB    42, 42, 42, 32, 65, 67, 67, 69, 76, 69
+        DEFB    82, 65, 84, 73, 78, 71, 32, 42, 42, 42
+
+                ;***** ACELERAR *****
+        DEFB    42, 42, 42, 42, 42, 32, 65, 67, 69, 76
+        DEFB    69, 82, 65, 82, 32, 42, 42, 42, 42, 42
+
+                ;*** BESCHLUNIGEN ***
+        DEFB    42, 42, 42, 32, 66, 69, 83, 67, 72, 76
+        DEFB    85, 78, 73, 71, 69, 78, 32, 42, 42, 42
+
+DECELE:
+                ;*** DECELERASIUN ***
+        DEFB    42, 42, 42, 32, 68, 69, 67, 69, 76, 69
+        DEFB    82, 65, 83, 73, 85, 78, 32, 42, 42, 42
+
+                ;** DECELERAZIONE ***
+        DEFB    42, 42, 32, 68, 69, 67, 69, 76, 69, 82
+        DEFB    65, 90, 73, 79, 78, 69, 32, 42, 42, 42
+
+                ;*** DECELERATION ***
+        DEFB    42, 42, 42, 32, 68, 69, 67, 69, 76, 69
+        DEFB    82, 65, 84, 73, 79, 78, 32, 42, 42, 42 
+
+                ;*** DECELERATION ***
+        DEFB    42, 42, 42, 32, 68, 69, 67, 69, 76, 69
+        DEFB    82, 65, 84, 73, 79, 78, 32, 42, 42, 42 
+
+
+                ;***** DECELERAR ****
+        DEFB    42, 42, 42, 42, 42, 32, 68, 69, 67, 69
+        DEFB    76, 69, 82, 65, 82, 32, 42, 42, 42, 42
+
+                ;**** VERZOGERN *****
+        DEFB    42, 42, 42, 42, 32, 86, 69, 82, 90, 79
+        DEFB    71, 69, 82, 78, 32, 42, 42, 42, 42, 42
+
+
+PARAME:
+                ;#### PARAMETER ####
+        DEFB    35, 35, 35, 35, 32, 80, 65, 82, 65, 77
+        DEFB    69, 84, 69, 82, 32, 35, 35, 35, 35, 32
+
+                ;#### PARAMETRI ####
+        DEFB    35, 35, 35, 35, 32, 80, 65, 82, 65, 77
+        DEFB    69, 84, 82, 73, 32, 35, 35, 35, 35, 32
+
+                ;#### PARAMETRES ####
+        DEFB    35, 35, 35, 35, 32, 80, 65, 82, 65, 77
+        DEFB    69, 84, 82, 69, 83, 32, 35, 35, 35, 35
+
+                ;#### PARAMETERS ####
+        DEFB    35, 35, 35, 35, 32, 80, 65, 82, 65, 77
+        DEFB    69, 84, 69, 82, 83, 32, 35, 35, 35, 35
+
+                ;#### PARAMETROS ####
+        DEFB    35, 35, 35, 35, 32, 80, 65, 82, 65, 77
+        DEFB    69, 84, 82, 79, 83, 32, 35, 35, 35, 32
+
+                ;#### PARAMETER #####
+        DEFB    35, 35, 35, 35, 32, 80, 65, 82, 65, 77
+        DEFB    69, 84, 69, 82, 32, 35, 35, 35, 35, 35
+
+TRIDIS:
+                ;VARIASION VELOCITAA
+        DEFB    86, 65, 82, 73, 65, 83, 73, 79, 78, 32
+        DEFB    86, 69, 76, 79, 67, 73, 84, 65, 65, 32
+
+                ;VARIAZIONE VELOCITA'
+        DEFB    86, 65, 82, 73, 65, 90, 73, 79, 78, 69
+        DEFB    32, 86, 69, 76, 79, 67, 73, 84, 65, 39
+
+                ;VARIATION DE VITESSE
+        DEFB    86, 65, 82, 73, 65, 84, 73, 79, 78, 32
+        DEFB    68, 69, 32, 86, 73, 84, 69, 83, 83, 69 
+
+                ;******* TRIP *******
+        DEFB    42, 42, 42, 42, 42, 42, 42, 32, 84, 82
+        DEFB    73, 80, 32, 42, 42, 42, 42, 42, 42, 42
+
+                ;VARIACION VELOCIDAD
+        DEFB    86, 65, 82, 73, 65, 67, 73, 79, 78, 32
+        DEFB    86, 69, 78, 79, 67, 73, 68, 65, 68, 32
+
+                ;PULS GESCHWINDIGKEIT
+        DEFB    80, 85, 76, 83, 32, 71, 69, 83, 67, 72
+        DEFB    87, 73, 78, 68, 73, 71, 75, 69, 73, 84
+
+GUADAG:
+                ;GUADAGN CIRCONFEREN.
+        DEFB    71, 85, 65, 68, 65, 71, 78, 32, 67, 73
+        DEFB    82, 67, 79, 78, 70, 69, 82, 69, 78, 46
+
+                ;GUADAGNO CIRCONFERE.
+        DEFB    71, 85, 65, 68, 65, 71, 78, 79, 32, 67
+        DEFB    73, 82, 67, 79, 78, 70, 69, 82, 69, 46
+
+                ;GAIN CIRCONFERENTIAL
+        DEFB    71, 65, 73, 78, 32, 67, 73, 82, 67, 79   ;CONTROLLARE
+        DEFB    78, 70, 69, 82, 69, 78, 84, 73, 65, 76
+
+                ;GAIN CIRCUMFERENTIAL
+        DEFB    71, 65, 73, 78, 32, 67, 73, 82, 67, 85
+        DEFB    77, 70, 69, 82, 69, 78, 84, 73, 65, 76
+
+                ;GANANCIA CIRCUNFERE.
+        DEFB    71, 65, 78, 65, 78, 67, 73, 65, 32, 67
+        DEFB    73, 82, 67, 85, 78, 70, 69, 82, 69, 46
+
+                ;  UMFANG GEWINUNG
+        DEFB    32, 32, 85, 77, 70, 65, 78, 71, 32, 71
+        DEFB    69, 87, 73, 78, 85, 78, 71, 32, 32, 32
+
+MGUADA:
+                ;## GUADAGN MANUAL ##
+        DEFB    35, 35, 33, 71, 85, 65, 68, 65, 71, 78
+        DEFB    32, 77, 65, 78, 85, 65, 76, 32, 35, 35
+
+                ;# GUADAGNO MANUALE #
+        DEFB    35, 32, 71, 85, 65, 68, 65, 71, 78, 79
+        DEFB    32, 77, 65, 78, 85, 65, 76, 69, 32, 35
+
+                ;### GAIN MANUEL ####
+        DEFB    35, 35, 35, 32, 71, 65, 73, 78, 32, 78
+        DEFB    65, 78, 85, 69, 76, 32, 35, 35, 35, 35
+
+                ;### MANUAL GAIN ####
+        DEFB    35, 35, 35, 32, 77, 65, 78, 85, 65, 76
+        DEFB    32, 71, 65, 73, 78, 32, 35, 35, 35, 35
+
+                ;# GANANCIA MANUAL ##
+        DEFB    32, 35, 71, 65, 78, 65, 78, 67, 73, 65
+        DEFB    32, 77, 65, 78, 85, 65, 76, 32, 35, 35
+
+
+                ;# MANUELL GEWINUNG #
+        DEFB    35, 32, 77, 65, 78, 85, 69, 76, 76, 71
+        DEFB    32, 69, 87, 73, 78, 85, 78, 71, 32, 35
+
+
+CICLIC:
+                ;INTERVALL CIRCONFER.
+        DEFB    73, 78, 84, 69, 82, 86, 65, 76, 76, 32
+        DEFB    67, 73, 82, 67, 79, 78, 70, 69, 82, 46
+
+                ;INTERVALLO CIRCONF.
+        DEFB    73, 78, 84, 69, 82, 86, 65, 76, 76, 79
+        DEFB    32, 67, 73, 82, 67, 79, 78, 70, 46, 32
+
+                ;CYCLIQUE CIRCONFER.
+        DEFB    67, 89, 67, 76, 73, 81, 85, 69, 32, 67
+        DEFB    73, 82, 67, 79, 78, 70, 69, 82, 46, 32
+
+                ;CYCLIC CIRCONFERENT.
+        DEFB    67, 89, 67, 76, 73, 67, 32, 67, 73, 82  
+        DEFB    67, 79, 78, 70, 69, 82, 69, 78, 84, 46
+
+                ;CICLICO CIRCONFEREN.
+        DEFB    67, 73, 67, 76, 73, 67, 79, 32, 67, 73  
+        DEFB    82, 67, 79, 78, 70, 69, 82, 69, 78, 46
+
+                ;  ZYKLISCHE UMFANG 
+        DEFB    32, 32, 90, 89, 75, 76, 73, 83, 67, 72
+        DEFB    69, 32, 85, 77, 70, 65, 78, 71, 32, 32
+
+DISDER:
+                ;#### DERIVATIV #####
+        DEFB    35, 35, 35, 35, 32, 68, 69, 82, 73, 86
+        DEFB    65, 84, 73, 86, 32, 35, 35, 35, 35, 32
+
+                ;#### DERIVATIVO ####
+        DEFB    35, 35, 35, 35, 32, 68, 69, 82, 73, 86
+        DEFB    65, 84, 73, 86, 79, 32, 35, 35, 35, 35
+
+                ;#### DERIVATIV ####
+        DEFB    35, 35, 35, 35, 32, 68, 69, 82, 73, 86 
+        DEFB    65, 84, 73, 86, 32, 35, 35, 35, 35, 32
+
+                ;#### DERIVATIVE ####
+        DEFB    35, 35, 35, 35, 32, 68, 69, 82, 73, 86
+        DEFB    65, 84, 73, 86, 69, 32, 35, 35, 35, 35
+
+                ;#### DERIVATIVO ####
+        DEFB    35, 35, 35, 35, 32, 68, 69, 82, 73, 86
+        DEFB    65, 84, 73, 86, 79, 32, 35, 35, 35, 35
+
+                ;#### RUCKSTAND #####
+        DEFB    35, 35, 35, 35, 32, 82, 85, 67, 75, 83 
+        DEFB    84, 65, 78, 68, 32, 35, 35, 35, 35, 35
+
+INSERZ:
+                ;LIMIT DE VELOCITA.
+        DEFB    32, 76, 73, 77, 73, 84, 32, 68, 69, 32
+        DEFB    86, 69, 76, 79, 67, 73, 84, 65, 39, 32
+
+                ;SOGLIA D'INSERZIONE
+        DEFB    83, 79, 71, 76, 73, 65, 32, 68, 39, 73
+        DEFB    78, 83, 69, 82, 90, 73, 79, 78, 69, 32
+
+                ; SEUIL D'INSERTION
+        DEFB    32, 83, 69, 85, 73, 76, 32, 68, 39, 73
+        DEFB    78, 83, 69, 82, 84, 73, 79, 78, 32, 32
+
+                ;INSERT THRESHOLD
+        DEFB    32, 32, 73, 78, 83, 69, 82, 84, 32, 84
+        DEFB    72, 82, 69, 83, 72, 79, 76, 68, 32, 32 
+
+                ; NIVEL DE INSERCION.
+        DEFB    32, 78, 73, 86, 69, 76, 32, 68, 69, 32
+        DEFB    32, 73, 78, 83, 69, 82, 67, 73, 79, 78
+
+                ;EINGABE DER MAKULAT.
+        DEFB    69, 73, 78, 71, 65, 66, 69, 32, 68, 69
+        DEFB    82, 32, 77, 65, 75, 85, 76, 65, 84, 46
+
+DSALTO:
+                ;    SALT D'EROR
+        DEFB    32, 32, 32, 32, 32, 83, 65, 76, 84, 32
+        DEFB    68, 39, 69, 82, 79, 82, 32, 32, 32, 32
+
+                ;   SALTO D'ERRORE
+        DEFB    32, 32, 32, 83, 65, 76, 84, 79, 32, 68
+        DEFB    39, 69, 82, 82, 79, 82, 69, 32, 32, 32
+
+                ;   SAUT D'ERREUR
+        DEFB    32, 32, 32, 83, 65, 85, 84, 32, 68, 39
+        DEFB    69, 82, 82, 69, 85, 82, 32, 32, 32, 32
+
+                ;     JUMP ERROR
+        DEFB    32, 32, 32, 32, 32, 74, 85, 77, 80, 32
+        DEFB    69, 82, 82, 79, 82, 32, 32, 32, 32, 32
+
+                 ;   SALTO DE ERROR
+        DEFB     32, 32, 32, 83, 65, 76, 84, 79, 32, 68
+        DEFB     69, 32, 69, 82, 82, 79, 82, 32, 32, 32
+
+                ;FEHLER UBERSPRINGEN
+        DEFB    70, 69, 72, 76, 69, 82, 32, 85, 66, 69
+        DEFB    82, 83, 80, 82, 73, 78, 71, 69, 78, 32
+
+ZONAMO:
+                ;SPASI MORT CIRCONFER
+        DEFB    83, 80, 65, 83, 73, 32, 77, 79, 82, 84
+        DEFB    32, 67, 73, 82, 67, 79, 78, 70, 69, 82
+
+                ;ZONA MORTA CIRCONFER
+        DEFB    90, 79, 78, 65, 32, 77, 79, 82, 84, 65
+        DEFB    32, 67, 73, 82, 67, 79, 78, 70, 69, 82
+
+                ;ZONE MORTE CIRCONFER
+        DEFB    90, 79, 78, 65, 32, 77, 79, 82, 84, 69
+        DEFB    32, 67, 73, 82, 67, 79, 78, 70, 69, 82
+
+                ;CIRCONFER. DEAD ZONE
+        DEFB    67, 73, 82, 67, 79, 78, 70, 69, 82, 46 
+        DEFB    68, 69, 65, 68, 32, 90, 79, 78, 69, 32
+
+                ;ZONA MUERTA CIRCONF.
+        DEFB    90, 79, 78, 65, 32, 77, 85, 69, 82, 84 
+        DEFB    65, 32, 67, 73, 82, 67, 79, 78, 70, 46
+
+                ;      TOTZONE
+        DEFB    32, 32, 32, 32, 32, 32, 84, 79, 84, 90
+        DEFB    79, 78, 69, 32, 32, 32, 32, 32, 32, 32
+
+TRAGUA:
+                ;GUADAGN TRASVERSAL
+        DEFB    32, 71, 85, 65, 68, 65, 71, 78, 32, 84
+        DEFB    82, 65, 83, 86, 69, 82, 83, 65, 76, 32
+
+                ;GUADAGNO TRASVERSALE
+        DEFB    71, 85, 65, 68, 65, 71, 78, 79, 32, 84
+        DEFB    82, 65, 83, 86, 69, 82, 83, 65, 76, 69
+
+                ;  TRASVERSAL GAIN 
+        DEFB    32, 32, 84, 82, 65, 83, 86, 69, 82, 83
+        DEFB    65, 76, 32, 71, 65, 73, 78, 32, 32, 32
+                
+                ;  TRASVERSAL GAIN 
+        DEFB    32, 32, 84, 82, 65, 83, 86, 69, 82, 83
+        DEFB    65, 76, 32, 71, 65, 73, 78, 32, 32, 32
+
+                ;GANANCIA TRASVERSAL
+        DEFB    71, 65, 78, 65, 78, 67, 73, 65, 32, 84
+        DEFB    82, 65, 83, 86, 69, 82, 83, 65, 76, 32
+
+                ;   SEITEN GEWINN
+        DEFB    32, 32, 32, 83, 69, 73, 84, 69, 78, 32
+        DEFB    71, 69, 87, 73, 78, 78, 32, 32, 32, 32
+
+GUATIR:
+                ;  GUADAGN DEL TIR
+        DEFB    32, 32, 71, 85, 65, 68, 65, 71, 78, 32 
+        DEFB    68, 69, 76, 32, 84, 73, 82, 32, 32, 32
+
+                ; GUADAGNO DEL TIRO
+        DEFB    32, 71, 85, 65, 68, 65, 71, 78, 79, 32
+        DEFB    68, 69, 76, 32, 84, 73, 82, 79, 32, 32
+
+                ;GAIN DE LA TENSION
+        DEFB    32, 71, 65, 73, 78, 32, 68, 69, 32, 76
+        DEFB    65, 32, 84, 69, 78, 83, 73, 79, 78, 32
+
+                ;   TENSION GAIN 
+        DEFB    32, 32, 32, 32, 84, 69, 78, 83, 73, 79
+        DEFB    78, 32, 71, 65, 73, 78, 32, 32, 32, 32
+
+                ;GANANCIA DE TENSION
+        DEFB    71, 65, 78, 65, 78, 67, 73, 65, 32, 68
+        DEFB    69, 32, 84, 69, 78, 83, 73, 79, 78, 32
+
+                ;  UMFANG SPANNUNG
+        DEFB    32, 32, 85, 77, 70, 65, 78, 71, 32, 83
+        DEFB    80, 65, 78, 78, 85, 78, 71, 32, 32, 32
+
+
+
+
+TRACIC:
+                ;INTERVALL TRASVERSAL
+        DEFB    73, 78, 84, 69, 82, 86, 65, 76, 76, 32
+        DEFB    84, 82, 65, 83, 86, 69, 82, 83, 65, 76
+
+                ;INTERVALLO TRASVERS.
+        DEFB    73, 78, 84, 69, 82, 86, 65, 76, 76, 79
+        DEFB    32, 84, 82, 65, 83, 86, 69, 82, 83, 46
+
+
+                ;CYCLIQUE TRASVERSAL
+        DEFB    67, 89, 67, 76, 73, 81, 85, 69, 32, 84
+        DEFB    82, 65, 83, 86, 69, 82, 83, 65, 76, 32
+
+                ; CYCLIC TRASVERSAL
+        DEFB    32, 67, 89, 67, 76, 73, 67, 32, 84, 82
+        DEFB    65, 83, 86, 69, 82, 83, 65, 76, 32, 32
+
+                ;CICLICO TRASVERSAL
+        DEFB    32, 67, 73, 67, 76, 73, 67, 79, 32, 84
+        DEFB    82, 65, 83, 86, 69, 82, 83, 65, 76, 32
+
+                ; ZYKLISCHE SEITEN 
+        DEFB    32, 32, 90, 89, 75, 76, 73, 83, 67, 72
+        DEFB    69, 32, 83, 69, 73, 84, 69, 78, 32, 32
+
+INTIR:         
+                ; INTERVALL DEL TIR
+        DEFB    32, 73, 78, 84, 69, 82, 86, 65, 76, 76
+        DEFB    32, 68, 69, 76, 32, 84, 73, 82, 32, 32
+
+                ;INTERVALLO DEL TIRO
+        DEFB    73, 78, 84, 69, 82, 86, 65, 76, 76, 79
+        DEFB    32, 68, 69, 76, 32, 84, 73, 82, 79, 32
+
+                ;CYCLIQUE DE TENSION
+        DEFB    67, 89, 67, 76, 73, 81, 85, 69, 32, 68
+        DEFB    69, 32, 84, 69, 78, 83, 73, 79, 78, 32
+
+                ;   CYCLIC TENSION
+        DEFB    32, 32, 32, 67, 89, 67, 76, 73, 67, 32  
+        DEFB    84, 69, 78, 83, 73, 79, 78, 32, 32, 32
+
+                ;CICLICO DE LA TENSION
+        DEFB    67, 73, 67, 76, 73, 67, 79, 32, 68, 69  
+        DEFB    76, 65, 32, 84, 69, 78, 83, 73, 79, 78
+
+
+                ; ZYKLISCHE SPANNUNG 
+        DEFB    32, 90, 89, 75, 76, 73, 83, 67, 72, 69
+        DEFB    32, 83, 80, 65, 78, 78, 85, 78, 71, 32
+
+
+TRAZON:
+                ;SPASI MORT TRASVERS.
+        DEFB    83, 80, 65, 83, 73, 32, 77, 79, 82, 84
+        DEFB    32, 84, 82, 65, 83, 86, 69, 82, 83, 46
+
+                ;ZONA MORTA TRASVERS.
+        DEFB    90, 79, 78, 65, 32, 77, 79, 82, 84, 65
+        DEFB    32, 84, 82, 65, 83, 86, 69, 82, 83, 46
+
+                ;ZONE MORTE TRASVERS.
+        DEFB    90, 79, 78, 65, 32, 77, 79, 82, 84, 69
+        DEFB    32, 84, 82, 65, 83, 86, 69, 82, 83, 46
+
+                ;TRASVERSAL DEAD ZONE    
+        DEFB    84, 82, 65, 83, 86, 69, 82, 83, 65, 76
+        DEFB    32, 68, 69, 65, 68, 32, 90, 79, 78, 69
+
+                ;ZONA MUERTA TRASVER.
+        DEFB    90, 79, 78, 65, 32, 77, 85, 69, 82, 84
+        DEFB    65, 32, 84, 82, 65, 83, 86, 69, 82, 46
+
+                ; SEITLICHE TTZONE
+        DEFB    32, 83, 69, 73, 84, 76, 73, 67, 72, 69
+        DEFB    32, 84, 79, 84, 90, 79, 78, 69, 32, 32
+
+DISLIN:
+                ;  -1I-2F-3GB-4E-5D-
+        DEFB    32, 32, 45, 49, 73, 45, 50, 70, 45, 51 
+        DEFB    71, 66, 45, 52, 69, 45, 53, 68, 45, 32 
+
+P39_52:
+                ;39/48=0   -   V52=1   
+        DEFB    51, 57, 47, 52, 56, 61, 48, 32, 32, 32 
+        DEFB    45, 32, 32, 32, 86, 53, 50, 61, 49, 32 
+
+
+SOLBAS:
+               ;          MC
+        DEFB    32, 32, 32, 32, 32, 32, 32, 32, 32, 77
+        DEFB    67, 32, 32, 32, 32, 32, 32, 32, 32, 32
+
+SOLMM:
+               ;          MM
+        DEFB    32, 32, 32, 32, 32, 32, 32, 32, 32, 77
+        DEFB    77, 32, 32, 32, 32, 32, 32, 32, 32, 32
+
+
+DIADIS:
+                ;   DIAGONAL LATO
+        DEFB    32, 32, 32, 68, 73, 65, 71, 79, 78, 65
+        DEFB    76, 32, 76, 65, 84, 79, 32, 32, 32, 32
+
+                ;   DIAGONALE LATO
+        DEFB    32, 32, 32, 68, 73, 65, 71, 79, 78, 65
+        DEFB    76, 69, 32, 76, 65, 84, 79, 32, 32, 32
+
+                ;   DIAGONALE COTE
+        DEFB    32, 32, 32, 68, 73, 65, 71, 79, 78, 65
+        DEFB    76, 69, 32, 67, 79, 84, 69, 32, 32, 32
+
+                ;   DIAGONAL SIDE
+        DEFB    32, 32, 32, 68, 73, 65, 71, 79, 78, 65
+        DEFB    76, 32, 83, 73, 68, 69, 32, 32, 32, 32
+
+                ;   DIAGONAL LATO
+        DEFB    32, 32, 32, 68, 73, 65, 71, 79, 78, 65
+        DEFB    76, 32, 76, 65, 84, 79, 32, 32, 32, 32
+
+                ;   DIAGONAL SEITE
+        DEFB    32, 32, 32, 68, 73, 65, 71, 79, 78, 65
+        DEFB    76, 32, 83, 69, 73, 84, 69, 32, 32, 32
+
+
+DIADI1:
+                ;***** OPERADOR *****
+        DEFB    32, 32, 32, 32, 32, 32, 79, 80, 69, 82
+        DEFB    65, 68, 79, 82, 32, 32, 32, 32, 32, 32
+
+                ;**** OPERATORE ****
+        DEFB    32, 32, 32, 32, 32, 79, 80, 69, 82, 65
+        DEFB    84, 79, 82, 69, 32, 32, 32, 32, 32, 32
+
+                ;**** OPERATEUR ****
+        DEFB    32, 32, 32, 32, 32, 79, 80, 69, 82, 65
+        DEFB    84, 69, 85, 82, 32, 32, 32, 32, 32, 32
+
+                ;***** OPERATOR *****
+        DEFB    32, 32, 32, 32, 32, 32, 79, 80, 69, 82
+        DEFB    65, 84, 79, 82, 32, 32, 32, 32, 32, 32
+
+                ;**** TRABAJADOR ****
+        DEFB    32, 32, 32, 32, 32, 84, 82, 65, 66, 65
+        DEFB    74, 65, 68, 79, 82, 32, 32, 32, 32, 32
+
+                ;* MASCHINE FUHRER **
+        DEFB    42, 32, 77, 65, 83, 67, 72, 73, 78, 69
+        DEFB    32, 70, 85, 72, 82, 69, 82, 32, 42, 42
+
+
+DIADI2:
+                ;**** TRASMISION ****
+        DEFB    32, 32, 32, 32, 32, 84, 82, 65, 83, 77
+        DEFB    73, 83, 73, 79, 77, 32, 32, 32, 32, 32
+
+                ;*** TRASMISSIONE ***
+        DEFB    32, 32, 32, 32, 84, 82, 65, 83, 77, 73
+        DEFB    83, 83, 73, 79, 77, 69, 32, 32, 32, 32
+
+                ;*** TRANSMISSION ***
+        DEFB    32, 32, 32, 32, 84, 82, 65, 78, 83, 77
+        DEFB    73, 83, 83, 73, 79, 78, 32, 32, 32, 32
+
+                ;*** TRANSMISSION ***
+        DEFB    32, 32, 32, 32, 84, 82, 65, 78, 83, 77
+        DEFB    73, 83, 83, 73, 79, 78, 32, 32, 32, 32
+
+                ;*** TRANSMISION ***
+        DEFB    32, 32, 32, 32, 84, 82, 65, 78, 83, 77
+        DEFB    73, 83, 73, 79, 78, 32, 32, 32, 32, 32
+
+                ;TRANSMIS.UBERSATZUNG
+        DEFB    84, 82, 65, 78, 83, 77, 73, 83, 46, 85
+        DEFB    66, 69, 82, 83, 65, 84, 90, 85, 78, 71
+
+
+SOLDIS:
+                ; DUMA' LONGITUDINAL
+        DEFB    32, 68, 85, 77, 65, 39, 32, 76, 79, 78 
+        DEFB    71, 73, 84, 85, 68, 73, 78, 65, 76, 32
+
+                ; SOLO LONGITUDINALE
+        DEFB    32, 83, 79, 76, 79, 32, 76, 79, 78, 71
+        DEFB    73, 84, 85, 68, 73, 78, 65, 76, 69, 32
+
+                ; SEUL LONGITUDINAL
+        DEFB    32, 83, 69, 85, 76, 32, 76, 79, 78, 71  
+        DEFB    73, 84, 85, 68, 73, 78, 65, 76, 32, 32
+
+                ; ONLY LONGITUDINAL
+        DEFB    32, 79, 78, 76, 89, 32, 76, 79, 78, 71  
+        DEFB    73, 84, 85, 68, 73, 78, 65, 76, 32, 32
+
+                ; SOLO LONGITUDINALE
+        DEFB    32, 83, 79, 76, 79, 32, 76, 79, 78, 71
+        DEFB    73, 84, 85, 68, 73, 78, 65, 76, 32, 32
+
+                ; NUR LANGSREGISTER
+        DEFB    32, 78, 85, 82, 32, 76, 65, 78, 71, 83 
+        DEFB    82, 69, 71, 73, 83, 84, 69, 82, 32, 32 
+
+
+VELONG:
+                ;COR.LONG. CENTES/SEC
+        DEFB    67, 79, 82, 46, 76, 79, 78, 71, 46, 32
+        DEFB    67, 69, 78, 84, 69, 83, 47, 83, 69, 67
+
+                ;COR.LONG. CENTES/SEC
+        DEFB    67, 79, 82, 46, 76, 79, 78, 71, 46, 32
+        DEFB    67, 69, 78, 84, 69, 83, 47, 83, 69, 67
+
+                ;COR.LONG. CENTES/SEC
+        DEFB    67, 79, 82, 46, 76, 79, 78, 71, 46, 32
+        DEFB    67, 69, 78, 84, 69, 83, 47, 83, 69, 67
+
+                ;COR.LONG. CENTES/SEC
+        DEFB    67, 79, 82, 46, 76, 79, 78, 71, 46, 32
+        DEFB    67, 69, 78, 84, 69, 83, 47, 83, 69, 67
+
+                ;COR.LONG. CENTES/SEC
+        DEFB    67, 79, 82, 46, 76, 79, 78, 71, 46, 32
+        DEFB    67, 69, 78, 84, 69, 83, 47, 83, 69, 67
+
+                ;KOR.LANG. CENTES/SEC
+        DEFB    75, 79, 82, 46, 76, 65, 78, 71, 46, 32
+        DEFB    67, 69, 78, 84, 69, 83, 47, 83, 69, 67
+
+
+VETRAV:
+                ;COR.TRAV. CENTES/SEC
+        DEFB    67, 79, 82, 46, 84, 82, 65, 86, 46, 32
+        DEFB    67, 69, 78, 84, 69, 83, 47, 83, 69, 67
+
+                ;COR.TRAV. CENTES/SEC
+        DEFB    67, 79, 82, 46, 84, 82, 65, 86, 46, 32
+        DEFB    67, 69, 78, 84, 69, 83, 47, 83, 69, 67
+
+                ;COR.TRAV. CENTES/SEC
+        DEFB    67, 79, 82, 46, 84, 82, 65, 86, 46, 32
+        DEFB    67, 69, 78, 84, 69, 83, 47, 83, 69, 67
+
+                ;COR.TRAV. CENTES/SEC
+        DEFB    67, 79, 82, 46, 84, 82, 65, 86, 46, 32
+        DEFB    67, 69, 78, 84, 69, 83, 47, 83, 69, 67
+
+                ;COR.TRAV. CENTES/SEC
+        DEFB    67, 79, 82, 46, 84, 82, 65, 86, 46, 32
+        DEFB    67, 69, 78, 84, 69, 83, 47, 83, 69, 67
+
+                ;KOR.SEIT. CENTES/SEC
+        DEFB    75, 79, 82, 46, 83, 69, 73, 84, 46, 32
+        DEFB    67, 69, 78, 84, 69, 83, 47, 83, 69, 67
+
+
+
+FLXDIS:
+                ;   MET A REGISTER 
+        DEFB    32, 32, 32, 77, 69, 84, 32, 65, 32, 82
+        DEFB    69, 71, 73, 83, 84, 69, 82, 32, 32, 32
+
+                ;  MESSA A REGISTRO 
+        DEFB    32, 32, 77, 69, 83, 83, 65, 32, 65, 32
+        DEFB    82, 69, 71, 73, 83, 84, 82, 79, 32, 32
+
+                ;  METTRE A REPERAGE 
+        DEFB    32, 32, 77, 69, 84, 84, 82, 69, 32, 65
+        DEFB    32, 82, 69, 80, 69, 82, 65, 71, 69, 32
+
+                ; TO PUT ON REGISTER
+        DEFB    32, 84, 79, 32, 80, 85, 84, 32, 79, 78
+        DEFB    32, 82, 69, 71, 73, 83, 84, 69, 82, 32
+
+                ;  PONER  REGISTRO 
+        DEFB    32, 32, 32, 80, 79, 78, 69, 82, 32, 82 
+        DEFB    69, 71, 73, 83, 84, 82, 79, 32, 32, 32
+
+                ; REGISTER STELLUNG
+        DEFB    32, 82, 69, 71, 73, 83, 84, 69, 82, 32
+        DEFB    83, 84, 69, 76, 76, 85, 78, 71, 32, 32
+
+MESS0:
+                ;      DISABILIDADA  
+        DEFB    32, 32, 32, 32, 68, 73, 83, 65, 66, 73
+        DEFB    76, 73, 68, 65, 68, 65, 32, 32, 32, 32
+
+                ;      DISABILITATA  
+        DEFB    32, 32, 32, 32, 68, 73, 83, 65, 66, 73
+        DEFB    76, 73, 84, 65, 84, 65, 32, 32, 32, 32
+
+                ;  PAS HABILITATION       
+        DEFB    32, 32, 80, 65, 83, 32, 72, 65, 66, 73
+        DEFB    76, 73, 84, 65, 84, 73, 79, 78, 32, 32
+
+                ;     NOT ENABLE  
+        DEFB    32, 32, 32, 32, 32, 78, 79, 84, 32, 69 
+        DEFB    78, 65, 66, 76, 69, 32, 32, 32, 32, 32
+
+                ;     DESPOBLADO  
+        DEFB    32, 32, 32, 32, 32, 68, 69, 83, 80, 79
+        DEFB    66, 76, 65, 68, 79, 32, 32, 32, 32, 32
+
+                ;     NOT ENABLE  
+        DEFB    32, 32, 32, 32, 32, 78, 79, 84, 32, 69 
+        DEFB    78, 65, 66, 76, 69, 32, 32, 32, 32, 32
+
+
+MESS1:
+                ;      DOMA MANUAL
+       DEFB     32, 32, 32, 32, 32, 68, 79, 77, 65, 32 
+       DEFB     77, 65, 78, 85, 65, 76, 32, 32, 32, 32
+
+                ;      SOLO MANUALE
+       DEFB     32, 32, 32, 32, 83, 79, 76, 79, 32, 77
+       DEFB     65, 78, 85, 65, 76, 69, 32, 32, 32, 32
+
+                ;      SEUL MANUEL 
+       DEFB     32, 32, 32, 32, 32, 83, 69, 85, 76, 32
+       DEFB     77, 65, 78, 85, 69, 76, 32, 32, 32, 32
+
+                ;      ONLY MANUAL
+       DEFB     32, 32, 32, 32, 32, 79, 78, 76, 89, 32 
+       DEFB     77, 65, 78, 85, 65, 76, 32, 32, 32, 32
+
+                ;      SOLO MANUAL
+       DEFB     32, 32, 32, 32, 32, 83, 79, 76, 79, 32
+       DEFB     77, 65, 78, 85, 65, 76, 32, 32, 32, 32
+
+                ;   ALLEIN MANUELL
+       DEFB     32, 32, 32, 65, 76, 76, 69, 73, 78, 32
+       DEFB     77, 65, 78, 85, 69, 76, 76, 32, 32, 32
+
+MESS2:
+                ;MANUALE & AUTOMATICA
+      DEFB      77, 65, 78, 85, 65, 76, 69, 32, 38, 32
+      DEFB      65, 85, 84, 79, 77, 65, 84, 73, 67, 65
+
+                ;MANUALE & AUTOMATICA
+      DEFB      77, 65, 78, 85, 65, 76, 69, 32, 38, 32
+      DEFB      65, 85, 84, 79, 77, 65, 84, 73, 67, 65
+
+                ;MANUALE & AUTOMATICA
+      DEFB      77, 65, 78, 85, 65, 76, 69, 32, 38, 32
+      DEFB      65, 85, 84, 79, 77, 65, 84, 73, 67, 65
+
+                ;MANUALE & AUTOMATICA
+      DEFB      77, 65, 78, 85, 65, 76, 69, 32, 38, 32
+      DEFB      65, 85, 84, 79, 77, 65, 84, 73, 67, 65
+
+                ;MANUALE & AUTOMATICA
+      DEFB      77, 65, 78, 85, 65, 76, 69, 32, 38, 32
+      DEFB      65, 85, 84, 79, 77, 65, 84, 73, 67, 65
+
+                ;MANUALE & AUTOMATICA
+      DEFB      77, 65, 78, 85, 65, 76, 69, 32, 38, 32
+      DEFB      65, 85, 84, 79, 77, 65, 84, 73, 67, 65
+
+
+NORDIS:
+                ;CORES. NORM=0 GIRA=1 ;NNII
+        DEFB    67, 79, 82, 69, 83, 46, 32, 78, 79, 82
+        DEFB    77, 61, 48, 32, 71, 73, 82, 61, 49, 32
+
+                ;CORREZ. NORM=0 REV=1
+        DEFB    67, 79, 82, 82, 69, 90, 46, 32, 78, 79
+        DEFB    82, 77, 61, 48, 32, 82, 69, 86, 61, 49
+
+                ;CORREC. NORM=0 REV=1
+        DEFB    67, 79, 82, 82, 69, 67, 46, 32, 78, 79
+        DEFB    82, 77, 61, 48, 32, 82, 69, 86, 61, 49
+
+                ;CORREC. NORM=0 REV=1
+        DEFB    67, 79, 82, 82, 69, 67, 46, 32, 78, 79
+        DEFB    82, 77, 61, 48, 32, 82, 69, 86, 61, 49
+
+                ;CORREC. NORM=0 REV=1
+        DEFB    67, 79, 82, 82, 69, 67, 46, 32, 78, 79
+        DEFB    82, 77, 61, 48, 32, 82, 69, 86, 61, 49
+
+                ;VERBES. NORM=0 UMK=1
+        DEFB    86, 69, 82, 66, 69, 83, 46, 32, 78, 79
+        DEFB    82, 77, 61, 48, 32, 85, 77, 75, 61, 49
+
+SERDIS:                                                ;SSRR
+                ; SEGN DE RIFERIMENT
+        DEFB    32, 83, 69, 71, 78, 32, 68, 69, 32, 82
+        DEFB    73, 70, 69, 82, 73, 77, 69, 78, 84, 32
+
+                ;SEGNO DI RIFERIMENTO
+        DEFB    83, 69, 71, 78, 79, 32, 68, 73, 32, 82
+        DEFB    73, 70, 69, 82, 73, 77, 69, 78, 84, 79
+
+                ;MARQUE DE REFERENCE
+        DEFB    77, 65, 82, 81, 85, 69, 32, 68, 69, 32
+        DEFB    82, 69, 70, 69, 82, 69, 78, 67, 69, 32
+
+                ;  REFERENCE MARK
+        DEFB    32, 32, 32, 82, 69, 70, 69, 82, 69, 78
+        DEFB    67, 69, 32, 77, 65, 82, 75, 32, 32, 32
+
+                ;MARCA DE REFERENCIA
+        DEFB    77, 65, 82, 67, 65, 32, 68, 69, 32, 82 
+        DEFB    69, 70, 69, 82, 69, 78, 67, 73, 65, 32
+
+
+                ;   HINWEIS MARKE
+        DEFB    32, 32, 32, 72, 73, 78, 87, 69, 73, 83 
+        DEFB    32, 77, 65, 82, 75, 69, 32, 32, 32, 32
+
+
+MARCIL:
+                ;MM=0 MC=1 MC_CODE=2 MMXX
+        DEFB    77, 77, 61, 48, 32, 77, 67, 61, 49, 32
+        DEFB    77, 67, 95, 67, 79, 68, 69, 61, 50, 32
+
+OFROTO:
+		;OFFSET=0 ROTOFLEXO=1
+	DEFB	79, 70, 70, 83, 69, 84, 61, 48, 32, 82
+	DEFB	79, 84, 79, 70, 76, 69, 88, 79, 61, 49
+
+DITEST:
+                ;******* TEST *******
+        DEFB    35, 35, 35, 35, 35, 35, 35, 32, 84, 69
+        DEFB    83, 84, 32, 35, 35, 35, 35, 35, 35, 35
+
+TTESTA:
+                ;PROEUVA DE LA CRAPA
+        DEFB    80, 82, 79, 65, 85, 86, 65, 32, 68, 69
+        DEFB    32, 76, 65, 32, 67, 82, 65, 80, 65, 32
+
+                ;  TEST DELLA TESTA
+        DEFB    32, 32, 84, 69, 83, 84, 32, 68, 69, 76
+        DEFB    76, 65, 32, 84, 69, 83, 84, 65, 32, 32
+
+                ;  TEST DE LA TETE
+        DEFB    32, 32, 84, 69, 83, 84, 32, 68, 69, 32
+        DEFB    76, 65, 32, 84, 69, 84, 69, 32, 32, 32
+
+                ;     HEAD TEST
+        DEFB    32, 32, 32, 32, 32, 72, 69, 65, 68, 32
+        DEFB    84, 69, 83, 84, 32, 32, 32, 32, 32, 32
+
+                ;TEST CABEZA ESPLORAD
+        DEFB    84, 69, 83, 84, 32, 67, 65, 66, 69, 90
+        DEFB    65, 32, 69, 83, 80, 76, 79, 82, 65, 68
+
+                ;    LESEKOPF TEST
+        DEFB    32, 32, 32, 76, 69, 83, 69, 75, 79, 80
+        DEFB    70, 32, 84, 69, 83, 84, 32, 32, 32, 32
+
+TENCOD:
+
+                ;    TEST ENCODER 
+        DEFB    32, 32, 32, 32, 84, 69, 83, 84, 32, 69
+        DEFB    78, 67, 79, 68, 69, 82, 32, 32, 32, 32
+
+TESREL:
+                ;      EDIZIONE
+        DEFB    32, 32, 32, 32, 32, 32, 69, 68, 73, 90
+        DEFB    73, 79, 78, 69, 32, 32, 32, 32, 32, 32
+
+ATIDIS:
+                ;    CICLI OFFSET
+        DEFB    32, 32, 32, 32, 67, 73, 67, 76, 73, 32
+        DEFB    79, 70, 70, 83, 69, 84, 32, 32, 32, 32
+
+
+LAVANO:
+                ;****** NOT OK ******
+        DEFB    35, 35, 35, 35, 35, 35, 32, 78, 79, 84
+        DEFB    32, 79, 75, 32, 35, 35, 35, 35, 35, 35
+
+LAVA:   
+                ;******** OK ********
+        DEFB    35, 35, 35, 35, 35, 35, 35, 35, 32, 79
+        DEFB    75, 32, 35, 35, 35, 35, 35, 35, 35, 35
+
+
+
+
+SECUND: DEFB    0C0H
+
+NETA:   DEFB    01H
+                
+
+               ;SCRITTURA ESEGUITA
+
+FADA:
+                LD      A,(LINGUA)          ;CCMM11
+                CP      00H
+                JR      Z,ESEM
+                CP      01H
+                JR      Z,ESEI
+                CP      02H
+                JR      Z,ESEF
+                CP      03H
+                JR      Z,ESEGB
+                CP      04H
+                JR      Z,ESEE
+                CP      05H
+                JR      Z,ESED          ;DDDD
+
+ESEM:           CALL    BASSA
+                LD      HL,ESEGUI
+                JR      ESETX
+ESEI:           CALL    BASSA
+                LD      HL,ESEGUI+14H
+                JR      ESETX
+ESEF:           CALL    BASSA
+                LD      HL,ESEGUI+28H
+                JR      ESETX
+ESEGB:          CALL    BASSA
+                LD      HL,ESEGUI+3CH
+                JR      ESETX
+ESEE:           CALL    BASSA
+                LD      HL,ESEGUI+50H
+                JR      ESETX
+ESED:           CALL    BASSA
+                LD      HL,ESEGUI+64H
+
+ESETX:          CALL    TX              
+
+                RET
+
+
+
+DATACG:
+               ;     CARATTERE 8  OOOO
+       DEFB    10H, 10H, 10H, 10H, 10H, 1FH, 1FH, 00H
+
+               ;     CARATTERE 9  
+       DEFB    08H, 08H, 08H, 08H, 08H, 1FH, 1FH, 00H
+
+               ;     CARATTERE A  
+       DEFB    04H, 04H, 04H, 04H, 04H, 1FH, 1FH, 00H
+
+               ;     CARATTERE B  
+       DEFB    02H, 02H, 02H, 02H, 02H, 1FH, 1FH, 00H
+
+               ;     CARATTERE C  
+       DEFB    01H, 01H, 01H, 01H, 01H, 1FH, 1FH, 00H
+
+               ;     CARATTERE D  
+       DEFB    00H, 00H, 00H, 00H, 00H, 1FH, 1FH, 00H
+
+               ;     CARATTERE E  
+       DEFB    10H, 10H, 10H, 10H, 10H, 10H, 10H, 00H
+
+               ;     CARATTERE F  
+       DEFB    01H, 01H, 01H, 01H, 01H, 01H, 01H, 00H
+
+		END
+
