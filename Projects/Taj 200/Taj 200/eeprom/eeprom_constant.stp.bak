@@ -2,7 +2,7 @@
 
 [Version]
 Keyword=ST7Project
-Number=1.1
+Number=1.0
 
 [Project]
 Name=eeprom_constant
@@ -125,7 +125,7 @@ String.100.0=ST7 Assembler Linker
 String.100.1=ST7 Cosmic
 String.100.2=ST7 Metrowerks V1.1
 String.101.0=ST7 Cosmic
-String.102.0=C:\Program Files\COSMIC\CXST7_16K
+String.102.0=
 String.103.0=
 String.104.0=Hst7
 String.105.0=Lib
@@ -287,6 +287,7 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2005,7,11,23,33,31
+String.8.0=Debug
 
 [Root.Source Files...\display\common.c.Config.0.Settings.2]
 String.2.0=Compiling $(InputFile)...
@@ -308,6 +309,7 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2005,7,11,23,33,31
+String.8.0=Release
 
 [Root.Source Files...\display\common.c.Config.1.Settings.2]
 String.2.0=Compiling $(InputFile)...
@@ -346,6 +348,7 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2005,7,11,23,33,31
+String.8.0=Debug
 
 [Root.Source Files...\display\eeprom.c.Config.0.Settings.2]
 String.2.0=Compiling $(InputFile)...
@@ -367,6 +370,7 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2005,7,11,23,33,31
+String.8.0=Release
 
 [Root.Source Files...\display\eeprom.c.Config.1.Settings.2]
 String.2.0=Compiling $(InputFile)...
@@ -405,6 +409,7 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2005,7,11,23,33,31
+String.8.0=Debug
 
 [Root.Source Files...\display\spi.c.Config.0.Settings.2]
 String.2.0=Compiling $(InputFile)...
@@ -426,6 +431,7 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2005,7,11,23,33,31
+String.8.0=Release
 
 [Root.Source Files...\display\spi.c.Config.1.Settings.2]
 String.2.0=Compiling $(InputFile)...
@@ -464,6 +470,7 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2005,7,11,23,33,31
+String.8.0=Debug
 
 [Root.Source Files.interrupt_vector.c.Config.0.Settings.2]
 String.2.0=Compiling $(InputFile)...
@@ -485,6 +492,7 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2005,7,11,23,33,31
+String.8.0=Release
 
 [Root.Source Files.interrupt_vector.c.Config.1.Settings.2]
 String.2.0=Compiling $(InputFile)...
@@ -522,6 +530,7 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2005,7,11,23,33,31
+String.8.0=Debug
 
 [Root.Source Files.main.c.Config.0.Settings.2]
 String.2.0=Compiling $(InputFile)...
@@ -543,6 +552,7 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2005,7,11,23,33,31
+String.8.0=Release
 
 [Root.Source Files.main.c.Config.1.Settings.2]
 String.2.0=Compiling $(InputFile)...

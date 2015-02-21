@@ -2,7 +2,7 @@
 
 [Version]
 Keyword=ST7Project
-Number=1.0
+Number=1.1
 
 [Project]
 Name=display
@@ -57,7 +57,7 @@ Settings.1.8=Root.Config.1.Settings.8
 String.6.0=2006,7,21,16,31,15
 String.100.0=ST7 Assembler Linker
 String.100.1=ST7 Cosmic
-String.100.2=ST7 Metrowerks V1.1
+String.100.2=ST7 Metrowerks V1.1 V1.1
 String.101.0=ST7 Cosmic
 String.102.0=C:\Program Files\Cosmic\CXST7
 String.103.0=
@@ -123,7 +123,7 @@ String.6.0=2005,7,11,23,33,31
 String.6.0=2014,3,14,19,16,24
 String.100.0=ST7 Assembler Linker
 String.100.1=ST7 Cosmic
-String.100.2=ST7 Metrowerks V1.1
+String.100.2=ST7 Metrowerks V1.1 V1.1
 String.101.0=ST7 Cosmic
 String.102.0=C:\Program Files (x86)\COSMIC\CXST7
 String.103.0=
@@ -147,14 +147,14 @@ String.100.0=ST72F521R9
 
 [Root.Config.1.Settings.3]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxst7 +modsl -customC-pp $(ToolsetInc) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxst7 +modsl -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2014,3,14,19,26,19
 
 [Root.Config.1.Settings.4]
 String.2.0=Assembling $(InputFile)...
-String.3.0=cast7 $(ToolsetInc) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
+String.3.0=cast7 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2014,3,14,19,16,24
@@ -240,14 +240,14 @@ Int.1=0
 
 [Root.Source Files.Config.1.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxst7 +modsl -customC-pp $(ToolsetInc) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxst7 +modsl -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2014,3,14,19,26,19
 
 [Root.Source Files.Config.1.Settings.2]
 String.2.0=Assembling $(InputFile)...
-String.3.0=cast7 $(ToolsetInc) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
+String.3.0=cast7 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2014,3,14,19,16,24
@@ -397,14 +397,14 @@ Int.1=0
 
 [Root.Include Files.Config.1.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxst7 +modsl -customC-pp $(ToolsetInc) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxst7 +modsl -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2014,3,14,19,26,19
 
 [Root.Include Files.Config.1.Settings.2]
 String.2.0=Assembling $(InputFile)...
-String.3.0=cast7 $(ToolsetInc) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
+String.3.0=cast7 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2014,3,14,19,16,24

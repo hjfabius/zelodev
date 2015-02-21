@@ -2,7 +2,7 @@
 
 [Version]
 Keyword=ST7Project
-Number=1.1
+Number=1.0
 
 [Project]
 Name=display
@@ -120,12 +120,12 @@ String.2.0=Performing Custom Build on $(InputFile)
 String.6.0=2005,7,11,23,33,31
 
 [Root.Config.1.Settings.0]
-String.6.0=2008,5,20,20,2,27
+String.6.0=2014,3,14,19,16,24
 String.100.0=ST7 Assembler Linker
 String.100.1=ST7 Cosmic
 String.100.2=ST7 Metrowerks V1.1
 String.101.0=ST7 Cosmic
-String.102.0=C:\Program Files\COSMIC\CXST7
+String.102.0=C:\Program Files (x86)\COSMIC\CXST7
 String.103.0=
 String.104.0=Hst7
 String.105.0=Lib
@@ -147,17 +147,17 @@ String.100.0=ST72F521R9
 
 [Root.Config.1.Settings.3]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxst7 +modsl -customC-pp $(ToolsetInc) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2006,9,18,23,12,50
+String.6.0=2014,3,14,19,26,19
 
 [Root.Config.1.Settings.4]
 String.2.0=Assembling $(InputFile)...
-String.3.0=cast7 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
+String.3.0=cast7 $(ToolsetInc) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2005,7,11,23,33,31
+String.6.0=2014,3,14,19,16,24
 
 [Root.Config.1.Settings.5]
 String.2.0=Running Pre-Link step
@@ -166,11 +166,11 @@ String.8.0=
 
 [Root.Config.1.Settings.6]
 String.2.0=Running ST7 linker
-String.3.0=clnk $(ToolsetLibOpts) -o $(OutputPath)$(TargetSName).st7 -fakeOutFile$(ProjectSFile).elf -fakeRunConv -fakeStartupcrtsx.st7 -fakeAutoGen -fakeInteger -fakeVectFileinterrupt_vector.c -fakeVectAddr0xffe0 -fakebText0x1000 -fakenText0xefff -fakeaConst -fakebBsct0x80 -fakenBsct0x7f -fakeaUbsct -fakeaShare -fakebData0x200 -fakenData0x67f -fakeaBss -customMapAddress -customCfgFile$(OutputPath)$(TargetSName).lkf 
+String.3.0=clnk -o $(OutputPath)$(TargetSName).st7 -fakeOutFile$(ProjectSFile).elf -fakeRunConv -fakeStartupcrtsx.st7 -fakeAutoGen -fakeInteger -fakeVectFileinterrupt_vector.c -fakeVectAddr0xffe0 -fakebText0x1000 -fakenText0xefff -fakeaConst -fakebBsct0x80 -fakenBsct0x7f -fakeaUbsct -fakeaShare -fakebData0x200 -fakenData0x67f -fakeaBss -customMapAddress -customCfgFile$(OutputPath)$(TargetSName).lkf 
 String.3.1=cvdwarf $(OutputPath)$(TargetSName).st7
 String.4.0=$(OutputPath)$(TargetFName)
-String.5.0=
-String.6.0=2006,9,18,23,13,38
+String.5.0=$(OutputPath)$(ProjectSFile).elf
+String.6.0=2014,3,14,19,19,14
 String.100.0=
 String.101.0=crtsx.st7
 Int.0=0
@@ -240,17 +240,17 @@ Int.1=0
 
 [Root.Source Files.Config.1.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxst7 +modsl -customC-pp $(ToolsetInc) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2006,9,18,23,12,50
+String.6.0=2014,3,14,19,26,19
 
 [Root.Source Files.Config.1.Settings.2]
 String.2.0=Assembling $(InputFile)...
-String.3.0=cast7 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
+String.3.0=cast7 $(ToolsetInc) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2005,7,11,23,33,31
+String.6.0=2014,3,14,19,16,24
 
 [Root.Source Files.Config.1.Settings.3]
 String.2.0=Performing Custom Build on $(InputFile)
@@ -397,17 +397,17 @@ Int.1=0
 
 [Root.Include Files.Config.1.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxst7 +modsl -customC-pp $(ToolsetInc) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2006,9,18,23,12,50
+String.6.0=2014,3,14,19,26,19
 
 [Root.Include Files.Config.1.Settings.2]
 String.2.0=Assembling $(InputFile)...
-String.3.0=cast7 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
+String.3.0=cast7 $(ToolsetInc) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2005,7,11,23,33,31
+String.6.0=2014,3,14,19,16,24
 
 [Root.Include Files.Config.1.Settings.3]
 String.2.0=Performing Custom Build on $(InputFile)

@@ -2,7 +2,7 @@
 
 [Version]
 Keyword=ST7Project
-Number=1.0
+Number=1.2
 
 [Project]
 Name=eeprom_constant
@@ -125,7 +125,7 @@ String.100.0=ST7 Assembler Linker
 String.100.1=ST7 Cosmic
 String.100.2=ST7 Metrowerks V1.1
 String.101.0=ST7 Cosmic
-String.102.0=
+String.102.0=C:\COSMIC\CXST7
 String.103.0=
 String.104.0=Hst7
 String.105.0=Lib

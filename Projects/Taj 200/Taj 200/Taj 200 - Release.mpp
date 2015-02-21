@@ -1,7 +1,7 @@
 [Project]
 Device=ST72F521M9
 ProgrammerHw=inDART-STX
-CodeFilename=U:\Documentazione tecnica\Projects\Zelo\Taj 200\Taj 200\display\Release\display.s19
+CodeFilename=C:\Documents and Settings\Admin\My Documents\zelodev\Projects\Taj 200\Taj 200\display\Release\display.s19
 CodeFormat=2
 CodeUnused=1
 CodeFileOffs=0
