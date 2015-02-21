@@ -1,0 +1,13 @@
+;	STMicroelectronics Workspace file
+
+[Version]
+Keyword=ST7Workspace-V0.7
+
+[Project0]
+Filename=ViscoWal\ViscoWal.stp
+Dependencies=
+
+[Options]
+ActiveProject=ViscoWal
+ActiveConfig=Release
+AddSortedElements=1

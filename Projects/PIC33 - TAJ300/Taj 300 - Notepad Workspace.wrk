@@ -1,0 +1,45 @@
+<NotepadPlus>
+    <Project name="Taj 300">
+        <Folder name="src">
+            <File name="src\common.c" />
+            <File name="src\display.c" />
+            <File name="src\display_application.c" />
+            <File name="src\display_navigation.c" />
+            <File name="src\eeprom.c" />
+            <File name="src\init.c" />
+            <File name="src\interrupt.c" />
+            <File name="src\label.c" />
+            <File name="src\main.c" />
+            <File name="src\parameters.c" />
+            <File name="src\scanningHeadSignal.c" />
+            <File name="src\screen.c" />
+            <File name="src\sni.c" />
+            <File name="src\spi.c" />
+            <File name="src\sti.c" />
+            <File name="src\traps.c" />
+            <File name="src\window.c" />
+        </Folder>
+        <Folder name="h">
+            <File name="h\common.h" />
+            <File name="h\defs.h" />
+            <File name="h\display.h" />
+            <File name="h\display_application.h" />
+            <File name="h\display_macros.h" />
+            <File name="h\display_navigation.h" />
+            <File name="h\eeprom.h" />
+            <File name="h\eeprom_msg_idx.h" />
+            <File name="h\init.h" />
+            <File name="h\interrupt.h" />
+            <File name="h\label.h" />
+            <File name="h\main.h" />
+            <File name="h\navigation.h" />
+            <File name="h\parameters.h" />
+            <File name="h\scanningHeadSignal.h" />
+            <File name="h\screen.h" />
+            <File name="h\sni.h" />
+            <File name="h\spi.h" />
+            <File name="h\sti.h" />
+            <File name="h\window.h" />
+        </Folder>
+    </Project>
+</NotepadPlus>

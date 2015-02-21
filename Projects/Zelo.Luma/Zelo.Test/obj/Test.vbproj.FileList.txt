@@ -1,0 +1,13 @@
+bin\Debug\Test.exe
+bin\Debug\Test.pdb
+bin\Debug\Test.xml
+bin\Debug\Zelo.BasicControls.dll
+bin\Debug\Zelo.BasicControls.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Zelo.Test.MDITest.resources
+obj\Debug\Zelo.Test.Resources.resources
+obj\Debug\Zelo.Test.TestBasicControls.resources
+obj\Debug\Test.vbproj.GenerateResource.Cache
+obj\Debug\Test.exe
+obj\Debug\Test.xml
+obj\Debug\Test.pdb

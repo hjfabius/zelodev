@@ -1,0 +1,13 @@
+bin\Debug\Taj 200 Interface.exe.config
+bin\Debug\Taj 200 Interface.exe
+bin\Debug\Taj 200 Interface.pdb
+bin\Debug\Taj 200 Interface.xml
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Taj_200_Interface.frmMain.resources
+obj\Debug\Taj_200_Interface.Resources.resources
+obj\Debug\Taj 200 Interface.vbproj.GenerateResource.Cache
+obj\Debug\Taj 200 Interface.exe
+obj\Debug\Taj 200 Interface.xml
+obj\Debug\Taj 200 Interface.pdb
+obj\Debug\Taj_200_Interface.frmNoritakeDisplay.resources
+obj\Debug\Taj_200_Interface.NoritakeDisplay.resources

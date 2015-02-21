@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6A669501-8AA6-4D65-968E-15BA375976ED}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Zelo.Luma</RootNamespace>
+    <AssemblyName>Zelo.Luma</AssemblyName>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <OptionStrict>On</OptionStrict>
+    <StartupObject>Zelo.Luma.GUIMain</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>..\BIN_FULL\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="Zelo.Luma" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="GUIMain.Designer.vb">
+      <DependentUpon>GUIMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUIMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIMain.resx">
+      <DependentUpon>GUIMain.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zelo.BasicControls\Zelo.BasicControls.vbproj">
+      <Project>{F03D44DC-FC42-40C1-967E-DF00A6121B6B}</Project>
+      <Name>Zelo.BasicControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.CameraConnector\Zelo.CameraConnector.vbproj">
+      <Project>{21E141FB-36F4-490B-AFA2-B8A9F6F7517B}</Project>
+      <Name>Zelo.CameraConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.Densitometer\Zelo.Densitometer.vbproj">
+      <Project>{E4FE55C1-B4AE-45F3-8C98-93D9F47BD4B8}</Project>
+      <Name>Zelo.Densitometer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.Navigation\Zelo.Navigation.vbproj">
+      <Project>{FCF38A93-B7B7-452A-AE7B-6AB3248AF09D}</Project>
+      <Name>Zelo.Navigation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.Parameters\Zelo.Parameters.vbproj">
+      <Project>{A1ACC890-46B6-4DE0-97D3-E5C5B5A05563}</Project>
+      <Name>Zelo.Parameters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.RegisterViscosityControl\Zelo.RegisterViscosityControl.vbproj">
+      <Project>{CD9EE224-84D3-4A77-AD0D-9F9C2E581F31}</Project>
+      <Name>Zelo.RegisterViscosityControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="i:\Zelo.WebInspection\Zelo.WebInspection.vbproj">
+      <Project>{2A764577-48CD-4B00-BC81-1042191FF3C2}</Project>
+      <Name>Zelo.WebInspection</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zeloLogo.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rewind.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\prismLogo.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MODBUSSERVERLib">
+      <Guid>{B3DE3CB4-C629-11D1-8FE9-E4CD05C10000}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,92 @@
+<?xml version="1.0" standalone="yes"?>
+<DSNavigation xmlns="http://tempuri.org/DSNavigation.xsd">
+  <xs:schema id="DSNavigation" targetNamespace="http://tempuri.org/DSNavigation.xsd" xmlns:mstns="http://tempuri.org/DSNavigation.xsd" xmlns="http://tempuri.org/DSNavigation.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+    <xs:element name="DSNavigation" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Navigation" msdata:Locale="">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="NavigationID" type="xs:short" />
+                <xs:element name="NavigationTitle" type="xs:string" />
+                <xs:element name="NavigationAssembly" type="xs:string" />
+                <xs:element name="NavigationClass" type="xs:string" />
+                <xs:element name="NavigationClientVisible" type="xs:boolean" minOccurs="0" />
+                <xs:element name="NavigationProjectVisible" type="xs:boolean" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:Navigation" />
+        <xs:field xpath="mstns:NavigationID" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <Navigation>
+    <NavigationID>1</NavigationID>
+    <NavigationTitle>Menù</NavigationTitle>
+    <NavigationAssembly>Zelo.Navigation</NavigationAssembly>
+    <NavigationClass>Zelo.Luma.MenuPage</NavigationClass>
+    <NavigationClientVisible>true</NavigationClientVisible>
+    <NavigationProjectVisible>true</NavigationProjectVisible>
+  </Navigation>
+  <Navigation>
+    <NavigationID>10</NavigationID>
+    <NavigationTitle>Current Job -base settings-</NavigationTitle>
+    <NavigationAssembly>Zelo.RegisterViscosityControl</NavigationAssembly>
+    <NavigationClass>Zelo.Luma.CurrentJobBaseSettingsPage</NavigationClass>
+    <NavigationClientVisible>false</NavigationClientVisible>
+    <NavigationProjectVisible>false</NavigationProjectVisible>
+  </Navigation>
+  <Navigation>
+    <NavigationID>20</NavigationID>
+    <NavigationTitle>Current Job -register and viscosity control-</NavigationTitle>
+    <NavigationAssembly>Zelo.RegisterViscosityControl</NavigationAssembly>
+    <NavigationClass>Zelo.Luma.CurrentJobRegisterViscosityControl</NavigationClass>
+    <NavigationClientVisible>true</NavigationClientVisible>
+    <NavigationProjectVisible>true</NavigationProjectVisible>
+  </Navigation>
+  <Navigation>
+    <NavigationID>21</NavigationID>
+    <NavigationTitle>Current Job -register and viscosity control-</NavigationTitle>
+    <NavigationAssembly>Zelo.RegisterViscosityControl</NavigationAssembly>
+    <NavigationClass>Zelo.Luma.CurrentJobRegisterViscosityControlDetail</NavigationClass>
+    <NavigationClientVisible>true</NavigationClientVisible>
+    <NavigationProjectVisible>true</NavigationProjectVisible>
+  </Navigation>
+  <Navigation>
+    <NavigationID>22</NavigationID>
+    <NavigationTitle>Current Job -register and viscosity control-</NavigationTitle>
+    <NavigationAssembly>Zelo.RegisterViscosityControl</NavigationAssembly>
+    <NavigationClass>Zelo.Luma.CurrentJobRegisterViscosityControlParameter</NavigationClass>
+    <NavigationClientVisible>true</NavigationClientVisible>
+    <NavigationProjectVisible>true</NavigationProjectVisible>
+  </Navigation>
+  <Navigation>
+    <NavigationID>30</NavigationID>
+    <NavigationTitle>Current Job -register control-</NavigationTitle>
+    <NavigationAssembly>Zelo.RegisterViscosityControl</NavigationAssembly>
+    <NavigationClass>Zelo.Luma.CurrentJobRegisterControl</NavigationClass>
+    <NavigationClientVisible>true</NavigationClientVisible>
+    <NavigationProjectVisible>true</NavigationProjectVisible>
+  </Navigation>
+  <Navigation>
+    <NavigationID>31</NavigationID>
+    <NavigationTitle>Current Job -register control-</NavigationTitle>
+    <NavigationAssembly>Zelo.RegisterViscosityControl</NavigationAssembly>
+    <NavigationClass>Zelo.Luma.CurrentJobRegisterControlDetail</NavigationClass>
+    <NavigationClientVisible>true</NavigationClientVisible>
+    <NavigationProjectVisible>true</NavigationProjectVisible>
+  </Navigation>
+  <Navigation>
+    <NavigationID>32</NavigationID>
+    <NavigationTitle>Current Job -register and viscosity control-</NavigationTitle>
+    <NavigationAssembly>Zelo.RegisterViscosityControl</NavigationAssembly>
+    <NavigationClass>Zelo.Luma.CurrentJobRegisterViscosityControlParameter</NavigationClass>
+    <NavigationClientVisible>true</NavigationClientVisible>
+    <NavigationProjectVisible>true</NavigationProjectVisible>
+  </Navigation>
+
+</DSNavigation>

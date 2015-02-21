@@ -1,0 +1,153 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Zelo.Dictionary
+</name>
+</assembly>
+<members>
+<member name="P:Zelo.Dictionary.My.Resources.Italian.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.Italian.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.Italian.strClient">
+	<summary>
+  Looks up a localized string similar to Cliente.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.Italian.strProject">
+	<summary>
+  Looks up a localized string similar to Progetto.
+</summary>
+</member><member name="T:Zelo.Dictionary.My.Resources.Italian">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strBack">
+	<summary>
+  Looks up a localized string similar to Back.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strBaseColor">
+	<summary>
+  Looks up a localized string similar to Base.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strBaseSettings">
+	<summary>
+  Looks up a localized string similar to Base Settings.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strClient">
+	<summary>
+  Looks up a localized string similar to Client.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strCopy">
+	<summary>
+  Looks up a localized string similar to Copy.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strCurrentJob">
+	<summary>
+  Looks up a localized string similar to Current Job.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strCurrentJobBaseSetting">
+	<summary>
+  Looks up a localized string similar to Current Job -base settings-.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strCurrentJobCopy">
+	<summary>
+  Looks up a localized string similar to Current Job -copy-.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strCurrentJobLoad">
+	<summary>
+  Looks up a localized string similar to Current Job -load-.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strCurrentJobNew">
+	<summary>
+  Looks up a localized string similar to Current Job -new-.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strCurrentJobRegisterControl">
+	<summary>
+  Looks up a localized string similar to Current Job -Register Control-.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strCurrentJobRegisterViscosityControl">
+	<summary>
+  Looks up a localized string similar to Current Job -Register and Viscosity Control-.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strCurrentJobViscosityControl">
+	<summary>
+  Looks up a localized string similar to Current Job -Viscosity Control-.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strDateCreated">
+	<summary>
+  Looks up a localized string similar to Date Created.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strDateModified">
+	<summary>
+  Looks up a localized string similar to Date Modified.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strHome">
+	<summary>
+  Looks up a localized string similar to Home.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strLoad">
+	<summary>
+  Looks up a localized string similar to Load.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strMenu">
+	<summary>
+  Looks up a localized string similar to Menù.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strNew">
+	<summary>
+  Looks up a localized string similar to New.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strOffColor">
+	<summary>
+  Looks up a localized string similar to Off.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strProject">
+	<summary>
+  Looks up a localized string similar to Project.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strRegisterControl">
+	<summary>
+  Looks up a localized string similar to Register Control.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strRegisterViscosityControl">
+	<summary>
+  Looks up a localized string similar to Register and Viscosity Control.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strSystem">
+	<summary>
+  Looks up a localized string similar to System.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strSystemConfiguration">
+	<summary>
+  Looks up a localized string similar to System Configuration.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strViscosityControl">
+	<summary>
+  Looks up a localized string similar to Viscosity Control.
+</summary>
+</member><member name="P:Zelo.Dictionary.My.Resources.English.strVision">
+	<summary>
+  Looks up a localized string similar to Vision.
+</summary>
+</member><member name="T:Zelo.Dictionary.My.Resources.English">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>

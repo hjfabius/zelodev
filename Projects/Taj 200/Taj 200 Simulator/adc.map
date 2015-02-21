@@ -1,0 +1,134 @@
+
+Map of adc.st7 from link file adc.lkf - Wed May 30 16:52:54 2007
+
+
+                               --------
+                               Segments
+                               --------
+
+start 0000fa00 end 0000fd05 length   773 segment .text
+start 0000fd05 end 0000fd05 length     0 segment .TEXT
+start 0000fd05 end 0000fd05 length     0 segment .const
+start 0000fd05 end 0000fd05 length     0 segment DATA
+start 00000080 end 00000080 length     0 segment .bsct
+start 00000080 end 00000090 length    16 segment .ubsct
+start 00000090 end 000000ac length    28 segment .share
+start 000000c0 end 000000c0 length     0 segment .data
+start 000000c0 end 000000c0 length     0 segment .bss
+start 00000000 end 00000dd1 length  3537 segment .debug
+start 0000ffe0 end 00010000 length    32 segment .const
+
+
+                               -------
+                               Modules
+                               -------
+
+C:\Program Files\Cosmic\Eval ST7\lib\crts.st7:
+start 0000fa00 end 0000fa06 length     6 section .text
+
+main.o:
+start 0000fa06 end 0000fc63 length   605 section .text
+start 00000080 end 0000008e length    14 section .ubsct
+start 00000000 end 000007f9 length  2041 section .debug
+
+(C:\Program Files\Cosmic\Eval ST7\lib\libm.st7)xreg.o:
+start 0000008e end 00000090 length     2 section .ubsct
+
+vector.o:
+start 000007f9 end 000008a0 length   167 section .debug
+start 0000ffe0 end 00010000 length    32 section .const
+
+communication.o:
+start 0000fc63 end 0000fd05 length   162 section .text
+start 000008a0 end 00000dd1 length  1329 section .debug
+
+
+                             ------------
+                             Shared areas
+                             ------------
+
+communication.o:
+_sendIntNumber       00000090-000000ab (26,2)
+
+main.o:
+_AT_Overflow_Irq     on stack (6)
+_chkCmdOutput        00000092-00000093 (2,0)
+_chkKeyboard         00000092-00000093 (2,0)
+_main                00000090-00000091 (2,0)
+_sleep               00000092-00000093 (0,2)
+
+Stack size: 12
+
+
+                               -------
+                               Symbols
+                               -------
+
+MAXSIZE            000005e0   defined in command file
+                              *** not used ***
+_ADCCAMP           00000036   defined in main.o
+_ADCCSR            00000034   defined in main.o
+_ADCDR             00000035   defined in main.o
+_ATCSR             0000000d   defined in main.o
+_ATR               00000010   defined in main.o
+_ATRH              00000010   defined in main.o
+_ATRL              00000011   defined in main.o
+_AT_Overflow_Irq   0000fa06   defined in main.o section .text
+                              used in vector.o
+_CNTR              0000000e   defined in main.o
+_CNTRH             0000000e   defined in main.o
+_CNTRL             0000000f   defined in main.o
+_DCR0              00000017   defined in main.o
+_DCR0H             00000017   defined in main.o
+_DCR0L             00000018   defined in main.o
+_EECSR             00000030   defined in main.o
+_EICR              00000037   defined in main.o
+_FCSR              0000002f   defined in main.o
+_LTCSR             0000000b   defined in main.o
+_LTICR             0000000c   defined in main.o
+_MCCSR             00000038   defined in main.o
+_PADDR             00000001   defined in main.o
+_PADR              00000000   defined in main.o
+_PAOR              00000002   defined in main.o
+_PBDDR             00000004   defined in main.o
+_PBDR              00000003   defined in main.o
+_PBOR              00000005   defined in main.o
+_PWM0CSR           00000013   defined in main.o
+_PWMCR             00000012   defined in main.o
+_RCCR              00000039   defined in main.o
+_SICSR             0000003a   defined in main.o
+_SPICR             00000032   defined in main.o
+_SPIDR             00000031   defined in main.o
+_SPISR             00000033   defined in main.o
+__endzp            00000090   defined in command file section .ubsct
+                              *** not used ***
+__memory           000000c0   defined in command file section .bss
+                              *** not used ***
+__stext            0000fa00   defined in C:\Program Files\Cosmic\Eval ST7\lib\crts.st7 section .text
+                              used in vector.o
+__vectab           0000ffe0   defined in vector.o section .const
+_chkCmdOutput      0000fab8   defined in main.o section .text
+_chkCmdOutput$L    00000094   defined in linker section .share
+                              used in main.o
+_chkKeyboard       0000fa79   defined in main.o section .text
+_chkKeyboard$L     00000094   defined in linker section .share
+                              used in main.o
+_exit              0000fa04   defined in C:\Program Files\Cosmic\Eval ST7\lib\crts.st7 section .text
+_init              0000fa33   defined in main.o section .text
+_ledBlink          0000faf7   defined in main.o section .text
+                              *** not used ***
+_ledDoubleBlink    0000fb0a   defined in main.o section .text
+_main              0000fbb5   defined in main.o section .text
+                              used in C:\Program Files\Cosmic\Eval ST7\lib\crts.st7
+_main$L            00000092   defined in linker section .share
+                              used in main.o
+_sendIntNumber     0000fc63   defined in communication.o section .text
+                              *** not used ***
+_sendIntNumber$L   000000aa   defined in linker section .share
+                              used in communication.o
+_simulateSignals   0000fb28   defined in main.o section .text
+_sleep             0000fa58   defined in main.o section .text
+_sleep$L           00000092   defined in linker section .share
+                              used in main.o
+c_x                0000008e   defined in (C:\Program Files\Cosmic\Eval ST7\lib\libm.st7)xreg.o section .ubsct
+                              used in main.o

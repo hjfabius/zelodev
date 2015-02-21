@@ -1,0 +1,13 @@
+;	STMicroelectronics Workspace file
+
+[Version]
+Keyword=ST7Workspace-V0.7
+
+[Project0]
+Filename=display.stp
+Dependencies=
+
+[Options]
+ActiveProject=display
+ActiveConfig=Release
+AddSortedElements=1

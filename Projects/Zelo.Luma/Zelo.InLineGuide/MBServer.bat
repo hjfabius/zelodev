@@ -1,0 +1,1 @@
+MBServer.exe /RegServer

@@ -1,0 +1,32 @@
+open pccam
+hjfabius
+fabius
+verbose
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\makefile"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\main.cc"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\MarksManager.h"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\MarksManager.cc"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\Marks.h"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\Marks.cc"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\AnalysisManager.h"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\AnalysisManager.cc"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\definition.h"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\utility.cc"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\utility.h"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\analysis.cc"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\analysis.h"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\communication.cc"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\communication.h"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\Exception.cc"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\Exception.h"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\FrameBuffer.cc"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\FrameBuffer.h"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\pointAnalyzer.cc"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\pointAnalyzer.h"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\versioning.cc"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\versioning.h"
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\pccamera.cc"
+bell
+put "D:\Projects\Zelo\Camera\ZeloElettronica.BLL.Camera\pccamera.h"
+quit
+

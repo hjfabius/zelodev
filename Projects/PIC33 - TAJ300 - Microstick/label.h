@@ -1,0 +1,136 @@
+#ifndef LABEL_H
+	#define LABEL_H
+
+	#include "common.h"
+
+
+/*****************************************************************************/
+	#define 	LABEL_MODE							0
+	#define		LABEL_AUTO							1
+	#define		LABEL_MANUAL						2
+	#define		LABEL_SPEED							3
+	#define		LABEL_MT_MIN						4
+	#define		LABEL_MESSAGE						5
+	#define 	LABEL_ALARM							6
+	#define 	LABEL_ALARM_ERR_NO_PRINT			7
+	#define 	LABEL_ALARM_ERR_LOW_SPEED			8
+	#define 	LABEL_ALARM_ERR_TEST_SH_01			9
+	#define 	LABEL_ALARM_ERR_TEST_SH_02			10
+	#define 	LABEL_ALARM_ERR_TEST_ENC_01			11
+	#define 	LABEL_ALARM_ERR_TEST_ENC_02			12
+	#define 	LABEL_ALARM_ERR_PHASE_AUTO_01		13
+	#define 	LABEL_ALARM_ERR_PHASE_AUTO_02		14
+	#define 	LABEL_ALARM_CYLINDER_TRAVEL_01		15
+	#define 	LABEL_ALARM_CYLINDER_TRAVEL_02		16
+	#define 	LABEL_ALARM_GATE_WINDOW_01			17
+	#define 	LABEL_ALARM_GATE_WINDOW_02			18
+	#define 	LABEL_ANSWER_OK						19
+	#define 	LABEL_GENERIC_ALARM_01				20
+	#define 	LABEL_GENERIC_ALARM_02				21
+	#define 	LABEL_PHASE_OSCILL					22
+	#define 	LABEL_PHASE_FAST					23
+	#define 	LABEL_OSCILLOSCOPE					24
+	//#define 	LABEL_REGISTER						25
+	#define 	LABEL_PHASE_MANUAL_01				26
+	#define 	LABEL_PHASE_MANUAL_02				27
+	#define 	LABEL_PHASE_AUTO_01					28
+	#define 	LABEL_PHASE_AUTO_02					29
+	#define 	LABEL_PHASE_OSCILL_01				30
+	#define 	LABEL_PHASE_OSCILL_02				31
+	#define 	LABEL_PHASE_FAST_01					32
+	#define 	LABEL_PHASE_FAST_02					33
+	#define 	LABEL_CYLINDER_TRAVEL_01			34
+	#define 	LABEL_CYLINDER_TRAVEL_02			35
+	#define 	LABEL_ALARM_BOUND_01				36
+	#define 	LABEL_ALARM_BOUND_02				37
+	#define 	LABEL_GATE_WINDOW_01				38
+	#define 	LABEL_GATE_WINDOW_02				39
+	#define 	LABEL_SW_VERSION_01					40
+	#define 	LABEL_SW_VERSION_02					41
+	#define 	LABEL_OFFSET_DISTANCE_01			42
+	#define 	LABEL_OFFSET_DISTANCE_02			43
+	#define 	LABEL_TEST_SH_01					44
+	#define 	LABEL_TEST_SH_02					45
+	#define 	LABEL_TEST_ENC_01					46
+	#define 	LABEL_TEST_ENC_02					47
+	#define 	LABEL_TEST_OUTPUT_01				48
+	#define 	LABEL_TEST_OUTPUT_02				49
+	#define 	LABEL_VISUAL_REGISTER_01			50
+	#define 	LABEL_VISUAL_REGISTER_02			51
+	#define 	LABEL_VISUAL_OSCILL_01				52
+	#define 	LABEL_VISUAL_OSCILL_02				53
+	#define 	LABEL_JOB_ARCHIVE_01				54
+	#define 	LABEL_JOB_ARCHIVE_02				55
+	#define 	LABEL_FUNCTIONS						56
+	#define 	LABEL_PARAMETERS					57
+	#define 	LABEL_TESTS							58
+	#define 	LABEL_SIMPLE_SETUP					59
+	#define 	LABEL_FULL_SETUP					60
+	#define 	LABEL_PHASE_CENTER_01				61
+	#define 	LABEL_PHASE_CENTER_02				62
+	#define		LABEL_ALARM_ERR_ACCELERATION		63
+	#define		LABEL_ALARM_ERR_DECELERATION		64
+	#define		LABEL_ALARM_ERR_DOUBLE_MARK			65
+	#define		LABEL_AUTO_SHORT					66
+	#define		LABEL_MANUAL_SHORT					67
+	#define		LABEL_MODE_LONG						68
+	#define		LABEL_MODE_TRANS					69
+	#define		LABEL_MODE_PULL						70
+	#define		LABEL_SAVE_JOB_01					71
+	#define		LABEL_SAVE_JOB_02					72
+	#define		LABEL_LOAD_JOB_01					73
+	#define		LABEL_LOAD_JOB_02					74
+	#define 	LABEL_TWIN_APPLICATION_01_01		75
+	#define 	LABEL_TWIN_APPLICATION_01_02		76
+	#define 	LABEL_TWIN_APPLICATION_02_01		77
+	#define 	LABEL_TWIN_APPLICATION_02_02		78
+	#define 	LABEL_TWIN_APPLICATION_03_01		79
+	#define 	LABEL_TWIN_APPLICATION_03_02		80
+	#define 	LABEL_TWIN_APPLICATION_04_01		81
+	#define 	LABEL_TWIN_APPLICATION_04_02		82
+	#define 	LABEL_TWIN_APPLICATION_05_01		83
+	#define 	LABEL_TWIN_APPLICATION_05_02		84
+	#define 	LABEL_TWIN_APPLICATION_06_01		85
+	#define 	LABEL_TWIN_APPLICATION_06_02		86
+	#define 	LABEL_TWIN_APPLICATION_07_01		87
+	#define 	LABEL_TWIN_APPLICATION_07_02		88
+	#define 	LABEL_REGISTER						89
+	#define 	LABEL_REGISTER_TWIN_APPLICATION_01	90
+	#define 	LABEL_REGISTER_TWIN_APPLICATION_02	91
+	#define 	LABEL_REGISTER_TWIN_APPLICATION_03	92
+	#define 	LABEL_REGISTER_TWIN_APPLICATION_04	93
+	#define 	LABEL_REGISTER_TWIN_APPLICATION_05	94
+	#define 	LABEL_REGISTER_TWIN_APPLICATION_06	95
+	#define 	LABEL_REGISTER_TWIN_APPLICATION_07	96
+	#define 	LABEL_ENCODER_01_01					97
+	#define 	LABEL_ENCODER_01_02					98
+	#define 	LABEL_ENCODER_02_01					99
+	#define 	LABEL_ENCODER_02_02					100
+	#define		LABEL_SELECT_APPLICATION_01			101
+	#define		LABEL_SELECT_APPLICATION_02			102
+	#define		LABEL_SELECT_ENCODER_01				103
+	#define		LABEL_SELECT_ENCODER_02				104
+	#define 	LABEL_SH_PN_01_01					105
+	#define 	LABEL_SH_PN_01_02					106
+	#define 	LABEL_SH_PN_02_01					107
+	#define 	LABEL_SH_PN_02_02					108
+	#define		LABEL_SELECT_SH_PN_01				109
+	#define		LABEL_SELECT_SH_PN_02				110
+	#define 	LABEL_TENSION_BASE_VALUE_01			111
+	#define 	LABEL_TENSION_BASE_VALUE_02			112
+	#define		LABEL_SPEED_SHORT					113
+	#define		LABEL_CYLINDER_SIZE					114
+	#define     LABEL_SELECT_MM_01					115
+	#define 	LABEL_SELECT_MM_02					116
+	#define     LABEL_MM_POSITION_01_01				117
+	#define 	LABEL_MM_POSITION_01_02				118
+	#define     LABEL_MM_POSITION_02_01				119
+	#define 	LABEL_MM_POSITION_02_02				120
+
+
+
+/*****************************************************************************/
+	BYTE * labelGet(BYTE a_byIndex);
+	BYTE * labelSetupGet(BYTE a_byIndex);
+
+#endif

@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0230DEBD-CB04-49E8-9403-288C45966983}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Zelo.Luma</RootNamespace>
+    <AssemblyName>Zelo.ZeloControls</AssemblyName>
+    <MyType>Windows</MyType>
+    <OptionStrict>On</OptionStrict>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>I:\BIN_FULL\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Drawing.Drawing2D" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EnumAndTypes.vb" />
+    <Compile Include="GUIColourChooser.Designer.vb">
+      <DependentUpon>GUIColourChooser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUIColourChooser.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIDensibar.Designer.vb">
+      <DependentUpon>GUIDensibar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUIDensibar.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIDensiMultibar.Designer.vb">
+      <DependentUpon>GUIDensiMultibar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUIDensiMultibar.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIDensiMultibarEx.Designer.vb">
+      <DependentUpon>GUIDensiMultibarEx.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUIDensiMultibarEx.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIMark.Designer.vb">
+      <DependentUpon>GUIMark.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUIMark.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIRegister.Designer.vb">
+      <DependentUpon>GUIRegister.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUIRegister.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIRegisterCross.Designer.vb">
+      <DependentUpon>GUIRegisterCross.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUIRegisterCross.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIRegisterViscosity.Designer.vb">
+      <DependentUpon>GUIRegisterViscosity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUIRegisterViscosity.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIRegisterViscosityEx.Designer.vb">
+      <DependentUpon>GUIRegisterViscosityEx.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUIRegisterViscosityEx.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUITermometer.Designer.vb">
+      <DependentUpon>GUITermometer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUITermometer.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIViscosity.Designer.vb">
+      <DependentUpon>GUIViscosity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUIViscosity.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIViscosityTemperature.Designer.vb">
+      <DependentUpon>GUIViscosityTemperature.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUIViscosityTemperature.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GUIColourChooser.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GUIColourChooser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIMark.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GUIMark.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIRegister.resx">
+      <DependentUpon>GUIRegister.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIRegisterCross.resx">
+      <DependentUpon>GUIRegisterCross.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIRegisterViscosity.resx">
+      <DependentUpon>GUIRegisterViscosity.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIRegisterViscosityEx.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GUIRegisterViscosityEx.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUITermometer.resx">
+      <DependentUpon>GUITermometer.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIViscosity.resx">
+      <DependentUpon>GUIViscosity.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIViscosityTemperature.resx">
+      <DependentUpon>GUIViscosityTemperature.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zelo.BasicControls\Zelo.BasicControls.vbproj">
+      <Project>{F03D44DC-FC42-40C1-967E-DF00A6121B6B}</Project>
+      <Name>Zelo.BasicControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.Dictionary\Zelo.Dictionary.vbproj">
+      <Project>{89B7C4C0-9BAE-451C-BBAE-C6DEA2E4B40F}</Project>
+      <Name>Zelo.Dictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.Parameters\Zelo.Parameters.vbproj">
+      <Project>{A1ACC890-46B6-4DE0-97D3-E5C5B5A05563}</Project>
+      <Name>Zelo.Parameters</Name>
+    </ProjectReference>
+    <ProjectReference Include="i:\Zelo.Marks\Zelo.Marks.vbproj">
+      <Project>{E3CCD1DE-442F-4375-8A2B-C6667F97646B}</Project>
+      <Name>Zelo.Marks</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Disabled_iconDarkGear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Disabled_iconDarkGearBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Disabled_iconDarkMan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Disabled_iconDarkManBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Disabled_iconDarkMinus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Disabled_iconDarkMinusBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Disabled_iconDarkPlus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Disabled_iconDarkPlusBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Disabled_runmodeAutomatic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Disabled_runmodeAutomaticBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Disabled_runmodeManual.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Disabled_runmodeManualBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\greenStar.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkGear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkGearBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkGearMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkMan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkManBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkManMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkMinus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkMinusBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkMinusMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkPlus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkPlusBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkPlusMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconLightGear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconLightGearMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconLightMan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconLightManMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconLightMinus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconLightMinusMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconLightPlus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconLightPlusMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\redStar.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\runmodeAutomatic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\runmodeAutomaticBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\runmodeManual.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GUIDensibar.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GUIDensibar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIDensiMultibarEx.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GUIDensiMultibarEx.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\runmodeManualBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,157 @@
+;	STMicroelectronics Project file
+
+[Version]
+Keyword=ST7Project
+Number=1.1
+
+[Project]
+Name=adc
+Toolset=
+Makefile=adc.mak
+
+[Config]
+0=Config.0
+1=Config.1
+
+[Config.0]
+ConfigName=Debug
+Target=adc.elf
+OutputFolder=
+Debug=adc.elf
+
+[Config.1]
+ConfigName=Release
+Target=adc.elf
+OutputFolder=
+Debug=adc.elf
+
+[Root]
+ElemType=Project
+PathName=adc
+Child=Root.Include Files
+Config.0=Root.Config.0
+Config.1=Root.Config.1
+
+[Root.Config.0]
+Settings.0.0=Root.Config.0.Settings.0
+Settings.0.1=Root.Config.0.Settings.1
+Settings.0.2=Root.Config.0.Settings.2
+
+[Root.Config.1]
+Settings.1.0=Root.Config.1.Settings.0
+Settings.1.1=Root.Config.1.Settings.1
+Settings.1.2=Root.Config.1.Settings.2
+
+[Root.Config.0.Settings.0]
+String.2.0=Making $(InputFile)...
+String.4.0=adc.elf
+String.5.0=
+String.6.0=2006,1,9,20,27,25
+String.8.0=
+String.100.0=gmake -f adc.mak
+String.101.0=
+String.102.0=gmake -f adc.mak rebuild
+String.103.0=-f adc.mak
+String.104.0=
+String.105.0=-f adc.mak rebuild
+String.106.0=gmake
+String.107.0=
+
+[Root.Config.0.Settings.1]
+String.6.0=2006,1,9,20,27,25
+String.100.0=adc.elf
+String.101.0=
+String.102.0=
+String.103.0=.\;
+String.107.0=
+
+[Root.Config.0.Settings.2]
+String.2.0=
+String.6.0=2006,1,9,20,27,25
+String.100.0=ST7FLITE09
+
+[Root.Config.1.Settings.0]
+String.2.0=Making $(InputFile)...
+String.4.0=adc.elf
+String.5.0=
+String.6.0=2006,1,9,20,27,25
+String.100.0=gmake -f adc.mak
+String.101.0=
+String.102.0=gmake -f adc.mak rebuild
+String.103.0=-f adc.mak
+String.104.0=
+String.105.0=-f adc.mak rebuild
+String.106.0=gmake
+String.107.0=
+
+[Root.Config.1.Settings.1]
+String.6.0=2006,1,9,20,27,25
+String.100.0=adc.elf
+String.101.0=
+String.102.0=
+String.103.0=.\;
+String.107.0=
+
+[Root.Config.1.Settings.2]
+String.2.0=
+String.6.0=2006,1,9,20,27,25
+String.100.0=ST7FLITE09
+
+[Root.Include Files]
+ElemType=Folder
+PathName=Include Files
+Child=Root.Include Files.common.h
+Next=Root.Source Files
+
+[Root.Include Files.common.h]
+ElemType=File
+PathName=common.h
+Next=Root.Include Files.iost7flite0.h
+
+[Root.Include Files.iost7flite0.h]
+ElemType=File
+PathName=iost7flite0.h
+Next=Root.Include Files.main.h
+
+[Root.Include Files.main.h]
+ElemType=File
+PathName=main.h
+
+[Root.Source Files]
+ElemType=Folder
+PathName=Source Files
+Child=Root.Source Files.main.c
+Next=Root.adc.lkf
+
+[Root.Source Files.main.c]
+ElemType=File
+PathName=main.c
+Next=Root.Source Files.vector.c
+
+[Root.Source Files.vector.c]
+ElemType=File
+PathName=vector.c
+
+[Root.adc.lkf]
+ElemType=File
+PathName=adc.lkf
+Next=Root.adc.mak
+
+[Root.adc.mak]
+ElemType=Makefile
+PathName=adc.mak
+Next=Root.adc.map
+
+[Root.adc.map]
+ElemType=File
+PathName=adc.map
+Next=Root.main.ls
+
+[Root.main.ls]
+ElemType=File
+PathName=main.ls
+Next=Root.vector.ls
+
+[Root.vector.ls]
+ElemType=File
+PathName=vector.ls

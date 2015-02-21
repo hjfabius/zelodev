@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DSNavigation" targetNamespace="http://tempuri.org/DSNavigation.xsd" xmlns:mstns="http://tempuri.org/DSNavigation.xsd" xmlns="http://tempuri.org/DSNavigation.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+        </Connections>
+        <Tables>
+        </Tables>
+        <Sources>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DSNavigation" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DSNavigation" msprop:Generator_DataSetName="DSNavigation">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Navigation" msdata:Locale="" msprop:Generator_UserTableName="Navigation" msprop:Generator_RowDeletedName="NavigationRowDeleted" msprop:Generator_RowChangedName="NavigationRowChanged" msprop:Generator_RowClassName="NavigationRow" msprop:Generator_RowChangingName="NavigationRowChanging" msprop:Generator_RowEvArgName="NavigationRowChangeEvent" msprop:Generator_RowEvHandlerName="NavigationRowChangeEventHandler" msprop:Generator_TableClassName="NavigationDataTable" msprop:Generator_TableVarName="tableNavigation" msprop:Generator_RowDeletingName="NavigationRowDeleting" msprop:Generator_TablePropName="Navigation">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NavigationID" msprop:Generator_UserColumnName="NavigationID" msprop:Generator_ColumnPropNameInRow="NavigationID" msprop:Generator_ColumnVarNameInTable="columnNavigationID" msprop:Generator_ColumnPropNameInTable="NavigationIDColumn" type="xs:short" />
+              <xs:element name="NavigationTitle" msprop:Generator_UserColumnName="NavigationTitle" msprop:Generator_ColumnPropNameInRow="NavigationTitle" msprop:Generator_ColumnVarNameInTable="columnNavigationTitle" msprop:Generator_ColumnPropNameInTable="NavigationTitleColumn" type="xs:string" />
+              <xs:element name="NavigationAssembly" msprop:Generator_UserColumnName="NavigationAssembly" msprop:Generator_ColumnPropNameInRow="NavigationAssembly" msprop:Generator_ColumnVarNameInTable="columnNavigationAssembly" msprop:Generator_ColumnPropNameInTable="NavigationAssemblyColumn" type="xs:string" />
+              <xs:element name="NavigationClass" msprop:Generator_UserColumnName="NavigationClass" msprop:Generator_ColumnPropNameInRow="NavigationClass" msprop:Generator_ColumnVarNameInTable="columnNavigationClass" msprop:Generator_ColumnPropNameInTable="NavigationClassColumn" type="xs:string" />
+              <xs:element name="NavigationClientVisible" msprop:Generator_UserColumnName="NavigationClientVisible" msprop:Generator_ColumnPropNameInRow="NavigationClientVisible" msprop:Generator_ColumnVarNameInTable="columnNavigationClientVisible" msprop:Generator_ColumnPropNameInTable="NavigationClientVisibleColumn" type="xs:boolean" minOccurs="0" />
+              <xs:element name="NavigationProjectVisible" msprop:Generator_UserColumnName="NavigationProjectVisible" msprop:Generator_ColumnPropNameInRow="NavigationProjectVisible" msprop:Generator_ColumnVarNameInTable="columnNavigationProjectVisible" msprop:Generator_ColumnPropNameInTable="NavigationProjectVisibleColumn" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Navigation" />
+      <xs:field xpath="mstns:NavigationID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

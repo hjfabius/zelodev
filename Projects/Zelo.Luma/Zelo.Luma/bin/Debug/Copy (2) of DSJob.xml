@@ -1,0 +1,136 @@
+<?xml version="1.0" standalone="yes"?>
+<DSJobs xmlns="http://tempuri.org/DSJobs.xsd">
+  <xs:schema id="DSJobs" targetNamespace="http://tempuri.org/DSJobs.xsd" xmlns:mstns="http://tempuri.org/DSJobs.xsd" xmlns="http://tempuri.org/DSJobs.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+    <xs:element name="DSJobs" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Jobs">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="JobID" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="ClientName" type="xs:string" minOccurs="0" />
+                <xs:element name="ProjectName" type="xs:string" minOccurs="0" />
+                <xs:element name="DateCreated" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="DateModified" type="xs:dateTime" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Registers">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="RegisterID" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="Range" type="xs:int" default="100" minOccurs="0" />
+                <xs:element name="LongitudinalMode" type="xs:int" default="1" minOccurs="0" />
+                <xs:element name="LateralMode" type="xs:int" default="1" minOccurs="0" />
+                <xs:element name="IsBaseColor" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsInstalled" type="xs:boolean" default="true" minOccurs="0" />
+                <xs:element name="LateralRefValue" type="xs:double" default="0" minOccurs="0" />
+                <xs:element name="LateralValue" type="xs:double" default="0" minOccurs="0" />
+                <xs:element name="LongitudinalRefValue" type="xs:double" default="0" minOccurs="0" />
+                <xs:element name="LongitudinalValue" type="xs:double" default="0" minOccurs="0" />
+                <xs:element name="MarkID" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="LateralFactor" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="LateralGain" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="LongitudinalFactor" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="LongitudinalGain" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="Side" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="CylinderLength" type="xs:double" default="504" minOccurs="0" />
+                <xs:element name="Cyclic" type="xs:int" default="1" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Groups">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="GroupID" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="JobID" type="xs:int" />
+                <xs:element name="GroupNumber" type="xs:int" default="1" minOccurs="0" />
+                <xs:element name="GroupColor" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="RegisterID" type="xs:int" minOccurs="0" />
+                <xs:element name="ViscosityID" type="xs:int" minOccurs="0" />
+                <xs:element name="IsInstalled" type="xs:boolean" default="true" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Viscosities">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ViscosityID" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="ViscosityRefValue" type="xs:double" default="25" minOccurs="0" />
+                <xs:element name="ViscosityMax" type="xs:double" default="40" minOccurs="0" />
+                <xs:element name="ViscosityMin" type="xs:double" default="10" minOccurs="0" />
+                <xs:element name="TemperatureRange" type="xs:double" default="65" minOccurs="0" />
+                <xs:element name="TemperatureMax" type="xs:double" default="45" minOccurs="0" />
+                <xs:element name="TemperatureMin" type="xs:double" default="5" minOccurs="0" />
+                <xs:element name="PhRefValue" type="xs:double" default="7" minOccurs="0" />
+                <xs:element name="PhMax" type="xs:double" default="14" minOccurs="0" />
+                <xs:element name="PhMin" type="xs:double" default="0" minOccurs="0" />
+                <xs:element name="ViscosityGain" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="TemperatureGain" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="PhGain" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="ViscosityMode" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="IsInstalled" type="xs:boolean" default="true" minOccurs="0" />
+                <xs:element name="ViscosityRange" type="xs:double" default="40" minOccurs="0" />
+                <xs:element name="ViscosityFactor" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="TemperatureFactor" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="PhFactor" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="ViscosityValue" type="xs:double" default="20" minOccurs="0" />
+                <xs:element name="TemperatureValue" type="xs:double" default="12" minOccurs="0" />
+                <xs:element name="PhValue" type="xs:double" default="71" minOccurs="0" />
+                <xs:element name="Fluid" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="Pause" type="xs:int" default="0" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Densities">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="DensityID" type="xs:int" />
+                <xs:element name="GroupID" type="xs:int" minOccurs="0" />
+                <xs:element name="IsInstalled" type="xs:boolean" minOccurs="0" />
+                <xs:element name="MarkPosition" type="xs:short" minOccurs="0" />
+                <xs:element name="DensityValue" type="xs:double" default="0" />
+                <xs:element name="DensityRefValue" type="xs:double" default="50" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:Jobs" />
+        <xs:field xpath="mstns:JobID" />
+      </xs:unique>
+      <xs:unique name="RegisterControlKey1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:Registers" />
+        <xs:field xpath="mstns:RegisterID" />
+      </xs:unique>
+      <xs:unique name="GroupsKey1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:Groups" />
+        <xs:field xpath="mstns:GroupID" />
+      </xs:unique>
+      <xs:unique name="Viscosities_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:Viscosities" />
+        <xs:field xpath="mstns:ViscosityID" />
+      </xs:unique>
+      <xs:unique name="Densities_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:Densities" />
+        <xs:field xpath="mstns:DensityID" />
+      </xs:unique>
+    </xs:element>
+    <xs:annotation>
+      <xs:appinfo>
+        <msdata:Relationship name="Jobs_Groups" msdata:parent="Jobs" msdata:child="Groups" msdata:parentkey="JobID" msdata:childkey="JobID" />
+        <msdata:Relationship name="Register_Groups" msdata:parent="Registers" msdata:child="Groups" msdata:parentkey="RegisterID" msdata:childkey="RegisterID" />
+        <msdata:Relationship name="ViscosityControl_Groups" msdata:parent="Viscosities" msdata:child="Groups" msdata:parentkey="ViscosityID" msdata:childkey="ViscosityID" />
+        <msdata:Relationship name="FK_Groups_Densities" msdata:parent="Groups" msdata:child="Densities" msdata:parentkey="GroupID" msdata:childkey="GroupID" />
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:schema>
+  <Jobs>
+    <JobID>0</JobID>
+    <ClientName>Default Client</ClientName>
+    <ProjectName>Default Project</ProjectName>
+    <DateCreated>2006-10-05T17:31:52.1157456+02:00</DateCreated>
+    <DateModified>2006-10-05T17:31:52.1157456+02:00</DateModified>
+  </Jobs>
+</DSJobs>

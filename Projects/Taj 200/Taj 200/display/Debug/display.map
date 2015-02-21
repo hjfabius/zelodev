@@ -1,0 +1,1769 @@
+
+Map of Debug\display.st7 from link file Debug\display.lkf - Wed Apr 11 19:30:44 2007
+
+
+                               --------
+                               Segments
+                               --------
+
+start 00001000 end 0000a996 length 39318 segment .text
+start 0000a9a6 end 0000ed73 length 17357 segment .const
+start 00000080 end 00000080 length     0 segment .bsct
+start 00000080 end 0000008c length    12 segment .ubsct
+start 0000008c end 000000f8 length   108 segment .share
+start 00000200 end 00000208 length     8 segment .data, initialized
+start 0000a99e end 0000a9a6 length     8 segment .data, from
+start 00000208 end 000004df length   727 segment .bss
+start 00000000 end 00012c84 length 76932 segment .debug
+start 0000ffe0 end 00010000 length    32 segment .const
+start 0000a996 end 0000a99e length     8 segment .init
+
+
+                               -------
+                               Modules
+                               -------
+
+C:\Program Files\Cosmic\CXST7\LIB\crtsx.st7:
+start 00001000 end 00001072 length   114 section .text
+start 00000208 end 00000208 length     0 section .bss
+start 00000080 end 00000080 length     0 section .ubsct
+
+Debug\common.o:
+start 00001072 end 000013ef length   893 section .text
+start 00000000 end 000013f7 length  5111 section .debug
+start 0000a9a6 end 0000a9b3 length    13 section .const
+
+Debug\display.o:
+start 000013ef end 0000201d length  3118 section .text
+start 00000200 end 00000202 length     2 section .data
+start 00000208 end 0000028a length   130 section .bss
+start 000013f7 end 00003102 length  7435 section .debug
+start 0000a9b3 end 0000aa61 length   174 section .const
+
+Debug\display_application.o:
+start 0000201d end 0000345c length  5183 section .text
+start 0000028a end 00000294 length    10 section .bss
+start 00003102 end 000043e8 length  4838 section .debug
+start 0000aa61 end 0000b22e length  1997 section .const
+
+Debug\eeprom.o:
+start 0000345c end 00003789 length   813 section .text
+start 000043e8 end 000056f5 length  4877 section .debug
+start ******** end ******** length     0 section .const *** removed ***
+
+Debug\fifo.o:
+start 00003789 end 000037e3 length    90 section .text
+start 00000294 end 000002b5 length    33 section .bss
+start 000056f5 end 0000661c length  3879 section .debug
+start ******** end ******** length     0 section .const *** removed ***
+
+Debug\label.o:
+start 000037e3 end 00004406 length  3107 section .text
+start 0000661c end 0000754f length  3891 section .debug
+start 0000b22e end 0000d92f length  9985 section .const
+
+Debug\main.o:
+start 00004406 end 000045a1 length   411 section .text
+start 0000754f end 00008536 length  4071 section .debug
+start 0000d92f end 0000d958 length    41 section .const
+
+Debug\parameters.o:
+start 000045a1 end 00004d47 length  1958 section .text
+start 00000202 end 00000204 length     2 section .data
+start 000002b5 end 0000034f length   154 section .bss
+start 00008536 end 00009d5b length  6181 section .debug
+start 0000d958 end 0000dd19 length   961 section .const
+
+Debug\scanningheadsignal.o:
+start 00004d47 end 0000523b length  1268 section .text
+start 0000034f end 00000482 length   307 section .bss
+start 00009d5b end 0000ae65 length  4362 section .debug
+start 0000dd19 end 0000dd1e length     5 section .const
+
+Debug\sci.o:
+start 0000523b end 000056e6 length  1195 section .text
+start 00000204 end 00000208 length     4 section .data
+start 0000ae65 end 0000bffc length  4503 section .debug
+start ******** end ******** length     0 section .const *** removed ***
+
+Debug\screen.o:
+start 000056e6 end 00007ddc length  9974 section .text
+start 00000482 end 000004af length    45 section .bss
+start 0000bffc end 0000d54c length  5456 section .debug
+start 0000dd1e end 0000ed34 length  4118 section .const
+
+Debug\sni.o:
+start 00007ddc end 00007fde length   514 section .text
+start 000004af end 000004d3 length    36 section .bss
+start 0000d54c end 0000e538 length  4076 section .debug
+start 0000ed34 end 0000ed4d length    25 section .const
+
+Debug\spi.o:
+start 00007fde end 00008063 length   133 section .text
+start 0000e538 end 0000f423 length  3819 section .debug
+start ******** end ******** length     0 section .const *** removed ***
+
+Debug\sti.o:
+start 00008063 end 00008268 length   517 section .text
+start 000004d3 end 000004d5 length     2 section .bss
+start 0000f423 end 00010436 length  4115 section .debug
+start ******** end ******** length     0 section .const *** removed ***
+
+Debug\timers.o:
+start ******** end ******** length     0 section .text *** removed ***
+start ******** end ******** length     0 section .data *** removed ***
+start 00010436 end 0001145c length  4134 section .debug
+start ******** end ******** length     0 section .const *** removed ***
+
+Debug\window.o:
+start 00008268 end 0000a2b2 length  8266 section .text
+start 000004d5 end 000004df length    10 section .bss
+start 0001145c end 00012b98 length  5948 section .debug
+start 0000ed4d end 0000ed73 length    38 section .const
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fcmp.o:
+start 0000a2b2 end 0000a2e5 length    51 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fdiv.o:
+start 0000a2e5 end 0000a390 length   171 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fneg.o:
+start 0000a390 end 0000a39d length    13 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ftol.o:
+start 0000a39d end 0000a42b length   142 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)getwx.o:
+start 0000a42b end 0000a436 length    11 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)imul.o:
+start 0000a436 end 0000a44f length    25 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)itof.o:
+start 0000a44f end 0000a487 length    56 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)itol.o:
+start 0000a487 end 0000a499 length    18 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lacc.o:
+start 00000080 end 00000084 length     4 section .ubsct
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ladd.o:
+start 0000a499 end 0000a4b1 length    24 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lcmp.o:
+start 0000a4b1 end 0000a4d0 length    31 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lgadd.o:
+start 0000a4d0 end 0000a4e7 length    23 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lgsbc.o:
+start 0000a4e7 end 0000a4fd length    22 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lgsub.o:
+start 0000a4fd end 0000a514 length    23 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)load.o:
+start 0000a514 end 0000a531 length    29 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lreg.o:
+start 00000084 end 00000088 length     4 section .ubsct
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ltor.o:
+start 0000a531 end 0000a541 length    16 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ludiv.o:
+start 0000a541 end 0000a5df length   158 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lursh.o:
+start 0000a5df end 0000a5ee length    15 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lzmp.o:
+start 0000a5ee end 0000a600 length    18 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)putw.o:
+start 0000a600 end 0000a60c length    12 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)rtol.o:
+start 0000a60c end 0000a61e length    18 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)rtoxl.o:
+start 0000a61e end 0000a63d length    31 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)udiv.o:
+start 0000a63d end 0000a67c length    63 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)uitof.o:
+start 0000a67c end 0000a6a8 length    44 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)utol.o:
+start 0000a6a8 end 0000a6b1 length     9 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xreg.o:
+start 00000088 end 0000008a length     2 section .ubsct
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fadd.o:
+start 0000a6b1 end 0000a7bd length   268 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xfcmp.o:
+start 0000a7bd end 0000a808 length    75 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fmul.o:
+start 0000a808 end 0000a8f9 length   241 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xland.o:
+start 0000a8f9 end 0000a91c length    35 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xlcmp.o:
+start 0000a91c end 0000a949 length    45 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xlglsh.o:
+start 0000a949 end 0000a97b length    50 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xltor.o:
+start 0000a97b end 0000a996 length    27 section .text
+
+(C:\Program Files\Cosmic\CXST7\LIB\libm.st7)yreg.o:
+start 0000008a end 0000008c length     2 section .ubsct
+
+Debug\interrupt_vector.o:
+start ******** end ******** length     0 section .text *** removed ***
+start 00012b98 end 00012c84 length   236 section .debug
+start 0000ffe0 end 00010000 length    32 section .const
+
+
+                             ------------
+                             Shared areas
+                             ------------
+
+Debug\common.o:
+_BCDtoHEX                              000000e2-000000e9 (4,4)
+_formatNumber                          000000d1-000000d9 (3,6)
+_formatNumberBinary                    000000a2-000000a6 (1,4)
+_getBoundedValue                       0000008c-0000009b (8,8)
+_memcpy                                000000d7-000000dd (2,5)
+_memcpyFull                            0000008c-00000092 (2,5)
+_sleep                                 000000ed-000000f0 (0,4)
+_sleepForIRQ                           0000008c-0000008f (0,4)
+_sleepSec                              000000b1-000000b4 (2,2)
+_timersOnOff                           0000008c-0000008c (0,1)
+
+Debug\display.o:
+_displayClearArea                      000000d1-000000d5 (1,4)
+_displayClearCommandBuffer             0000008c-0000008d (2,0)
+_displayCmdToDisplay                   000000dc-000000df (2,2)
+_displayDrawAlarm                      000000a2-000000a4 (1,2)
+_displayDrawBox                        00000095-000000b3 (18,13)
+_displayDrawCorrection                 000000a2-000000a6 (1,4)
+_displayDrawHorizontalLine             000000a2-000000a4 (0,3)
+_displayDrawLed                        0000008c-0000008f (1,3)
+_displayDrawSelector                   000000a2-000000a6 (1,4)
+_displayDrawVerticalLine               000000a2-000000a4 (0,3)
+_displayGetKeyPressed                  000000a2-000000a4 (3,0)
+_displayInit                           00000093-000000b0 (30,0)
+_displayInvertArea                     000000d7-000000db (1,4)
+_displayKeyboardIRQ                    on stack (5)
+_displaySetArea                        000000b4-000000b8 (1,4)
+_displaySetOutLine                     000000d1-000000d6 (1,5)
+_displayWriteString                    000000d1-000000d6 (1,5)
+
+Debug\display_application.o:
+_displayAppInit                        00000093-00000093 (1,0)
+_displayAppManageAnswer                0000008c-0000008d (2,0)
+_displayAppNavigate                    0000008c-00000092 (7,0)
+_displayAppRefreshVisualization        0000008c-0000008c (1,0)
+_displayAppShowMessages                0000008c-0000009b (16,0)
+_displayAppUpdateMode                  00000093-00000093 (0,1)
+
+Debug\eeprom.o:
+_eepromReset                           0000008c-0000008e (3,0)
+_eepromSelection                       000000f0-000000f0 (0,1)
+_readEeprom                            000000dc-000000e4 (2,7)
+_readEepromMessage                     0000008c-00000094 (4,5)
+_readEepromString                      00000095-0000009a (1,5)
+_writeEeprom                           000000e7-000000ef (2,7)
+_writeEepromString                     0000008c-00000092 (2,5)
+
+Debug\fifo.o:
+_FIFO_GetByte                          0000008c-0000008d (2,0)
+_FIFO_Init                             0000008c-0000008c (1,0)
+_FIFO_PutByte                          000000f7-000000f7 (0,1)
+
+Debug\label.o:
+_labelGet                              000000de-000000de (0,1)
+_labelSetupGet                         000000df-000000df (0,1)
+
+Debug\main.o:
+_mainMessage                           0000008c-000000a3 (16,8)
+_mainTestRepeatedStrobo                0000008c-0000008f (0,4)
+
+Debug\parameters.o:
+_parametersChangedFlagReset            000000a7-000000a8 (1,1)
+_parametersCheckBound                  000000e7-000000e9 (0,3)
+_parametersGet                         000000f4-000000f6 (0,3)
+_parametersGetLabel                    000000de-000000de (0,1)
+_parametersGetSerialNumber             000000da-000000db (2,0)
+_parametersGetValue                    000000f1-000000f3 (2,1)
+_parametersInitTwinApplication         00000094-00000097 (4,0)
+_parametersInitVisibleFlags            00000095-00000095 (1,0)
+_parametersIsChanged                   000000d1-000000d3 (2,1)
+_parametersLoadAll                     00000094-00000098 (4,1)
+_parametersLoadJob                     00000097-000000da (66,2)
+_parametersSaveAll                     00000093-00000096 (4,0)
+_parametersSaveJob                     00000097-000000da (66,2)
+_parametersSet                         000000dc-000000e1 (3,3)
+_parametersSetForced                   000000e2-000000e6 (2,3)
+_parametersVisible                     000000d1-000000d1 (0,1)
+_parametersVisibleFlagSet              00000096-00000096 (0,1)
+
+Debug\scanningheadsignal.o:
+_scanningHeadSignalAcquire             00000093-00000096 (4,0)
+_scanningHeadSignalAcquireGate         00000093-000000a9 (23,0)
+_scanningHeadSignalEncoderAutoSet      00000093-00000096 (4,0)
+
+Debug\sci.o:
+_SCI_Compute_Baudrate                  0000008c-000000b1 (34,4)
+_SCI_DataReceived                      on stack (11)
+_SCI_Init                              0000008c-0000008c (1,0)
+_SCI_SendByte                          0000008c-0000008d (1,1)
+_SCI_SendString                        0000008c-0000008e (1,2)
+
+Debug\screen.o:
+_screen6Menus                          00000093-00000098 (0,6)
+_screenBigMessage                      000000a7-000000aa (0,4)
+_screenBigStdMessage                   00000097-00000097 (0,1)
+_screenDisplayKeyCode                  0000008c-000000a1 (21,1)
+_screenOscilloscope                    00000094-00000094 (0,1)
+_screenPrepareStdMessage               00000097-00000097 (0,1)
+_screenReceivedCode                    0000008c-0000009f (16,4)
+_screenSetUpParameter                  00000093-00000094 (0,2)
+_screenUpdateCurrentScreen             00000093-00000093 (1,0)
+_screenValue                           00000093-00000096 (0,4)
+_screenVersion                         00000093-000000a6 (20,0)
+
+Debug\sni.o:
+_SNI_Interrupt                         on stack (8)
+
+Debug\spi.o:
+_SPI_MoveByte                          000000f0-000000f1 (1,1)
+_SPI_MoveByteForIRQ                    0000008c-0000008d (1,1)
+_SPI_PutString                         0000008c-0000008e (1,2)
+
+Debug\sti.o:
+_STI_GetMessage                        000000e2-000000e4 (2,1)
+_STI_MoveByte                          000000ed-000000ee (1,1)
+_STI_ReceiveMessage                    0000009c-000000a2 (1,6)
+_STI_SendMessage                       000000e7-000000ec (2,4)
+
+Debug\window.o:
+_window6Menu                           00000099-0000009c (0,4)
+_windowAlarm                           00000095-000000a6 (18,0)
+_windowBigMessage                      000000ab-000000ae (0,4)
+_windowIsInGate                        000000a2-000000a3 (0,2)
+_windowOffsetToHaveCenteredGate        000000e2-000000e5 (4,0)
+_windowOscilloscope                    00000095-000000a1 (12,1)
+_windowOscilloscopeGetValue            000000a2-000000a4 (1,2)
+_windowRegister                        00000095-000000a1 (13,0)
+_windowRegisterPrepareFormateValue     000000a2-000000a5 (2,2)
+_windowSetupParameter                  00000095-000000d0 (57,3)
+
+Stack size: 47
+
+
+                              ---------
+                              Call tree
+                              ---------
+  1  _BCDtoHEX:
+
+  2  _FIFO_GetByte:
+
+  3  _FIFO_Init:
+
+  4  _FIFO_PutByte:
+
+  5  _SCI_Compute_Baudrate:
+
+  6  _SCI_DataReceived:
+  7     + _FIFO_PutByte --> 4
+     
+  8  _SCI_Init:
+
+  9  _SCI_SendByte:
+
+ 10  _SCI_SendString:
+
+ 11  _SNI_Interrupt:
+
+ 12  _SPI_MoveByte:
+
+ 13  _SPI_MoveByteForIRQ:
+
+ 14  _SPI_PutString:
+ 15     + _SPI_MoveByte --> 12
+     
+ 16  _STI_GetMessage:
+ 17     + _STI_MoveByte:
+ 18     + _sleep:
+ 19     |    + _parametersGetValue:
+ 20     |    |    + _parametersGet:
+        |    | 
+        | 
+     
+ 21  _STI_MoveByte --> 17
+
+ 22  _STI_ReceiveMessage:
+ 23     + _STI_MoveByte --> 17
+ 24     + _sleep --> 18
+     
+ 25  _STI_SendMessage:
+ 26     + _STI_MoveByte --> 17
+ 27     + _sleep --> 18
+     
+ 28  __stext:
+
+ 29  _displayAppInit:
+ 30     + _STI_SendMessage --> 25
+ 31     + _screenBigStdMessage:
+ 32     |    + _parametersGetValue --> 19
+ 33     |    + _parametersSet:
+ 34     |    |    + _BCDtoHEX --> 1
+ 35     |    |    + _STI_GetMessage --> 16
+ 36     |    |    + _parametersGetValue --> 19
+ 37     |    |    + _parametersSetForced:
+ 38     |    |    |    + _STI_SendMessage --> 25
+ 39     |    |    |    + _parametersCheckBound:
+ 40     |    |    |    + _writeEeprom:
+ 41     |    |    |    |    + _SPI_MoveByte --> 12
+ 42     |    |    |    |    + _eepromSelection:
+        |    |    |    | 
+        |    |    | 
+ 43     |    |    + _windowOffsetToHaveCenteredGate:
+ 44     |    |    |    + _parametersGetValue --> 19
+        |    |    | 
+        |    | 
+ 45     |    + _screenBigMessage:
+ 46     |    |    + _windowBigMessage:
+ 47     |    |    |    + _displayClearArea:
+ 48     |    |    |    |    + _displayCmdToDisplay:
+ 49     |    |    |    |    |    + _SPI_MoveByte --> 12
+ 50     |    |    |    |    |    + _sleep --> 18
+        |    |    |    |    | 
+        |    |    |    | 
+ 51     |    |    |    + _displayInvertArea:
+ 52     |    |    |    |    + _displayCmdToDisplay --> 48
+        |    |    |    | 
+ 53     |    |    |    + _displaySetOutLine:
+ 54     |    |    |    |    + _displayCmdToDisplay --> 48
+ 55     |    |    |    |    + _displayInvertArea --> 51
+        |    |    |    | 
+ 56     |    |    |    + _displayWriteString:
+ 57     |    |    |    |    + _displayCmdToDisplay --> 48
+ 58     |    |    |    |    + _labelGet:
+ 59     |    |    |    |    |    + _parametersGetValue --> 19
+        |    |    |    |    | 
+ 60     |    |    |    |    + _memcpy:
+ 61     |    |    |    |    |    + _labelGet --> 58
+ 62     |    |    |    |    |    + _parametersGetLabel:
+ 63     |    |    |    |    |    |    + _labelSetupGet:
+ 64     |    |    |    |    |    |    |    + _parametersGetValue --> 19
+        |    |    |    |    |    |    | 
+        |    |    |    |    |    | 
+        |    |    |    |    | 
+        |    |    |    | 
+        |    |    | 
+        |    | 
+        | 
+     
+ 65  _displayAppManageAnswer:
+ 66     + _parametersGetValue --> 19
+ 67     + _parametersSet --> 33
+ 68     + _screenBigStdMessage --> 31
+     
+ 69  _displayAppNavigate:
+ 70     + _STI_GetMessage --> 16
+ 71     + _STI_SendMessage --> 25
+ 72     + _displayAppInit --> 29
+ 73     + _displayAppUpdateMode:
+ 74     |    + _STI_SendMessage --> 25
+ 75     |    + _parametersGetValue --> 19
+ 76     |    + _parametersSet --> 33
+        | 
+ 77     + _displayGetKeyPressed:
+ 78     |    + _SPI_MoveByte --> 12
+ 79     |    + _sleep --> 18
+        | 
+ 80     + _displayInit:
+ 81     |    + _displayCmdToDisplay --> 48
+ 82     |    + _formatNumber:
+ 83     |    |    + _STI_GetMessage --> 16
+ 84     |    |    + _parametersGetSerialNumber:
+ 85     |    |    |    + _parametersSet --> 33
+ 86     |    |    |    + _readEeprom:
+ 87     |    |    |    |    + _SPI_MoveByte --> 12
+ 88     |    |    |    |    + _eepromSelection --> 42
+        |    |    |    | 
+        |    |    | 
+ 89     |    |    + _parametersGetValue --> 19
+        |    | 
+ 90     |    + _memcpy --> 60
+ 91     |    + _sleep --> 18
+ 92     |    + _sleepSec:
+ 93     |    |    + _sleep --> 18
+        |    | 
+        | 
+ 94     + _parametersGetValue --> 19
+ 95     + _parametersLoadAll:
+ 96     |    + _parametersChangedFlagReset:
+ 97     |    + _parametersSetForced --> 37
+ 98     |    + _readEeprom --> 86
+        | 
+ 99     + _parametersSaveAll:
+100     |    + _parametersGetValue --> 19
+101     |    + _writeEeprom --> 40
+        | 
+102     + _parametersSet --> 33
+103     + _scanningHeadSignalAcquire:
+104     |    + _parametersGetValue --> 19
+        | 
+105     + _scanningHeadSignalAcquireGate:
+106     |    + _STI_GetMessage --> 16
+        | 
+107     + _scanningHeadSignalEncoderAutoSet:
+108     |    + _STI_SendMessage --> 25
+109     |    + _parametersSet --> 33
+        | 
+110     + _screen6Menus:
+111     |    + _parametersGetValue --> 19
+112     |    + _parametersSet --> 33
+113     |    + _window6Menu:
+114     |    |    + _displayClearArea --> 47
+115     |    |    + _displayInvertArea --> 51
+116     |    |    + _displaySetOutLine --> 53
+117     |    |    + _displayWriteString --> 56
+118     |    |    + _parametersGetValue --> 19
+119     |    |    + _parametersSet --> 33
+        |    | 
+        | 
+120     + _screenBigStdMessage --> 31
+121     + _screenOscilloscope:
+122     |    + _parametersSet --> 33
+123     |    + _windowOscilloscope:
+124     |    |    + _displayClearArea --> 47
+125     |    |    + _displayCmdToDisplay --> 48
+126     |    |    + _displayInvertArea --> 51
+127     |    |    + _displaySetOutLine --> 53
+128     |    |    + _displayWriteString --> 56
+129     |    |    + _parametersChangedFlagReset --> 96
+130     |    |    + _parametersGetValue --> 19
+131     |    |    + _parametersSet --> 33
+132     |    |    + _windowIsInGate:
+133     |    |    |    + _parametersGetValue --> 19
+        |    |    | 
+134     |    |    + _windowOscilloscopeGetValue:
+        |    | 
+        | 
+135     + _screenSetUpParameter:
+136     |    + _memcpy --> 60
+137     |    + _parametersChangedFlagReset --> 96
+138     |    + _parametersGetValue --> 19
+139     |    + _parametersInitVisibleFlags:
+140     |    |    + _parametersGetValue --> 19
+141     |    |    + _parametersVisibleFlagSet:
+        |    | 
+142     |    + _parametersSet --> 33
+143     |    + _screenBigStdMessage --> 31
+144     |    + _windowSetupParameter:
+145     |    |    + _displayClearArea --> 47
+146     |    |    + _displayInvertArea --> 51
+147     |    |    + _displaySetOutLine --> 53
+148     |    |    + _displayWriteString --> 56
+149     |    |    + _formatNumber --> 82
+150     |    |    + _memcpy --> 60
+151     |    |    + _parametersGetValue --> 19
+152     |    |    + _parametersIsChanged:
+153     |    |    + _parametersSet --> 33
+154     |    |    + _parametersVisible:
+        |    | 
+        | 
+155     + _screenUpdateCurrentScreen:
+156     |    + _parametersGetValue --> 19
+157     |    + _screenOscilloscope --> 121
+        | 
+158     + _screenValue:
+159     |    + _STI_SendMessage --> 25
+160     |    + _formatNumber --> 82
+161     |    + _parametersGetValue --> 19
+162     |    + _parametersLoadJob:
+163     |    |    + _parametersSet --> 33
+164     |    |    + _readEeprom --> 86
+        |    | 
+165     |    + _parametersSaveJob:
+166     |    |    + _parametersGetValue --> 19
+167     |    |    + _parametersSet --> 33
+168     |    |    + _writeEeprom --> 40
+        |    | 
+169     |    + _parametersSet --> 33
+170     |    + _screenBigMessage --> 45
+171     |    + _screenBigStdMessage --> 31
+172     |    + _screenPrepareStdMessage:
+173     |    |    + _memcpy --> 60
+174     |    |    + _parametersGetValue --> 19
+        |    | 
+        | 
+175     + _screenVersion:
+176     |    + _formatNumber --> 82
+177     |    + _memcpy --> 60
+178     |    + _screenBigMessage --> 45
+179     |    + _sleepSec --> 92
+        | 
+180     + _sleep --> 18
+181     + _sleepSec --> 92
+     
+182  _displayAppRefreshVisualization:
+183     + _parametersGetValue --> 19
+184     + _parametersSet --> 33
+185     + _scanningHeadSignalAcquire --> 103
+186     + _screenUpdateCurrentScreen --> 155
+     
+187  _displayAppShowMessages:
+188     + _STI_ReceiveMessage --> 22
+189     + _displayWriteString --> 56
+190     + _formatNumber --> 82
+191     + _memcpy --> 60
+     
+192  _displayAppUpdateMode --> 73
+
+193  _displayClearArea --> 47
+
+194  _displayClearCommandBuffer:
+
+195  _displayCmdToDisplay --> 48
+
+196  _displayDrawAlarm:
+197     + _displayCmdToDisplay --> 48
+     
+198  _displayDrawBox:
+199     + _displayClearArea --> 47
+200     + _displayInvertArea --> 51
+201     + _displaySetArea:
+202     |    + _displayCmdToDisplay --> 48
+        | 
+203     + _displaySetOutLine --> 53
+204     + _displayWriteString --> 56
+205     + _formatNumber --> 82
+206     + _labelGet --> 58
+207     + _parametersGetValue --> 19
+     
+208  _displayDrawCorrection:
+209     + _displayClearArea --> 47
+210     + _displayCmdToDisplay --> 48
+211     + _displayWriteString --> 56
+212     + _parametersGetValue --> 19
+     
+213  _displayDrawHorizontalLine:
+214     + _displaySetArea --> 201
+     
+215  _displayDrawLed:
+216     + _displayCmdToDisplay --> 48
+     
+217  _displayDrawSelector:
+218     + _displayCmdToDisplay --> 48
+     
+219  _displayDrawVerticalLine:
+220     + _displaySetArea --> 201
+     
+221  _displayGetKeyPressed --> 77
+
+222  _displayInit --> 80
+
+223  _displayInvertArea --> 51
+
+224  _displayKeyboardIRQ:
+
+225  _displaySetArea --> 201
+
+226  _displaySetOutLine --> 53
+
+227  _displayWriteString --> 56
+
+228  _eepromReset:
+229     + _SPI_MoveByte --> 12
+230     + _eepromSelection --> 42
+     
+231  _eepromSelection --> 42
+
+232  _formatNumber --> 82
+
+233  _formatNumberBinary:
+
+234  _getBoundedValue:
+
+235  _labelGet --> 58
+
+236  _labelSetupGet --> 63
+
+237  _mainMessage:
+238     + _displayWriteString --> 56
+239     + _formatNumber --> 82
+240     + _memcpy --> 60
+     
+241  _mainTestRepeatedStrobo:
+
+242  _memcpy --> 60
+
+243  _memcpyFull:
+
+244  _parametersChangedFlagReset --> 96
+
+245  _parametersCheckBound --> 39
+
+246  _parametersGet --> 20
+
+247  _parametersGetLabel --> 62
+
+248  _parametersGetSerialNumber --> 84
+
+249  _parametersGetValue --> 19
+
+250  _parametersInitTwinApplication:
+251     + _parametersGetValue --> 19
+252     + _parametersSet --> 33
+253     + _readEeprom --> 86
+     
+254  _parametersInitVisibleFlags --> 139
+
+255  _parametersIsChanged --> 152
+
+256  _parametersLoadAll --> 95
+
+257  _parametersLoadJob --> 162
+
+258  _parametersSaveAll --> 99
+
+259  _parametersSaveJob --> 165
+
+260  _parametersSet --> 33
+
+261  _parametersSetForced --> 37
+
+262  _parametersVisible --> 154
+
+263  _parametersVisibleFlagSet --> 141
+
+264  _readEeprom --> 86
+
+265  _readEepromMessage:
+266     + _readEepromString:
+267     |    + _SPI_MoveByte --> 12
+268     |    + _eepromSelection --> 42
+        | 
+     
+269  _readEepromString --> 266
+
+270  _scanningHeadSignalAcquire --> 103
+
+271  _scanningHeadSignalAcquireGate --> 105
+
+272  _scanningHeadSignalEncoderAutoSet --> 107
+
+273  _screen6Menus --> 110
+
+274  _screenBigMessage --> 45
+
+275  _screenBigStdMessage --> 31
+
+276  _screenDisplayKeyCode:
+277     + _displayClearArea --> 47
+278     + _displayCmdToDisplay --> 48
+279     + _displayGetKeyPressed --> 77
+280     + _displaySetOutLine --> 53
+281     + _formatNumberBinary --> 233
+282     + _memcpy --> 60
+     
+283  _screenOscilloscope --> 121
+
+284  _screenPrepareStdMessage --> 172
+
+285  _screenReceivedCode:
+286     + _displayClearArea --> 47
+287     + _displaySetOutLine --> 53
+288     + _displayWriteString --> 56
+289     + _formatNumber --> 82
+290     + _memcpy --> 60
+291     + _parametersSet --> 33
+     
+292  _screenSetUpParameter --> 135
+
+293  _screenUpdateCurrentScreen --> 155
+
+294  _screenValue --> 158
+
+295  _screenVersion --> 175
+
+296  _sleep --> 18
+
+297  _sleepForIRQ:
+
+298  _sleepSec --> 92
+
+299  _timersOnOff:
+
+300  _window6Menu --> 113
+
+301  _windowAlarm:
+302     + _displayClearArea --> 47
+303     + _displayInvertArea --> 51
+304     + _displaySetOutLine --> 53
+305     + _displayWriteString --> 56
+306     + _formatNumber --> 82
+307     + _memcpy --> 60
+308     + _parametersChangedFlagReset --> 96
+309     + _parametersGetValue --> 19
+310     + _parametersIsChanged --> 152
+311     + _parametersSet --> 33
+     
+312  _windowBigMessage --> 46
+
+313  _windowIsInGate --> 132
+
+314  _windowOffsetToHaveCenteredGate --> 43
+
+315  _windowOscilloscope --> 123
+
+316  _windowOscilloscopeGetValue --> 134
+
+317  _windowRegister:
+318     + _displayClearArea --> 47
+319     + _displayDrawAlarm --> 196
+320     + _displayDrawCorrection --> 208
+321     + _displayDrawHorizontalLine --> 213
+322     + _displayDrawSelector --> 217
+323     + _displayDrawVerticalLine --> 219
+324     + _displayInvertArea --> 51
+325     + _displaySetOutLine --> 53
+326     + _displayWriteString --> 56
+327     + _parametersChangedFlagReset --> 96
+328     + _parametersGetValue --> 19
+329     + _parametersIsChanged --> 152
+330     + _windowRegisterPrepareFormateValue:
+331     |    + _formatNumber --> 82
+332     |    + _parametersGetValue --> 19
+        | 
+     
+333  _windowRegisterPrepareFormateValue --> 330
+
+334  _windowSetupParameter --> 144
+
+335  _writeEeprom --> 40
+
+336  _writeEepromString:
+337     + _SPI_MoveByte --> 12
+338     + _eepromSelection --> 42
+     
+
+
+                               -------
+                               Symbols
+                               -------
+
+_ADCCSR                                00000070   defined in Debug\common.o
+_ADCDRH                                00000071   defined in Debug\common.o
+_ADCDRL                                00000072   defined in Debug\common.o
+_ARTARR                                0000007a   defined in Debug\common.o
+_ARTCAR                                00000079   defined in Debug\common.o
+_ARTCSR                                00000078   defined in Debug\common.o
+_ARTICCSR                              0000007b   defined in Debug\common.o
+_ARTICR1                               0000007c   defined in Debug\common.o
+_ARTICR2                               0000007d   defined in Debug\common.o
+_BCDtoHEX                              000012af   defined in Debug\common.o section .text
+                                                  used in Debug\sni.o
+_BCDtoHEX$L                            000000e6   defined in linker section .share
+                                                  used in Debug\common.o
+                                                          Debug\sni.o
+_CANIBRPR                              0000005d   defined in Debug\common.o
+_CANIBTR                               0000005e   defined in Debug\common.o
+_CANICR                                0000005b   defined in Debug\common.o
+_CANICSR                               0000005c   defined in Debug\common.o
+_CANIPSR                               0000005f   defined in Debug\common.o
+_CANISR                                0000005a   defined in Debug\common.o
+_DoNothing                             ********   *** removed from Debug\interrupt_vector.o ***
+_EICR                                  00000028   defined in Debug\common.o
+_FIFO_GetByte                          000037b3   defined in Debug\fifo.o section .text
+                                                  *** not used ***
+_FIFO_GetByte$L                        0000008e   defined in linker section .share
+                                                  used in Debug\fifo.o
+_FIFO_GetLength                        000037df   defined in Debug\fifo.o section .text
+                                                  *** not used ***
+_FIFO_Init                             00003789   defined in Debug\fifo.o section .text
+                                                  used in Debug\main.o
+_FIFO_Init$L                           0000008d   defined in linker section .share
+                                                  used in Debug\fifo.o
+_FIFO_PutByte                          000037a0   defined in Debug\fifo.o section .text
+                                                  used in Debug\sci.o
+_FIFO_PutByte$L                        000000f7   defined in linker section .share
+                                                  used in Debug\fifo.o
+_FSCR                                  00000029   defined in Debug\common.o
+_I2CCCR                                0000001b   defined in Debug\common.o
+_I2CCR                                 00000018   defined in Debug\common.o
+_I2CDR                                 0000001e   defined in Debug\common.o
+_I2COAR1                               0000001c   defined in Debug\common.o
+_I2COAR2                               0000001d   defined in Debug\common.o
+_I2CSR1                                00000019   defined in Debug\common.o
+_I2CSR2                                0000001a   defined in Debug\common.o
+_ISPR0                                 00000024   defined in Debug\common.o
+_ISPR1                                 00000025   defined in Debug\common.o
+_ISPR2                                 00000026   defined in Debug\common.o
+_ISPR3                                 00000027   defined in Debug\common.o
+_MCCBCR                                0000002d   defined in Debug\common.o
+_MCCSR                                 0000002c   defined in Debug\common.o
+_PADDR                                 00000001   defined in Debug\common.o
+_PADR                                  00000000   defined in Debug\common.o
+_PAOR                                  00000002   defined in Debug\common.o
+_PBDDR                                 00000004   defined in Debug\common.o
+_PBDR                                  00000003   defined in Debug\common.o
+_PBOR                                  00000005   defined in Debug\common.o
+_PCDDR                                 00000007   defined in Debug\common.o
+_PCDR                                  00000006   defined in Debug\common.o
+_PCOR                                  00000008   defined in Debug\common.o
+_PDDDR                                 0000000a   defined in Debug\common.o
+_PDDR                                  00000009   defined in Debug\common.o
+_PDOR                                  0000000b   defined in Debug\common.o
+_PEDDR                                 0000000d   defined in Debug\common.o
+_PEDR                                  0000000c   defined in Debug\common.o
+_PEOR                                  0000000e   defined in Debug\common.o
+_PFDDR                                 00000010   defined in Debug\common.o
+_PFDR                                  0000000f   defined in Debug\common.o
+_PFOR                                  00000011   defined in Debug\common.o
+_PGDDR                                 00000013   defined in Debug\common.o
+_PGDR                                  00000012   defined in Debug\common.o
+_PGOR                                  00000014   defined in Debug\common.o
+_PHDDR                                 00000016   defined in Debug\common.o
+_PHDR                                  00000015   defined in Debug\common.o
+_PHOR                                  00000017   defined in Debug\common.o
+_PWMCR                                 00000077   defined in Debug\common.o
+_PWMDCR0                               00000076   defined in Debug\common.o
+_PWMDCR1                               00000075   defined in Debug\common.o
+_PWMDCR2                               00000074   defined in Debug\common.o
+_PWMDCR3                               00000073   defined in Debug\common.o
+_Pr_Value                              00000204   defined in Debug\sci.o section .data, initialized
+_SCIBRR                                00000052   defined in Debug\common.o
+_SCICR1                                00000053   defined in Debug\common.o
+_SCICR2                                00000054   defined in Debug\common.o
+_SCIDR                                 00000051   defined in Debug\common.o
+_SCIERPR                               00000055   defined in Debug\common.o
+_SCIETPR                               00000057   defined in Debug\common.o
+_SCISR                                 00000050   defined in Debug\common.o
+_SCI_Compute_Baudrate                  0000523b   defined in Debug\sci.o section .text
+                                                  *** not used ***
+_SCI_Compute_Baudrate$L                000000ae   defined in linker section .share
+                                                  used in Debug\sci.o
+_SCI_DataReceived                      00005654   defined in Debug\sci.o section .text
+                                                  used in Debug\interrupt_vector.o
+_SCI_Init                              00005600   defined in Debug\sci.o section .text
+                                                  used in Debug\main.o
+_SCI_Init$L                            0000008d   defined in linker section .share
+                                                  used in Debug\sci.o
+_SCI_SendByte                          0000561b   defined in Debug\sci.o section .text
+                                                  *** not used ***
+_SCI_SendByte$L                        0000008d   defined in linker section .share
+                                                  used in Debug\sci.o
+_SCI_SendString                        0000562f   defined in Debug\sci.o section .text
+                                                  *** not used ***
+_SCI_SendString$L                      0000008d   defined in linker section .share
+                                                  used in Debug\sci.o
+_SICSR                                 0000002b   defined in Debug\common.o
+_SNI_Init                              00007ddc   defined in Debug\sni.o section .text
+                                                  used in Debug\display_application.o
+_SNI_Interrupt                         00007e42   defined in Debug\sni.o section .text
+                                                  used in Debug\interrupt_vector.o
+_SNI_ReceivedCmd                       00007f09   defined in Debug\sni.o section .text
+                                                  used in Debug\display_application.o
+_SNI_ResetData                         00007fc9   defined in Debug\sni.o section .text
+                                                  used in Debug\display_application.o
+_SPICR                                 00000022   defined in Debug\common.o
+_SPICSR                                00000023   defined in Debug\common.o
+_SPIDR                                 00000021   defined in Debug\common.o
+_SPISR                                 00000023   defined in Debug\common.o
+_SPI_MoveByte                          00007fde   defined in Debug\spi.o section .text
+                                                  used in Debug\display.o
+                                                          Debug\eeprom.o
+_SPI_MoveByte$L                        000000f1   defined in linker section .share
+                                                  used in Debug\spi.o
+_SPI_MoveByteForIRQ                    00008010   defined in Debug\spi.o section .text
+                                                  *** not used ***
+_SPI_MoveByteForIRQ$L                  0000008d   defined in linker section .share
+                                                  used in Debug\spi.o
+_SPI_PutString                         00008042   defined in Debug\spi.o section .text
+                                                  *** not used ***
+_SPI_PutString$L                       0000008d   defined in linker section .share
+                                                  used in Debug\spi.o
+_STI_GetMessage                        00008188   defined in Debug\sti.o section .text
+                                                  used in Debug\display_application.o
+                                                          Debug\parameters.o
+                                                          Debug\scanningheadsignal.o
+                                                          Debug\screen.o
+_STI_GetMessage$L                      000000e4   defined in linker section .share
+                                                  used in Debug\sti.o
+_STI_MoveByte                          00008063   defined in Debug\sti.o section .text
+_STI_MoveByte$L                        000000ee   defined in linker section .share
+                                                  used in Debug\sti.o
+_STI_ReceiveMessage                    000080f2   defined in Debug\sti.o section .text
+                                                  used in Debug\display_application.o
+_STI_ReceiveMessage$L                  0000009d   defined in linker section .share
+                                                  used in Debug\display_application.o
+                                                          Debug\sti.o
+_STI_SendMessage                       000081f5   defined in Debug\sti.o section .text
+                                                  used in Debug\display_application.o
+                                                          Debug\parameters.o
+                                                          Debug\scanningheadsignal.o
+                                                          Debug\screen.o
+_STI_SendMessage$L                     000000e9   defined in linker section .share
+                                                  used in Debug\display_application.o
+                                                          Debug\parameters.o
+                                                          Debug\scanningheadsignal.o
+                                                          Debug\screen.o
+                                                          Debug\sti.o
+_TAACHR                                0000003a   defined in Debug\common.o
+_TAACLR                                0000003b   defined in Debug\common.o
+_TAACR                                 0000003a   defined in Debug\common.o
+_TACHR                                 00000038   defined in Debug\common.o
+_TACLR                                 00000039   defined in Debug\common.o
+_TACR                                  00000038   defined in Debug\common.o
+_TACR1                                 00000032   defined in Debug\common.o
+_TACR2                                 00000031   defined in Debug\common.o
+_TAIC1HR                               00000034   defined in Debug\common.o
+_TAIC1LR                               00000035   defined in Debug\common.o
+_TAIC1R                                00000034   defined in Debug\common.o
+_TAIC2HR                               0000003c   defined in Debug\common.o
+_TAIC2LR                               0000003d   defined in Debug\common.o
+_TAIC2R                                0000003c   defined in Debug\common.o
+_TAOC1HR                               00000036   defined in Debug\common.o
+_TAOC1LR                               00000037   defined in Debug\common.o
+_TAOC1R                                00000036   defined in Debug\common.o
+_TAOC2HR                               0000003e   defined in Debug\common.o
+_TAOC2LR                               0000003f   defined in Debug\common.o
+_TAOC2R                                0000003e   defined in Debug\common.o
+_TASR                                  00000033   defined in Debug\common.o
+_TBACHR                                0000004a   defined in Debug\common.o
+_TBACLR                                0000004b   defined in Debug\common.o
+_TBACR                                 0000004a   defined in Debug\common.o
+_TBCHR                                 00000048   defined in Debug\common.o
+_TBCLR                                 00000049   defined in Debug\common.o
+_TBCR                                  00000048   defined in Debug\common.o
+_TBCR1                                 00000042   defined in Debug\common.o
+_TBCR2                                 00000041   defined in Debug\common.o
+_TBIC1HR                               00000044   defined in Debug\common.o
+_TBIC1LR                               00000045   defined in Debug\common.o
+_TBIC1R                                00000044   defined in Debug\common.o
+_TBIC2HR                               0000004c   defined in Debug\common.o
+_TBIC2LR                               0000004d   defined in Debug\common.o
+_TBIC2R                                0000004c   defined in Debug\common.o
+_TBOC1HR                               00000046   defined in Debug\common.o
+_TBOC1LR                               00000047   defined in Debug\common.o
+_TBOC1R                                00000046   defined in Debug\common.o
+_TBOC2HR                               0000004e   defined in Debug\common.o
+_TBOC2LR                               0000004f   defined in Debug\common.o
+_TBOC2R                                0000004e   defined in Debug\common.o
+_TBSR                                  00000043   defined in Debug\common.o
+_WDGCR                                 0000002a   defined in Debug\common.o
+__endzp                                0000008c   defined in command file section .ubsct
+                                                  used in C:\Program Files\Cosmic\CXST7\LIB\crtsx.st7
+__idesc__                              0000a996   defined in linker section .init
+                                                  used in C:\Program Files\Cosmic\CXST7\LIB\crtsx.st7
+__memory                               000004df   defined in command file section .bss
+                                                  used in C:\Program Files\Cosmic\CXST7\LIB\crtsx.st7
+__stext                                00001000   defined in C:\Program Files\Cosmic\CXST7\LIB\crtsx.st7 section .text
+                                                  used in Debug\interrupt_vector.o
+__vectab                               0000ffe0   defined in Debug\interrupt_vector.o section .const
+_dblParamErrorZoom                     000004d5   defined in Debug\window.o section .bss
+_displayAppInit                        0000201d   defined in Debug\display_application.o section .text
+                                                  used in Debug\main.o
+_displayAppInit$L                      00000094   defined in linker section .share
+                                                  used in Debug\display_application.o
+_displayAppLoop                        0000344b   defined in Debug\display_application.o section .text
+                                                  used in Debug\main.o
+_displayAppManageAnswer                0000237d   defined in Debug\display_application.o section .text
+_displayAppManageAnswer$L              0000008e   defined in linker section .share
+                                                  used in Debug\display_application.o
+_displayAppManageCorrection            00002590   defined in Debug\display_application.o section .text
+_displayAppManageParameter             00002451   defined in Debug\display_application.o section .text
+_displayAppNavigate                    00002705   defined in Debug\display_application.o section .text
+_displayAppNavigate$L                  00000093   defined in linker section .share
+                                                  used in Debug\display_application.o
+_displayAppRefreshVisualization        000021a8   defined in Debug\display_application.o section .text
+_displayAppRefreshVisualization$L      0000008d   defined in linker section .share
+                                                  used in Debug\display_application.o
+_displayAppRequestCom                  0000235a   defined in Debug\display_application.o section .text
+_displayAppShowMessages                000021e7   defined in Debug\display_application.o section .text
+                                                  *** not used ***
+_displayAppShowMessages$L              0000009c   defined in linker section .share
+                                                  used in Debug\display_application.o
+_displayAppUpdateMode                  00002057   defined in Debug\display_application.o section .text
+_displayAppUpdateMode$L                00000093   defined in linker section .share
+                                                  used in Debug\display_application.o
+_displayClearArea                      0000191d   defined in Debug\display.o section .text
+                                                  used in Debug\screen.o
+                                                          Debug\window.o
+_displayClearArea$L                    000000d2   defined in linker section .share
+                                                  used in Debug\display.o
+                                                          Debug\screen.o
+                                                          Debug\window.o
+_displayClearCommandBuffer             000017b7   defined in Debug\display.o section .text
+                                                  *** not used ***
+_displayClearCommandBuffer$L           0000008e   defined in linker section .share
+                                                  used in Debug\display.o
+_displayCmdToDisplay                   000016de   defined in Debug\display.o section .text
+                                                  used in Debug\screen.o
+                                                          Debug\window.o
+_displayCmdToDisplay$L                 000000de   defined in linker section .share
+                                                  used in Debug\display.o
+_displayDrawAlarm                      00001c31   defined in Debug\display.o section .text
+                                                  used in Debug\window.o
+_displayDrawAlarm$L                    000000a3   defined in linker section .share
+                                                  used in Debug\display.o
+_displayDrawBox                        00001ec7   defined in Debug\display.o section .text
+                                                  used in Debug\window.o
+_displayDrawBox$L                      000000a7   defined in linker section .share
+                                                  used in Debug\display.o
+                                                          Debug\window.o
+_displayDrawCorrection                 00001cd0   defined in Debug\display.o section .text
+                                                  used in Debug\window.o
+_displayDrawCorrection$L               000000a3   defined in linker section .share
+                                                  used in Debug\display.o
+                                                          Debug\window.o
+_displayDrawHorizontalLine             000019df   defined in Debug\display.o section .text
+                                                  used in Debug\window.o
+_displayDrawHorizontalLine$L           000000a2   defined in linker section .share
+                                                  used in Debug\display.o
+                                                          Debug\window.o
+_displayDrawLed                        000019f1   defined in Debug\display.o section .text
+                                                  *** not used ***
+_displayDrawLed$L                      0000008d   defined in linker section .share
+                                                  used in Debug\display.o
+_displayDrawSelector                   00001ae1   defined in Debug\display.o section .text
+                                                  used in Debug\window.o
+_displayDrawSelector$L                 000000a3   defined in linker section .share
+                                                  used in Debug\display.o
+                                                          Debug\window.o
+_displayDrawVerticalLine               000019cb   defined in Debug\display.o section .text
+                                                  used in Debug\window.o
+_displayDrawVerticalLine$L             000000a2   defined in linker section .share
+                                                  used in Debug\display.o
+                                                          Debug\window.o
+_displayGetKeyPressed                  000013f5   defined in Debug\display.o section .text
+                                                  used in Debug\display_application.o
+                                                          Debug\screen.o
+_displayGetKeyPressed$L                000000a5   defined in linker section .share
+                                                  used in Debug\display.o
+_displayInit                           000015ef   defined in Debug\display.o section .text
+                                                  used in Debug\display_application.o
+                                                          Debug\main.o
+_displayInit$L                         000000b1   defined in linker section .share
+                                                  used in Debug\display.o
+_displayInvertArea                     0000196a   defined in Debug\display.o section .text
+                                                  used in Debug\window.o
+_displayInvertArea$L                   000000d8   defined in linker section .share
+                                                  used in Debug\display.o
+                                                          Debug\window.o
+_displayIsKeyPressed                   000014c9   defined in Debug\display.o section .text
+                                                  used in Debug\display_application.o
+                                                          Debug\scanningheadsignal.o
+                                                          Debug\window.o
+_displayKeyPressedReset                000013ef   defined in Debug\display.o section .text
+                                                  used in Debug\display_application.o
+                                                          Debug\screen.o
+_displayKeyboardIRQ                    000015e7   defined in Debug\display.o section .text
+                                                  used in Debug\interrupt_vector.o
+_displayOff                            0000166c   defined in Debug\display.o section .text
+                                                  used in Debug\display_application.o
+_displayReset                          000016c4   defined in Debug\display.o section .text
+                                                  used in Debug\main.o
+_displaySetArea                        0000186d   defined in Debug\display.o section .text
+_displaySetArea$L                      000000b5   defined in linker section .share
+                                                  used in Debug\display.o
+_displaySetOutLine                     000018ba   defined in Debug\display.o section .text
+                                                  used in Debug\screen.o
+                                                          Debug\window.o
+_displaySetOutLine$L                   000000d2   defined in linker section .share
+                                                  used in Debug\display.o
+                                                          Debug\screen.o
+                                                          Debug\window.o
+_displayTraslateKeyPressed             000014cd   defined in Debug\display.o section .text
+_displayWriteString                    000017dc   defined in Debug\display.o section .text
+                                                  used in Debug\display_application.o
+                                                          Debug\main.o
+                                                          Debug\screen.o
+                                                          Debug\window.o
+_displayWriteString$L                  000000d2   defined in linker section .share
+                                                  used in Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\main.o
+                                                          Debug\screen.o
+                                                          Debug\window.o
+_eepromInit                            0000345c   defined in Debug\eeprom.o section .text
+                                                  used in Debug\main.o
+_eepromReset                           0000353a   defined in Debug\eeprom.o section .text
+                                                  *** not used ***
+_eepromReset$L                         0000008f   defined in linker section .share
+                                                  used in Debug\eeprom.o
+_eepromSelection                       000034d0   defined in Debug\eeprom.o section .text
+_eepromSelection$L                     000000f0   defined in linker section .share
+                                                  used in Debug\eeprom.o
+_exit                                  00001070   defined in C:\Program Files\Cosmic\CXST7\LIB\crtsx.st7 section .text
+_formatNumber                          000011a6   defined in Debug\common.o section .text
+                                                  used in Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\main.o
+                                                          Debug\screen.o
+                                                          Debug\window.o
+_formatNumber$L                        000000d4   defined in linker section .share
+                                                  used in Debug\common.o
+                                                          Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\main.o
+                                                          Debug\screen.o
+                                                          Debug\window.o
+_formatNumberBinary                    00001166   defined in Debug\common.o section .text
+                                                  used in Debug\screen.o
+_formatNumberBinary$L                  000000a3   defined in linker section .share
+                                                  used in Debug\common.o
+                                                          Debug\screen.o
+_getBoundedValue                       0000123d   defined in Debug\common.o section .text
+                                                  *** not used ***
+_getBoundedValue$L                     00000094   defined in linker section .share
+                                                  used in Debug\common.o
+_init                                  00004406   defined in Debug\main.o section .text
+_labelGet                              000037e3   defined in Debug\label.o section .text
+                                                  used in Debug\window.o
+_labelGet$L                            000000de   defined in linker section .share
+                                                  used in Debug\label.o
+_labelSetupGet                         000043a6   defined in Debug\label.o section .text
+                                                  used in Debug\parameters.o
+_labelSetupGet$L                       000000df   defined in linker section .share
+                                                  used in Debug\label.o
+_m_arbyDisplayCommand                  00000208   defined in Debug\display.o section .bss
+                                                  used in Debug\window.o
+_m_arbyEncoderGate                     00000353   defined in Debug\scanningheadsignal.o section .bss
+_m_arbyEncoderSignals                  00000373   defined in Debug\scanningheadsignal.o section .bss
+_m_arbyParameterChangedFlag            000002be   defined in Debug\parameters.o section .bss
+_m_arbyParameterVisibleFlag            000002b5   defined in Debug\parameters.o section .bss
+_m_arbySNIValues                       000004bd   defined in Debug\sni.o section .bss
+_m_arbyScanningHeadSignal              00000382   defined in Debug\scanningheadsignal.o section .bss
+                                                  used in Debug\window.o
+_m_arbyTimeouts                        ********   *** removed from Debug\timers.o ***
+_m_arwoParameters                      000002c7   defined in Debug\parameters.o section .bss
+_m_byAdditionalCode                    00000292   defined in Debug\display_application.o section .bss
+_m_byCode                              00000293   defined in Debug\display_application.o section .bss
+_m_byCounter                           000004bb   defined in Debug\sni.o section .bss
+_m_byCurrentSelectorX                  000004dc   defined in Debug\window.o section .bss
+_m_byDecimal                           000004ab   defined in Debug\screen.o section .bss
+_m_byEepromAppIndex                    00000203   defined in Debug\parameters.o section .data, initialized
+_m_byManualShiftActiveLong             0000028e   defined in Debug\display_application.o section .bss
+_m_byManualShiftActivePull             0000028c   defined in Debug\display_application.o section .bss
+_m_byManualShiftActiveTrans            0000028d   defined in Debug\display_application.o section .bss
+_m_byNextPage                          0000028f   defined in Debug\display_application.o section .bss
+_m_byNumBitReceived                    000004af   defined in Debug\sni.o section .bss
+_m_byPageAnswerReceived                0000028a   defined in Debug\display_application.o section .bss
+_m_byPageWaitingAnswer                 0000028b   defined in Debug\display_application.o section .bss
+_m_byParamFirstTime                    00000202   defined in Debug\parameters.o section .data, initialized
+_m_byPrevClockHI                       000004b0   defined in Debug\sni.o section .bss
+_m_bySNIIndexValue                     000004bc   defined in Debug\sni.o section .bss
+                                                  used in Debug\main.o
+_m_byScanningHeadSignalPointer         00000380   defined in Debug\scanningheadsignal.o section .bss
+_m_byScanningHeadValue                 0000037f   defined in Debug\scanningheadsignal.o section .bss
+_m_bySelectedMenu                      000004ac   defined in Debug\screen.o section .bss
+_m_byTenMilliSeconds                   ********   *** removed from Debug\timers.o ***
+_m_byTimerHI                           000004b1   defined in Debug\sni.o section .bss
+_m_byTimerLO                           000004b2   defined in Debug\sni.o section .bss
+_m_byTimersFlag                        ********   *** removed from Debug\timers.o ***
+_m_byValueChanged                      000004aa   defined in Debug\screen.o section .bss
+_m_byVisibleMenu                       000004d9   defined in Debug\window.o section .bss
+_m_lwoData                             000004b7   defined in Debug\sni.o section .bss
+_m_lwoReceivedData                     000004b3   defined in Debug\sni.o section .bss
+_m_strString1                          00000496   defined in Debug\screen.o section .bss
+_m_strString2                          00000482   defined in Debug\screen.o section .bss
+_m_woCurrentValue                      000004ad   defined in Debug\screen.o section .bss
+_m_woDisplayedWindow                   000004da   defined in Debug\window.o section .bss
+_m_woEncoderGateEnd                    0000037b   defined in Debug\scanningheadsignal.o section .bss
+                                                  used in Debug\window.o
+_m_woEncoderGateStart                  0000037d   defined in Debug\scanningheadsignal.o section .bss
+                                                  used in Debug\window.o
+_m_woEncoderGateWidth                  00000351   defined in Debug\scanningheadsignal.o section .bss
+_m_woEncoderZeroLoop                   0000034f   defined in Debug\scanningheadsignal.o section .bss
+_m_woRegisterValue                     000004dd   defined in Debug\window.o section .bss
+_m_woSNITimeout                        000004d1   defined in Debug\sni.o section .bss
+_m_woTimeout                           000004d3   defined in Debug\sti.o section .bss
+_m_woValue                             00000290   defined in Debug\display_application.o section .bss
+_main                                  00004592   defined in Debug\main.o section .text
+                                                  used in C:\Program Files\Cosmic\CXST7\LIB\crtsx.st7
+_mainKeyCodeLoop                       0000458d   defined in Debug\main.o section .text
+                                                  *** not used ***
+_mainMessage                           0000449d   defined in Debug\main.o section .text
+                                                  *** not used ***
+_mainMessage$L                         0000009c   defined in linker section .share
+                                                  used in Debug\main.o
+_mainTestRegister                      0000458a   defined in Debug\main.o section .text
+                                                  *** not used ***
+_mainTestRepeatedStrobo                0000458c   defined in Debug\main.o section .text
+                                                  *** not used ***
+_mainTestRepeatedStrobo$L              0000008c   defined in linker section .share
+                                                  used in Debug\main.o
+_mainTestStrobo                        0000458b   defined in Debug\main.o section .text
+                                                  *** not used ***
+_memcpy                                00001105   defined in Debug\common.o section .text
+                                                  used in Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\main.o
+                                                          Debug\screen.o
+                                                          Debug\window.o
+_memcpy$L                              000000d9   defined in linker section .share
+                                                  used in Debug\common.o
+                                                          Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\main.o
+                                                          Debug\screen.o
+                                                          Debug\window.o
+_memcpyFull                            000010e6   defined in Debug\common.o section .text
+                                                  *** not used ***
+_memcpyFull$L                          0000008e   defined in linker section .share
+                                                  used in Debug\common.o
+_parametersChangedFlagReset            00004855   defined in Debug\parameters.o section .text
+                                                  used in Debug\screen.o
+                                                          Debug\window.o
+_parametersChangedFlagReset$L          000000a8   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersCheckBound                  00004708   defined in Debug\parameters.o section .text
+_parametersCheckBound$L                000000e7   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersGet                         000048db   defined in Debug\parameters.o section .text
+_parametersGet$L                       000000f4   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersGetLabel                    00004b66   defined in Debug\parameters.o section .text
+                                                  used in Debug\screen.o
+                                                          Debug\window.o
+_parametersGetLabel$L                  000000de   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersGetSerialNumber             000045eb   defined in Debug\parameters.o section .text
+                                                  used in Debug\display.o
+_parametersGetSerialNumber$L           000000dc   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersGetValue                    000048c4   defined in Debug\parameters.o section .text
+                                                  used in Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\label.o
+                                                          Debug\scanningheadsignal.o
+                                                          Debug\screen.o
+                                                          Debug\sni.o
+                                                          Debug\window.o
+_parametersGetValue$L                  000000f3   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersInit                        000045a1   defined in Debug\parameters.o section .text
+                                                  used in Debug\display_application.o
+_parametersInitTwinApplication         00004616   defined in Debug\parameters.o section .text
+_parametersInitTwinApplication$L       00000098   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersInitVisibleFlags            00004779   defined in Debug\parameters.o section .text
+                                                  used in Debug\screen.o
+_parametersInitVisibleFlags$L          00000096   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersIsChanged                   0000488b   defined in Debug\parameters.o section .text
+                                                  used in Debug\window.o
+_parametersIsChanged$L                 000000d3   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersLoadAll                     00004a1c   defined in Debug\parameters.o section .text
+                                                  used in Debug\display_application.o
+_parametersLoadAll$L                   00000098   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersLoadJob                     00004c80   defined in Debug\parameters.o section .text
+                                                  used in Debug\screen.o
+_parametersLoadJob$L                   000000d9   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersSaveAll                     00004aef   defined in Debug\parameters.o section .text
+                                                  used in Debug\display_application.o
+_parametersSaveAll$L                   00000097   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersSaveJob                     00004b8e   defined in Debug\parameters.o section .text
+                                                  used in Debug\screen.o
+_parametersSaveJob$L                   000000d9   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersSet                         000049bf   defined in Debug\parameters.o section .text
+                                                  used in Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\scanningheadsignal.o
+                                                          Debug\screen.o
+                                                          Debug\sni.o
+                                                          Debug\window.o
+_parametersSet$L                       000000df   defined in linker section .share
+                                                  used in Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\parameters.o
+                                                          Debug\scanningheadsignal.o
+                                                          Debug\screen.o
+                                                          Debug\sni.o
+                                                          Debug\window.o
+_parametersSetForced                   000048f0   defined in Debug\parameters.o section .text
+_parametersSetForced$L                 000000e4   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersVisible                     00004b77   defined in Debug\parameters.o section .text
+                                                  used in Debug\window.o
+_parametersVisible$L                   000000d1   defined in linker section .share
+                                                  used in Debug\parameters.o
+_parametersVisibleFlagSet              00004837   defined in Debug\parameters.o section .text
+_parametersVisibleFlagSet$L            00000096   defined in linker section .share
+                                                  used in Debug\parameters.o
+_readEeprom                            000036bc   defined in Debug\eeprom.o section .text
+                                                  used in Debug\parameters.o
+_readEeprom$L                          000000de   defined in linker section .share
+                                                  used in Debug\eeprom.o
+                                                          Debug\parameters.o
+_readEepromMessage                     0000370f   defined in Debug\eeprom.o section .text
+                                                  *** not used ***
+_readEepromMessage$L                   00000090   defined in linker section .share
+                                                  used in Debug\eeprom.o
+_readEepromString                      0000366e   defined in Debug\eeprom.o section .text
+_readEepromString$L                    00000096   defined in linker section .share
+                                                  used in Debug\eeprom.o
+_scanningHeadSignalAcquire             00004e8e   defined in Debug\scanningheadsignal.o section .text
+                                                  used in Debug\display_application.o
+_scanningHeadSignalAcquire$L           00000097   defined in linker section .share
+                                                  used in Debug\scanningheadsignal.o
+_scanningHeadSignalAcquireGate         00004dbb   defined in Debug\scanningheadsignal.o section .text
+                                                  used in Debug\display_application.o
+_scanningHeadSignalAcquireGate$L       000000aa   defined in linker section .share
+                                                  used in Debug\scanningheadsignal.o
+_scanningHeadSignalEncoderAutoSet      00004d47   defined in Debug\scanningheadsignal.o section .text
+                                                  used in Debug\display_application.o
+_scanningHeadSignalEncoderAutoSet$L    00000097   defined in linker section .share
+                                                  used in Debug\scanningheadsignal.o
+_screen6Menus                          0000590e   defined in Debug\screen.o section .text
+                                                  used in Debug\display_application.o
+_screen6Menus$L                        00000093   defined in linker section .share
+                                                  used in Debug\display_application.o
+                                                          Debug\screen.o
+_screenAlarm                           000058dc   defined in Debug\screen.o section .text
+                                                  used in Debug\display_application.o
+_screenArchive                         00005f63   defined in Debug\screen.o section .text
+                                                  *** not used ***
+_screenBigMessage                      000058f7   defined in Debug\screen.o section .text
+_screenBigMessage$L                    000000a7   defined in linker section .share
+                                                  used in Debug\screen.o
+_screenBigStdMessage                   00006006   defined in Debug\screen.o section .text
+                                                  used in Debug\display_application.o
+_screenBigStdMessage$L                 00000097   defined in linker section .share
+                                                  used in Debug\screen.o
+_screenDisplayKeyCode                  000057c9   defined in Debug\screen.o section .text
+_screenDisplayKeyCode$L                000000a1   defined in linker section .share
+                                                  used in Debug\screen.o
+_screenInit                            000056e6   defined in Debug\screen.o section .text
+                                                  used in Debug\display_application.o
+_screenKeyCode                         000057c3   defined in Debug\screen.o section .text
+                                                  used in Debug\main.o
+_screenOscilloscope                    00005892   defined in Debug\screen.o section .text
+                                                  used in Debug\display_application.o
+_screenOscilloscope$L                  00000094   defined in linker section .share
+                                                  used in Debug\screen.o
+_screenPrepareStdMessage               00007376   defined in Debug\screen.o section .text
+_screenPrepareStdMessage$L             00000097   defined in linker section .share
+                                                  used in Debug\screen.o
+_screenReceivedCode                    000056ea   defined in Debug\screen.o section .text
+                                                  *** not used ***
+_screenReceivedCode$L                  0000009c   defined in linker section .share
+                                                  used in Debug\screen.o
+_screenRegister                        000058b2   defined in Debug\screen.o section .text
+                                                  used in Debug\display_application.o
+_screenSetUpParameter                  00005d60   defined in Debug\screen.o section .text
+                                                  used in Debug\display_application.o
+_screenSetUpParameter$L                00000093   defined in linker section .share
+                                                  used in Debug\screen.o
+_screenUpdateCurrentScreen             0000583e   defined in Debug\screen.o section .text
+                                                  used in Debug\display_application.o
+_screenUpdateCurrentScreen$L           00000094   defined in linker section .share
+                                                  used in Debug\screen.o
+_screenValue                           00005944   defined in Debug\screen.o section .text
+                                                  used in Debug\display_application.o
+_screenValue$L                         00000093   defined in linker section .share
+                                                  used in Debug\display_application.o
+                                                          Debug\screen.o
+_screenVersion                         00005f73   defined in Debug\screen.o section .text
+                                                  used in Debug\display_application.o
+_screenVersion$L                       000000a7   defined in linker section .share
+                                                  used in Debug\screen.o
+_sleep                                 00001072   defined in Debug\common.o section .text
+                                                  used in Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\sti.o
+_sleep$L                               000000ed   defined in linker section .share
+                                                  used in Debug\common.o
+                                                          Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\sti.o
+_sleepFix                              00001094   defined in Debug\common.o section .text
+                                                  used in Debug\display_application.o
+                                                          Debug\screen.o
+                                                          Debug\window.o
+_sleepForIRQ                           00001083   defined in Debug\common.o section .text
+                                                  *** not used ***
+_sleepForIRQ$L                         0000008c   defined in linker section .share
+                                                  used in Debug\common.o
+_sleepSec                              000010a7   defined in Debug\common.o section .text
+                                                  used in Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\screen.o
+_sleepSec$L                            000000b3   defined in linker section .share
+                                                  used in Debug\common.o
+_timersInit                            ********   *** removed from Debug\timers.o ***
+_timersOnOff                           0000113e   defined in Debug\common.o section .text
+                                                  *** not used ***
+_timersOnOff$L                         0000008c   defined in linker section .share
+                                                  used in Debug\common.o
+_timersReset                           ********   *** removed from Debug\timers.o ***
+_timersReset$L                         ********   *** removed from Debug\timers.o ***
+_timersSet                             ********   *** removed from Debug\timers.o ***
+_timersSet$L                           ********   *** removed from Debug\timers.o ***
+_timersTicIRQ                          ********   *** removed from Debug\timers.o ***
+_timersTicIRQ$L                        ********   *** removed from Debug\timers.o ***
+_timersUpdate                          ********   *** removed from Debug\timers.o ***
+_timersUpdate$L                        ********   *** removed from Debug\timers.o ***
+_timersWaitTimeout                     ********   *** removed from Debug\timers.o ***
+_timersWaitTimeout$L                   ********   *** removed from Debug\timers.o ***
+_window6Menu                           00009507   defined in Debug\window.o section .text
+                                                  used in Debug\screen.o
+_window6Menu$L                         00000099   defined in linker section .share
+                                                  used in Debug\screen.o
+                                                          Debug\window.o
+_windowAlarm                           000089eb   defined in Debug\window.o section .text
+                                                  used in Debug\screen.o
+_windowAlarm$L                         000000a7   defined in linker section .share
+                                                  used in Debug\window.o
+_windowBigMessage                      000088ba   defined in Debug\window.o section .text
+                                                  used in Debug\screen.o
+_windowBigMessage$L                    000000ab   defined in linker section .share
+                                                  used in Debug\screen.o
+                                                          Debug\window.o
+_windowCylinderSizeValue               000086b5   defined in Debug\window.o section .text
+                                                  used in Debug\screen.o
+_windowDacValue                        000087be   defined in Debug\window.o section .text
+                                                  used in Debug\screen.o
+_windowForceRepaint                    00008286   defined in Debug\window.o section .text
+                                                  used in Debug\screen.o
+_windowForceRepaintAlarm               0000828e   defined in Debug\window.o section .text
+                                                  *** not used ***
+_windowInit                            00008268   defined in Debug\window.o section .text
+                                                  used in Debug\screen.o
+_windowIsInGate                        00008d9d   defined in Debug\window.o section .text
+_windowIsInGate$L                      000000a2   defined in linker section .share
+                                                  used in Debug\window.o
+_windowMode                            0000829e   defined in Debug\window.o section .text
+                                                  used in Debug\screen.o
+_windowOffsetToHaveCenteredGate        00008deb   defined in Debug\window.o section .text
+_windowOffsetToHaveCenteredGate$L      000000e6   defined in linker section .share
+                                                  used in Debug\window.o
+_windowOscilloscope                    00008e89   defined in Debug\window.o section .text
+                                                  used in Debug\screen.o
+_windowOscilloscope$L                  000000a1   defined in linker section .share
+                                                  used in Debug\window.o
+_windowOscilloscopeGetValue            00008d39   defined in Debug\window.o section .text
+_windowOscilloscopeGetValue$L          000000a3   defined in linker section .share
+                                                  used in Debug\window.o
+_windowRegister                        0000921a   defined in Debug\window.o section .text
+                                                  used in Debug\screen.o
+_windowRegister$L                      000000a2   defined in linker section .share
+                                                  used in Debug\window.o
+_windowRegisterPrepareFormateValue     0000915b   defined in Debug\window.o section .text
+_windowRegisterPrepareFormateValue$L   000000a4   defined in linker section .share
+                                                  used in Debug\window.o
+_windowSetupParameter                  00009f18   defined in Debug\window.o section .text
+                                                  used in Debug\screen.o
+_windowSetupParameter$L                000000ce   defined in linker section .share
+                                                  used in Debug\screen.o
+                                                          Debug\window.o
+_windowSpeed                           0000857e   defined in Debug\window.o section .text
+                                                  used in Debug\screen.o
+_writeEeprom                           00003607   defined in Debug\eeprom.o section .text
+                                                  used in Debug\parameters.o
+_writeEeprom$L                         000000e9   defined in linker section .share
+                                                  used in Debug\eeprom.o
+                                                          Debug\parameters.o
+_writeEepromString                     000035a2   defined in Debug\eeprom.o section .text
+                                                  *** not used ***
+_writeEepromString$L                   0000008e   defined in linker section .share
+                                                  used in Debug\eeprom.o
+c_divl                                 0000a554   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ludiv.o section .text
+c_fadd                                 0000a6d2   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fadd.o section .text
+                                                  *** not used ***
+c_fcmp                                 0000a2b2   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fcmp.o section .text
+                                                  used in Debug\window.o
+c_fdiv                                 0000a2f0   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fdiv.o section .text
+                                                  used in Debug\scanningheadsignal.o
+c_fmul                                 0000a814   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fmul.o section .text
+                                                  *** not used ***
+c_fneg                                 0000a390   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fneg.o section .text
+                                                  used in Debug\window.o
+c_fsub                                 0000a6b6   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fadd.o section .text
+                                                  *** not used ***
+c_ftoi                                 0000a39d   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ftol.o section .text
+                                                  used in Debug\scanningheadsignal.o
+                                                          Debug\window.o
+c_ftol                                 0000a3a4   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ftol.o section .text
+c_getwx                                0000a42b   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)getwx.o section .text
+                                                  used in Debug\parameters.o
+                                                          Debug\sti.o
+c_imul                                 0000a436   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)imul.o section .text
+                                                  used in Debug\common.o
+                                                          Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\sci.o
+                                                          Debug\screen.o
+                                                          Debug\window.o
+c_itof                                 0000a44f   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)itof.o section .text
+                                                  used in Debug\window.o
+c_itol                                 0000a487   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)itol.o section .text
+                                                  used in Debug\common.o
+c_lacc                                 00000080   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lacc.o section .ubsct
+                                                  used in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fdiv.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)load.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ludiv.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fadd.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fmul.o
+c_ladd                                 0000a499   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ladd.o section .text
+                                                  used in Debug\common.o
+c_lcmp                                 0000a4b1   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lcmp.o section .text
+                                                  used in Debug\common.o
+c_lgadd                                0000a4d0   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lgadd.o section .text
+                                                  used in Debug\sci.o
+c_lgsbc                                0000a4e7   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lgsbc.o section .text
+                                                  used in Debug\common.o
+c_lgsub                                0000a4fd   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lgsub.o section .text
+                                                  used in Debug\sci.o
+c_load                                 0000a514   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)load.o section .text
+                                                  used in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fdiv.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fadd.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fmul.o
+c_lreg                                 00000084   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lreg.o section .ubsct
+                                                  used in Debug\common.o
+                                                          Debug\sci.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fcmp.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fdiv.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fneg.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ftol.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)itof.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)itol.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ladd.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lcmp.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lgadd.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lgsub.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ltor.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ludiv.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lursh.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)rtol.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)rtoxl.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)uitof.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)utol.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fadd.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xfcmp.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fmul.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xland.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xlcmp.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xltor.o
+c_ltor                                 0000a531   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ltor.o section .text
+                                                  used in Debug\common.o
+                                                          Debug\scanningheadsignal.o
+                                                          Debug\sci.o
+                                                          Debug\window.o
+c_ludv                                 0000a554   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ludiv.o section .text
+                                                  used in Debug\sci.o
+c_lumd                                 0000a541   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)ludiv.o section .text
+                                                  *** not used ***
+c_lursh                                0000a5df   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lursh.o section .text
+                                                  used in Debug\common.o
+                                                          Debug\sci.o
+c_lzmp                                 0000a5ee   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)lzmp.o section .text
+                                                  used in Debug\common.o
+c_putw                                 0000a600   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)putw.o section .text
+                                                  used in Debug\parameters.o
+                                                          Debug\sti.o
+c_rtol                                 0000a60c   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)rtol.o section .text
+                                                  used in Debug\common.o
+                                                          Debug\display.o
+                                                          Debug\scanningheadsignal.o
+                                                          Debug\sci.o Debug\sni.o
+                                                          Debug\window.o
+c_rtoxl                                0000a61e   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)rtoxl.o section .text
+                                                  used in Debug\window.o
+c_rtoxl2                               0000a620   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)rtoxl.o section .text
+                                                  *** not used ***
+c_udiv                                 0000a63d   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)udiv.o section .text
+                                                  used in Debug\common.o
+                                                          Debug\scanningheadsignal.o
+c_uitof                                0000a67c   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)uitof.o section .text
+                                                  used in Debug\scanningheadsignal.o
+                                                          Debug\window.o
+c_uitol                                0000a6a8   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)utol.o section .text
+                                                  used in Debug\common.o
+                                                          Debug\display.o
+                                                          Debug\parameters.o
+                                                          Debug\sci.o
+c_x                                    00000088   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xreg.o section .ubsct
+                                                  used in C:\Program Files\Cosmic\CXST7\LIB\crtsx.st7
+                                                          Debug\common.o
+                                                          Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\eeprom.o
+                                                          Debug\parameters.o
+                                                          Debug\scanningheadsignal.o
+                                                          Debug\sci.o Debug\sni.o
+                                                          Debug\sti.o
+                                                          Debug\timers.o
+                                                          Debug\window.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fcmp.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fdiv.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)getwx.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)load.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)rtoxl.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)udiv.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fadd.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xfcmp.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fmul.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xland.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xlcmp.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xlglsh.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xltor.o
+c_xfadd                                0000a6cd   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fadd.o section .text
+                                                  used in Debug\window.o
+c_xfcmp                                0000a7bd   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xfcmp.o section .text
+                                                  used in Debug\window.o
+c_xfdiv                                0000a2e5   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fdiv.o section .text
+                                                  used in Debug\window.o
+c_xfmul                                0000a808   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fmul.o section .text
+                                                  used in Debug\scanningheadsignal.o
+                                                          Debug\window.o
+c_xfsub                                0000a6b1   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)fadd.o section .text
+                                                  used in Debug\window.o
+c_xland                                0000a8f9   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xland.o section .text
+                                                  used in Debug\common.o
+                                                          Debug\sni.o
+c_xlcmp                                0000a91c   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xlcmp.o section .text
+                                                  used in Debug\parameters.o
+                                                          Debug\sni.o
+c_xlglsh                               0000a949   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xlglsh.o section .text
+                                                  used in Debug\sni.o
+c_xltor                                0000a97b   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xltor.o section .text
+                                                  used in Debug\sni.o
+                                                          Debug\window.o
+c_xltor2                               0000a97d   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)xltor.o section .text
+                                                  *** not used ***
+c_y                                    0000008a   defined in (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)yreg.o section .ubsct
+                                                  used in C:\Program Files\Cosmic\CXST7\LIB\crtsx.st7
+                                                          Debug\common.o
+                                                          Debug\display.o
+                                                          Debug\display_application.o
+                                                          Debug\parameters.o
+                                                          Debug\scanningheadsignal.o
+                                                          Debug\sci.o
+                                                          Debug\screen.o
+                                                          Debug\sti.o
+                                                          Debug\timers.o
+                                                          Debug\window.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)imul.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)putw.o
+                                                          (C:\Program Files\Cosmic\CXST7\LIB\libm.st7)udiv.o

@@ -1,0 +1,1351 @@
+;	STMicroelectronics Project file
+
+[Version]
+Keyword=ST7Project
+Number=1.1
+
+[Project]
+Name=display
+Toolset=ST7 Cosmic
+
+[Config]
+0=Config.0
+1=Config.1
+
+[Config.0]
+ConfigName=Debug
+Target=$(ProjectSFile).elf
+OutputFolder=Debug
+Debug=$(TargetFName)
+
+[Config.1]
+ConfigName=Release
+Target=$(ProjectSFile).elf
+OutputFolder=Release
+Debug=$(TargetFName)
+
+[Root]
+ElemType=Project
+PathName=display
+Child=Root.Source Files
+Config.0=Root.Config.0
+Config.1=Root.Config.1
+
+[Root.Config.0]
+Settings.0.0=Root.Config.0.Settings.0
+Settings.0.1=Root.Config.0.Settings.1
+Settings.0.2=Root.Config.0.Settings.2
+Settings.0.3=Root.Config.0.Settings.3
+Settings.0.4=Root.Config.0.Settings.4
+Settings.0.5=Root.Config.0.Settings.5
+Settings.0.6=Root.Config.0.Settings.6
+Settings.0.7=Root.Config.0.Settings.7
+Settings.0.8=Root.Config.0.Settings.8
+
+[Root.Config.1]
+Settings.1.0=Root.Config.1.Settings.0
+Settings.1.1=Root.Config.1.Settings.1
+Settings.1.2=Root.Config.1.Settings.2
+Settings.1.3=Root.Config.1.Settings.3
+Settings.1.4=Root.Config.1.Settings.4
+Settings.1.5=Root.Config.1.Settings.5
+Settings.1.6=Root.Config.1.Settings.6
+Settings.1.7=Root.Config.1.Settings.7
+Settings.1.8=Root.Config.1.Settings.8
+
+[Root.Config.0.Settings.0]
+String.6.0=2006,7,21,16,31,15
+String.100.0=ST7 Assembler Linker
+String.100.1=ST7 Cosmic
+String.100.2=ST7 Metrowerks V1.1
+String.101.0=ST7 Cosmic
+String.102.0=C:\Program Files\Cosmic\CXST7
+String.103.0=
+String.104.0=Hst7
+String.105.0=Lib
+String.106.0=Debug
+String.107.0=$(ProjectSFile).elf
+Int.108=1
+
+[Root.Config.0.Settings.1]
+String.6.0=2005,7,11,23,33,31
+String.100.0=$(TargetFName)
+String.101.0=
+String.102.0=
+String.103.0=.\;
+
+[Root.Config.0.Settings.2]
+String.2.0=
+String.6.0=2006,5,24,14,36,1
+String.100.0=ST72F521M9
+
+[Root.Config.0.Settings.3]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,28,15,50,2
+
+[Root.Config.0.Settings.4]
+String.2.0=Assembling $(InputFile)...
+String.3.0=cast7 -xx -l $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2005,7,11,23,33,31
+
+[Root.Config.0.Settings.5]
+String.2.0=Running Pre-Link step
+String.6.0=2005,7,11,23,33,31
+String.8.0=
+
+[Root.Config.0.Settings.6]
+String.2.0=Running ST7 linker
+String.3.0=clnk $(ToolsetLibOpts) -o $(OutputPath)$(TargetSName).st7 -fakeOutFile$(ProjectSFile).elf -fakeRunConv -fakeStartupcrtsx.st7 -fakeAutoGen -fakeInteger -fakeVectFileinterrupt_vector.c -fakeVectAddr0xffe0 -fakebText0x1000 -fakenText0xefff -fakeaConst -fakebBsct0x80 -fakenBsct0x7f -fakeaUbsct -fakeaShare -fakebData0x200 -fakenData0x67f -fakeaBss -customMapFile -customMapFile-m$(OutputPath)$(TargetSName).map -customMapAddress -customCfgFile$(OutputPath)$(TargetSName).lkf 
+String.3.1=cvdwarf $(OutputPath)$(TargetSName).st7
+String.4.0=$(OutputPath)$(TargetFName)
+String.5.0=
+String.6.0=2006,8,28,15,47,40
+String.100.0=
+String.101.0=crtsx.st7
+Int.0=0
+Int.1=0
+
+[Root.Config.0.Settings.7]
+String.2.0=Running Post-Build step
+String.3.0=chex -o $(OutputPath)$(TargetSName).s19 $(OutputPath)$(TargetSName).st7
+String.6.0=2005,7,11,23,33,31
+
+[Root.Config.0.Settings.8]
+String.2.0=Performing Custom Build on $(InputFile)
+String.6.0=2005,7,11,23,33,31
+
+[Root.Config.1.Settings.0]
+String.6.0=2006,2,20,23,49,36
+String.100.0=ST7 Assembler Linker
+String.100.1=ST7 Cosmic
+String.100.2=ST7 Metrowerks V1.1
+String.101.0=ST7 Cosmic
+String.102.0=C:\Program Files\Cosmic\CXST7_16K
+String.103.0=
+String.104.0=Hst7
+String.105.0=Lib
+String.106.0=Release
+String.107.0=$(ProjectSFile).elf
+Int.108=0
+
+[Root.Config.1.Settings.1]
+String.6.0=2005,7,11,23,33,31
+String.100.0=$(TargetFName)
+String.101.0=
+String.102.0=
+String.103.0=.\;
+
+[Root.Config.1.Settings.2]
+String.2.0=
+String.6.0=2005,7,11,23,33,31
+String.100.0=ST72F521R9
+
+[Root.Config.1.Settings.3]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+
+[Root.Config.1.Settings.4]
+String.2.0=Assembling $(InputFile)...
+String.3.0=cast7 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2005,7,11,23,33,31
+
+[Root.Config.1.Settings.5]
+String.2.0=Running Pre-Link step
+String.6.0=2005,7,11,23,33,31
+String.8.0=
+
+[Root.Config.1.Settings.6]
+String.2.0=Running ST7 linker
+String.3.0=clnk $(ToolsetLibOpts) -o $(OutputPath)$(TargetSName).st7 -fakeOutFile$(ProjectSFile).elf -fakeRunConv -fakeStartupcrtsx.st7 -fakeAutoGen -fakeInteger -fakeVectFileinterrupt_vector.c -fakeVectAddr0xffe0 -fakebText0x1000 -fakenText0xefff -fakeaConst -fakebBsct0x80 -fakenBsct0x7f -fakeaUbsct -fakeaShare -fakebData0x200 -fakenData0x67f -fakeaBss -customMapAddress -customCfgFile$(OutputPath)$(TargetSName).lkf 
+String.3.1=cvdwarf $(OutputPath)$(TargetSName).st7
+String.4.0=$(OutputPath)$(TargetFName)
+String.5.0=
+String.6.0=2007,1,5,16,16,30
+String.100.0=
+String.101.0=crtsx.st7
+Int.0=0
+Int.1=0
+
+[Root.Config.1.Settings.7]
+String.2.0=Running Post-Build step
+String.3.0=chex -o $(OutputPath)$(TargetSName).s19 $(OutputPath)$(TargetSName).st7
+String.6.0=2005,7,11,23,33,31
+
+[Root.Config.1.Settings.8]
+String.2.0=Performing Custom Build on $(InputFile)
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files]
+ElemType=Folder
+PathName=Source Files
+Child=Root.Source Files.common.c
+Next=Root.Include Files
+Config.0=Root.Source Files.Config.0
+Config.1=Root.Source Files.Config.1
+
+[Root.Source Files.Config.0]
+Settings.0.0=Root.Source Files.Config.0.Settings.0
+Settings.0.1=Root.Source Files.Config.0.Settings.1
+Settings.0.2=Root.Source Files.Config.0.Settings.2
+Settings.0.3=Root.Source Files.Config.0.Settings.3
+
+[Root.Source Files.Config.1]
+Settings.1.0=Root.Source Files.Config.1.Settings.0
+Settings.1.1=Root.Source Files.Config.1.Settings.1
+Settings.1.2=Root.Source Files.Config.1.Settings.2
+Settings.1.3=Root.Source Files.Config.1.Settings.3
+
+[Root.Source Files.Config.0.Settings.0]
+String.6.0=2005,7,11,23,33,31
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.Config.0.Settings.1]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+
+[Root.Source Files.Config.0.Settings.2]
+String.2.0=Assembling $(InputFile)...
+String.3.0=cast7 -xx -l $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.Config.0.Settings.3]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.Config.1.Settings.0]
+String.6.0=2005,7,11,23,33,31
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.Config.1.Settings.1]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+
+[Root.Source Files.Config.1.Settings.2]
+String.2.0=Assembling $(InputFile)...
+String.3.0=cast7 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.Config.1.Settings.3]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.common.c]
+ElemType=File
+PathName=common.c
+Next=Root.Source Files.display.c
+Config.0=Root.Source Files.common.c.Config.0
+Config.1=Root.Source Files.common.c.Config.1
+
+[Root.Source Files.common.c.Config.0]
+Settings.0.0=Root.Source Files.common.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.common.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.common.c.Config.0.Settings.2
+
+[Root.Source Files.common.c.Config.1]
+Settings.1.0=Root.Source Files.common.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.common.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.common.c.Config.1.Settings.2
+
+[Root.Source Files.common.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.common.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.common.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= common.c "C:\Program Files\Cosmic\CXST7\Hst7\modms.h"  common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.common.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.common.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.common.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= common.c "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h"  common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.display.c]
+ElemType=File
+PathName=display.c
+Next=Root.Source Files.display_application.c
+Config.0=Root.Source Files.display.c.Config.0
+Config.1=Root.Source Files.display.c.Config.1
+
+[Root.Source Files.display.c.Config.0]
+Settings.0.0=Root.Source Files.display.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.display.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.display.c.Config.0.Settings.2
+
+[Root.Source Files.display.c.Config.1]
+Settings.1.0=Root.Source Files.display.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.display.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.display.c.Config.1.Settings.2
+
+[Root.Source Files.display.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.display.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.display.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= display.c "C:\Program Files\Cosmic\CXST7\Hst7\modms.h"  display.h common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h  eeprom.h eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display_application.h window.h screen.h  display_navigation.h
+
+[Root.Source Files.display.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.display.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.display.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= display.c "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h"  display.h common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h  eeprom.h eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display_application.h window.h screen.h  display_navigation.h
+
+[Root.Source Files.display_application.c]
+ElemType=File
+PathName=display_application.c
+Next=Root.Source Files.eeprom.c
+Config.0=Root.Source Files.display_application.c.Config.0
+Config.1=Root.Source Files.display_application.c.Config.1
+
+[Root.Source Files.display_application.c.Config.0]
+Settings.0.0=Root.Source Files.display_application.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.display_application.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.display_application.c.Config.0.Settings.2
+
+[Root.Source Files.display_application.c.Config.1]
+Settings.1.0=Root.Source Files.display_application.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.display_application.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.display_application.c.Config.1.Settings.2
+
+[Root.Source Files.display_application.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.display_application.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.display_application.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= display_application.c  "C:\Program Files\Cosmic\CXST7\Hst7\modms.h" common.h iost72521.h defs.h  timers.h fifo.h spi.h sti.h sci.h eeprom.h eeprom_msg_idx.h parameters.h  scanningHeadSignal.h navigation.h display_macros.h display_messages.h  display.h display_application.h window.h screen.h
+
+[Root.Source Files.display_application.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.display_application.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.display_application.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= display_application.c  "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h" common.h iost72521.h defs.h  timers.h fifo.h spi.h sti.h sci.h eeprom.h eeprom_msg_idx.h parameters.h  scanningHeadSignal.h navigation.h display_macros.h display_messages.h  display.h display_application.h window.h screen.h
+
+[Root.Source Files.eeprom.c]
+ElemType=File
+PathName=eeprom.c
+Next=Root.Source Files.fifo.c
+Config.0=Root.Source Files.eeprom.c.Config.0
+Config.1=Root.Source Files.eeprom.c.Config.1
+
+[Root.Source Files.eeprom.c.Config.0]
+Settings.0.0=Root.Source Files.eeprom.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.eeprom.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.eeprom.c.Config.0.Settings.2
+
+[Root.Source Files.eeprom.c.Config.1]
+Settings.1.0=Root.Source Files.eeprom.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.eeprom.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.eeprom.c.Config.1.Settings.2
+
+[Root.Source Files.eeprom.c.Config.0.Settings.0]
+String.6.0=2006,2,20,13,58,1
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.eeprom.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.eeprom.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= eeprom.c "C:\Program Files\Cosmic\CXST7\Hst7\modms.h"  eeprom.h common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.eeprom.c.Config.1.Settings.0]
+String.6.0=2006,2,20,13,58,1
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.eeprom.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.eeprom.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= eeprom.c "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h"  eeprom.h common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.fifo.c]
+ElemType=File
+PathName=fifo.c
+Next=Root.Source Files.interrupt_vector.c
+Config.0=Root.Source Files.fifo.c.Config.0
+Config.1=Root.Source Files.fifo.c.Config.1
+
+[Root.Source Files.fifo.c.Config.0]
+Settings.0.0=Root.Source Files.fifo.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.fifo.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.fifo.c.Config.0.Settings.2
+
+[Root.Source Files.fifo.c.Config.1]
+Settings.1.0=Root.Source Files.fifo.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.fifo.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.fifo.c.Config.1.Settings.2
+
+[Root.Source Files.fifo.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.fifo.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.fifo.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= fifo.c "C:\Program Files\Cosmic\CXST7\Hst7\modms.h" fifo.h  common.h iost72521.h defs.h timers.h spi.h sti.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.fifo.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.fifo.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.fifo.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= fifo.c "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h"  fifo.h common.h iost72521.h defs.h timers.h spi.h sti.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.interrupt_vector.c]
+ElemType=File
+PathName=interrupt_vector.c
+Next=Root.Source Files.main.c
+Config.0=Root.Source Files.interrupt_vector.c.Config.0
+Config.1=Root.Source Files.interrupt_vector.c.Config.1
+
+[Root.Source Files.interrupt_vector.c.Config.0]
+Settings.0.0=Root.Source Files.interrupt_vector.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.interrupt_vector.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.interrupt_vector.c.Config.0.Settings.2
+
+[Root.Source Files.interrupt_vector.c.Config.1]
+Settings.1.0=Root.Source Files.interrupt_vector.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.interrupt_vector.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.interrupt_vector.c.Config.1.Settings.2
+
+[Root.Source Files.interrupt_vector.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.interrupt_vector.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.interrupt_vector.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= interrupt_vector.c  "C:\Program Files\Cosmic\CXST7\Hst7\modms.h"
+
+[Root.Source Files.interrupt_vector.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.interrupt_vector.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.interrupt_vector.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= interrupt_vector.c  "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h"
+
+[Root.Source Files.main.c]
+ElemType=File
+PathName=main.c
+Next=Root.Source Files.parameters.c
+Config.0=Root.Source Files.main.c.Config.0
+Config.1=Root.Source Files.main.c.Config.1
+
+[Root.Source Files.main.c.Config.0]
+Settings.0.0=Root.Source Files.main.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.main.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.main.c.Config.0.Settings.2
+
+[Root.Source Files.main.c.Config.1]
+Settings.1.0=Root.Source Files.main.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.main.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.main.c.Config.1.Settings.2
+
+[Root.Source Files.main.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.main.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.main.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= main.c "C:\Program Files\Cosmic\CXST7\Hst7\modms.h" main.h  common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.main.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.main.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.main.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= main.c "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h"  main.h common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.parameters.c]
+ElemType=File
+PathName=parameters.c
+Next=Root.Source Files.scanningheadsignal.c
+Config.0=Root.Source Files.parameters.c.Config.0
+Config.1=Root.Source Files.parameters.c.Config.1
+
+[Root.Source Files.parameters.c.Config.0]
+Settings.0.0=Root.Source Files.parameters.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.parameters.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.parameters.c.Config.0.Settings.2
+
+[Root.Source Files.parameters.c.Config.1]
+Settings.1.0=Root.Source Files.parameters.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.parameters.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.parameters.c.Config.1.Settings.2
+
+[Root.Source Files.parameters.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.parameters.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.parameters.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= parameters.c "C:\Program Files\Cosmic\CXST7\Hst7\modms.h"  parameters.h common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h  eeprom.h eeprom_msg_idx.h scanningHeadSignal.h navigation.h display_macros.h  display_messages.h display.h display_application.h window.h screen.h
+
+[Root.Source Files.parameters.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.parameters.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.parameters.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= parameters.c  "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h" parameters.h common.h  iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h eeprom.h  eeprom_msg_idx.h scanningHeadSignal.h navigation.h display_macros.h  display_messages.h display.h display_application.h window.h screen.h
+
+[Root.Source Files.scanningheadsignal.c]
+ElemType=File
+PathName=scanningheadsignal.c
+Next=Root.Source Files.sci.c
+Config.0=Root.Source Files.scanningheadsignal.c.Config.0
+Config.1=Root.Source Files.scanningheadsignal.c.Config.1
+
+[Root.Source Files.scanningheadsignal.c.Config.0]
+Settings.0.0=Root.Source Files.scanningheadsignal.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.scanningheadsignal.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.scanningheadsignal.c.Config.0.Settings.2
+
+[Root.Source Files.scanningheadsignal.c.Config.1]
+Settings.1.0=Root.Source Files.scanningheadsignal.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.scanningheadsignal.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.scanningheadsignal.c.Config.1.Settings.2
+
+[Root.Source Files.scanningheadsignal.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.scanningheadsignal.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.scanningheadsignal.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,7,15,34,16
+String.8.0=Debug
+String.9.0= scanningheadsignal.c  "C:\Program Files\Cosmic\CXST7\Hst7\modms.h" scanningHeadSignal.h common.h  iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h navigation.h display_macros.h  display_messages.h display.h display_application.h window.h screen.h
+
+[Root.Source Files.scanningheadsignal.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.scanningheadsignal.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.scanningheadsignal.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= scanningheadsignal.c  "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h" scanningHeadSignal.h  common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h navigation.h display_macros.h  display_messages.h display.h display_application.h window.h screen.h
+
+[Root.Source Files.sci.c]
+ElemType=File
+PathName=sci.c
+Next=Root.Source Files.screen.c
+Config.0=Root.Source Files.sci.c.Config.0
+Config.1=Root.Source Files.sci.c.Config.1
+
+[Root.Source Files.sci.c.Config.0]
+Settings.0.0=Root.Source Files.sci.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.sci.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.sci.c.Config.0.Settings.2
+
+[Root.Source Files.sci.c.Config.1]
+Settings.1.0=Root.Source Files.sci.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.sci.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.sci.c.Config.1.Settings.2
+
+[Root.Source Files.sci.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.sci.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.sci.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= sci.c "C:\Program Files\Cosmic\CXST7\Hst7\modms.h" sci.h  common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.sci.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.sci.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.sci.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= sci.c "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h" sci.h  common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.screen.c]
+ElemType=File
+PathName=screen.c
+Next=Root.Source Files.spi.c
+Config.0=Root.Source Files.screen.c.Config.0
+Config.1=Root.Source Files.screen.c.Config.1
+
+[Root.Source Files.screen.c.Config.0]
+Settings.0.0=Root.Source Files.screen.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.screen.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.screen.c.Config.0.Settings.2
+
+[Root.Source Files.screen.c.Config.1]
+Settings.1.0=Root.Source Files.screen.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.screen.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.screen.c.Config.1.Settings.2
+
+[Root.Source Files.screen.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.screen.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.screen.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= screen.c "C:\Program Files\Cosmic\CXST7\Hst7\modms.h"  screen.h common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h  eeprom.h eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h
+
+[Root.Source Files.screen.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.screen.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.screen.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= screen.c "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h"  screen.h common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h  eeprom.h eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h
+
+[Root.Source Files.spi.c]
+ElemType=File
+PathName=spi.c
+Next=Root.Source Files.sti.c
+Config.0=Root.Source Files.spi.c.Config.0
+Config.1=Root.Source Files.spi.c.Config.1
+
+[Root.Source Files.spi.c.Config.0]
+Settings.0.0=Root.Source Files.spi.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.spi.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.spi.c.Config.0.Settings.2
+
+[Root.Source Files.spi.c.Config.1]
+Settings.1.0=Root.Source Files.spi.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.spi.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.spi.c.Config.1.Settings.2
+
+[Root.Source Files.spi.c.Config.0.Settings.0]
+String.6.0=2006,2,20,13,58,1
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.spi.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.spi.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= spi.c "C:\Program Files\Cosmic\CXST7\Hst7\modms.h" spi.h  common.h iost72521.h defs.h timers.h fifo.h sti.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.spi.c.Config.1.Settings.0]
+String.6.0=2006,2,20,13,58,1
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.spi.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.spi.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= spi.c "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h" spi.h  common.h iost72521.h defs.h timers.h fifo.h sti.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.sti.c]
+ElemType=File
+PathName=sti.c
+Next=Root.Source Files.timers.c
+Config.0=Root.Source Files.sti.c.Config.0
+Config.1=Root.Source Files.sti.c.Config.1
+
+[Root.Source Files.sti.c.Config.0]
+Settings.0.0=Root.Source Files.sti.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.sti.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.sti.c.Config.0.Settings.2
+
+[Root.Source Files.sti.c.Config.1]
+Settings.1.0=Root.Source Files.sti.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.sti.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.sti.c.Config.1.Settings.2
+
+[Root.Source Files.sti.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.sti.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.sti.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= sti.c "C:\Program Files\Cosmic\CXST7\Hst7\modms.h" sti.h  common.h iost72521.h defs.h timers.h fifo.h spi.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.sti.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.sti.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.sti.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= sti.c "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h" sti.h  common.h iost72521.h defs.h timers.h fifo.h spi.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.timers.c]
+ElemType=File
+PathName=timers.c
+Next=Root.Source Files.window.c
+Config.0=Root.Source Files.timers.c.Config.0
+Config.1=Root.Source Files.timers.c.Config.1
+
+[Root.Source Files.timers.c.Config.0]
+Settings.0.0=Root.Source Files.timers.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.timers.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.timers.c.Config.0.Settings.2
+
+[Root.Source Files.timers.c.Config.1]
+Settings.1.0=Root.Source Files.timers.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.timers.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.timers.c.Config.1.Settings.2
+
+[Root.Source Files.timers.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.timers.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.timers.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= timers.c "C:\Program Files\Cosmic\CXST7\Hst7\modms.h"  timers.h common.h iost72521.h defs.h fifo.h spi.h sti.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.timers.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.timers.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.timers.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= timers.c "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h"  timers.h common.h iost72521.h defs.h fifo.h spi.h sti.h sci.h eeprom.h  eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h window.h  screen.h
+
+[Root.Source Files.window.c]
+ElemType=File
+PathName=window.c
+Config.0=Root.Source Files.window.c.Config.0
+Config.1=Root.Source Files.window.c.Config.1
+
+[Root.Source Files.window.c.Config.0]
+Settings.0.0=Root.Source Files.window.c.Config.0.Settings.0
+Settings.0.1=Root.Source Files.window.c.Config.0.Settings.1
+Settings.0.2=Root.Source Files.window.c.Config.0.Settings.2
+
+[Root.Source Files.window.c.Config.1]
+Settings.1.0=Root.Source Files.window.c.Config.1.Settings.0
+Settings.1.1=Root.Source Files.window.c.Config.1.Settings.1
+Settings.1.2=Root.Source Files.window.c.Config.1.Settings.2
+
+[Root.Source Files.window.c.Config.0.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Source Files.window.c.Config.0.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.window.c.Config.0.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+String.8.0=Debug
+String.9.0= window.c "C:\Program Files\Cosmic\CXST7\Hst7\modms.h"  window.h common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h  eeprom.h eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h screen.h
+
+[Root.Source Files.window.c.Config.1.Settings.0]
+String.6.0=2006,8,25,23,21,26
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Source Files.window.c.Config.1.Settings.1]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Source Files.window.c.Config.1.Settings.2]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+String.8.0=Release
+String.9.0= window.c "C:\Program Files\Cosmic\CXST7_16K\Hst7\modms.h"  window.h common.h iost72521.h defs.h timers.h fifo.h spi.h sti.h sci.h  eeprom.h eeprom_msg_idx.h parameters.h scanningHeadSignal.h navigation.h  display_macros.h display_messages.h display.h display_application.h screen.h
+
+[Root.Include Files]
+ElemType=Folder
+PathName=Include Files
+Child=Root.Include Files.common.h
+Config.0=Root.Include Files.Config.0
+Config.1=Root.Include Files.Config.1
+
+[Root.Include Files.Config.0]
+Settings.0.0=Root.Include Files.Config.0.Settings.0
+Settings.0.1=Root.Include Files.Config.0.Settings.1
+Settings.0.2=Root.Include Files.Config.0.Settings.2
+Settings.0.3=Root.Include Files.Config.0.Settings.3
+
+[Root.Include Files.Config.1]
+Settings.1.0=Root.Include Files.Config.1.Settings.0
+Settings.1.1=Root.Include Files.Config.1.Settings.1
+Settings.1.2=Root.Include Files.Config.1.Settings.2
+Settings.1.3=Root.Include Files.Config.1.Settings.3
+
+[Root.Include Files.Config.0.Settings.0]
+String.6.0=2005,7,11,23,33,31
+String.8.0=Debug
+Int.0=0
+Int.1=0
+
+[Root.Include Files.Config.0.Settings.1]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customDebCompat -no -customC-pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2006,8,26,0,10,7
+
+[Root.Include Files.Config.0.Settings.2]
+String.2.0=Assembling $(InputFile)...
+String.3.0=cast7 -xx -l $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2005,7,11,23,33,31
+
+[Root.Include Files.Config.0.Settings.3]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Include Files.Config.1.Settings.0]
+String.6.0=2005,7,11,23,33,31
+String.8.0=Release
+Int.0=0
+Int.1=0
+
+[Root.Include Files.Config.1.Settings.1]
+String.2.0=Compiling $(InputFile)...
+String.3.0=cxst7 +modms -customC-pp $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2007,1,5,16,16,30
+
+[Root.Include Files.Config.1.Settings.2]
+String.2.0=Assembling $(InputFile)...
+String.3.0=cast7 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
+String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
+String.5.0=$(IntermPath)$(InputName).ls
+String.6.0=2005,7,11,23,33,31
+
+[Root.Include Files.Config.1.Settings.3]
+String.2.0=Performing Custom Build on $(InputFile)
+String.3.0=
+String.4.0=
+String.5.0=
+String.6.0=2005,7,11,23,33,31
+
+[Root.Include Files.common.h]
+ElemType=File
+PathName=common.h
+Next=Root.Include Files.defs.h
+
+[Root.Include Files.defs.h]
+ElemType=File
+PathName=defs.h
+Next=Root.Include Files.display.h
+
+[Root.Include Files.display.h]
+ElemType=File
+PathName=display.h
+Next=Root.Include Files.display_application.h
+
+[Root.Include Files.display_application.h]
+ElemType=File
+PathName=display_application.h
+Next=Root.Include Files.display_macros.h
+
+[Root.Include Files.display_macros.h]
+ElemType=File
+PathName=display_macros.h
+Next=Root.Include Files.display_messages.h
+
+[Root.Include Files.display_messages.h]
+ElemType=File
+PathName=display_messages.h
+Next=Root.Include Files.display_navigation.h
+
+[Root.Include Files.display_navigation.h]
+ElemType=File
+PathName=display_navigation.h
+Next=Root.Include Files.eeprom.h
+
+[Root.Include Files.eeprom.h]
+ElemType=File
+PathName=eeprom.h
+Next=Root.Include Files.eeprom_msg_idx.h
+
+[Root.Include Files.eeprom_msg_idx.h]
+ElemType=File
+PathName=eeprom_msg_idx.h
+Next=Root.Include Files.fifo.h
+
+[Root.Include Files.fifo.h]
+ElemType=File
+PathName=fifo.h
+Next=Root.Include Files.iost72521.h
+
+[Root.Include Files.iost72521.h]
+ElemType=File
+PathName=iost72521.h
+Next=Root.Include Files.main.h
+
+[Root.Include Files.main.h]
+ElemType=File
+PathName=main.h
+Next=Root.Include Files.navigation.h
+
+[Root.Include Files.navigation.h]
+ElemType=File
+PathName=navigation.h
+Next=Root.Include Files.parameters.h
+
+[Root.Include Files.parameters.h]
+ElemType=File
+PathName=parameters.h
+Next=Root.Include Files.scanningheadsignal.h
+
+[Root.Include Files.scanningheadsignal.h]
+ElemType=File
+PathName=scanningheadsignal.h
+Next=Root.Include Files.sci.h
+
+[Root.Include Files.sci.h]
+ElemType=File
+PathName=sci.h
+Next=Root.Include Files.screen.h
+
+[Root.Include Files.screen.h]
+ElemType=File
+PathName=screen.h
+Next=Root.Include Files.spi.h
+
+[Root.Include Files.spi.h]
+ElemType=File
+PathName=spi.h
+Next=Root.Include Files.sti.h
+
+[Root.Include Files.sti.h]
+ElemType=File
+PathName=sti.h
+Next=Root.Include Files.timers.h
+
+[Root.Include Files.timers.h]
+ElemType=File
+PathName=timers.h
+Next=Root.Include Files.window.h
+
+[Root.Include Files.window.h]
+ElemType=File
+PathName=window.h

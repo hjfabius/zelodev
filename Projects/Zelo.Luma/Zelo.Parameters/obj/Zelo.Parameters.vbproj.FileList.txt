@@ -1,0 +1,16 @@
+..\BIN_FULL\Zelo.Parameters.dll.config
+..\BIN_FULL\Zelo.Parameters.dll
+..\BIN_FULL\Zelo.Parameters.pdb
+obj\Release\ResolveAssemblyReference.cache
+obj\Release\Zelo.Luma.Resources.resources
+obj\Release\Zelo.Parameters.vbproj.GenerateResource.Cache
+obj\Release\Zelo.Parameters.dll
+obj\Release\Zelo.Parameters.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Zelo.Luma.Resources.resources
+obj\Debug\Zelo.Parameters.vbproj.GenerateResource.Cache
+bin\Debug\Zelo.Parameters.dll.config
+bin\Debug\Zelo.Parameters.dll
+bin\Debug\Zelo.Parameters.pdb
+obj\Debug\Zelo.Parameters.dll
+obj\Debug\Zelo.Parameters.pdb

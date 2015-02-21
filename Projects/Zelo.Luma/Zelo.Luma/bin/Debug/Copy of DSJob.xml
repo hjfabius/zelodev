@@ -1,0 +1,779 @@
+<?xml version="1.0" standalone="yes"?>
+<DSJobs xmlns="http://tempuri.org/DSJobs.xsd">
+  <xs:schema id="DSJobs" targetNamespace="http://tempuri.org/DSJobs.xsd" xmlns:mstns="http://tempuri.org/DSJobs.xsd" xmlns="http://tempuri.org/DSJobs.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+    <xs:element name="DSJobs" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Jobs">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="JobID" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="ClientName" type="xs:string" minOccurs="0" />
+                <xs:element name="ProjectName" type="xs:string" minOccurs="0" />
+                <xs:element name="DateCreated" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="DateModified" type="xs:dateTime" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Registers">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="RegisterID" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="Range" type="xs:int" default="100" minOccurs="0" />
+                <xs:element name="LongitudinalMode" type="xs:int" default="1" minOccurs="0" />
+                <xs:element name="LateralMode" type="xs:int" default="1" minOccurs="0" />
+                <xs:element name="IsBaseColor" type="xs:boolean" default="false" minOccurs="0" />
+                <xs:element name="IsInstalled" type="xs:boolean" default="true" minOccurs="0" />
+                <xs:element name="LateralRefValue" type="xs:double" default="0" minOccurs="0" />
+                <xs:element name="LateralValue" type="xs:double" default="0" minOccurs="0" />
+                <xs:element name="LongitudinalRefValue" type="xs:double" default="0" minOccurs="0" />
+                <xs:element name="LongitudinalValue" type="xs:double" default="0" minOccurs="0" />
+                <xs:element name="MarkID" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="LateralFactor" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="LateralGain" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="LongitudinalFactor" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="LongitudinalGain" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="Side" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="CylinderLength" type="xs:double" default="504" minOccurs="0" />
+                <xs:element name="Cyclic" type="xs:int" default="1" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Groups">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="GroupID" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="JobID" type="xs:int" />
+                <xs:element name="GroupNumber" type="xs:int" default="1" minOccurs="0" />
+                <xs:element name="GroupColor" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="RegisterID" type="xs:int" minOccurs="0" />
+                <xs:element name="ViscosityID" type="xs:int" minOccurs="0" />
+                <xs:element name="IsInstalled" type="xs:boolean" default="true" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Viscosities">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ViscosityID" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="ViscosityRefValue" type="xs:double" default="25" minOccurs="0" />
+                <xs:element name="ViscosityMax" type="xs:double" default="40" minOccurs="0" />
+                <xs:element name="ViscosityMin" type="xs:double" default="10" minOccurs="0" />
+                <xs:element name="TemperatureRange" type="xs:double" default="65" minOccurs="0" />
+                <xs:element name="TemperatureMax" type="xs:double" default="45" minOccurs="0" />
+                <xs:element name="TemperatureMin" type="xs:double" default="5" minOccurs="0" />
+                <xs:element name="PhRefValue" type="xs:double" default="7" minOccurs="0" />
+                <xs:element name="PhMax" type="xs:double" default="14" minOccurs="0" />
+                <xs:element name="PhMin" type="xs:double" default="0" minOccurs="0" />
+                <xs:element name="ViscosityGain" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="TemperatureGain" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="PhGain" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="ViscosityMode" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="IsInstalled" type="xs:boolean" default="true" minOccurs="0" />
+                <xs:element name="ViscosityRange" type="xs:double" default="40" minOccurs="0" />
+                <xs:element name="ViscosityFactor" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="TemperatureFactor" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="PhFactor" type="xs:double" default="1" minOccurs="0" />
+                <xs:element name="ViscosityValue" type="xs:double" default="20" minOccurs="0" />
+                <xs:element name="TemperatureValue" type="xs:double" default="12" minOccurs="0" />
+                <xs:element name="PhValue" type="xs:double" default="71" minOccurs="0" />
+                <xs:element name="Fluid" type="xs:int" default="0" minOccurs="0" />
+                <xs:element name="Pause" type="xs:int" default="0" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:Jobs" />
+        <xs:field xpath="mstns:JobID" />
+      </xs:unique>
+      <xs:unique name="RegisterControlKey1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:Registers" />
+        <xs:field xpath="mstns:RegisterID" />
+      </xs:unique>
+      <xs:unique name="GroupsKey1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:Groups" />
+        <xs:field xpath="mstns:GroupID" />
+      </xs:unique>
+      <xs:unique name="Viscosities_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//mstns:Viscosities" />
+        <xs:field xpath="mstns:ViscosityID" />
+      </xs:unique>
+    </xs:element>
+    <xs:annotation>
+      <xs:appinfo>
+        <msdata:Relationship name="Jobs_Groups" msdata:parent="Jobs" msdata:child="Groups" msdata:parentkey="JobID" msdata:childkey="JobID" />
+        <msdata:Relationship name="Register_Groups" msdata:parent="Registers" msdata:child="Groups" msdata:parentkey="RegisterID" msdata:childkey="RegisterID" />
+        <msdata:Relationship name="ViscosityControl_Groups" msdata:parent="Viscosities" msdata:child="Groups" msdata:parentkey="ViscosityID" msdata:childkey="ViscosityID" />
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:schema>
+  <Jobs>
+    <JobID>0</JobID>
+    <ClientName>Default Client</ClientName>
+    <ProjectName>Default Project</ProjectName>
+    <DateCreated>2006-04-12T21:14:08.9417012+02:00</DateCreated>
+    <DateModified>2006-04-12T21:14:08.9417012+02:00</DateModified>
+  </Jobs>
+  <Registers>
+    <RegisterID>1</RegisterID>
+    <Range>100</Range>
+    <LongitudinalMode>1</LongitudinalMode>
+    <LateralMode>1</LateralMode>
+    <IsBaseColor>true</IsBaseColor>
+    <IsInstalled>true</IsInstalled>
+    <LateralRefValue>0</LateralRefValue>
+    <LateralValue>0</LateralValue>
+    <LongitudinalRefValue>0</LongitudinalRefValue>
+    <LongitudinalValue>0</LongitudinalValue>
+    <MarkID>0</MarkID>
+    <LateralFactor>1</LateralFactor>
+    <LateralGain>1</LateralGain>
+    <LongitudinalFactor>1</LongitudinalFactor>
+    <LongitudinalGain>1</LongitudinalGain>
+    <Side>0</Side>
+    <CylinderLength>504</CylinderLength>
+    <Cyclic>0</Cyclic>
+  </Registers>
+  <Registers>
+    <RegisterID>2</RegisterID>
+    <Range>100</Range>
+    <LongitudinalMode>1</LongitudinalMode>
+    <LateralMode>1</LateralMode>
+    <IsBaseColor>false</IsBaseColor>
+    <IsInstalled>true</IsInstalled>
+    <LateralRefValue>0</LateralRefValue>
+    <LateralValue>10</LateralValue>
+    <LongitudinalRefValue>0</LongitudinalRefValue>
+    <LongitudinalValue>5</LongitudinalValue>
+    <MarkID>1</MarkID>
+    <LateralFactor>1</LateralFactor>
+    <LateralGain>1</LateralGain>
+    <LongitudinalFactor>1</LongitudinalFactor>
+    <LongitudinalGain>1</LongitudinalGain>
+    <Side>0</Side>
+    <CylinderLength>504</CylinderLength>
+    <Cyclic>1</Cyclic>
+  </Registers>
+  <Registers>
+    <RegisterID>3</RegisterID>
+    <Range>100</Range>
+    <LongitudinalMode>1</LongitudinalMode>
+    <LateralMode>1</LateralMode>
+    <IsBaseColor>false</IsBaseColor>
+    <IsInstalled>true</IsInstalled>
+    <LateralRefValue>0</LateralRefValue>
+    <LateralValue>20</LateralValue>
+    <LongitudinalRefValue>0</LongitudinalRefValue>
+    <LongitudinalValue>-5</LongitudinalValue>
+    <MarkID>2</MarkID>
+    <LateralFactor>1</LateralFactor>
+    <LateralGain>1</LateralGain>
+    <LongitudinalFactor>1</LongitudinalFactor>
+    <LongitudinalGain>1</LongitudinalGain>
+    <Side>0</Side>
+    <CylinderLength>504</CylinderLength>
+    <Cyclic>2</Cyclic>
+  </Registers>
+  <Registers>
+    <RegisterID>4</RegisterID>
+    <Range>100</Range>
+    <LongitudinalMode>1</LongitudinalMode>
+    <LateralMode>1</LateralMode>
+    <IsBaseColor>false</IsBaseColor>
+    <IsInstalled>true</IsInstalled>
+    <LateralRefValue>0</LateralRefValue>
+    <LateralValue>-10</LateralValue>
+    <LongitudinalRefValue>0</LongitudinalRefValue>
+    <LongitudinalValue>5</LongitudinalValue>
+    <MarkID>3</MarkID>
+    <LateralFactor>1</LateralFactor>
+    <LateralGain>1</LateralGain>
+    <LongitudinalFactor>1</LongitudinalFactor>
+    <LongitudinalGain>1</LongitudinalGain>
+    <Side>0</Side>
+    <CylinderLength>504</CylinderLength>
+    <Cyclic>3</Cyclic>
+  </Registers>
+  <Registers>
+    <RegisterID>5</RegisterID>
+    <Range>100</Range>
+    <LongitudinalMode>1</LongitudinalMode>
+    <LateralMode>1</LateralMode>
+    <IsBaseColor>false</IsBaseColor>
+    <IsInstalled>true</IsInstalled>
+    <LateralRefValue>0</LateralRefValue>
+    <LateralValue>-20</LateralValue>
+    <LongitudinalRefValue>0</LongitudinalRefValue>
+    <LongitudinalValue>-5</LongitudinalValue>
+    <MarkID>4</MarkID>
+    <LateralFactor>1</LateralFactor>
+    <LateralGain>1</LateralGain>
+    <LongitudinalFactor>1</LongitudinalFactor>
+    <LongitudinalGain>1</LongitudinalGain>
+    <Side>0</Side>
+    <CylinderLength>504</CylinderLength>
+    <Cyclic>4</Cyclic>
+  </Registers>
+  <Registers>
+    <RegisterID>6</RegisterID>
+    <Range>100</Range>
+    <LongitudinalMode>1</LongitudinalMode>
+    <LateralMode>1</LateralMode>
+    <IsBaseColor>false</IsBaseColor>
+    <IsInstalled>true</IsInstalled>
+    <LateralRefValue>0</LateralRefValue>
+    <LateralValue>0</LateralValue>
+    <LongitudinalRefValue>0</LongitudinalRefValue>
+    <LongitudinalValue>0</LongitudinalValue>
+    <MarkID>5</MarkID>
+    <LateralFactor>1</LateralFactor>
+    <LateralGain>1</LateralGain>
+    <LongitudinalFactor>1</LongitudinalFactor>
+    <LongitudinalGain>1</LongitudinalGain>
+    <Side>0</Side>
+    <CylinderLength>504</CylinderLength>
+    <Cyclic>5</Cyclic>
+  </Registers>
+  <Registers>
+    <RegisterID>7</RegisterID>
+    <Range>100</Range>
+    <LongitudinalMode>1</LongitudinalMode>
+    <LateralMode>1</LateralMode>
+    <IsBaseColor>false</IsBaseColor>
+    <IsInstalled>true</IsInstalled>
+    <LateralRefValue>0</LateralRefValue>
+    <LateralValue>0</LateralValue>
+    <LongitudinalRefValue>0</LongitudinalRefValue>
+    <LongitudinalValue>0</LongitudinalValue>
+    <MarkID>6</MarkID>
+    <LateralFactor>1</LateralFactor>
+    <LateralGain>1</LateralGain>
+    <LongitudinalFactor>1</LongitudinalFactor>
+    <LongitudinalGain>1</LongitudinalGain>
+    <Side>0</Side>
+    <CylinderLength>504</CylinderLength>
+    <Cyclic>6</Cyclic>
+  </Registers>
+  <Registers>
+    <RegisterID>8</RegisterID>
+    <Range>100</Range>
+    <LongitudinalMode>1</LongitudinalMode>
+    <LateralMode>1</LateralMode>
+    <IsBaseColor>false</IsBaseColor>
+    <IsInstalled>true</IsInstalled>
+    <LateralRefValue>0</LateralRefValue>
+    <LateralValue>0</LateralValue>
+    <LongitudinalRefValue>0</LongitudinalRefValue>
+    <LongitudinalValue>0</LongitudinalValue>
+    <MarkID>7</MarkID>
+    <LateralFactor>1</LateralFactor>
+    <LateralGain>1</LateralGain>
+    <LongitudinalFactor>1</LongitudinalFactor>
+    <LongitudinalGain>1</LongitudinalGain>
+    <Side>0</Side>
+    <CylinderLength>504</CylinderLength>
+    <Cyclic>7</Cyclic>
+  </Registers>
+  <Registers>
+    <RegisterID>9</RegisterID>
+    <Range>100</Range>
+    <LongitudinalMode>1</LongitudinalMode>
+    <LateralMode>1</LateralMode>
+    <IsBaseColor>false</IsBaseColor>
+    <IsInstalled>true</IsInstalled>
+    <LateralRefValue>0</LateralRefValue>
+    <LateralValue>0</LateralValue>
+    <LongitudinalRefValue>0</LongitudinalRefValue>
+    <LongitudinalValue>0</LongitudinalValue>
+    <MarkID>8</MarkID>
+    <LateralFactor>1</LateralFactor>
+    <LateralGain>1</LateralGain>
+    <LongitudinalFactor>1</LongitudinalFactor>
+    <LongitudinalGain>1</LongitudinalGain>
+    <Side>0</Side>
+    <CylinderLength>504</CylinderLength>
+    <Cyclic>8</Cyclic>
+  </Registers>
+  <Registers>
+    <RegisterID>10</RegisterID>
+    <Range>100</Range>
+    <LongitudinalMode>1</LongitudinalMode>
+    <LateralMode>1</LateralMode>
+    <IsBaseColor>false</IsBaseColor>
+    <IsInstalled>true</IsInstalled>
+    <LateralRefValue>0</LateralRefValue>
+    <LateralValue>0</LateralValue>
+    <LongitudinalRefValue>0</LongitudinalRefValue>
+    <LongitudinalValue>0</LongitudinalValue>
+    <MarkID>9</MarkID>
+    <LateralFactor>1</LateralFactor>
+    <LateralGain>1</LateralGain>
+    <LongitudinalFactor>1</LongitudinalFactor>
+    <LongitudinalGain>1</LongitudinalGain>
+    <Side>0</Side>
+    <CylinderLength>504</CylinderLength>
+    <Cyclic>9</Cyclic>
+  </Registers>
+  <Registers>
+    <RegisterID>11</RegisterID>
+    <Range>100</Range>
+    <LongitudinalMode>1</LongitudinalMode>
+    <LateralMode>1</LateralMode>
+    <IsBaseColor>false</IsBaseColor>
+    <IsInstalled>true</IsInstalled>
+    <LateralRefValue>0</LateralRefValue>
+    <LateralValue>0</LateralValue>
+    <LongitudinalRefValue>0</LongitudinalRefValue>
+    <LongitudinalValue>0</LongitudinalValue>
+    <MarkID>10</MarkID>
+    <LateralFactor>1</LateralFactor>
+    <LateralGain>1</LateralGain>
+    <LongitudinalFactor>1</LongitudinalFactor>
+    <LongitudinalGain>1</LongitudinalGain>
+    <Side>0</Side>
+    <CylinderLength>504</CylinderLength>
+    <Cyclic>10</Cyclic>
+  </Registers>
+  <Registers>
+    <RegisterID>12</RegisterID>
+    <Range>100</Range>
+    <LongitudinalMode>3</LongitudinalMode>
+    <LateralMode>3</LateralMode>
+    <IsBaseColor>false</IsBaseColor>
+    <IsInstalled>true</IsInstalled>
+    <LateralRefValue>0</LateralRefValue>
+    <LateralValue>0</LateralValue>
+    <LongitudinalRefValue>0</LongitudinalRefValue>
+    <LongitudinalValue>0</LongitudinalValue>
+    <MarkID>11</MarkID>
+    <LateralFactor>1</LateralFactor>
+    <LateralGain>1</LateralGain>
+    <LongitudinalFactor>1</LongitudinalFactor>
+    <LongitudinalGain>1</LongitudinalGain>
+    <Side>0</Side>
+    <CylinderLength>504</CylinderLength>
+    <Cyclic>11</Cyclic>
+  </Registers>
+  <Groups>
+    <GroupID>1</GroupID>
+    <JobID>0</JobID>
+    <GroupNumber>1</GroupNumber>
+    <GroupColor>-16777216</GroupColor>
+    <RegisterID>1</RegisterID>
+    <ViscosityID>1</ViscosityID>
+    <IsInstalled>true</IsInstalled>
+  </Groups>
+  <Groups>
+    <GroupID>2</GroupID>
+    <JobID>0</JobID>
+    <GroupNumber>2</GroupNumber>
+    <GroupColor>-654</GroupColor>
+    <RegisterID>2</RegisterID>
+    <ViscosityID>2</ViscosityID>
+    <IsInstalled>true</IsInstalled>
+  </Groups>
+  <Groups>
+    <GroupID>3</GroupID>
+    <JobID>0</JobID>
+    <GroupNumber>3</GroupNumber>
+    <GroupColor>-63737</GroupColor>
+    <RegisterID>3</RegisterID>
+    <ViscosityID>3</ViscosityID>
+    <IsInstalled>true</IsInstalled>
+  </Groups>
+  <Groups>
+    <GroupID>4</GroupID>
+    <JobID>0</JobID>
+    <GroupNumber>4</GroupNumber>
+    <GroupColor>-2146231259</GroupColor>
+    <RegisterID>4</RegisterID>
+    <ViscosityID>4</ViscosityID>
+    <IsInstalled>true</IsInstalled>
+  </Groups>
+  <Groups>
+    <GroupID>5</GroupID>
+    <JobID>0</JobID>
+    <GroupNumber>5</GroupNumber>
+    <GroupColor>-14546542</GroupColor>
+    <RegisterID>5</RegisterID>
+    <ViscosityID>5</ViscosityID>
+    <IsInstalled>true</IsInstalled>
+  </Groups>
+  <Groups>
+    <GroupID>6</GroupID>
+    <JobID>0</JobID>
+    <GroupNumber>6</GroupNumber>
+    <GroupColor>-6540200</GroupColor>
+    <RegisterID>6</RegisterID>
+    <ViscosityID>6</ViscosityID>
+    <IsInstalled>true</IsInstalled>
+  </Groups>
+  <Groups>
+    <GroupID>7</GroupID>
+    <JobID>0</JobID>
+    <GroupNumber>7</GroupNumber>
+    <GroupColor>-75213055</GroupColor>
+    <RegisterID>7</RegisterID>
+    <ViscosityID>7</ViscosityID>
+    <IsInstalled>true</IsInstalled>
+  </Groups>
+  <Groups>
+    <GroupID>8</GroupID>
+    <JobID>0</JobID>
+    <GroupNumber>8</GroupNumber>
+    <GroupColor>-452216321</GroupColor>
+    <RegisterID>8</RegisterID>
+    <ViscosityID>8</ViscosityID>
+    <IsInstalled>true</IsInstalled>
+  </Groups>
+  <Groups>
+    <GroupID>9</GroupID>
+    <JobID>0</JobID>
+    <GroupNumber>9</GroupNumber>
+    <GroupColor>-16482559</GroupColor>
+    <RegisterID>9</RegisterID>
+    <ViscosityID>9</ViscosityID>
+    <IsInstalled>true</IsInstalled>
+  </Groups>
+  <Groups>
+    <GroupID>10</GroupID>
+    <JobID>0</JobID>
+    <GroupNumber>10</GroupNumber>
+    <GroupColor>-29902</GroupColor>
+    <RegisterID>10</RegisterID>
+    <ViscosityID>10</ViscosityID>
+    <IsInstalled>true</IsInstalled>
+  </Groups>
+  <Groups>
+    <GroupID>11</GroupID>
+    <JobID>0</JobID>
+    <GroupNumber>11</GroupNumber>
+    <GroupColor>-445121321</GroupColor>
+    <RegisterID>11</RegisterID>
+    <ViscosityID>11</ViscosityID>
+    <IsInstalled>true</IsInstalled>
+  </Groups>
+  <Groups>
+    <GroupID>12</GroupID>
+    <JobID>0</JobID>
+    <GroupNumber>12</GroupNumber>
+    <GroupColor>-2000152100</GroupColor>
+    <RegisterID>12</RegisterID>
+    <ViscosityID>12</ViscosityID>
+    <IsInstalled>true</IsInstalled>
+  </Groups>
+  <Viscosities>
+    <ViscosityID>1</ViscosityID>
+    <ViscosityRefValue>25</ViscosityRefValue>
+    <ViscosityMax>40</ViscosityMax>
+    <ViscosityMin>10</ViscosityMin>
+    <TemperatureRange>65</TemperatureRange>
+    <TemperatureMax>45</TemperatureMax>
+    <TemperatureMin>5</TemperatureMin>
+    <PhRefValue>7</PhRefValue>
+    <PhMax>14</PhMax>
+    <PhMin>0</PhMin>
+    <ViscosityGain>1</ViscosityGain>
+    <TemperatureGain>1</TemperatureGain>
+    <PhGain>1</PhGain>
+    <ViscosityMode>0</ViscosityMode>
+    <IsInstalled>true</IsInstalled>
+    <ViscosityRange>40</ViscosityRange>
+    <ViscosityFactor>1</ViscosityFactor>
+    <TemperatureFactor>1</TemperatureFactor>
+    <PhFactor>1</PhFactor>
+    <ViscosityValue>19</ViscosityValue>
+    <TemperatureValue>12</TemperatureValue>
+    <PhValue>7.1</PhValue>
+    <Fluid>0</Fluid>
+    <Pause>0</Pause>
+  </Viscosities>
+  <Viscosities>
+    <ViscosityID>2</ViscosityID>
+    <ViscosityRefValue>25</ViscosityRefValue>
+    <ViscosityMax>40</ViscosityMax>
+    <ViscosityMin>10</ViscosityMin>
+    <TemperatureRange>65</TemperatureRange>
+    <TemperatureMax>45</TemperatureMax>
+    <TemperatureMin>5</TemperatureMin>
+    <PhRefValue>7</PhRefValue>
+    <PhMax>14</PhMax>
+    <PhMin>0</PhMin>
+    <ViscosityGain>1</ViscosityGain>
+    <TemperatureGain>1</TemperatureGain>
+    <PhGain>1</PhGain>
+    <ViscosityMode>0</ViscosityMode>
+    <IsInstalled>true</IsInstalled>
+    <ViscosityRange>40</ViscosityRange>
+    <ViscosityFactor>1</ViscosityFactor>
+    <TemperatureFactor>1</TemperatureFactor>
+    <PhFactor>1</PhFactor>
+    <ViscosityValue>20</ViscosityValue>
+    <TemperatureValue>14</TemperatureValue>
+    <PhValue>7.1</PhValue>
+    <Fluid>0</Fluid>
+    <Pause>0</Pause>
+  </Viscosities>
+  <Viscosities>
+    <ViscosityID>3</ViscosityID>
+    <ViscosityRefValue>25</ViscosityRefValue>
+    <ViscosityMax>40</ViscosityMax>
+    <ViscosityMin>10</ViscosityMin>
+    <TemperatureRange>65</TemperatureRange>
+    <TemperatureMax>45</TemperatureMax>
+    <TemperatureMin>5</TemperatureMin>
+    <PhRefValue>7</PhRefValue>
+    <PhMax>14</PhMax>
+    <PhMin>0</PhMin>
+    <ViscosityGain>1</ViscosityGain>
+    <TemperatureGain>1</TemperatureGain>
+    <PhGain>1</PhGain>
+    <ViscosityMode>0</ViscosityMode>
+    <IsInstalled>true</IsInstalled>
+    <ViscosityRange>40</ViscosityRange>
+    <ViscosityFactor>1</ViscosityFactor>
+    <TemperatureFactor>1</TemperatureFactor>
+    <PhFactor>1</PhFactor>
+    <ViscosityValue>21</ViscosityValue>
+    <TemperatureValue>16</TemperatureValue>
+    <PhValue>7.1</PhValue>
+    <Fluid>0</Fluid>
+    <Pause>0</Pause>
+  </Viscosities>
+  <Viscosities>
+    <ViscosityID>4</ViscosityID>
+    <ViscosityRefValue>25</ViscosityRefValue>
+    <ViscosityMax>40</ViscosityMax>
+    <ViscosityMin>10</ViscosityMin>
+    <TemperatureRange>65</TemperatureRange>
+    <TemperatureMax>45</TemperatureMax>
+    <TemperatureMin>5</TemperatureMin>
+    <PhRefValue>7</PhRefValue>
+    <PhMax>14</PhMax>
+    <PhMin>0</PhMin>
+    <ViscosityGain>1</ViscosityGain>
+    <TemperatureGain>1</TemperatureGain>
+    <PhGain>1</PhGain>
+    <ViscosityMode>0</ViscosityMode>
+    <IsInstalled>true</IsInstalled>
+    <ViscosityRange>40</ViscosityRange>
+    <ViscosityFactor>1</ViscosityFactor>
+    <TemperatureFactor>1</TemperatureFactor>
+    <PhFactor>1</PhFactor>
+    <ViscosityValue>22</ViscosityValue>
+    <TemperatureValue>18</TemperatureValue>
+    <PhValue>7.1</PhValue>
+    <Fluid>0</Fluid>
+    <Pause>0</Pause>
+  </Viscosities>
+  <Viscosities>
+    <ViscosityID>5</ViscosityID>
+    <ViscosityRefValue>25</ViscosityRefValue>
+    <ViscosityMax>40</ViscosityMax>
+    <ViscosityMin>10</ViscosityMin>
+    <TemperatureRange>65</TemperatureRange>
+    <TemperatureMax>45</TemperatureMax>
+    <TemperatureMin>5</TemperatureMin>
+    <PhRefValue>7</PhRefValue>
+    <PhMax>14</PhMax>
+    <PhMin>0</PhMin>
+    <ViscosityGain>1</ViscosityGain>
+    <TemperatureGain>1</TemperatureGain>
+    <PhGain>1</PhGain>
+    <ViscosityMode>0</ViscosityMode>
+    <IsInstalled>true</IsInstalled>
+    <ViscosityRange>40</ViscosityRange>
+    <ViscosityFactor>1</ViscosityFactor>
+    <TemperatureFactor>1</TemperatureFactor>
+    <PhFactor>1</PhFactor>
+    <ViscosityValue>23</ViscosityValue>
+    <TemperatureValue>20</TemperatureValue>
+    <PhValue>7.1</PhValue>
+    <Fluid>0</Fluid>
+    <Pause>0</Pause>
+  </Viscosities>
+  <Viscosities>
+    <ViscosityID>6</ViscosityID>
+    <ViscosityRefValue>25</ViscosityRefValue>
+    <ViscosityMax>40</ViscosityMax>
+    <ViscosityMin>10</ViscosityMin>
+    <TemperatureRange>65</TemperatureRange>
+    <TemperatureMax>45</TemperatureMax>
+    <TemperatureMin>5</TemperatureMin>
+    <PhRefValue>7</PhRefValue>
+    <PhMax>14</PhMax>
+    <PhMin>0</PhMin>
+    <ViscosityGain>1</ViscosityGain>
+    <TemperatureGain>1</TemperatureGain>
+    <PhGain>1</PhGain>
+    <ViscosityMode>0</ViscosityMode>
+    <IsInstalled>true</IsInstalled>
+    <ViscosityRange>40</ViscosityRange>
+    <ViscosityFactor>1</ViscosityFactor>
+    <TemperatureFactor>1</TemperatureFactor>
+    <PhFactor>1</PhFactor>
+    <ViscosityValue>24</ViscosityValue>
+    <TemperatureValue>22</TemperatureValue>
+    <PhValue>7.1</PhValue>
+    <Fluid>0</Fluid>
+    <Pause>0</Pause>
+  </Viscosities>
+  <Viscosities>
+    <ViscosityID>7</ViscosityID>
+    <ViscosityRefValue>25</ViscosityRefValue>
+    <ViscosityMax>40</ViscosityMax>
+    <ViscosityMin>10</ViscosityMin>
+    <TemperatureRange>65</TemperatureRange>
+    <TemperatureMax>45</TemperatureMax>
+    <TemperatureMin>5</TemperatureMin>
+    <PhRefValue>7</PhRefValue>
+    <PhMax>14</PhMax>
+    <PhMin>0</PhMin>
+    <ViscosityGain>1</ViscosityGain>
+    <TemperatureGain>1</TemperatureGain>
+    <PhGain>1</PhGain>
+    <ViscosityMode>0</ViscosityMode>
+    <IsInstalled>true</IsInstalled>
+    <ViscosityRange>40</ViscosityRange>
+    <ViscosityFactor>1</ViscosityFactor>
+    <TemperatureFactor>1</TemperatureFactor>
+    <PhFactor>1</PhFactor>
+    <ViscosityValue>25</ViscosityValue>
+    <TemperatureValue>24</TemperatureValue>
+    <PhValue>7.1</PhValue>
+    <Fluid>0</Fluid>
+    <Pause>0</Pause>
+  </Viscosities>
+  <Viscosities>
+    <ViscosityID>8</ViscosityID>
+    <ViscosityRefValue>25</ViscosityRefValue>
+    <ViscosityMax>40</ViscosityMax>
+    <ViscosityMin>10</ViscosityMin>
+    <TemperatureRange>65</TemperatureRange>
+    <TemperatureMax>45</TemperatureMax>
+    <TemperatureMin>5</TemperatureMin>
+    <PhRefValue>7</PhRefValue>
+    <PhMax>14</PhMax>
+    <PhMin>0</PhMin>
+    <ViscosityGain>1</ViscosityGain>
+    <TemperatureGain>1</TemperatureGain>
+    <PhGain>1</PhGain>
+    <ViscosityMode>0</ViscosityMode>
+    <IsInstalled>true</IsInstalled>
+    <ViscosityRange>40</ViscosityRange>
+    <ViscosityFactor>1</ViscosityFactor>
+    <TemperatureFactor>1</TemperatureFactor>
+    <PhFactor>1</PhFactor>
+    <ViscosityValue>26</ViscosityValue>
+    <TemperatureValue>26</TemperatureValue>
+    <PhValue>7.1</PhValue>
+    <Fluid>0</Fluid>
+    <Pause>0</Pause>
+  </Viscosities>
+  <Viscosities>
+    <ViscosityID>9</ViscosityID>
+    <ViscosityRefValue>25</ViscosityRefValue>
+    <ViscosityMax>40</ViscosityMax>
+    <ViscosityMin>10</ViscosityMin>
+    <TemperatureRange>65</TemperatureRange>
+    <TemperatureMax>45</TemperatureMax>
+    <TemperatureMin>5</TemperatureMin>
+    <PhRefValue>7</PhRefValue>
+    <PhMax>14</PhMax>
+    <PhMin>0</PhMin>
+    <ViscosityGain>1</ViscosityGain>
+    <TemperatureGain>1</TemperatureGain>
+    <PhGain>1</PhGain>
+    <ViscosityMode>0</ViscosityMode>
+    <IsInstalled>true</IsInstalled>
+    <ViscosityRange>40</ViscosityRange>
+    <ViscosityFactor>1</ViscosityFactor>
+    <TemperatureFactor>1</TemperatureFactor>
+    <PhFactor>1</PhFactor>
+    <ViscosityValue>27</ViscosityValue>
+    <TemperatureValue>28</TemperatureValue>
+    <PhValue>7.1</PhValue>
+    <Fluid>0</Fluid>
+    <Pause>0</Pause>
+  </Viscosities>
+  <Viscosities>
+    <ViscosityID>10</ViscosityID>
+    <ViscosityRefValue>25</ViscosityRefValue>
+    <ViscosityMax>40</ViscosityMax>
+    <ViscosityMin>10</ViscosityMin>
+    <TemperatureRange>65</TemperatureRange>
+    <TemperatureMax>45</TemperatureMax>
+    <TemperatureMin>5</TemperatureMin>
+    <PhRefValue>7</PhRefValue>
+    <PhMax>14</PhMax>
+    <PhMin>0</PhMin>
+    <ViscosityGain>1</ViscosityGain>
+    <TemperatureGain>1</TemperatureGain>
+    <PhGain>1</PhGain>
+    <ViscosityMode>0</ViscosityMode>
+    <IsInstalled>true</IsInstalled>
+    <ViscosityRange>40</ViscosityRange>
+    <ViscosityFactor>1</ViscosityFactor>
+    <TemperatureFactor>1</TemperatureFactor>
+    <PhFactor>1</PhFactor>
+    <ViscosityValue>28</ViscosityValue>
+    <TemperatureValue>30</TemperatureValue>
+    <PhValue>7.1</PhValue>
+    <Fluid>1</Fluid>
+    <Pause>0</Pause>
+  </Viscosities>
+  <Viscosities>
+    <ViscosityID>11</ViscosityID>
+    <ViscosityRefValue>25</ViscosityRefValue>
+    <ViscosityMax>40</ViscosityMax>
+    <ViscosityMin>10</ViscosityMin>
+    <TemperatureRange>65</TemperatureRange>
+    <TemperatureMax>45</TemperatureMax>
+    <TemperatureMin>5</TemperatureMin>
+    <PhRefValue>7</PhRefValue>
+    <PhMax>14</PhMax>
+    <PhMin>0</PhMin>
+    <ViscosityGain>1</ViscosityGain>
+    <TemperatureGain>1</TemperatureGain>
+    <PhGain>1</PhGain>
+    <ViscosityMode>0</ViscosityMode>
+    <IsInstalled>true</IsInstalled>
+    <ViscosityRange>40</ViscosityRange>
+    <ViscosityFactor>1</ViscosityFactor>
+    <TemperatureFactor>1</TemperatureFactor>
+    <PhFactor>1</PhFactor>
+    <ViscosityValue>29</ViscosityValue>
+    <TemperatureValue>32</TemperatureValue>
+    <PhValue>7.1</PhValue>
+    <Fluid>2</Fluid>
+    <Pause>0</Pause>
+  </Viscosities>
+  <Viscosities>
+    <ViscosityID>12</ViscosityID>
+    <ViscosityRefValue>25</ViscosityRefValue>
+    <ViscosityMax>40</ViscosityMax>
+    <ViscosityMin>10</ViscosityMin>
+    <TemperatureRange>65</TemperatureRange>
+    <TemperatureMax>45</TemperatureMax>
+    <TemperatureMin>5</TemperatureMin>
+    <PhRefValue>7</PhRefValue>
+    <PhMax>14</PhMax>
+    <PhMin>0</PhMin>
+    <ViscosityGain>1</ViscosityGain>
+    <TemperatureGain>1</TemperatureGain>
+    <PhGain>1</PhGain>
+    <ViscosityMode>3</ViscosityMode>
+    <IsInstalled>true</IsInstalled>
+    <ViscosityRange>40</ViscosityRange>
+    <ViscosityFactor>1</ViscosityFactor>
+    <TemperatureFactor>1</TemperatureFactor>
+    <PhFactor>1</PhFactor>
+    <ViscosityValue>30</ViscosityValue>
+    <TemperatureValue>34</TemperatureValue>
+    <PhValue>7.1</PhValue>
+    <Fluid>0</Fluid>
+    <Pause>0</Pause>
+  </Viscosities>
+</DSJobs>

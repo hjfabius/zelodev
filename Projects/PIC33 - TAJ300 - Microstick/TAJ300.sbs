@@ -1,0 +1,61 @@
+## SCL Builder Setup File: Do not edit!!
+
+## VERSION: 3.60.00.00
+## FORMAT:  v2.00.01
+## DEVICE:  dsPIC33FJ128MC802
+
+## PINREGACTIONS
+cyc
+No Repeat
+--
+&
+## ADVPINREGACTIONS
+RP5
+--
+1
+COND1
+Cont
+0
+cyc
+0
+--
+1
+COND2
+Cont
+0
+cyc
+1
+--
+&
+--
+COND1
+Pin
+RA0
+=
+0
+
+
+
+--
+COND2
+Pin
+RA0
+=
+1
+
+
+
+--
+&
+## CLOCK
+&
+## STIMULUSFILE
+&
+## RESPONSEFILE
+&
+## ASYNCH
+&
+## ADVANCEDSCL
+
+1
+&

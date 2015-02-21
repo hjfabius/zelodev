@@ -1,0 +1,42 @@
+#!/bin/bash
+ftp -in <<EOF
+open 1.102.7.73   
+user hjfabius fabius
+ascii
+prompt
+cd hjMV
+get hjTitan.ini
+get main.cpp
+get grabif.h
+get grabif.cpp
+get hjLuma.h
+get hjLuma.cpp
+get hjTrace.h
+get hjTrace.cpp
+get hjBlob.h
+get hjBlob.cpp
+get hjStruct.h
+get hjKeyboard.h
+get hjKeyboard.cpp
+get hjGUI.cpp
+get hjGUI.h
+get hjFont.cpp
+get hjFont.h
+get hjColors.h
+get stopwatch.cpp
+get stopwatch.h
+get ini.h
+get ini.cpp
+get Makefile
+get ftpbatch
+get go
+get gohj
+get hjTahoma_20.ini 
+get hjCourier_New_28.ini
+get hjLucida_Console_14.ini
+get hjLucida_Console_28.ini	
+get hjSWkeys_20.ini
+get hjSWkeys_24.ini
+get hjSWkeys_28.ini
+get hjSWkeys_32.ini
+bye

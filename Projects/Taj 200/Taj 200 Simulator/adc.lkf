@@ -1,0 +1,30 @@
+#	LINK COMMAND FILE FOR ADC PROGRAM
+#	
++def MAXSIZE=0x05E0
+#+seg .text -b0xFA00 -mMAXSIZE-0xB8 -n .text   # executable code
++seg .text -b 0xfa00 -m 0x5ff  -n .text 
++seg TEXT -a .text -n .TEXT
++seg .const -a .TEXT -n .const # text string and constants
++seg DATA -a .const
+# for +modm:
++seg .bsct -b0x80 -n .bsct 	   # initialized variables in zero page (@tiny by default)
++seg .ubsct -a .bsct -n .ubsct # uninitialized variables in zero page (@tiny by default)
++seg .share -a .ubsct -is      # simulated stack
++seg .data -b0xC0 -n .data     # initialized variables (@near)
++seg .bss -a .data             # uninitialized variables (@near)
+crts.st7
+main.o
+libim.st7
+libm.st7
++seg .const -b 0xFFE0
+vector.o
+communication.o
+#
+# define these symbols if crtsi or crtsx is used #
++def __endzp=@.ubsct            # end of uninitialized zpage
++def __memory=@.bss             # end of bss segment
+#+def __stack=0xC0
+
+
+
+

@@ -1,0 +1,330 @@
+Journal Entry
+
+Created: 26.09 08:28
+Modified: 25.03 14:55	
+Title:
+MATRIX Vision Frame Grabber Drivers for Linux
+Category:
+	
+
+
+Contents
+1 Introduction
+	1.1 Software Requirements
+	1.2 Hardware Requirements
+
+2 Installation
+	2.1 Files
+		2.1.1 First Steps
+		2.1.2 Quick Start
+	2.2 Kernel Parameters
+	2.3 Kernel Modules
+	2.4 Kernel Module Parameters
+		2.4.1 Major Device Number
+		2.4.2 Video Memory Address
+		2.4.3 Debug Message Level
+	2.5 Libraries
+
+3 Writing Your Own Applications
+	3.1 linuxtest
+	
+4 Special Notes for Linux
+	4.1 VGA Applications
+
+5 Copyrights etc.
+
+1 Introduction
+The standard MATRIX Vision frame grabber drivers have been ported to Linux. A 
+common code base ensures that the names and parameters of all the functions are 
+identical to the Windows / DOS versions. This makes porting your existing 
+Windows applications to Linux especially easy.
+We are constantly improving and updating so you should always take a look at 
+our website for newer versions (http://www.matrix-vision.de).
+The driver consists of two parts:
+A kernel module (called matrixfg.o or titan.o). This handles kernel mode memory 
+and I/O access.
+A library which provides user programs with access to all the MATRIX Vision 
+standard frame grabber functions as defined in the header file mv.h.
+
+1.1 Software Requirements
+Linux kernel 2.2.x or 2.4.x running on i386 CPU.  We have tested using 2.2.13, 
+2.2.16, 2.2.18, 2.2.19, 2.4.0, 2.4.5, 2.4.12, 2.4.17. It is possible that older 
+kernels will also work. You will need to have support for kernel modules turned 
+on.
+For the shared versions of the library, the GNU C runtime library libc6 is 
+required. All recent Linux distributions should have this (e.g. SuSE Linux 6.1, 
+... 7.0). The libraries have been compiled using glibc 2.2.2. on a SuSE 7.2 
+installation. If you use an older version of glibc you may experience problems. 
+Please contact us - we may be able to compile the library for your system.
+For display functions: the svga library or for X applications, a correctly 
+installed X system.
+To compile the kernel modules you will need a correctly configured GNU compiler 
+and at least the kernel header files installed.
+
+1.2 Hardware Requirements
+i386 compatible PC.
+One of the following types of MATRIX Vision frame grabber:
+MVsigma-SLC, MVdelta, PCimage-SC, PCimageSG, PCimage-SRGB PCimage-SDIG and 
+MVtitan or MVcam3.
+
+2 Installation
+2.1 Files
+2.1.1 First Steps
+Make a new directory on your computer. Copy the contents of the linux 
+subdirectory from the CD to this directory e.g. asuming the tgz file is called 
+mv-driver.tgz
+>cp -v /cdrom/linux/mv-driver.tgz /mypath
+Unpack the tgz-file using :
+>tar -xvzf mv-driver.tgz
+See the README file for full details.
+
+2.1.2 Quick Start
+Make the test programs and kernel modules using:
+>make <target>
+where <target> is one of:    titan slc sg srgb sdig sc
+depending on the framegrabber you are using.
+
+You can install the kernel modules on your computer with:
+>make install	
+
+Or you can install and load the kernel modules using dynamic major device 
+numbers (see below) on your computer with:
+>make load_titan			(for the MVtitan series and Mvcam3)
+or
+>make load_matrixfg			(for all other MATRIX Vision 
+framegrabbers)
+ 
+2.2 Kernel Parameters
+Some MATRIX Vision frame grabbers support a linear DMA buffer in Hard Live 
+mode. In order to ensure that we have a linear memory area, we use a modified 
+version of the allocator kernel module from Alessandro Rubini's book Linux 
+Device Drivers (O'Reilly 1998 ISBN: 1-56592-292-1). This handles linear memory 
+blocks above the top of the memory range usually used by the kernel (highmemory
+). In order to reserve space for allocator you need to start the kernel with an 
+extra parameter which instructs it to use slightly less than all the memory. 
+e.g If your computer contains 128 MB of RAM start the kernel with the parameter:
+mem=126M
+The kernel will be able to use 126 MB of memory and 2 MB may be used by 
+allocator. A computer with 64 MB of RAM should be started with:
+mem=62M
+Note: If you do not start your kernel using this parameter the allocator module 
+will still load without an error but linear DMA access will not work correctly 
+(and is not needed by some frame grabbers). The amount of high memory you 
+should reserve depends on the resolution and colour depth you are going to use 
+and on your application.
+
+2.3 Kernel Modules
+As an alternative to the make commands described in 2.1 above you can create 
+the kernel modules individually, if you want:
+Login as root. Change directory to the driver/os/linux/allocator and  
+driver/os/linux/matrixfg (or  driver/os/linux/titan for MVtitan) subdirectories 
+in succession and compile the kernel modules using the following command in 
+each directory:
+>make
+You can install the kernel modules (allocator.o and matrixfg.oor titan.o) by 
+copying them to the appropriate directory on your computer (e.g. 
+/lib/modules/2.2.16/misc) or by editing the target install in the file Makefile
+, if necessary, and then typing this command in the appropriate directory:
+>make install
+You can now load the kernel modules using make load or calling the script 
+mvload matrixfg (or mvload titan) to be found in the bin subdirectory. This 
+will also create the appropriate device nodes after loading the modules. The 
+script mvunload matrixfg unloads both modules and deletes the device nodes. 
+N.B. Device numbers for MATRIX Vision frame grabbers have not yet been 
+officially assigned so we use a dynamic major device number technique which 
+will usually assign a number of 254. See the script mvmodprobe or Rubini's book 
+for more details. If you want to assign a fixed number (e.g. one of the numbers 
+used for experimental drivers, for example 60) you can load matrixfgwith a 
+parameter (see below). Fixed major numbers also allow automatic loading of the 
+kernel modules if you enter the appropriate alias lines in /etc/modules.conf.  
+If everything has worked correctly you should see that both allocator and 
+matrixfg(or titan) have been loaded by using the command:
+>lsmod
+This will list all the loaded kernel modules like this....
+
+Module                  Size  Used by
+matrixfg               17212   0  (unused)
+allocator               2104   0  [matrixfg]
+... etc.
+
+>
+
+You may also inspect the system log for debug messages from these modules.
+
+2.4 Kernel Module Parameters
+The kernel modules matrixfgor titan may be loaded using one or more of the 
+following parameters:
+
+2.4.1 Major Device Number
+major_dev_num=n	(integer) 
+e.g major_dev_num=60. Tells the kernel module to use the device with a major 
+device number of 60. If you do not use this parameter or you set the number to 
+0, the kernel module will choose its own major device number.
+
+2.4.2 Video Memory Address
+vidmem=p			(long)
+e.g. vidmem=0xd8000000. Tells the kernel module to assume that the VGA card's 
+linear memory begins at the address specified. This should only be needed if 
+your VGA card is not recognized automatically by the kernel module. Check the 
+output in the system log when loading matrixfg (or titan) to see which address 
+is being used. If necessary, check the list of PCI devices (>cat /proc/pci) to 
+see the possible addresses used by your VGA card.
+
+2.4.3 Debug Message Level
+debug=n			(long)
+e.g. debug=0x3b. Tells the kernel module to output more debug messages in the 
+system log.
+
+2.5 Libraries
+The libraries are supplied as shared versions. The libraries are to be found in 
+the subdirectory lib. Copy the appropriate library file for your frame grabber 
+to the standard library path on your computer e.g. /usr/lib. Alternatively you 
+may leave the libraries in the lib subdirectory or copy the library to any 
+other directory but you will have to set the environment variable 
+LD_LIBRARY_PATH to include this directory. e.g. for the bash shell...
+>export LD_LIBRARY_PATH=$ LD_LIBRARY_PATH:/mypath/lib
+Yet another alternative is to change the configuration file for your ldconfig 
+command or use the mvldconfig script in the MATRIX Vision bin directory
+
+The shared libraries contain the version number within the name. e.g. if the 
+library for the MVsigma-SLC is called libslc.so.3.22.0, you will find symbolic 
+links to the libraries within the lib directory:
+>ls -l lib
+drwxrwxr-x	3	technik  users        1024 Sep 25 17:20 .
+drwxrwxrwx	21	technik  users        2048 Sep 25 17:26 ..
+lrwxrwxrwx	1	technik  users          16 Sep 24 09:53 libslc.so -> 
+libslc.so.3.22.0
+lrwxrwxrwx	1	technik  users          16 Sep 24 09:54 libslc.so.3 
+-> libslc.so.3.22.0
+-rwxrwxr-x	1	technik  users      561114 Aug 30 13:11 
+libslc.so.3.22.0
+
+>
+
+The following is a list of the libraries available and their function. The 
+names of the libraries actually supplied may vary depending on the current 
+version/build number (e.g. libtitan.so.1.0.2 instead of libtitan.so.1.0.1).
+Name	Frame grabber	Notes
+libmvos.so	All except MVtitan series	Common functions for most frame grabbers running 
+under Linux
+libmvvga.so	All except MVtitan series	Display using (s)vgalib
+libmvx11.so	All except MVtitan series	Display using X
+libmvnodisp.so	All except MVtitan series	Dummy for no live display
+libmvvgattn.so	MVtitan series	Display using (s)vgalib
+libmvx11ttn.so	MVtitan series	Display using X
+libsg.so	PCimage-SG	
+libsrgb.so	PCimage-SRGB	
+libsdig.so	PCimage-SDIG	
+libslc.so	MVsigma-SLC, MVdelta	
+libtitan.so	MVtitan series and MVcam3	
+
+
+3 Writing Your Own Applications
+A number of test applications have been included to show you how to write 
+programs that use the MATRIX Vision frame grabber driver. Some of these test 
+programs may not be contained in the driver version you receive but at least 
+linuxtest should always be available.
+
+3.1 linuxtest
+The files contained in the subdirectory linuxtest can be used to make simple 
+test programs for all the MATRIX Vision frame grabbers. An image will be shown 
+on the screen in hard live mode. You can make VGA or X versions. The program 
+will work best with the MVdelta, MVsigma-SLC or PCimage-SG but you will have to 
+adjust the palette and color conversion routines to get a correct display with 
+other MATRIX Vision frame grabbers. e.g. To make the test programs for the 
+MVtitan use...
+>make titan
+The command....
+>xtitantest --help
+... will show a list of possible parameters for the test program.
+See the README file in the linuxtest directory for more details.
+
+4 Special Notes for Linux
+4.1 VGA Applications
+When using the VGA library for display you should add an extra, as yet 
+undocumented function to the INI file used to initialize the frame grabber:
+UseLibVga 1024 768 8 0
+
+The parameters are...
+1. x resolution in pixels for the display.
+2. y resolution in pixels for the display.
+3. Color depth in pixels for the display.
+4. Set to 0 if using the first 3 parameters.
+Alternatively you may specify a number representing the VGA mode as the fourth 
+parameter and leave the first three parameters as 0. See the VGA library 
+documentation for details about the modes. e.g.
+UseLibVga 0 0 0 12
+
+will set VGA mode 12.
+N.B. In order to change VGA modes you need access rights as root.
+
+
+5 Copyrights etc.
+We have tried our best to adhere to the terms of all software licences. Please 
+contact us if you feel we have misinterpreted anything.
+
+Some of the original work on the matrixfgand titan kernel modules was based on 
+the source code for the bttv driver, in particular the routines to detect the 
+VGA card and some memory management routines. Since the original code was 
+released under the terms of the GNU General Public License (GPL), we are happy 
+to supply our kernel module source code and give full credit to the original 
+authors (see header files). Our kernel driver source code is therefore also 
+released under the terms of the GPL, the full text of which may be found in the 
+file GPL/COPYING.
+
+The allocator module is Copyright © 1998 Alessandro Rubini and is released 
+under the terms of the GPL. We have made some alterations which are documented 
+in the source files.
+
+The tutorial and test program for X are Copyright ©1998- 2000 MATRIX Vision 
+GmbH and are distributed under the terms of the GPL. Please note that KDE/QT 
+programs you develop may require a commercial license from TrollTech unless you 
+also distribute them under the GPL or QPL, See http://www.trolltech.no  or 
+http://www.trolltech.com for more details.
+
+The VGA library used by some of the display libraries is free software and may 
+be distributed and modified without restriction. The X libraries appear to be 
+distributed under similar terms. See the header files on your Linux system for 
+details.
+
+The GNU C library is distributed under the terms of the GNU Library General 
+Public License (GLPL). Applications. According to the terms of this license, 
+"work that uses the library" is not restricted by the license. The full text of 
+this license may be found in the file GPL/GLPL.html.
+
+The frame grabber shared libraries for MATRIX Vision frame grabbers are based 
+solely on the original Windows source code developed by us. These files are 
+Copyright © 1992-2001 MATRIX Vision GmbH and the source code is not included 
+here. You may distribute the binaries together with your own applications if 
+you include the above Copyright notice in your documentation.
+
+Programs that use kernel services and functions are not derived form the kernel 
+and are therefore not covered by the GPL like the kernel sources themselves.
+
+The library libtitan.so.x.x for the MVtitan series of frame grabbers and for 
+the MVcam3 uses some binary code from the Trimedia® code relocation library 
+(libload.a) supplied by Philips. These functions are © Copyright Philips 
+Semiconductors Trimedia Product Group 1997-2000.
+
+
+
+MATRIX Vision Linux Team
+support@matrix-vision.de
+Last changed: March 2002
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+

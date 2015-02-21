@@ -1,0 +1,17 @@
+#!/bin/bash
+clear
+rm msg.txt
+./hjMV
+clear
+
+ftp -in <<EOF
+open 1.102.7.73
+user hjfabius fabius
+ascii
+prompt
+cd hjMV
+put msg.txt
+get hjLuma.ini
+bye
+
+rm  image.txt

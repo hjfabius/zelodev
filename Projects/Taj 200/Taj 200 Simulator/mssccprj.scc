@@ -1,0 +1,5 @@
+SCC = This is a Source Code Control file
+
+[adc.mak]
+SCC_Aux_Path = "\\zeloserv\SourceSafeArchive"
+SCC_Project_Name = "$/Projects/Zelo/ST7/Projects/MarkRecognizer", KBAAAAAA

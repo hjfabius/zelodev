@@ -1,0 +1,25 @@
+--------------------------------------------------------------------------
+ Neuricam SpA   - Trento - Italy
+ http://www.neuricam.com
+ email:  techsupport@neuricam.com , info@neuricam.com
+--------------------------------------------------------------------------
+ Filename: pccam_viewer.README
+--------------------------------------------------------------------------
+ Project:       <PCCam SDK>
+ Author(s):     <Roberto Doriguzzi>
+ First release: <may 2004>
+ Description:   <Neuricam PCCam image viewer>
+--------------------------------------------------------------------------
+
+
+pccam_viewer is a simple application that allows the user to grab and display
+images under the XWindow system. In order to recompile the source code 
+the following tools/libraries are nedeed:
+
+1 - gtk+2 
+2 - atk-1.0
+3 - pango-1.0 
+
+These packages are already installed on the PCCam operating system.
+Compile the source code using the command described in the pccam_viewer.c
+header.

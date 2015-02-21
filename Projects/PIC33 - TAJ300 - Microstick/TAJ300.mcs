@@ -1,0 +1,253 @@
+[Header]
+MagicCookie={0b13fe8c-dfe0-40eb-8900-6712719559a7}
+Version=1.0
+[File000]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\main.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File001]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\traps.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File002]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\init.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File003]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\interrupt.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File004]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\sti.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File005]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\common.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File006]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\display.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File007]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\display_navigation.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File008]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\spi.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File009]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\parameters.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File010]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\eeprom.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File011]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\display_application.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File012]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\screen.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File013]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\window.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File014]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\label.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File015]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\scanningHeadSignal.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File016]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\sni.o
+Folder=Intermediary
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-g -Wall
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1
+[File017]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\TAJ300.cof
+Folder=Output
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-ld.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)" -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem
+TraceCmdString=
+DebugOptions=--defsym=__MPLAB_DEBUG=1 --defsym=__MPLAB_DEBUGGER_SKDE=1 --defsym=__ICD2RAM=1
+[File018]
+Location=D:\Users\fabio.cristini\Documents\Zelo\MicroChip\Project TAJ300\TAJ300.hex
+Folder=Output
+DeviceName=dsPIC33FJ128MC802
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-ld.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)||$(LKRDIR)||
+SOLK=<src>|main.c|traps.c|init.c|interrupt.c|sti.c|common.c|display.c|display_navigation.c|spi.c|parameters.c|eeprom.c|display_application.c|screen.c|window.c|label.c|scanningHeadSignal.c|sni.c||<obj>||<lib>||<lkr>||
+SuiteArgsString=
+ToolArgsString=-o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)" -Map="$(BINDIR_)$(TARGETBASE).map" --report-mem
+TraceCmdString=
+DebugOptions=--defsym=__MPLAB_DEBUG=1 --defsym=__MPLAB_DEBUGGER_SKDE=1 --defsym=__ICD2RAM=1
+[TOOL_LOC_STAMPS]
+tool_loc{069BD372-6CA0-40D4-BF2F-5DC806D05083}=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-gcc.exe
+tool_loc{433C3D55-811D-409D-A6BF-159CF9355B42}=C:\Program Files (x86)\Microchip\mplabc30\v3.25\bin\pic30-ld.exe

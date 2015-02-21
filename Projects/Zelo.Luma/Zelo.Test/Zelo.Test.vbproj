@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{01CC471A-710A-465C-BDD4-712EE038A8A9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>Zelo.Luma.MDITest</StartupObject>
+    <RootNamespace>Zelo.Luma</RootNamespace>
+    <AssemblyName>Test</AssemblyName>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <OptionStrict>On</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>..\BIN_FULL\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Communication.Designer.vb">
+      <DependentUpon>Communication.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Communication.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MDITest.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MDITest.Designer.vb">
+      <DependentUpon>MDITest.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="TestBasicControls.Designer.vb">
+      <DependentUpon>TestBasicControls.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TestBasicControls.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestNavigation.Designer.vb">
+      <DependentUpon>TestNavigation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TestNavigation.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestSelector.Designer.vb">
+      <DependentUpon>TestSelector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TestSelector.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestWebServer.Designer.vb">
+      <DependentUpon>TestWebServer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TestWebServer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Communication.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Communication.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MDITest.en.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MDITest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MDITest.it.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MDITest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MDITest.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MDITest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestBasicControls.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TestBasicControls.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestNavigation.it.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TestNavigation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestNavigation.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TestNavigation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestSelector.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TestSelector.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestWebServer.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TestWebServer.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zelo.BasicControls\Zelo.BasicControls.vbproj">
+      <Project>{F03D44DC-FC42-40C1-967E-DF00A6121B6B}</Project>
+      <Name>Zelo.BasicControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.CameraConnector\Zelo.CameraConnector.vbproj">
+      <Project>{21E141FB-36F4-490B-AFA2-B8A9F6F7517B}</Project>
+      <Name>Zelo.CameraConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.Dictionary\Zelo.Dictionary.vbproj">
+      <Project>{89B7C4C0-9BAE-451C-BBAE-C6DEA2E4B40F}</Project>
+      <Name>Zelo.Dictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.Navigation\Zelo.Navigation.vbproj">
+      <Project>{FCF38A93-B7B7-452A-AE7B-6AB3248AF09D}</Project>
+      <Name>Zelo.Navigation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.Parameters\Zelo.Parameters.vbproj">
+      <Project>{A1ACC890-46B6-4DE0-97D3-E5C5B5A05563}</Project>
+      <Name>Zelo.Parameters</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zeloLogo.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\camera.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cross.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\crossCup.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cup.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\system.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tools.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\users.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\currentJob.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rewind.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

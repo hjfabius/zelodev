@@ -1,0 +1,16 @@
+;	STMicroelectronics Workspace file
+
+[Version]
+Keyword=ST7Workspace-V0.7
+
+[Project0]
+Filename=display\display.stp
+Dependencies=
+
+[Project1]
+Filename=eeprom\eeprom_constant.stp
+Dependencies=
+[Options]
+ActiveProject=display
+ActiveConfig=Release
+AddSortedElements=1

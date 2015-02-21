@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="strBack" xml:space="preserve">
+		<value>Indietro</value>
+	</data>
+	<data name="strBaseColor" xml:space="preserve">
+		<value>Riferimento</value>
+	</data>
+	<data name="strBaseSettings" xml:space="preserve">
+		<value>Impostazioni di base</value>
+	</data>
+	<data name="strClient" xml:space="preserve">
+		<value>Cliente</value>
+	</data>
+	<data name="strCopy" xml:space="preserve">
+		<value>Copia</value>
+	</data>
+	<data name="strCurrentJob" xml:space="preserve">
+		<value>Lavoro corrente</value>
+	</data>
+	<data name="strCurrentJobBaseSetting" xml:space="preserve">
+		<value>Lavoro corrente -impostazioni di base-</value>
+	</data>
+	<data name="strCurrentJobCopy" xml:space="preserve">
+		<value>Lavoro corrente -copia-</value>
+	</data>
+	<data name="strCurrentJobLoad" xml:space="preserve">
+		<value>Lavoro corrente -carica-</value>
+	</data>
+	<data name="strCurrentJobNew" xml:space="preserve">
+		<value>Lavoro corrente -nuovo-</value>
+	</data>
+	<data name="strCurrentJobRegisterControl" xml:space="preserve">
+		<value>Lavoro corrente -controllo di registro-</value>
+	</data>
+	<data name="strCurrentJobRegisterViscosityControl" xml:space="preserve">
+		<value>Lavoro corrente -controllo di registro e viscostà-</value>
+	</data>
+	<data name="strCurrentJobViscosityControl" xml:space="preserve">
+		<value>Lavoro corrente -controllo di viscosità-</value>
+	</data>
+	<data name="strDateCreated" xml:space="preserve">
+		<value>Data creazione</value>
+	</data>
+	<data name="strDateModified" xml:space="preserve">
+		<value>Data ultimo utilizzo</value>
+	</data>
+	<data name="strHome" xml:space="preserve">
+		<value>Home</value>
+	</data>
+	<data name="strLoad" xml:space="preserve">
+		<value>Carica</value>
+	</data>
+	<data name="strMenu" xml:space="preserve">
+		<value>Menù</value>
+	</data>
+	<data name="strNew" xml:space="preserve">
+		<value>Nuovo</value>
+	</data>
+	<data name="strOffColor" xml:space="preserve">
+		<value>Off</value>
+	</data>
+	<data name="strProject" xml:space="preserve">
+		<value>Progetto</value>
+	</data>
+	<data name="strRegisterControl" xml:space="preserve">
+		<value>Controllo di registro</value>
+	</data>
+	<data name="strRegisterViscosityControl" xml:space="preserve">
+		<value>Controllo di registro e viscosità</value>
+	</data>
+	<data name="strSystem" xml:space="preserve">
+		<value>Sistema</value>
+	</data>
+	<data name="strSystemConfiguration" xml:space="preserve">
+		<value>Configurazione sistema</value>
+	</data>
+	<data name="strViscosityControl" xml:space="preserve">
+		<value>Controllo di viscosità</value>
+	</data>
+	<data name="strVision" xml:space="preserve">
+		<value>Visione</value>
+	</data>
+	<data name="strMode" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Modo</value>
+	</data>
+	<data name="strInk" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Inchiostro</value>
+	</data>
+	<data name="strSolvent" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Solvente</value>
+	</data>
+	<data name="strCleaning" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Lavaggio</value>
+	</data>
+	<data name="strActual" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Attuale</value>
+	</data>
+	<data name="strIdeal" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Ideale</value>
+	</data>
+	<data name="strParameter" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Parametri</value>
+	</data>
+	<data name="strViscosity" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Viscosità</value>
+	</data>
+	<data name="strTemperature" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Temperatura</value>
+	</data>
+	<data name="strAutomatic" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Auto</value>
+	</data>
+	<data name="strManual" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Manuale</value>
+	</data>
+	<data name="strCurrentJobParameter" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Lavoro corrente -parametri-</value>
+	</data>
+	<data name="strActive" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Attivo</value>
+	</data>
+	<data name="strPrintingSide" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Lato di stampa</value>
+	</data>
+	<data name="strPrintingSideFront" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Bianca</value>
+	</data>
+	<data name="strPrintingSideBack" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Volta</value>
+	</data>
+	<data name="strColor" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Colore</value>
+	</data>
+	<data name="strPrintingGroup" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Gruppo</value>
+	</data>
+	<data name="strViscosityParameter" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Parametri viscosità</value>
+	</data>
+	<data name="strRegisterParameter" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Parametri registro</value>
+	</data>
+	<data name="strCalibrationRealValues" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Taratura valore reale</value>
+	</data>
+	<data name="strAllarmsBound" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Soglie d'allarme</value>
+	</data>
+	<data name="strLongitudinalActive" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Longitudinale Attivo</value>
+	</data>
+	<data name="strLateralActive" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Trasversale Attivo</value>
+	</data>
+	<data name="strBaseColor" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Colore di Riferimento</value>
+	</data>
+	<data name="strMarkNumber" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Marca</value>
+	</data>
+	<data name="strMarkPositions" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Posizione</value>
+	</data>
+	<data name="strRealViscosity" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Viscosità Reale</value>
+	</data>
+	<data name="strRealTemperature" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Temperatura Reale</value>
+	</data>
+	<data name="strSelectMarkNumber" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Selezione numero marca</value>
+	</data>
+	<data name="strIdealViscosity" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Viscosità ideale</value>
+	</data>
+	<data name="strIdealTemperature" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Temperature ideale</value>
+	</data>
+	<data name="strLateral" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Trasversale</value>
+	</data>
+	<data name="strLongitudinal" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Longitudinale</value>
+	</data>
+	<data name="strCurrentJobVision" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Lavoro corrente -visione-</value>
+	</data>
+	<data name="strSystemConfiguration" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Sistema -configurazione-</value>
+	</data>
+	<data name="strLanguage" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Lingua</value>
+	</data>
+	<data name="strLanguage1" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Italiano</value>
+	</data>
+	<data name="strLanguage2" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>English</value>
+	</data>
+	<data name="strLanguage3" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Language 3</value>
+	</data>
+	<data name="strLanguage4" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Language 4</value>
+	</data>
+	<data name="strLanguage5" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Language 5</value>
+	</data>
+	<data name="strLanguage6" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Language 6</value>
+	</data>
+	<data name="strLanguage7" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Language 7</value>
+	</data>
+	<data name="strLanguage8" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Language 8</value>
+	</data>
+	<data name="strAllarmTime" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Durata allarme</value>
+	</data>
+	<data name="strPauseTime" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Durata pausa</value>
+	</data>
+	<data name="strIntermeasureTime" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Tempo intermisuraizone</value>
+	</data>
+	<data name="strMeasureTimeout" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Timeout misurazione</value>
+	</data>
+	<data name="strMinimumCorrection" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Correzione minima</value>
+	</data>
+	<data name="strMaximumCorrection" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Correzione massima</value>
+	</data>
+	<data name="strSolventGain" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Guadagno solvente</value>
+	</data>
+	<data name="strLateralGain" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Guadagno Trasversale</value>
+	</data>
+	<data name="strLongitudinalGain" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Guadagno Laterale</value>
+	</data>
+	<data name="strAverageWindow" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Numero Misurazione</value>
+	</data>
+	<data name="strCyclic" d2p1:space="preserve" xmlns:d2p1="http://www.w3.org/XML/1998/namespace">
+		<value>Ciclico</value>
+	</data>
+</root>

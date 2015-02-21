@@ -1,0 +1,56 @@
+g++    -c -o utility.o utility.cc
+g++    -c -o communication.o communication.cc
+g++    -c -o versioning.o versioning.cc
+g++    -c -o pointAnalyzer.o pointAnalyzer.cc
+g++    -c -o pccamera.o pccamera.cc
+g++    -c -o FrameBuffer.o FrameBuffer.cc
+g++    -c -o analysis.o analysis.cc
+g++    -c -o Marks.o Marks.cc
+g++    -c -o MarksManager.o MarksManager.cc
+g++    -c -o AnalysisManager.o AnalysisManager.cc
+g++    -c -o main.o main.cc
+g++ -O2 -mmmx -g -Wall  -o Test01 utility.o communication.o versioning.o pointAnalyzer.o pccamera.o FrameBuffer.o analysis.o Marks.o MarksManager.o AnalysisManager.o main.o  -lm -lpthread
+
+
+clear
+g++    -c -o pccamera.o pccamera.cc
+g++    -c -o main.o main.cc
+g++ -O2 -mmmx -g -Wall  -o Test01 utility.o communication.o versioning.o pointAnalyzer.o pccamera.o FrameBuffer.o analysis.o Marks.o MarksManager.o AnalysisManager.o main.o  -lm -lpthread
+
+clear
+g++    -c -o pccamera.o pccamera.cc
+g++ -O2 -mmmx -g -Wall  -o Test01 utility.o communication.o versioning.o pointAnalyzer.o pccamera.o FrameBuffer.o analysis.o Marks.o MarksManager.o AnalysisManager.o main.o  -lm -lpthread
+
+clear
+g++    -c -o communication.o communication.cc
+g++ -O2 -mmmx -g -Wall  -o Test01 utility.o communication.o versioning.o pointAnalyzer.o pccamera.o FrameBuffer.o analysis.o Marks.o MarksManager.o AnalysisManager.o main.o  -lm -lpthread
+
+
+clear
+g++    -c -o Marks.o Marks.cc
+g++    -c -o MarksManager.o MarksManager.cc
+g++ -O2 -mmmx -g -Wall  -o Test01 utility.o communication.o versioning.o pointAnalyzer.o pccamera.o FrameBuffer.o analysis.o Marks.o MarksManager.o AnalysisManager.o main.o  -lm -lpthread
+
+clear
+g++    -c -o communication.o communication.cc
+g++    -c -o MarksManager.o MarksManager.cc
+g++ -O2 -mmmx -g -Wall  -o Test01 utility.o communication.o versioning.o pointAnalyzer.o pccamera.o FrameBuffer.o analysis.o Marks.o MarksManager.o AnalysisManager.o main.o  -lm -lpthread
+
+clear
+g++    -c -o Marks.o Marks.cc
+g++ -O2 -mmmx -g -Wall  -o Test01 utility.o communication.o versioning.o pointAnalyzer.o pccamera.o FrameBuffer.o analysis.o Marks.o MarksManager.o AnalysisManager.o main.o  -lm -lpthread
+
+
+clear
+g++    -c -o FrameBuffer.o FrameBuffer.cc
+g++ -O2 -mmmx -g -Wall  -o Test01 utility.o communication.o versioning.o pointAnalyzer.o pccamera.o FrameBuffer.o analysis.o Marks.o MarksManager.o AnalysisManager.o main.o  -lm -lpthread
+
+
+clear
+g++    -c -o AnalysisManager.o AnalysisManager.cc
+g++ -O2 -mmmx -g -Wall  -o Test01 utility.o communication.o versioning.o pointAnalyzer.o pccamera.o FrameBuffer.o analysis.o Marks.o MarksManager.o AnalysisManager.o main.o  -lm -lpthread
+
+
+clear
+g++    -c -o analysis.o analysis.cc
+g++ -O2 -mmmx -g -Wall  -o Test01 utility.o communication.o versioning.o pointAnalyzer.o pccamera.o FrameBuffer.o analysis.o Marks.o MarksManager.o AnalysisManager.o main.o  -lm -lpthread

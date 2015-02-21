@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblProject.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblClient.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 244</value>
+  </data>
+  <data name="lblCurrentJob.Size" type="System.Drawing.Size, System.Drawing">
+    <value>770, 64</value>
+  </data>
+  <data name="lblTitle.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cmdRegisterViscosityControl.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 6, 8, 6</value>
+  </data>
+  <data name="lblProjectName.Text" xml:space="preserve">
+    <value>Nome progetto</value>
+  </data>
+  <data name="PictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 60</value>
+  </data>
+  <data name="&gt;&gt;lblClientName.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="picHome.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 50</value>
+  </data>
+  <data name="picVision.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 55</value>
+  </data>
+  <data name="cmdBaseSetting.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 6, 8, 6</value>
+  </data>
+  <data name="&gt;&gt;cmdVision.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="GuiButton6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>539, 604</value>
+  </data>
+  <data name="lblTitle.Text" xml:space="preserve">
+    <value>Main Label</value>
+  </data>
+  <data name="&gt;&gt;cmdRegisterControl.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIButton, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;lblProject.Name" xml:space="preserve">
+    <value>lblProject</value>
+  </data>
+  <data name="picVision.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="cmdVision.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 18pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;lblProject.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblCurrentJob.Text" xml:space="preserve">
+    <value>Current Job</value>
+  </data>
+  <data name="picSystem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 50</value>
+  </data>
+  <data name="&gt;&gt;lblCurrentJob.Name" xml:space="preserve">
+    <value>lblCurrentJob</value>
+  </data>
+  <data name="&gt;&gt;picCup.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="lblProject.Text" xml:space="preserve">
+    <value>Progetto</value>
+  </data>
+  <data name="&gt;&gt;cmdViscosityControl.Name" xml:space="preserve">
+    <value>cmdViscosityControl</value>
+  </data>
+  <data name="&gt;&gt;picSystem.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="GuiButton6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 18pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;cmdVision.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;lblClientName.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;picCross.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;picSystemSettings.Name" xml:space="preserve">
+    <value>picSystemSettings</value>
+  </data>
+  <data name="cmdVision.Size" type="System.Drawing.Size, System.Drawing">
+    <value>426, 66</value>
+  </data>
+  <data name="&gt;&gt;cmdRegisterViscosityControl.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIButton, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;lblProject.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;cmdViscosityControl.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIButton, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="cmdBaseSetting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>426, 66</value>
+  </data>
+  <data name="&gt;&gt;picVision.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblSystem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>770, 64</value>
+  </data>
+  <data name="lblProjectName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 7, 8, 7</value>
+  </data>
+  <data name="picUsers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>467, 158</value>
+  </data>
+  <data name="&gt;&gt;lblClientName.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIButton, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="lblTitle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>211, 3</value>
+  </data>
+  <data name="&gt;&gt;cmdRegisterViscosityControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;picCurrentJob.Name" xml:space="preserve">
+    <value>picCurrentJob</value>
+  </data>
+  <data name="cmdViscosityControl.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 6, 8, 6</value>
+  </data>
+  <data name="lblProject.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 15.75pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;lblSystem.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;picCup.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="picHome.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="lblCurrentJob.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 73</value>
+  </data>
+  <data name="&gt;&gt;guiRectangleLeft.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="lblCurrentJob.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 6, 8, 6</value>
+  </data>
+  <data name="lblProject.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 34</value>
+  </data>
+  <data name="picCrossCup.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="lblSystem.Text" xml:space="preserve">
+    <value>Sistema</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>TestNavigation</value>
+  </data>
+  <data name="&gt;&gt;lblTitle.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="picCup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>474, 365</value>
+  </data>
+  <data name="&gt;&gt;picSystemSettings.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;picUsers.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblSystem.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 6, 8, 6</value>
+  </data>
+  <data name="&gt;&gt;guiRectangleLeft.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="cmdViscosityControl.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>TestNavigation</value>
+  </data>
+  <data name="&gt;&gt;picCross.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="lblTitle.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;GuiButton6.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="picBack.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="&gt;&gt;lblCurrentJob.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblClient.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIButton, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;picCrossCup.Name" xml:space="preserve">
+    <value>picCrossCup</value>
+  </data>
+  <data name="PictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 98</value>
+  </data>
+  <data name="cmdVision.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 6, 8, 6</value>
+  </data>
+  <data name="lblClientName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 281</value>
+  </data>
+  <data name="guiRectangleTop.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;lblCurrentJob.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIButton, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="cmdRegisterViscosityControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>426, 66</value>
+  </data>
+  <data name="&gt;&gt;cmdBaseSetting.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIButton, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="guiRectangleTop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-6, 0</value>
+  </data>
+  <data name="lblProjectName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 91</value>
+  </data>
+  <data name="picUsers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 50</value>
+  </data>
+  <data name="lblSystem.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 18pt, style=Bold, Italic</value>
+  </data>
+  <data name="&gt;&gt;lblProjectName.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIButton, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="picSystemSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>468, 614</value>
+  </data>
+  <data name="cmdRegisterControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>426, 66</value>
+  </data>
+  <data name="picCrossCup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>431, 205</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="guiRectangleLeft.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="guiRectangleTop.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="picSystemSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 50</value>
+  </data>
+  <data name="GuiRoundedAngle1.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="lblCurrentJob.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 18pt, style=Bold, Italic</value>
+  </data>
+  <data name="&gt;&gt;picBack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblClientName.Name" xml:space="preserve">
+    <value>lblClientName</value>
+  </data>
+  <data name="&gt;&gt;lblProjectName.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="PictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="lblClient.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 34</value>
+  </data>
+  <data name="picSystemSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="&gt;&gt;guiRectangleTop.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;GuiRoundedAngle1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="cmdVision.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="&gt;&gt;picUsers.Name" xml:space="preserve">
+    <value>picUsers</value>
+  </data>
+  <data name="&gt;&gt;GuiRoundedAngle1.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="&gt;&gt;cmdVision.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIButton, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;picCurrentJob.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="cmdRegisterViscosityControl.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="&gt;&gt;picHome.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cmdRegisterViscosityControl.Text" xml:space="preserve">
+    <value>Controllo di Registro e Viscosità</value>
+  </data>
+  <data name="&gt;&gt;lblTitle.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="cmdBaseSetting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>539, 148</value>
+  </data>
+  <data name="picCross.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="&gt;&gt;cmdBaseSetting.Name" xml:space="preserve">
+    <value>cmdBaseSetting</value>
+  </data>
+  <data name="GuiRoundedAngle1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 53</value>
+  </data>
+  <data name="lblTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 44</value>
+  </data>
+  <data name="&gt;&gt;GuiButton6.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIButton, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;lblProject.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIButton, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;lblProjectName.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;guiRectangleTop.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="picCup.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="&gt;&gt;picSystem.Name" xml:space="preserve">
+    <value>picSystem</value>
+  </data>
+  <data name="cmdRegisterViscosityControl.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 18pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;guiRectangleTop.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIRectangle, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;lblProjectName.Name" xml:space="preserve">
+    <value>lblProjectName</value>
+  </data>
+  <data name="&gt;&gt;cmdRegisterViscosityControl.Name" xml:space="preserve">
+    <value>cmdRegisterViscosityControl</value>
+  </data>
+  <data name="&gt;&gt;lblSystem.Name" xml:space="preserve">
+    <value>lblSystem</value>
+  </data>
+  <data name="lblClientName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 15.75pt, style=Bold</value>
+  </data>
+  <data name="cmdBaseSetting.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 18pt, style=Bold</value>
+  </data>
+  <data name="picCrossCup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 82</value>
+  </data>
+  <data name="&gt;&gt;picBack.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblProjectName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 15.75pt, style=Bold</value>
+  </data>
+  <data name="picCross.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 66</value>
+  </data>
+  <data name="&gt;&gt;picBack.Name" xml:space="preserve">
+    <value>picBack</value>
+  </data>
+  <data name="guiRectangleLeft.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;picVision.Name" xml:space="preserve">
+    <value>picVision</value>
+  </data>
+  <data name="&gt;&gt;picHome.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;picUsers.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;lblSystem.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIButton, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="lblClientName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 7, 8, 7</value>
+  </data>
+  <data name="picSystem.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="cmdRegisterViscosityControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>539, 221</value>
+  </data>
+  <data name="picCurrentJob.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="lblProject.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 449</value>
+  </data>
+  <data name="&gt;&gt;picUsers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="picCup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 77</value>
+  </data>
+  <data name="&gt;&gt;PictureBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdRegisterControl.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="picCurrentJob.Size" type="System.Drawing.Size, System.Drawing">
+    <value>62, 64</value>
+  </data>
+  <data name="picUsers.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="&gt;&gt;picSystemSettings.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblClientName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 91</value>
+  </data>
+  <data name="guiRectangleLeft.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 722</value>
+  </data>
+  <data name="&gt;&gt;PictureBox1.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="cmdRegisterControl.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 18pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;picCrossCup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdViscosityControl.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="cmdViscosityControl.Text" xml:space="preserve">
+    <value>Controllo di Viscosità</value>
+  </data>
+  <data name="GuiButton6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>426, 66</value>
+  </data>
+  <data name="&gt;&gt;cmdVision.Name" xml:space="preserve">
+    <value>cmdVision</value>
+  </data>
+  <data name="&gt;&gt;picCurrentJob.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="guiRectangleLeft.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 46</value>
+  </data>
+  <data name="&gt;&gt;cmdBaseSetting.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;picVision.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;lblCurrentJob.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="cmdVision.Text" xml:space="preserve">
+    <value>Visione</value>
+  </data>
+  <data name="&gt;&gt;GuiButton6.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;guiRectangleLeft.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIRectangle, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="GuiButton6.Text" xml:space="preserve">
+    <value>Impostazioni di sistema</value>
+  </data>
+  <data name="lblClient.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;picSystem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;picCrossCup.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;picSystemSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GuiButton6.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;guiRectangleTop.Name" xml:space="preserve">
+    <value>guiRectangleTop</value>
+  </data>
+  <data name="lblClientName.Text" xml:space="preserve">
+    <value>Nome cliente</value>
+  </data>
+  <data name="GuiRoundedAngle1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 46</value>
+  </data>
+  <data name="cmdVision.Location" type="System.Drawing.Point, System.Drawing">
+    <value>539, 438</value>
+  </data>
+  <data name="&gt;&gt;picCup.Name" xml:space="preserve">
+    <value>picCup</value>
+  </data>
+  <data name="&gt;&gt;picBack.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GuiButton6.Name" xml:space="preserve">
+    <value>GuiButton6</value>
+  </data>
+  <data name="&gt;&gt;picVision.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;GuiRoundedAngle1.Name" xml:space="preserve">
+    <value>GuiRoundedAngle1</value>
+  </data>
+  <data name="&gt;&gt;picHome.Name" xml:space="preserve">
+    <value>picHome</value>
+  </data>
+  <data name="&gt;&gt;lblTitle.Name" xml:space="preserve">
+    <value>lblTitle</value>
+  </data>
+  <data name="&gt;&gt;lblSystem.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="GuiButton6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 6, 8, 6</value>
+  </data>
+  <data name="lblCurrentJob.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;picCrossCup.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;picCup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblClient.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="lblClient.Text" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="lblClientName.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;lblTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdViscosityControl.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 18pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;cmdViscosityControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="PictureBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="lblClient.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 7, 8, 7</value>
+  </data>
+  <data name="guiRectangleLeft.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 7, 8, 7</value>
+  </data>
+  <data name="lblSystem.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="cmdBaseSetting.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="&gt;&gt;lblClient.Name" xml:space="preserve">
+    <value>lblClient</value>
+  </data>
+  <data name="&gt;&gt;cmdRegisterControl.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;picHome.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="picCross.Location" type="System.Drawing.Point, System.Drawing">
+    <value>451, 292</value>
+  </data>
+  <data name="&gt;&gt;guiRectangleLeft.Name" xml:space="preserve">
+    <value>guiRectangleLeft</value>
+  </data>
+  <data name="&gt;&gt;picCross.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblProjectName.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="lblTitle.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 27.75pt, style=Bold</value>
+  </data>
+  <data name="picHome.Location" type="System.Drawing.Point, System.Drawing">
+    <value>93, 12</value>
+  </data>
+  <data name="&gt;&gt;cmdRegisterControl.Name" xml:space="preserve">
+    <value>cmdRegisterControl</value>
+  </data>
+  <data name="picSystem.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 532</value>
+  </data>
+  <data name="&gt;&gt;cmdBaseSetting.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1016, 734</value>
+  </data>
+  <data name="&gt;&gt;picCurrentJob.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PictureBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PictureBox1.Name" xml:space="preserve">
+    <value>PictureBox1</value>
+  </data>
+  <data name="cmdRegisterControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>539, 293</value>
+  </data>
+  <data name="&gt;&gt;cmdRegisterControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblClient.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblProject.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 7, 8, 7</value>
+  </data>
+  <data name="guiRectangleTop.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 7, 8, 7</value>
+  </data>
+  <data name="cmdBaseSetting.Text" xml:space="preserve">
+    <value>Impostazioni di base</value>
+  </data>
+  <data name="cmdRegisterControl.Text" xml:space="preserve">
+    <value>Controllo di Registro</value>
+  </data>
+  <data name="lblProjectName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 486</value>
+  </data>
+  <data name="lblClient.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 15.75pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;GuiRoundedAngle1.Type" xml:space="preserve">
+    <value>Zelo.Luma.GUIRoundedAngle, Zelo.BasicControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="picBack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 50</value>
+  </data>
+  <data name="picVision.Location" type="System.Drawing.Point, System.Drawing">
+    <value>451, 443</value>
+  </data>
+  <data name="picCurrentJob.Location" type="System.Drawing.Point, System.Drawing">
+    <value>164, 73</value>
+  </data>
+  <data name="lblSystem.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 528</value>
+  </data>
+  <data name="GuiRoundedAngle1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 7, 8, 7</value>
+  </data>
+  <data name="&gt;&gt;picSystem.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="cmdViscosityControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>426, 66</value>
+  </data>
+  <data name="cmdViscosityControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>539, 365</value>
+  </data>
+  <data name="&gt;&gt;picCross.Name" xml:space="preserve">
+    <value>picCross</value>
+  </data>
+  <data name="cmdRegisterControl.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>8, 6, 8, 6</value>
+  </data>
+  <data name="guiRectangleTop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1024, 47</value>
+  </data>
+  <data name="picBack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 12</value>
+  </data>
+  <data name="&gt;&gt;cmdRegisterViscosityControl.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+</root>

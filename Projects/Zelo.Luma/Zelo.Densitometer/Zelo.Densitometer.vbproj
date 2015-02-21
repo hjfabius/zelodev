@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E4FE55C1-B4AE-45F3-8C98-93D9F47BD4B8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Zelo.Luma</RootNamespace>
+    <AssemblyName>Zelo.Densitometer</AssemblyName>
+    <MyType>Windows</MyType>
+    <OptionStrict>On</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>..\BIN_FULL\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Zelo.Marks, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Zelo.Marks\bin\Debug\Zelo.Marks.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CurrentJobDensityControl.Designer.vb">
+      <DependentUpon>CurrentJobDensityControl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentJobDensityControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CurrentJobDensityControlDetail.Designer.vb">
+      <DependentUpon>CurrentJobDensityControlDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentJobDensityControlDetail.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CurrentJobDensityControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CurrentJobDensityControl.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CurrentJobDensityControlDetail.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CurrentJobDensityControlDetail.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zelo.BasicControls\Zelo.BasicControls.vbproj">
+      <Project>{F03D44DC-FC42-40C1-967E-DF00A6121B6B}</Project>
+      <Name>Zelo.BasicControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.CameraConnector\Zelo.CameraConnector.vbproj">
+      <Project>{21E141FB-36F4-490B-AFA2-B8A9F6F7517B}</Project>
+      <Name>Zelo.CameraConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.InLineGuide\Zelo.InLineGuide.vbproj">
+      <Project>{3F05D4A3-3800-4D35-AB1F-4A96C4B7AAE8}</Project>
+      <Name>Zelo.InLineGuide</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.Navigation\Zelo.Navigation.vbproj">
+      <Project>{FCF38A93-B7B7-452A-AE7B-6AB3248AF09D}</Project>
+      <Name>Zelo.Navigation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.Parameters\Zelo.Parameters.vbproj">
+      <Project>{A1ACC890-46B6-4DE0-97D3-E5C5B5A05563}</Project>
+      <Name>Zelo.Parameters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.ZeloControls\Zelo.ZeloControls.vbproj">
+      <Project>{0230DEBD-CB04-49E8-9403-288C45966983}</Project>
+      <Name>Zelo.ZeloControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\red_led.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkGearBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkGearBigSec.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkManBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkManBigSec.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkMinusBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkMinusBigSec.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkPlusBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\iconDarkPlusBigSec.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

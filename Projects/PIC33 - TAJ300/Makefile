@@ -1,0 +1,26 @@
+# MPLAB IDE generated this makefile for use with GNU make.
+# Project: TAJ300.mcp
+# Date: Wed Feb 17 14:05:21 2010
+
+AS = pic30-as.exe
+CC = pic30-gcc.exe
+LD = pic30-ld.exe
+AR = pic30-ar.exe
+HX = pic30-bin2hex.exe
+RM = rm
+
+TAJ300.hex : TAJ300.cof
+	$(HX) "TAJ300.cof"
+
+TAJ300.cof : main_led.o traps.o
+	$(CC) -mcpu=24HJ64GP502 "main_led.o" "traps.o" -o"TAJ300.cof" -Wl,-Tp24HJ64GP502.gld,--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__MPLAB_DEBUGGER_SKDE=1,--defsym=__ICD2RAM=1,-Map="TAJ300.map",--report-mem
+
+main_led.o : g:/program\ files/microchip/mplab\ c30/support/PIC24H/h/p24HJ64GP502.h g:/program\ files/microchip/mplab\ c30/support/PIC24H/h/p24hxxxx.h main_led.c
+	$(CC) -mcpu=24HJ64GP502 -x c -c "main_led.c" -o"main_led.o" -D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1 -g -Wall
+
+traps.o : g:/program\ files/microchip/mplab\ c30/support/PIC24H/h/p24HJ64GP502.h g:/program\ files/microchip/mplab\ c30/support/PIC24H/h/p24hxxxx.h traps.c
+	$(CC) -mcpu=24HJ64GP502 -x c -c "traps.c" -o"traps.o" -D__DEBUG -D__MPLAB_DEBUGGER_SKDE=1 -g -Wall
+
+clean : 
+	$(RM) "main_led.o" "traps.o" "TAJ300.cof" "TAJ300.hex"
+

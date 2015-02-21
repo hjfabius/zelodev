@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CD9EE224-84D3-4A77-AD0D-9F9C2E581F31}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Zelo.Luma</RootNamespace>
+    <AssemblyName>Zelo.RegisterViscosityControl</AssemblyName>
+    <MyType>Windows</MyType>
+    <OptionStrict>On</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>I:\BIN_FULL\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Drawing.Drawing2D" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CurrentJobBaseSettingsLoadPage.Designer.vb">
+      <DependentUpon>CurrentJobBaseSettingsLoadPage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentJobBaseSettingsLoadPage.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CurrentJobBaseSettingsPage.Designer.vb">
+      <DependentUpon>CurrentJobBaseSettingsPage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentJobBaseSettingsPage.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CurrentJobRegisterControl.Designer.vb">
+      <DependentUpon>CurrentJobRegisterControl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentJobRegisterControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CurrentJobRegisterControlDetail.Designer.vb">
+      <DependentUpon>CurrentJobRegisterControlDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentJobRegisterControlDetail.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CurrentJobRegisterViscosityControl.Designer.vb">
+      <DependentUpon>CurrentJobRegisterViscosityControl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentJobRegisterViscosityControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CurrentJobRegisterViscosityControlDetail.Designer.vb">
+      <DependentUpon>CurrentJobRegisterViscosityControlDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentJobRegisterViscosityControlDetail.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CurrentJobRegisterViscosityControlParameter.Designer.vb">
+      <DependentUpon>CurrentJobRegisterViscosityControlParameter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentJobRegisterViscosityControlParameter.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CurrentJobViscosityControl.Designer.vb">
+      <DependentUpon>CurrentJobViscosityControl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentJobViscosityControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CurrentJobViscosityControlDetail.designer.vb">
+      <DependentUpon>CurrentJobViscosityControlDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CurrentJobViscosityControlDetail.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CurrentJobBaseSettingsLoadPage.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CurrentJobBaseSettingsLoadPage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CurrentJobBaseSettingsPage.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CurrentJobBaseSettingsPage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CurrentJobRegisterViscosityControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CurrentJobRegisterViscosityControl.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CurrentJobRegisterViscosityControlDetail.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CurrentJobRegisterViscosityControlDetail.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CurrentJobRegisterViscosityControlParameter.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CurrentJobRegisterViscosityControlParameter.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CurrentJobViscosityControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CurrentJobViscosityControl.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zelo.BasicControls\Zelo.BasicControls.vbproj">
+      <Project>{F03D44DC-FC42-40C1-967E-DF00A6121B6B}</Project>
+      <Name>Zelo.BasicControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.CameraConnector\Zelo.CameraConnector.vbproj">
+      <Project>{21E141FB-36F4-490B-AFA2-B8A9F6F7517B}</Project>
+      <Name>Zelo.CameraConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.InLineGuide\Zelo.InLineGuide.vbproj">
+      <Project>{3F05D4A3-3800-4D35-AB1F-4A96C4B7AAE8}</Project>
+      <Name>Zelo.InLineGuide</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.Navigation\Zelo.Navigation.vbproj">
+      <Project>{FCF38A93-B7B7-452A-AE7B-6AB3248AF09D}</Project>
+      <Name>Zelo.Navigation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.Parameters\Zelo.Parameters.vbproj">
+      <Project>{A1ACC890-46B6-4DE0-97D3-E5C5B5A05563}</Project>
+      <Name>Zelo.Parameters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zelo.ZeloControls\Zelo.ZeloControls.vbproj">
+      <Project>{0230DEBD-CB04-49E8-9403-288C45966983}</Project>
+      <Name>Zelo.ZeloControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red_led.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconDarkMinusBigSec.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconDarkPlusBigSec.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconDarkGearBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconDarkGearBigSec.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconDarkManBigSec.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconDarkMinusBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconDarkManBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconDarkPlusBig.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

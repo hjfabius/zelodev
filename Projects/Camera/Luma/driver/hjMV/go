@@ -1,0 +1,10 @@
+#!/bin/bash
+cd /data/luma-v0005/driver/hjMV
+rm *.o
+rm *.cpp
+rm *.h
+rm hjMV
+rm xhjMV
+bash ftpbatch
+clear
+make

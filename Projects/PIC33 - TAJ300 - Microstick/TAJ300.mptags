@@ -1,0 +1,43 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.5.4	//
+!_TAG_REVISION_NAME	MCHPTags	//
+!_TAG_REVISION_VERSION	6.0.1	//
+Counter	C:\test code 2\TAJ300\main_led.c	60;"	v	line:60
+FLASH_RATE::10	C:\test code 2\TAJ300\main_led.c	53;"	d	line:53	file:
+FNOSC_FRC	C:\test code 2\TAJ300\main_led.c	42;"	v	line:42
+FNOSC_FRC	C:\test code 2\TAJ300\main_led.c	46;"	v	line:46
+FOREVER::1	C:\test code 2\TAJ300\main_led.c	54;"	d	line:54	file:
+FWDTEN_OFF	C:\test code 2\TAJ300\main_led.c	44;"	v	line:44
+FWDTEN_OFF	C:\test code 2\TAJ300\main_led.c	48;"	v	line:48
+InitTimer1	C:\test code 2\TAJ300\main_led.c	110;"	f	line:110	signature:( void )
+InitTimer1	C:\test code 2\TAJ300\main_led.c	57;"	p	line:57	file:
+PERIOD::0xFFFF	C:\test code 2\TAJ300\main_led.c	52;"	d	line:52	file:
+POSCMD_NONE	C:\test code 2\TAJ300\main_led.c	43;"	v	line:43
+POSCMD_NONE	C:\test code 2\TAJ300\main_led.c	47;"	v	line:47
+_AddressError	C:\test code 2\TAJ300\traps.c	43;"	p	line:43	file:	signature:(void)
+_AddressError	C:\test code 2\TAJ300\traps.c	66;"	f	line:66	signature:(void)
+_AltAddressError	C:\test code 2\TAJ300\traps.c	108;"	f	line:108	signature:(void)
+_AltAddressError	C:\test code 2\TAJ300\traps.c	48;"	p	line:48	file:	signature:(void)
+_AltDMACError	C:\test code 2\TAJ300\traps.c	127;"	f	line:127	signature:(void)
+_AltDMACError	C:\test code 2\TAJ300\traps.c	51;"	p	line:51	file:	signature:(void)
+_AltMathError	C:\test code 2\TAJ300\traps.c	120;"	f	line:120	signature:(void)
+_AltMathError	C:\test code 2\TAJ300\traps.c	50;"	p	line:50	file:	signature:(void)
+_AltOscillatorFail	C:\test code 2\TAJ300\traps.c	102;"	f	line:102	signature:(void)
+_AltOscillatorFail	C:\test code 2\TAJ300\traps.c	47;"	p	line:47	file:	signature:(void)
+_AltStackError	C:\test code 2\TAJ300\traps.c	114;"	f	line:114	signature:(void)
+_AltStackError	C:\test code 2\TAJ300\traps.c	49;"	p	line:49	file:	signature:(void)
+_DMACError	C:\test code 2\TAJ300\traps.c	46;"	p	line:46	file:	signature:(void)
+_DMACError	C:\test code 2\TAJ300\traps.c	85;"	f	line:85	signature:(void)
+_MathError	C:\test code 2\TAJ300\traps.c	45;"	p	line:45	file:	signature:(void)
+_MathError	C:\test code 2\TAJ300\traps.c	78;"	f	line:78	signature:(void)
+_OscillatorFail	C:\test code 2\TAJ300\traps.c	42;"	p	line:42	file:	signature:(void)
+_OscillatorFail	C:\test code 2\TAJ300\traps.c	60;"	f	line:60	signature:(void)
+_StackError	C:\test code 2\TAJ300\traps.c	44;"	p	line:44	file:	signature:(void)
+_StackError	C:\test code 2\TAJ300\traps.c	72;"	f	line:72	signature:(void)
+_T1Interrupt	C:\test code 2\TAJ300\main_led.c	132;"	f	line:132	signature:( void )
+main	C:\test code 2\TAJ300\main_led.c	70;"	f	line:70	signature:( void )
+timer_expired	C:\test code 2\TAJ300\main_led.c	61;"	v	line:61
